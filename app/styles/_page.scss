@@ -246,17 +246,17 @@
 
 /*LOGIN & FORGOT PASSWORD PAGE*/
 
-.login-page,
-.forgot-page {
+body.login-page,
+body.forgot-page {
+    .bg {
     background: url("../images/bg-full-width.jpg");
     background-size: cover;
     min-height: 100%;
     position: absolute;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    .page-wrapper {
         header {
             h1 {
                 @include font($font-family-kreon,28px,36px,"",$white);
@@ -274,6 +274,9 @@
             }
         }
         .container {
+            h3{
+                @include font($font-family-open-sans,16px,24px,"",$white);
+            }
             .form-bg {
                 background: url('../images/form-bg.png');
                 background-size: cover;
@@ -322,36 +325,33 @@
                 border-radius: 15px;
             }
         }
-        footer {
-            position: fixed;
-            bottom: 0;
-            .container {
+        footer { 
                 ul,
                 li {
                     margin: 0;
                     padding: 0;
                 }
                 ul {
+                    position: relative;
+                    top:70px;
                     padding-bottom: 30px;
+                    
                     li {
                         list-style-type: none;
                         display: inline;
                         margin: 0 50px;
-                        a {
-                            color: $white;
-                            &:hover {
-                                color: $teal;
-                            }
+                        @media(max-width:767px){
+                            display: block;
                         }
                     }
                 }
-            }
+            
         }
     }
 }
 
-.forgot-page {
-    .page-wrapper {
+body.forgot-page {
+    .bg {
         .container {
             a {
                 span {

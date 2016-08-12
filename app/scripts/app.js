@@ -32,6 +32,8 @@
       $rootScope.$on('$stateChangeStart', 
       function(event, toState, toParams, fromState, fromParams, options){
 
+        $rootScope.currentURL = toState.name +'-page';
+
         if(pathIsProtected(toState.url)){
 
           $state.go('login')

@@ -8,6 +8,10 @@ button{
         background: $white;
         color:$cyan;
     }
+    &:focus,
+    &:active{
+        outline:none!important;
+    }
 }
 .box{
     display: inline-block;
