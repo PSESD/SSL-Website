@@ -3,7 +3,8 @@
 
   angular
     .module('sslv2App', [
-      'ui.router'
+      'ui.router',
+      'ui.bootstrap'
     ])
     .config(configFunction)
     .run(runFunction);

@@ -10,6 +10,12 @@
 
     var vm = this;
 
+    vm.message = false;
+
+     vm.help = {
+      templateUrl: 'templates/help.html'
+    };
+
     vm.user = {
       email: '',
       password: '',

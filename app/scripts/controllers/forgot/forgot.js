@@ -1,26 +1,32 @@
-(function(){
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('sslv2App')
-  .controller('ForgotCtrl',ForgotCtrl);
+  angular.module('sslv2App')
+    .controller('ForgotCtrl', ForgotCtrl);
 
-ForgotCtrl.$inject = ['$state'];  
+  ForgotCtrl.$inject = ['$state','$sce'];
 
-  function ForgotCtrl($state){
-    
+  function ForgotCtrl($state,$sce) {
+
     var vm = this;
 
+    vm.help = {
+      templateUrl: 'templates/help.html'
+    };
+
     vm.user = {
-      email:'',
+      email: '',
     }
+
+    vm.message = false;
 
     vm.reset = reset;
 
-  }
+    function reset(user) {
 
-  function reset(user){
+      console.log(user);
 
-    console.log(user);
+    }
 
   }
 

@@ -1,9 +1,19 @@
 <div class="bg text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-2 col-xs-8">
+                <div class="alert alert-info text-left message" ng-show="vm.message">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Incorrect email or password.</strong> Try entering your information again.
+                </div>
+            </div>
+        </div>
+    </div>
     <header>
         <img src="images/logo.png" alt="Logo">
         <h1>Student <strong>Success</strong> Link</h1>
     </header>
-    <div class="container">
+    <section class="container">
         <div class="row">
             <div class="col-md-offset-4 col-md-4 col-sm-12 col-xs-12">
                 <h3>Sign in to your Student Success Link account:</h3>
@@ -22,11 +32,11 @@
                 </form>
             </div>
             <div class="col-md-offset-4 col-md-4 col-sm-12 col-xs-12">
-                <p class="announcement text-center">Never share your password with anyone. <span class="q-mark" data-toggle="tooltip" data-placement="right">?</span></p>
+                <p class="announcement text-center">Never share your password with anyone. <button popover-placement="right" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</button></p>
             </div>
         </div>
-    </div>
-    <footer class="container">
+    </section>
+    <footer class="container inverse">
         <ul>
             <li><a href="">About PSESD</a></li>
             <li><a href="">About Student Success Link</a></li>

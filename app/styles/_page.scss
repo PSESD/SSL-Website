@@ -324,6 +324,33 @@ body.forgot-page {
                 border: 2px solid white;
                 border-radius: 15px;
             }
+
+            button{
+
+                @include font($font-family-open-sans,14px,22px,'',$white);
+                padding: 5px 13px;
+                &:hover{
+                    background: transparent;
+                }
+            }
+
+            .popover{
+                top: -48px;
+                left: 346px;
+                width: 255px;
+
+                .popover-content{
+                    padding:0;
+                    .panel{
+                        margin-bottom: 0;
+                        .panel-body{
+                            p{
+                                color:black;
+                            }
+                        }
+                    }
+                }
+            }
         }
         footer { 
                 ul,
@@ -381,3 +408,4 @@ body.forgot-page {
         }
     }
 }
+
