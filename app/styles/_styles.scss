@@ -1,9 +1,25 @@
+html {
+    height: 100%;
+}
+body{
+    -webkit-font-smoothing: antialiased;
+    font-size: 12px;
+    font-family: $font-family-open-sans;
+    height: 100%;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
+
+::-webkit-input-placeholder { color:$white; }
+::-moz-placeholder { color:$white; } /* firefox 19+ */
+:-ms-input-placeholder { color:$white; } /* ie */
+input:-moz-placeholder { color:$white; }
+
 
 input[type="email"]::-webkit-input-placeholder,
 input[type="password"]::-webkit-input-placeholder {
@@ -39,7 +55,7 @@ input[type="password"]::-moz-placeholder {
     }
 }
 
-.message {
-    position: relative;
-    bottom: 80px;
-}
+// .message {
+//     position: relative;
+//     bottom: 80px;
+// }
