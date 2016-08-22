@@ -1,0 +1,250 @@
+.bg-white {
+  @include bg-color($color-white);
+  color: $color-black;
+}
+
+.bg-black {
+  @include bg-color($color-black);
+  color: $color-white;
+}
+
+.bg-black-900 {
+  @include bg-color($color-black, .9);
+  color: $color-white;
+}
+
+.bg-black-800 {
+  @include bg-color($color-black, .8);
+  color: $color-white;
+}
+
+.bg-black-700 {
+  @include bg-color($color-black, .7);
+  color: $color-white;
+}
+
+.bg-black-600 {
+  @include bg-color($color-black, .6);
+  color: $color-white;
+}
+
+.bg-black-500 {
+  @include bg-color($color-black, .5);
+  color: $color-white;
+}
+
+.bg-blue-navy {
+  @include bg-color($color-blue-navy);
+  color: $color-white;
+}
+
+.bg-blue-navy-900 {
+  @include bg-color($color-blue-navy, .9);
+  color: $color-white;
+}
+
+.bg-blue-navy-800 {
+  @include bg-color($color-blue-navy, .8);
+  color: $color-white;
+}
+
+.bg-blue-navy-700 {
+  @include bg-color($color-blue-navy, .7);
+  color: $color-white;
+}
+
+.bg-blue-navy-600 {
+  @include bg-color($color-blue-navy, .6);
+  color: $color-white;
+}
+
+.bg-blue-navy-500 {
+  @include bg-color($color-blue-navy, .5);
+  color: $color-white;
+}
+
+.bg-grey {
+  @include bg-color($color-grey);
+}
+
+.bg-grey-900 {
+  @include bg-color($color-grey, .9);
+}
+
+.bg-grey-800 {
+  @include bg-color($color-grey, .8);
+}
+
+.bg-grey-700 {
+  @include bg-color($color-grey, .7);
+}
+
+.bg-grey-600 {
+  @include bg-color($color-grey, .6);
+}
+
+.bg-grey-500 {
+  @include bg-color($color-grey, .5);
+}
+
+.bg-purple {
+  @include bg-color($color-purple);
+  color: $color-white;
+}
+
+.bg-purple-900 {
+  @include bg-color($color-purple, .9);
+  color: $color-white;
+}
+
+.bg-purple-800 {
+  @include bg-color($color-purple, .8);
+  color: $color-white;
+}
+
+.bg-purple-700 {
+  @include bg-color($color-purple, .7);
+  color: $color-white;
+}
+
+.bg-purple-600 {
+  @include bg-color($color-purple, .6);
+  color: $color-white;
+}
+
+.bg-purple-500 {
+  @include bg-color($color-purple, .5);
+  color: $color-white;
+}
+
+.bg-cyan {
+  @include bg-color($color-cyan);
+}
+
+.bg-cyan-900 {
+  @include bg-color($color-cyan, .9);
+}
+
+.bg-cyan-800 {
+  @include bg-color($color-cyan, .8);
+}
+
+.bg-cyan-700 {
+  @include bg-color($color-cyan, .7);
+}
+
+.bg-cyan-600 {
+  @include bg-color($color-cyan, .6);
+}
+
+.bg-cyan-500 {
+  @include bg-color($color-cyan, .5);
+}
+
+.bg-teal {
+  @include bg-color($color-teal);
+}
+
+.bg-teal-900 {
+  @include bg-color($color-teal, .9);
+}
+
+.bg-teal-800 {
+  @include bg-color($color-teal, .8);
+}
+
+.bg-teal-700 {
+  @include bg-color($color-teal, .7);
+}
+
+.bg-teal-600 {
+  @include bg-color($color-teal, .6);
+}
+
+.bg-teal-500 {
+  @include bg-color($color-teal, .5);
+}
+
+.bg-orange {
+  @include bg-color($color-orange);
+}
+
+.bg-orange-900 {
+  @include bg-color($color-orange, .9);
+}
+
+.bg-orange-800 {
+  @include bg-color($color-orange, .8);
+}
+
+.bg-orange-700 {
+  @include bg-color($color-orange, .7);
+}
+
+.bg-orange-600 {
+  @include bg-color($color-orange, .6);
+}
+
+.bg-orange-500 {
+  @include bg-color($color-orange, .5);
+}
+
+.bg-pink {
+  @include bg-color($color-pink);
+  color: $color-white;
+}
+
+.bg-pink-900 {
+  @include bg-color($color-pink, .9);
+  color: $color-white;
+}
+
+.bg-pink-800 {
+  @include bg-color($color-pink, .8);
+  color: $color-white;
+}
+
+.bg-pink-700 {
+  @include bg-color($color-pink, .7);
+  color: $color-white;
+}
+
+.bg-pink-600 {
+  @include bg-color($color-pink, .6);
+  color: $color-white;
+}
+
+.bg-pink-500 {
+  @include bg-color($color-pink, .5);
+  color: $color-white;
+}
+
+.bg-dark-grey {
+  @include bg-color($color-dark-grey);
+  color: $color-white;
+}
+
+.bg-dark-grey-900 {
+  @include bg-color($color-dark-grey, .9);
+  color: $color-white;
+}
+
+.bg-dark-grey-800 {
+  @include bg-color($color-dark-grey, .8);
+  color: $color-white;
+}
+
+.bg-dark-grey-700 {
+  @include bg-color($color-dark-grey, .7);
+  color: $color-white;
+}
+
+.bg-dark-grey-600 {
+  @include bg-color($color-dark-grey, .6);
+  color: $color-white;
+}
+
+.bg-dark-grey-500 {
+  @include bg-color($color-dark-grey, .5);
+  color: $color-white;
+}

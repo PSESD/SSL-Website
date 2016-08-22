@@ -1,0 +1,14 @@
+body.styleguide-page {
+  ol {
+    li {
+      @include font-size(1.33em, 1.5);
+    }
+  }
+  .color-system-item {
+    > .row {
+      > div  {
+        padding: 20px;
+      }
+    }
+  }
+}

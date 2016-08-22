@@ -1,0 +1,241 @@
+button {
+  padding: 15px 30px;
+  margin: 5px auto;
+  border-radius: 25px;
+  display: inline-block;
+  color: $color-black;
+  background-color: transparent;
+  border: 2px $color-black solid;
+  -webkit-appearance: inherit;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-black;
+  }
+
+}
+
+.btn {
+  @extend button;
+}
+
+button.btn-full,
+.btn.btn-full {
+  display: block;
+}
+
+button.btn-black,
+.btn.btn-black {
+  color: $color-black;
+  border-color: $color-black;
+
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-black;
+  }
+}
+
+button.btn-black.inverse,
+.btn.btn-black.inverse {
+  color: $color-white;
+  border-color: $color-black;
+  background-color: $color-black;
+
+  &:focus,
+  &:hover {
+    color: $color-black;
+    background-color: $color-white;
+  }
+}
+
+button.btn-blue-navy,
+.btn.btn-blue-navy {
+  color: $color-blue-navy;
+  border-color: $color-blue-navy;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-blue-navy;
+  }
+}
+
+button.btn-blue-navy.inverse,
+.btn.btn-blue-navy.inverse {
+  color: $color-white;
+  border-color: $color-blue-navy;
+  background-color: $color-blue-navy;
+  &:focus,
+  &:hover {
+    color: $color-blue-navy;
+    background-color: $color-white;
+  }
+}
+
+button.btn-grey,
+.btn.btn-grey {
+  color: $color-grey;
+  border-color: $color-grey;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-grey;
+  }
+}
+
+button.btn-grey.inverse,
+.btn.btn-grey.inverse {
+  color: $color-white;
+  border-color: $color-grey;
+  background-color: $color-grey;
+  &:focus,
+  &:hover {
+    color: $color-grey;
+    background-color: $color-white;
+  }
+}
+
+button.btn-purple,
+.btn.btn-purple {
+  color: $color-purple;
+  border-color: $color-purple;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-purple;
+  }
+}
+
+button.btn-purple.inverse,
+.btn.btn-purple.inverse {
+  color: $color-white;
+  border-color: $color-purple;
+  background-color: $color-purple;
+  &:focus,
+  &:hover {
+    color: $color-purple;
+    background-color: $color-white;
+  }
+}
+
+button.btn-cyan,
+.btn.btn-cyan {
+  color: $color-cyan;
+  border-color: $color-cyan;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-cyan;
+  }
+}
+
+button.btn-cyan.inverse,
+.btn.btn-cyan.inverse {
+  color: $color-white;
+  border-color: $color-cyan;
+  background-color: $color-cyan;
+  &:focus,
+  &:hover {
+    color: $color-cyan;
+    background-color: transparent;
+  }
+}
+
+button.btn-teal,
+.btn.btn-teal {
+  color: $color-teal;
+  border-color: $color-teal;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-teal;
+  }
+}
+
+button.btn-teal.inverse,
+.btn.btn-teal.inverse {
+  color: $color-white;
+  border-color: $color-teal;
+  background-color: $color-teal;
+  &:focus,
+  &:hover {
+    color: $color-teal;
+    background-color: transparent;
+  }
+}
+
+button.btn-orange,
+.btn.btn-orange {
+  color: $color-orange;
+  border-color: $color-orange;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-orange;
+  }
+}
+
+button.btn-orange.inverse,
+.btn.btn-orange.inverse {
+  color: $color-white;
+  border-color: $color-orange;
+  background-color: $color-orange;
+  &:focus,
+  &:hover {
+    color: $color-orange;
+    background-color: transparent;
+  }
+}
+
+button.btn-pink,
+.btn.btn-pink {
+  color: $color-pink;
+  border-color: $color-pink;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-pink;
+  }
+}
+
+button.btn-pink.inverse,
+.btn.btn-pink.inverse {
+  color: $color-white;
+  border-color: $color-pink;
+  background-color: $color-pink;
+  &:focus,
+  &:hover {
+    color: $color-pink;
+    background-color: transparent;
+  }
+}
+
+button.btn-dark-grey,
+.btn.btn-dark-grey {
+  color: $color-dark-grey;
+  border-color: $color-dark-grey;
+  &:focus,
+  &:hover {
+    color: $color-white;
+    background-color: $color-dark-grey;
+  }
+}
+
+button.btn-dark-grey.inverse,
+.btn.btn-dark-grey.inverse {
+  color: $color-white;
+  border-color: $color-dark-grey;
+  background-color: $color-dark-grey;
+  &:focus,
+  &:hover {
+    color: $color-dark-grey;
+    background-color: transparent;
+  }
+}
+
+button.signup,
+.btn.signup {
+
+}
