@@ -1,0 +1,6 @@
+body.manage-page {
+    @extend body.dashboard-page;
+    .container-fluid.manage-page{
+        margin-top: 75px;
+    }
+}

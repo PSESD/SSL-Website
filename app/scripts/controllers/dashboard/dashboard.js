@@ -10,8 +10,15 @@
 
     var vm = this;
     var profile = $cookies.getObject(sessionStorage.getItem('id'));
-    vm.full_name = profile.full_name;
-    
+    vm.full_name  = profile.full_name;
+    vm.email = profile.email;
+    vm.logout = logout;
+
+    function logout(){
+      $cookies.remove(profile.id);
+      sessionStorage.clear();
+      $state.go('login');
+    }
   }
 
 })();

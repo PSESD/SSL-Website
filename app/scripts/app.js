@@ -6,6 +6,7 @@
       'ui.router',
       'ui.bootstrap',
       'ngCookies',
+      'ui.gravatar',
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {
@@ -19,9 +20,9 @@
     .config(configFunction)
     .run(runFunction);
 
-  configFunction.$inject = ['$httpProvider','$urlRouterProvider'];
+  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider'];
 
-  function configFunction($httpProvider,$urlRouterProvider) {
+  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider) {
 
     $urlRouterProvider.otherwise("/login");
     $httpProvider.defaults.headers.common = {};
@@ -33,7 +34,10 @@
     $httpProvider.defaults.headers.common.Accept = '*/*';
     $httpProvider.interceptors.push('headerInjector');
     $httpProvider.defaults.timeout = 15000;
-
+    gravatarServiceProvider.defaults = {
+      size     : 50,
+      "default": 'mm'
+    };
   }
 
   runFunction.$inject = ['$rootScope', '$state', 'RESOURCES'];
@@ -51,8 +55,7 @@
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
-
-        $rootScope.currentURL = toState.name + '-page';
+        $rootScope.currentURL = toState.url.replace('/','') + '-page';
         var isLoggedIn = true;
         if (!isLoggedIn && pathIsProtected(toState.url)) {
           event.preventDefault();

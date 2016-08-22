@@ -10,6 +10,7 @@
         'API_URL':'https://api.cbo.upward.st/',
         'RESPONSE_TYPE':'code',
         'GRANT_TYPE':'password',
-        'ENV':'http://helpinghand.cbo.upward.st'
+        'ENV':'http://helpinghand.cbo.upward.st',
+        'CALLBACK_URL':'http://studentsuccesslink.s360.is/#/reset'
     });
 })();

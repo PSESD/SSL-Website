@@ -9,7 +9,7 @@
 
   function LoginCtrl($state, $timeout, RESOURCES, $location, $http, GeneralService, LoginService,CookieService) {
     var vm = this;
-
+    vm.login_greetings = localStorage.getItem("first_name") || "";
     vm.message = '';
 
     vm.help = {
@@ -25,8 +25,12 @@
     vm.auth = auth;
 
     function auth(user) {
+      
+      
       var host_name = $location.host()
       var profile = {
+        first_name:'',
+        last_name:'',
         full_name: '',
         access: false,
         id: false,
@@ -73,15 +77,19 @@
                               profile.role = response.data.data[i].role;
                               if (typeof response.data.data[i].first_name !== 'undefined' && response.data.data[i].first_name) {
                                 profile.full_name += response.data.data[i].first_name + ' ';
+                                profile.first_name = response.data.data[i].first_name;
                               }
                               if (typeof response.data.data[i].last_name !== 'undefined' && response.data.data[i].last_name) {
                                 profile.full_name += response.data.data[i].last_name;
+                                profile.last_name = response.data.data[i].last_name;
                               }
                               
                             }
                           }
                           if(profile.exists){
+                            localStorage.clear();
                             sessionStorage.setItem('id',profile.id);
+                            localStorage.setItem('first_name',profile.first_name);
                             CookieService.set(profile);
                             $state.go('dashboard');
                           }else{
