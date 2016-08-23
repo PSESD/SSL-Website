@@ -1,3 +1,34 @@
+section.main-section
+{
+  margin-top: 80px;
+}
+.circle-profile {
+  border-radius: 50px;
+  display: inline-block;
+  border: 3px transparent solid;
+  -webkit-appearance: inherit;
+  cursor: pointer;
+  position: relative;
+
+  &:before {
+    position: absolute;
+    content: '';
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    background: linear-gradient(to right, $color-cyan, $color-purple);
+    z-index: -1;
+    border-radius: 50px;
+  }
+
+  img {
+    border-radius: 50px;
+    width: 100%;
+    z-index: -2;
+  }
+
+}
 .circle-white {
   border: 1px $color-white solid;
   border-radius: 25px;

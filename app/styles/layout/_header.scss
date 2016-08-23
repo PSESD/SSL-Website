@@ -1,10 +1,114 @@
 nav.navbar  {
+
+  @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
+  text-transform: uppercase;
+
+  @media (max-width: $screen-xs-max) {
+    background: transparent;
+  }
+
   .navbar-header {
+    width: 15%;
+    background-color: $color-blue-navy;
+
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+
+      button
+      {
+        .icon-bar
+        {
+          background-color: $color-white;
+        }
+      }
+    }
+
+    @media (max-width: $screen-xs-max) {
+      #navbar {
+        margin-top: -1px;
+        margin-left: 25%;
+      }
+    }
+
     .navbar-brand {
-      padding: 15px;
+      padding: 15px 30px;
       height: auto;
+
+      @media (max-width: $screen-xs-max) {
+        width: 150px;
+        padding: 10px;
+      }
+      @media (max-width: $screen-xss-max) {
+        width: 150px;
+        padding: 5px;
+      }
+
       img {
         width: 100%;
+      }
+    }
+  }
+  .navbar-nav,
+  .nav-profile
+  {
+    padding-left: 0;
+    list-style: none;
+
+    @media (max-width: $screen-xs-max) {
+      margin: 0 -15px;
+    }
+    li {
+
+      @media (max-width: $screen-xs-max) {
+        &.profile-tab {
+          display: none;
+        }
+      }
+
+      a {
+        color: $color-grey;
+        background-color: $color-blue-navy;
+
+        @media (max-width: $screen-xs-max) {
+          display: block;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          line-height: 20px;
+        }
+
+        &:focus,
+        &:hover
+        {
+          color: $color-grey;
+          background-color: $color-blue-navy;
+        }
+      }
+
+      button
+      {
+        @media (max-width: $screen-xs-max) {
+          width: 100%;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          line-height: 20px;
+          margin: 0;
+          display: block;
+          border-radius: 0;
+          color: $color-grey;
+          background-color: $color-blue-navy;
+
+          &:after
+          {
+            position: absolute;
+            content: '';
+            top: 0; bottom: 0;
+            left: 0; right: 0;
+            background: transparent;
+            z-index: -1;
+            border-radius: 0;
+          }
+        }
+
       }
     }
   }
@@ -26,6 +130,14 @@ nav.navbar  {
         > a {
           min-height: 80px;
           line-height: 50px;
+          color: $color-grey;
+          background-color: $color-blue-navy;
+          &:focus,
+          &:hover
+          {
+            color: $color-grey;
+            background-color: $color-blue-navy;
+          }
         }
       }
     }
@@ -33,8 +145,22 @@ nav.navbar  {
     {
       list-style: none;
       padding-left: 0;
+      width: 25%;
+      margin-bottom: 0;
+      float: left;
       li {
+        width: 50%;
         display: inline-block;
+
+        &.logout-tab
+        {
+          a {
+            display: block;
+          }
+          button {
+            display: block;
+          }
+        }
       }
     }
   }

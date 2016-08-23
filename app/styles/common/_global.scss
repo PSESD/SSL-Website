@@ -6,7 +6,6 @@ body{
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   @include font($font-family-open-sans, 1em, 1.5, 400);
-  height: 100%;
   color: $color-black;
   margin-bottom: 50px;
 }
