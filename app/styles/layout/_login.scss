@@ -4,5 +4,80 @@ body.forgot-page {
   background: url('../../images/bg-full-width.jpg') no-repeat center center fixed;
   background-size: cover;
   justify-content: center;
+  color: $color-white;
+  background-color: $color-black;
+
+  a {
+    color: $color-white;
+
+    &:focus,
+    &:hover {
+
+      color: $color-white;
+      text-decoration: underline;
+
+    }
+  }
+
+  .login-form
+  {
+    background-color: rgba(255,255,255,0.6);
+    background: url("../../images/bg-full-width-blur.jpg") no-repeat center center fixed;
+    background-size: cover;
+    border-radius: 5px;
+    box-shadow: 0 0 25px -5px $color-grey;
+    padding: 15px;
+    margin: 15px auto;
+
+    input {
+      text-align: center;
+    }
+
+  }
+
+  ui-view.ng-scope {
+
+    height: 100%;
+    width: 100%;
+    position: absolute;
+
+    div.page-wrapper {
+
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      @media (max-height: 600px) {
+        top: 0;
+        transform: none;
+      }
+
+    }
+
+    footer
+    {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 15px;
+      @media (max-height: 600px) {
+        position: relative;
+      }
+
+      ul {
+        padding-left: 0;
+        list-style: none;
+
+        li {
+          display: inline-block;
+          padding: 0 15px;
+
+        }
+
+      }
+
+    }
+
+  }
 
 }

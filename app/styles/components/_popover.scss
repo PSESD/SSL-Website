@@ -1,0 +1,26 @@
+.popover
+{
+  min-width: 250px;
+
+  .popover-content
+  {
+    padding: 0;
+
+    .panel-default
+    {
+      margin-bottom: 0;
+      border: 0;
+
+      .panel-heading
+      {
+        color: $color-black;
+      }
+
+      .panel-body
+      {
+        @include font($font-family-open-sans,10px,15px);
+        color: $color-black;
+      }
+    }
+  }
+}

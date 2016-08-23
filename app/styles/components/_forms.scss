@@ -1,0 +1,116 @@
+input[type="text"],
+input[type="password"],
+input[type="email"]
+{
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px $color-black solid;
+  box-shadow: none;
+  color: $color-black;
+
+  &.inverse {
+    color: $color-white;
+    border-bottom: 1px $color-white solid;
+    background: transparent;
+
+  }
+
+}
+
+textarea {
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px $color-black solid;
+  box-shadow: none;
+  color: $color-black;
+
+  &.inverse {
+    color: $color-white;
+    border-bottom: 1px $color-white solid;
+    background: transparent;
+
+  }
+
+}
+
+select {
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px $color-black solid;
+  box-shadow: none;
+  color: $color-black;
+
+  &.inverse {
+    color: $color-white;
+    border-bottom: 1px $color-white solid;
+    background: transparent;
+
+  }
+
+}
+
+.radio label,
+.checkbox label
+{
+  font-weight: 900;
+}
+
+select:focus,
+input:focus
+{
+  border-color: $color-black;
+  outline: none;
+  box-shadow: none;
+}
+
+select.inverse:focus,
+input.inverse:focus
+{
+  border-color: $color-white;
+  outline: none;
+  box-shadow: none;
+}
+
+select::-webkit-input-placeholder,
+input::-webkit-input-placeholder
+{
+  color: $color-black;
+}
+select:-moz-placeholder,
+input:-moz-placeholder
+{
+  color: $color-black;
+}
+select::-moz-placeholder,
+input::-moz-placeholder
+{
+  color: $color-black;
+}
+select:-ms-input-placeholder,
+input:-ms-input-placeholder
+{
+  color: $color-black;
+}
+select.inverse::-webkit-input-placeholder,
+input.inverse::-webkit-input-placeholder
+{
+  color: $color-white;
+}
+select.inverse:-moz-placeholder,
+input.inverse:-moz-placeholder
+{
+  color: $color-white;
+}
+select.inverse::-moz-placeholder,
+input.inverse::-moz-placeholder
+{
+  color: $color-white;
+}
+select.inverse:-ms-input-placeholder,
+input.inverse:-ms-input-placeholder
+{
+  color: $color-white;
+}

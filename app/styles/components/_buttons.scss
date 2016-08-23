@@ -1,18 +1,32 @@
 button {
-  padding: 15px 30px;
+  padding: 5px 15px;
   margin: 5px auto;
-  border-radius: 25px;
+  border-radius: 50px;
   display: inline-block;
   color: $color-black;
-  background-color: transparent;
-  border: 2px $color-black solid;
+  background-color: $color-white;
+  border: 0;
   -webkit-appearance: inherit;
   cursor: pointer;
+  position: relative;
+
+  &:after
+  {
+    position: absolute;
+    content: '';
+    top: -2px; bottom: -2px;
+    left: -3px; right: -3px;
+    background: linear-gradient(to right, $color-cyan, $color-purple);
+    z-index: -1;
+    border-radius: 50px;
+  }
 
   &:focus,
   &:hover {
     color: $color-white;
     background-color: $color-black;
+    outline: none;
+    box-shadow: none;
   }
 
 }
@@ -21,9 +35,23 @@ button {
   @extend button;
 }
 
+button.inverse,
+.btn.inverse {
+  color: $color-white;
+  border-color: $color-white;
+  background-color: $color-black;
+
+  &:focus,
+  &:hover {
+    color: $color-black;
+    background-color: $color-white;
+  }
+}
+
 button.btn-full,
 .btn.btn-full {
   display: block;
+  width: 100%;
 }
 
 button.btn-black,
@@ -235,7 +263,33 @@ button.btn-dark-grey.inverse,
   }
 }
 
-button.signup,
-.btn.signup {
+button.btn-login,
+.btn.btn-login
+{
+  padding: 15px 30px;
+  color: $color-white;
+  border: 3px $color-white solid;
+  background-color: transparent;
+  text-transform: uppercase;
+  @include font($font-family-kreon, 1.5em, 1.444444444444444, 900);
+  width: 75%;
 
+  &:focus,
+  &:hover {
+    color: $color-cyan;
+    background-color: $color-white;
+  }
+}
+
+button.btn-default,
+.btn.btn-default
+{
+  color: $color-white;
+  border-color: $color-white;
+  background-color: transparent;
+  &:focus,
+  &:hover {
+    color: $color-cyan;
+    background-color: $color-white;
+  }
 }

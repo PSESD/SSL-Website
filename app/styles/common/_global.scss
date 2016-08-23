@@ -1,12 +1,14 @@
 html {
-  -webkit-font-smoothing: antialiased;
-  @include font($font-family-open-sans, 12px, 1.5);
+  @include font($font-family-open-sans, 12px, 1.5, 400);
   height: 100%;
 }
 body{
-  @include font($font-family-open-sans, 1em, 1.5);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  @include font($font-family-open-sans, 1em, 1.5, 400);
   height: 100%;
   color: $color-black;
+  margin-bottom: 50px;
 }
 
 h1{
@@ -54,4 +56,7 @@ a{
 .inverse {
   color: $color-white;
   background-color: $color-black;
+}
+.full-height {
+  height: 100%;
 }
