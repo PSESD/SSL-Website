@@ -19,6 +19,22 @@ body.forgot-page {
     }
   }
 
+  .message-outer
+  {
+    position: fixed;
+    width: 100%;
+    top: 15px;
+
+    @media (max-width: $screen-xs-max) {
+      position: relative;
+    }
+
+    @media (max-height: 600px) {
+      position: relative;
+    }
+
+  }
+
   .login-form
   {
     background-color: rgba(255,255,255,0.6);
@@ -47,6 +63,11 @@ body.forgot-page {
       top: 50%;
       transform: translateY(-50%);
 
+      @media (max-width: $screen-xs-max) {
+        top: 0;
+        transform: none;
+      }
+
       @media (max-height: 600px) {
         top: 0;
         transform: none;
@@ -61,6 +82,10 @@ body.forgot-page {
       bottom: 0;
       margin-bottom: 15px;
       @media (max-height: 600px) {
+        position: relative;
+      }
+
+      @media (max-width: $screen-xs-max) {
         position: relative;
       }
 

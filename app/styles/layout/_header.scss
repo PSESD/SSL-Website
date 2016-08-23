@@ -84,11 +84,12 @@ nav.navbar  {
           line-height: 20px;
         }
 
+        &.active,
         &:focus,
         &:hover
         {
-          color: $color-grey;
-          background-color: $color-blue-navy;
+          color: $color-white;
+          background-color: $color-grey;
         }
       }
 
@@ -149,11 +150,12 @@ nav.navbar  {
           line-height: 50px;
           color: $color-grey;
           background-color: $color-blue-navy;
+          &.active,
           &:focus,
           &:hover
           {
-            color: $color-grey;
-            background-color: $color-blue-navy;
+            color: $color-white;
+            background-color: $color-grey;
           }
 
           @media (max-width: $screen-sm-max) {
@@ -191,7 +193,7 @@ nav.navbar  {
           .user-profile
           {
             position: relative;
-            top: -8px;
+            top: -4px;
             border-right: 1px $color-white solid;
 
             .circle-profile
@@ -225,6 +227,7 @@ nav.navbar  {
               display: block;
               background: transparent;
               color: $color-cyan;
+              @include font-size(0.83em, 1.25);
 
               &:focus,
               &:hover{

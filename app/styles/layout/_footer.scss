@@ -3,7 +3,10 @@ footer {
   bottom: 0;
   width: 100%;
 
+  @include font-size(0.83em, 1.5);
+
   a {
+    @include font-size(1.21em, 1.5);
     &:focus,
     &:hover
     {
