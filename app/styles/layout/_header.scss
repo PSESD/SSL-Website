@@ -1,16 +1,19 @@
 nav.navbar  {
 
-  @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
-  text-transform: uppercase;
+  height: 80px;
 
   @media (max-width: $screen-xs-max) {
     background: transparent;
+    height: auto;
   }
 
   .navbar-header {
     width: 15%;
     background-color: $color-blue-navy;
 
+    @media (max-width: $screen-sm-max) {
+      width: 20%;
+    }
     @media (max-width: $screen-xs-max) {
       width: 100%;
 
@@ -34,6 +37,9 @@ nav.navbar  {
       padding: 15px 30px;
       height: auto;
 
+      @media (max-width: $screen-sm-max) {
+        padding: 15px 5px 15px 20px;
+      }
       @media (max-width: $screen-xs-max) {
         width: 150px;
         padding: 10px;
@@ -56,6 +62,8 @@ nav.navbar  {
 
     @media (max-width: $screen-xs-max) {
       margin: 0 -15px;
+      @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
+      text-transform: uppercase;
     }
     li {
 
@@ -117,6 +125,15 @@ nav.navbar  {
     .navbar-nav
     {
       width: 60%;
+      @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
+      text-transform: uppercase;
+
+      @media (max-width: $screen-md-max) {
+        width: 55%;
+      }
+      @media (max-width: $screen-sm-max) {
+        width: 45%;
+      }
 
       > li {
 
@@ -138,33 +155,94 @@ nav.navbar  {
             color: $color-grey;
             background-color: $color-blue-navy;
           }
+
+          @media (max-width: $screen-sm-max) {
+            padding-left: 0;
+            padding-right: 0;
+          }
+
         }
       }
     }
     .nav-profile
     {
       list-style: none;
-      padding-left: 0;
       width: 25%;
       margin-bottom: 0;
       float: left;
+      padding: 8px 0;
+
+      @media (max-width: $screen-md-max) {
+        width: 30%;
+      }
+
+      @media (max-width: $screen-sm-max) {
+        width: 35%;
+      }
+
       li {
         width: 58%;
         display: inline-block;
 
         &.profile-tab
         {
-          border-right: 1px $color-white solid;
+          position: relative;
+
+          .user-profile
+          {
+            position: relative;
+            top: -8px;
+            border-right: 1px $color-white solid;
+
+            .circle-profile
+            {
+              display: inline-block;
+              top: 0;
+              margin-left: 15px;
+              @media (max-width: $screen-sm-max) {
+                margin-left: 10px;
+              }
+            }
+            .circle-profile-text
+            {
+              display: inline-block;
+              position: relative;
+              top: 9px;
+              margin-left: 10px;
+            }
+          }
         }
 
         &.logout-tab
         {
           width: 40%;
-          a {
-            display: block;
-          }
-          button {
-            display: block;
+          .user-data
+          {
+            position: relative;
+            top: 4px;
+
+            a.edit-profile {
+              display: block;
+              background: transparent;
+              color: $color-cyan;
+
+              &:focus,
+              &:hover{
+                color: $color-teal;
+                text-decoration: underline;
+              }
+            }
+            button {
+              @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
+              color: $color-grey;
+              text-transform: uppercase;
+              display: block;
+              &:focus,
+              &:hover
+              {
+                color: $color-grey;
+              }
+            }
           }
         }
       }

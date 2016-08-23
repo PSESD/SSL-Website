@@ -33,6 +33,7 @@ a{
   color: $color-cyan;
   text-decoration: none;
 
+  &:focus,
   &:hover{
     color: $color-teal;
     text-decoration: none;

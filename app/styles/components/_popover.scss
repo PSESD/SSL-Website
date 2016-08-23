@@ -18,7 +18,6 @@
 
       .panel-body
       {
-        @include font($font-family-open-sans,10px,15px);
         color: $color-black;
       }
     }

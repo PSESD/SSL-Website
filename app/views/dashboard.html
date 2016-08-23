@@ -21,14 +21,18 @@
                 </ul>
                 <ul class="nav-profile">
                     <li class="profile-tab">
-                        <div class="circle-profile">
-                            <img gravatar-src="vm.email" gravatar-size="50">
+                        <div class="user-profile">
+                            <div class="circle-profile">
+                                <img gravatar-src="vm.email" gravatar-size="50">
+                            </div>
+                            <div class="circle-profile-text">Logged in as <br/><strong>{{vm.full_name}}</strong></div>
                         </div>
-                        <div class="">Logged in as <br/><strong>{{vm.full_name}}</strong></div>
                     </li>
                     <li class="logout-tab text-center">
-                        <a ui-sref="dashboard.user_edit">Edit Profile</a>
-                        <button class="text-uppercase" ng-click="vm.logout()">Logout</button>
+                        <div class="user-data">
+                            <a ui-sref="dashboard.user_edit" class="edit-profile">Edit Profile</a>
+                            <button class="text-uppercase btn inverse" ng-click="vm.logout()">Logout</button>
+                        </div>
                     </li>
                 </ul>
             </div>
