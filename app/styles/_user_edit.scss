@@ -1,0 +1,17 @@
+body.user_edit-page {
+    @extend body.dashboard-page;
+    .container-fluid{
+        &.user_edit-page{
+            margin-top: 95px;
+            form{
+                button{
+                    padding: 5px 30px;
+                    border:2px solid $black;
+                    color:$black;
+                }
+            }
+        }
+        
+   
+    }
+}

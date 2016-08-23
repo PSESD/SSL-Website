@@ -16,3 +16,19 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "layout/_footer.scss";
 @import "layout/_page.scss";
 @import "layout/_login.scss";
+
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_page.scss";
+@import "_typography.scss";
+@import "_component.scss";
+@import "_styles.scss";
+@import "_user";
+@import "_dashboard.scss";
+@import "_login.scss";
+@import "_forgot.scss";
+@import "_submission.scss";
+@import "_reset";
+@import "_user_edit.scss";
+@import "_user_edit_permission.scss";
+@import "_user_group.scss";

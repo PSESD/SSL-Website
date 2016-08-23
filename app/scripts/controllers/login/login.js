@@ -9,7 +9,7 @@
 
   function LoginCtrl($state, $timeout, RESOURCES, $location, $http, GeneralService, LoginService,CookieService) {
     var vm = this;
-
+    vm.login_greetings = localStorage.getItem("first_name") || "";
     vm.message = '';
 
     vm.help = {
@@ -25,8 +25,12 @@
     vm.auth = auth;
 
     function auth(user) {
+      
+      
       var host_name = $location.host()
       var profile = {
+        first_name:'',
+        last_name:'',
         full_name: '',
         access: false,
         id: false,
@@ -34,7 +38,9 @@
         role: 'case-worker-restricted',
         organization_name: '',
         exists: false,
-        access_token:''
+        access_token:'',
+        refresh_token:'',
+        organization_id:''
       }
       var key = GeneralService.base64Encode(RESOURCES.CLIENT_ID + ':' + RESOURCES.CLIENT_SECRET);
       var grant_type = encodeURIComponent(RESOURCES.GRANT_TYPE);
@@ -50,20 +56,21 @@
         .then(function(response) {
           if ('access_token' in response.data) {
             profile.access_token = response.data.access_token;
+            profile.refresh_token = response.data.refresh_token;
             LoginService.getOrganization(profile.access_token)
               .then(function(response) {
                 if (response.data.success && response.data.total > 0) {
                   for (var i = 0; i < response.data.total; i++) {
                     if (RESOURCES.ENV || host_name === response.data.data[i].url) {
                       profile.access = true;
-                      profile.id = response.data.data[i]._id;
+                      profile.organization_id = response.data.data[i]._id;
                       profile.redirect_url = response.data.data[i].url;
                       profile.organization_name = response.data.data[i].name;
                     }
                   }
                   localStorage.setItem('organization_name', profile.organization_name);
                   if (profile.access) {
-                    LoginService.getUsers(profile.id, profile.access_token)
+                    LoginService.getUsers(profile.organization_id, profile.access_token)
                       .then(function(response) {
                         if (response.data.success && response.data.total > 0) {
                           for (var i = 0; i < response.data.total; i++) {
@@ -73,15 +80,19 @@
                               profile.role = response.data.data[i].role;
                               if (typeof response.data.data[i].first_name !== 'undefined' && response.data.data[i].first_name) {
                                 profile.full_name += response.data.data[i].first_name + ' ';
+                                profile.first_name = response.data.data[i].first_name;
                               }
                               if (typeof response.data.data[i].last_name !== 'undefined' && response.data.data[i].last_name) {
                                 profile.full_name += response.data.data[i].last_name;
+                                profile.last_name = response.data.data[i].last_name;
                               }
                               
                             }
                           }
                           if(profile.exists){
+                            localStorage.clear();
                             sessionStorage.setItem('id',profile.id);
+                            localStorage.setItem('first_name',profile.first_name);
                             CookieService.set(profile);
                             $state.go('dashboard');
                           }else{
