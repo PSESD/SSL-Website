@@ -1,10 +1,40 @@
 nav.navbar  {
   .navbar-header {
     .navbar-brand {
-      padding: 0 15px;
+      padding: 15px;
       height: auto;
       img {
         width: 100%;
+      }
+    }
+  }
+  @media (min-width: $screen-tablet)
+  {
+    .navbar-nav
+    {
+      width: 60%;
+
+      > li {
+
+        border-right: 1px $color-true-black solid;
+        width: 25%;
+        &:first-child
+        {
+          border-left: 1px $color-true-black solid;
+        }
+
+        > a {
+          min-height: 80px;
+          line-height: 50px;
+        }
+      }
+    }
+    .nav-profile
+    {
+      list-style: none;
+      padding-left: 0;
+      li {
+        display: inline-block;
       }
     }
   }
