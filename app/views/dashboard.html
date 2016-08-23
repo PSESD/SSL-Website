@@ -18,7 +18,7 @@
             <li><a class="text-center text-uppercase" href="#">Reports</a></li>
             <li><a class="text-center text-uppercase" href="#">Manage</a></li>
             <li class="profile-tab">
-              <img class="pull-left" src="images/profile.png" alt="Profile Picture">
+                <img gravatar-src="vm.email" gravatar-size="50">
               <span class="pull-left">Logged in as <br/><strong>{{vm.full_name}}</strong></span>
             </li>
             <li class="logout-tab text-center">
@@ -33,7 +33,7 @@
 
 <section class="main-section">
     <main class="main">
-
+        <ui-view></ui-view>
     </main>
 </section>
 
