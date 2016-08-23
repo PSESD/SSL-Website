@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .controller('UserCtrl', UserCtrl);
 
-  UserCtrl.$inject = ['$state','UserService','$uibModal'];
+  UserCtrl.$inject = ['$state','UserService','$confirm'];
 
-  function UserCtrl($state,UserService,$uibModal) {
+  function UserCtrl($state,UserService,$confirm) {
 
     var vm = this;
     vm.reInvite = reInvite;
@@ -28,34 +28,11 @@
       console.log(error);
     });
   }
-
-  function deleteUser(id, index) {
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'templates/modal.html',
-                controller: 'UserModalInstanceCtrl',
-                size: "sm",
-                resolve:{
-                    items:function(){
-                        return {
-                            "id":id,
-                            index:index
-                        }
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (result) {
-                if(result.success === true)
-                {
-                }else{
-                }
-
-            }, function () {
-                //$log.info('Modal dismissed at: ' + new Date());
-            });
-
-        };
-
+  function deleteUser(id){
+    $confirm({text:'Are you sure you want to delete this record?'})
+    .then(function(){
+      
+    });
+  }
   }
 })();
