@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <button>Invite User</button>
+            <button ui-sref="dashboard.user_invite">Invite User</button>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2">
             <div class="input-group">
@@ -63,7 +63,7 @@
                 <tbody>
                     <tr ng-repeat="user in vm.users |filter:search|orderBy:first_name|orderBy:sortType:sortReverse">
                         <td>
-                            <a ui-sref="dashboard.user_edit({id:user._id})">
+                            <a ui-sref="dashboard.user_view({id:user._id})">
                                 {{user.full_name}}
                             </a>
                         </td>

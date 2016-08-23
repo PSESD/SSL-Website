@@ -13,7 +13,9 @@
       getById:getById,
       updatePermission:updatePermission,
       getAssignedStudent:getAssignedStudent,
-      deleteUser:deleteUser
+      deleteUser:deleteUser,
+      invite:invite,
+      updateProfile:updateProfile
     };
 
     return service;
@@ -64,6 +66,20 @@
                     'Authorization': 'Bearer ' + profile.access_token
                 }
             });
+    }
+    function invite(data){
+      return  $http.post(RESOURCES.API_URL + '/user/invite', $.param(data), {
+                    headers: {
+                        'Authorization': 'Bearer ' + profile.access_token
+                    }
+                })
+    }
+    function updateProfile(data){
+        return $http.put(RESOURCES.API_URL + 'user/', $.param(data), {
+                        headers: {
+                            'Authorization': 'Bearer ' + profile.access_token
+                        }
+                    })
     }
   }
 })();
