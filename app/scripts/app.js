@@ -55,12 +55,16 @@
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
-        $rootScope.currentURL = toState.url.replace('/','') + '-page';
+        if(toState.name !== "dashboard" && toState.name !== "login" && toState.name !== "forgot"){
+            $rootScope.currentURL = toState.name.replace('dashboard.','') + '-page';
+        }else{
+            $rootScope.currentURL = toState.name.replace('/','') + '-page';
+        }
+      
         var isLoggedIn = true;
         if (!isLoggedIn && pathIsProtected(toState.url)) {
           event.preventDefault();
           $state.go('login', {}, {reload: true});
-
         }
 
       });

@@ -38,7 +38,9 @@
         role: 'case-worker-restricted',
         organization_name: '',
         exists: false,
-        access_token:''
+        access_token:'',
+        refresh_token:'',
+        organization_id:''
       }
       var key = GeneralService.base64Encode(RESOURCES.CLIENT_ID + ':' + RESOURCES.CLIENT_SECRET);
       var grant_type = encodeURIComponent(RESOURCES.GRANT_TYPE);
@@ -54,20 +56,21 @@
         .then(function(response) {
           if ('access_token' in response.data) {
             profile.access_token = response.data.access_token;
+            profile.refresh_token = response.data.refresh_token;
             LoginService.getOrganization(profile.access_token)
               .then(function(response) {
                 if (response.data.success && response.data.total > 0) {
                   for (var i = 0; i < response.data.total; i++) {
                     if (RESOURCES.ENV || host_name === response.data.data[i].url) {
                       profile.access = true;
-                      profile.id = response.data.data[i]._id;
+                      profile.organization_id = response.data.data[i]._id;
                       profile.redirect_url = response.data.data[i].url;
                       profile.organization_name = response.data.data[i].name;
                     }
                   }
                   localStorage.setItem('organization_name', profile.organization_name);
                   if (profile.access) {
-                    LoginService.getUsers(profile.id, profile.access_token)
+                    LoginService.getUsers(profile.organization_id, profile.access_token)
                       .then(function(response) {
                         if (response.data.success && response.data.total > 0) {
                           for (var i = 0; i < response.data.total; i++) {

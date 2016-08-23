@@ -1,0 +1,15 @@
+body.user_group-page {
+    @extend body.dashboard-page;
+    .container-fluid{
+        &.user_group-page{
+            margin-top: 95px;
+            form{
+                button{
+                    padding: 5px 30px;
+                    border:2px solid $black;
+                    color:$black;
+                }
+            }
+        }
+    }
+}
