@@ -1,7 +1,11 @@
 section.main-section
 {
   margin-top: 80px;
-  margin-bottom: 130px;
+  margin-bottom: 175px;
+
+  @media (max-width: $screen-xs-max) {
+    margin-bottom: 350px;
+  }
 }
 .circle-profile {
   border-radius: 50px;

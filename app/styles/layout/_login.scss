@@ -42,13 +42,30 @@ body.forgot-page {
     background-size: cover;
     border-radius: 5px;
     box-shadow: 0 0 25px -5px $color-grey;
-    padding: 15px;
+    padding: 15px 45px;
     margin: 15px auto;
+
+    @media (max-width: $screen-xs-max) {
+      padding: 15px;
+    }
 
     input {
       text-align: center;
     }
 
+  }
+
+  .forgot-form
+  {
+    padding-bottom: 30px;
+
+    .back_btn
+    {
+      margin-bottom: 15px;
+      display: block;
+      width: 100%;
+      text-align: right;
+    }
   }
 
   ui-view.ng-scope {

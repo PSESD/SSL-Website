@@ -271,8 +271,8 @@ button.btn-login,
   border: 3px $color-white solid;
   background-color: transparent;
   text-transform: uppercase;
+  margin: 15px auto;
   @include font($font-family-kreon, 1.5em, 1.444444444444444, 700);
-  width: 75%;
 
   &:focus,
   &:hover {
