@@ -12,7 +12,10 @@
       reInvite:reInvite,
       getById:getById,
       updatePermission:updatePermission,
-      getAssignedStudent:getAssignedStudent
+      getAssignedStudent:getAssignedStudent,
+      deleteUser:deleteUser,
+      invite:invite,
+      updateProfile:updateProfile
     };
 
     return service;
@@ -33,7 +36,7 @@
             headers: {
                 'Authorization': 'Bearer ' + profile.access_token
             }
-        })
+        });
     }
     function getById(id){
      
@@ -41,21 +44,42 @@
             headers: {
                 'Authorization': 'Bearer ' + profile.access_token
             }
-        })
+        });
     }
     function updatePermission(id,data){
      return $http.put(RESOURCES.API_URL + profile.organization_id + '/users/' + id, $.param(data), {
                     headers: {
                         'Authorization': 'Bearer ' + profile.access_token
                     }
-                })
+                });
     }
     function getAssignedStudent(id){
       return $http.get(RESOURCES.API_URL + profile.organization_id + '/users/' + id + '/students', {
             headers: {
                 'Authorization': 'Bearer ' + profile.access_token
             }
-        })
+        });
+    }
+    function deleteUser(id){
+        return $http.delete(RESOURCES.API_URL + profile.organization_id + '/users/' + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            });
+    }
+    function invite(data){
+      return  $http.post(RESOURCES.API_URL + '/user/invite', $.param(data), {
+                    headers: {
+                        'Authorization': 'Bearer ' + profile.access_token
+                    }
+                })
+    }
+    function updateProfile(data){
+        return $http.put(RESOURCES.API_URL + 'user/', $.param(data), {
+                        headers: {
+                            'Authorization': 'Bearer ' + profile.access_token
+                        }
+                    })
     }
   }
 })();

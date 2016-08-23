@@ -10,10 +10,10 @@
   function configFunction($stateProvider) {
 
     $stateProvider
-    .state('dashboard.user_edit', {
-      url: "/user_edit",
-      templateUrl: "views/user_edit_profile.html",
-      controller:'UserEditCtrl',
+    .state('dashboard.user_view', {
+      url: "/user_view?id",
+      templateUrl: "views/user_view.html",
+      controller:'UserViewCtrl',
       controllerAs:'vm'
     });
 

@@ -7,6 +7,7 @@
       'ui.bootstrap',
       'ngCookies',
       'ui.gravatar',
+      'angular-confirm'
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {

@@ -27,7 +27,6 @@
       }else{
     ResetService.reset(user)
       .then(function(response){
-        
       },function(error){
         
       });

@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <button>Invite User</button>
+            <button ui-sref="dashboard.user_invite">Invite User</button>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2">
             <div class="input-group">
@@ -63,7 +63,7 @@
                 <tbody>
                     <tr ng-repeat="user in vm.users |filter:search|orderBy:first_name|orderBy:sortType:sortReverse">
                         <td>
-                            <a ui-sref="dashboard.user_edit({id:user._id})">
+                            <a ui-sref="dashboard.user_view({id:user._id})">
                                 {{user.full_name}}
                             </a>
                         </td>
@@ -87,7 +87,7 @@
                             <a ui-sref="dashboard.user_group({id:user._id})" class="glyphicon-relative glyphicon glyphicon-user"></a>
                         </td>
                         <td class="text-center">
-                            <a class="glyphicon-relative glyphicon glyphicon-trash"></a>
+                            <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="vm.deleteUser(user._id)" confirm-settings="{size: 'sm'}"></a>
                         </td>
                     </tr>
                 </tbody>
