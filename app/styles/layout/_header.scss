@@ -149,11 +149,17 @@ nav.navbar  {
       margin-bottom: 0;
       float: left;
       li {
-        width: 50%;
+        width: 58%;
         display: inline-block;
+
+        &.profile-tab
+        {
+          border-right: 1px $color-white solid;
+        }
 
         &.logout-tab
         {
+          width: 40%;
           a {
             display: block;
           }
