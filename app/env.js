@@ -8,5 +8,6 @@
     window.__env.GRANT_TYPE = 'password';
     window.__env.REDIRECT_URL = 'http://studentsuccesslink.s360.is/';
     window.__env.CALLBACK_URL = 'http://localhost:9000/#/reset';
+    // window.__env.CALLBACK_URL = 'http://studentsuccesslink.s360.is/#/reset';
     window.__env.ENV = 'http://helpinghand.cbo.upward.st';
 })(this);
