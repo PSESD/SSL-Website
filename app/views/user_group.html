@@ -43,7 +43,7 @@
                             {{student.school_district}}
                         </td>
                         <td class="text-center">
-                            <a class="glyphicon-relative glyphicon glyphicon-trash"></a>
+                            <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="vm.deleteUser(student._id,$index)"></a>
                         </td>
                     </tr>
                 </tbody>

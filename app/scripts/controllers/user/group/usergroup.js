@@ -4,21 +4,33 @@
     angular.module('sslv2App')
         .controller('UserGroupCtrl', UserGroupCtrl);
 
-    UserGroupCtrl.$inject = ['$state', '$stateParams', 'UserService'];
+    UserGroupCtrl.$inject = ['$state', '$stateParams', 'UserService', '$confirm'];
 
-    function UserGroupCtrl($state, $stateParams, UserService) {
+    function UserGroupCtrl($state, $stateParams, UserService, $confirm) {
 
         var vm = this;
         vm.user_id = $stateParams.id;
-
+        vm.deleteUser = deleteUser;
         UserService.getAssignedStudent($stateParams.id)
             .then(function(response) {
-
                 vm.students = _.get(response, 'data.data', "");
-
             }, function(error) {
                 console.log(error);
             });
+
+        function deleteUser(id, index) {
+            $confirm({ text: 'Are you sure you want to delete this record?' })
+                .then(function() {
+                    UserService.deleteStudent(vm.user_id, id)
+                        .then(function(response) {
+                            if (response.data.success === true) {
+                                vm.students.splice(index, 1);
+                            }
+                        }, function(error) {
+                            console.log(error);
+                        })
+                });
+        }
     }
 
 })();

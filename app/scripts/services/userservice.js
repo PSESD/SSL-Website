@@ -18,7 +18,8 @@
             updateProfile: updateProfile,
             getListStudent: getListStudent,
             addNewStudent: addNewStudent,
-            updateStudent: updateStudent
+            updateStudent: updateStudent,
+            deleteStudent: deleteStudent
         };
 
         return service;
@@ -114,6 +115,14 @@
                     'Authorization': 'Bearer ' + profile.access_token
                 }
             });
+        }
+
+        function deleteStudent(id, student_id) {
+            return $http.delete(RESOURCES.API_URL + profile.organization_id + '/users/' + id + '/students/' + student_id, {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
         }
     }
 })();
