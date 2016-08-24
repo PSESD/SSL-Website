@@ -7,50 +7,66 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <h1 ng-show="vm.user.full_name">User Add Students:{{vm.user.full_name}}</h1>
+
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <h3 class="page-title">User Add Students:{{vm.user.full_name}}</h3>
+                </div>
+            </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="clearfix space20"></div>
+
+        <div class="col-xs-12">
+
             <form class="form-horizontal">
+
                 <div class="form-group">
-                    <div class="checkbox">
-                        <label class="remember" for="new_student">
-                            <input type="checkbox" id="new_student" ng-model="vm.new_student">
-                            New Student
-                        </label>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button ng-click="vm.submit(vm.student)">Submit</button>
+                        <button ui-sref="dashboard.user_group({id:vm.user_id})">Back</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-6 col-sm-10">
+                        <div class="checkbox">
+                            <label for="new_student">
+                                <input type="checkbox" id="new_student" ng-model="vm.new_student"> New Student
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group" ng-hide="vm.new_student">
-                    <label for="student" class="col-sm-2 control-label">Student:</label>
-                    <div class="col-sm-6">
-                        <select ng-model="vm.student.student_id" id="student_id" ng-options="student._id as student.first_name+' '+student.last_name for student in vm.students">
+                    <label for="student_id" class="col-sm-2 control-label">Student:</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select ng-model="vm.student.student_id" class="form-control" id="student_id" ng-options="student._id as student.first_name+' '+student.last_name for student in vm.students">
                         </select>
                     </div>
                 </div>
                 <div class="form-group" ng-show="vm.new_student">
                     <label for="first_name" class="col-sm-2 control-label">First Name:</label>
-                    <div class="col-sm-6">
-                        <input type="text" ng-model="vm.student.first_name">
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="first_name" ng-model="vm.student.first_name">
                     </div>
                 </div>
                 <div class="form-group" ng-show="vm.new_student">
                     <label for="last_name" class="col-sm-2 control-label">Last Name:</label>
-                    <div class="col-sm-6">
-                        <input type="text" ng-model="vm.student.last_name">
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="last_name" ng-model="vm.student.last_name">
                     </div>
                 </div>
                 <div class="form-group" ng-show="vm.new_student">
                     <label for="district_student_id" class="col-sm-2 control-label">District Student ID:</label>
-                    <div class="col-sm-6">
-                        <input type="text" ng-model="vm.student.district_student_id">
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="district_student_id" ng-model="vm.student.district_student_id">
                     </div>
                 </div>
                 <div class="form-group" ng-show="vm.new_student">
                     <label for="school_district" class="col-sm-2 control-label">District Student Name:</label>
-                    <div class="col-sm-6">
-                        <input type="text" ng-model="vm.student.school_district">
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="school_district" ng-model="vm.student.school_district">
                     </div>
                 </div>
 
@@ -60,6 +76,7 @@
                         <button ui-sref="dashboard.user_group({id:vm.user_id})">Back</button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>

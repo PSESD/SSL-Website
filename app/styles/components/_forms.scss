@@ -1,3 +1,11 @@
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control
+{
+  background-color: transparent;
+  opacity: 0.5;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="email"]
@@ -113,4 +121,10 @@ select.inverse:-ms-input-placeholder,
 input.inverse:-ms-input-placeholder
 {
   color: $color-white;
+}
+
+.form-search-icon
+{
+  margin-right: -3px;
+  border-bottom: 1px $color-black solid;
 }

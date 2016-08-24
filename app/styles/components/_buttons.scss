@@ -1,9 +1,21 @@
+.btn:-webkit-autofill,
+.btn:-webkit-autofill:hover,
+.btn:-webkit-autofill:focus,
+.btn:-webkit-autofill:active,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 button {
   font-family: $font-family-kreon;
   font-weight: 700;
   color: $color-grey;
   padding: 5px 15px;
-  margin: 5px auto;
+  margin: 5px;
   border-radius: 50px;
   display: inline-block;
   background-color: $color-white;

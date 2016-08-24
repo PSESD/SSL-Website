@@ -19,6 +19,7 @@ nav.navbar  {
 
       button
       {
+        margin: auto;
         .icon-bar
         {
           background-color: $color-white;
@@ -95,6 +96,8 @@ nav.navbar  {
 
       button
       {
+        margin-left: auto;
+        margin-right: auto;
         @media (max-width: $screen-xs-max) {
           width: 100%;
           padding-top: 10px;
@@ -236,6 +239,8 @@ nav.navbar  {
               }
             }
             button {
+              margin-left: auto;
+              margin-right: auto;
               color: $color-grey;
               text-transform: uppercase;
               display: block;

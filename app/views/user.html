@@ -1,22 +1,28 @@
 <div class="container-fluid" ng-class="currentURL">
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <h1>Manage User</h1>
+        <div class="col-xs-12">
+            <h1 class="page-title">Manage User</h1>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <button ui-sref="dashboard.user_invite">Invite User</button>
-        </div>
-        <div class="col-md-2 col-sm-2 col-xs-2">
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-search"></span>
-                </span>
-                <input type="text" class="form-control" ng-model="search" placeholder="Search Users">
+
+        <div class="col-xs-12">
+            <div class="btn-group">
+                <button ui-sref="dashboard.user_invite">Invite User</button>
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Users">
+                </div>
+            </form>
+        </div>
+        <div class="clearfix space20"></div>
+
+        <div class="col-xs-12">
             <table class="table table-striped">
                 <thead>
                     <tr>
