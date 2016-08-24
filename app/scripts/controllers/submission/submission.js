@@ -10,6 +10,9 @@
 
         var vm = this;
         vm.login_greetings = localStorage.getItem("first_name") || "";
+        vm.help = {
+            templateUrl: 'templates/help.html'
+        };
     }
 
 })();
