@@ -11,7 +11,7 @@
 
     $stateProvider
     .state('dashboard.user_invite', {
-      url: "/user_invite",
+      url: "^/user/invite",
       templateUrl: "views/user_invite.html",
       controller:'UserInviteCtrl',
       controllerAs:'vm'

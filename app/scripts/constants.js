@@ -1,20 +1,19 @@
 (function(){
     'use strict';
+    var __env = {};
+    if(window){
+        Object.assign(__env,window.__env);
+    }
      angular
     .module('sslv2App')
-    .constant('RESOURCES', {
-        'PROTECTED_PATHS':[
-            '/dashboard',
-            '/dashboard/manage'
-        ],
-        'CLIENT_ID':'cbo_client_demo',
-        'CLIENT_SECRET':'7e98a24f4fe91535348f6e87cde866dca9134b50fc029abefdc7278369f2',
-        'AUTH_URL':'https://auth.cbo.upward.st/api/',
-        'API_URL':'https://api.cbo.upward.st/',
-        'RESPONSE_TYPE':'code',
-        'GRANT_TYPE':'password',
-        'ENV':'http://helpinghand.cbo.upward.st',
-        'CALLBACK_URL':'http://studentsuccesslink.s360.is/#/reset',
-        'REDIRECT_URL':'http://studentsuccesslink.s360.is/'
-    });
+    .constant('RESOURCES',__env)
+    .constant('PROTECTED_PATHS',[
+        '/',
+        '/user',
+        '/user/edit/profile',
+        '/user/group',
+        '/user/invite',
+        '/user/edit/permission',
+        '/user/view'
+    ]);
 })();

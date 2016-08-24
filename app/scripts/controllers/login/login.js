@@ -9,26 +9,30 @@
 
   function LoginCtrl($state, $timeout, RESOURCES, $location, $http, GeneralService, LoginService,CookieService) {
     var vm = this;
-    vm.login_greetings = localStorage.getItem("first_name") || "";
+    var email = localStorage.getItem("email") || "";
     vm.message = '';
-
-    vm.help = {
-      templateUrl: 'templates/help.html'
-    }
-
+    
     vm.user = {
       email: '',
       password: '',
       remember: false
     }
+    vm.login_greetings = localStorage.getItem("first_name") || "";
+    vm.help = {
+      templateUrl: 'templates/help.html'
+    }
 
+    if(email!==""){
+      vm.user.email = email = localStorage.getItem("email");
+      vm.user.remember = true;
+    }
     vm.auth = auth;
-
     function auth(user) {
       
       
       var host_name = $location.host()
       var profile = {
+        is_authenticated:false,
         first_name:'',
         last_name:'',
         full_name: '',
@@ -90,9 +94,14 @@
                             }
                           }
                           if(profile.exists){
+                            profile.is_authenticated = true;
                             localStorage.clear();
                             sessionStorage.setItem('id',profile.id);
                             localStorage.setItem('first_name',profile.first_name);
+                            
+                            if(user.remember === true){
+                              localStorage.setItem('email',user.email);
+                            }
                             CookieService.set(profile);
                             $state.go('dashboard');
                           }else{

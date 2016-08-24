@@ -28,10 +28,17 @@
       console.log(error);
     });
   }
-  function deleteUser(id){
+  function deleteUser(id,index){
     $confirm({text:'Are you sure you want to delete this record?'})
     .then(function(){
-      
+      UserService.deleteUser(id)
+      .then(function(response){
+          if(response.data.success === true){
+            vm.users.splice(index,1);
+          }
+      },function(error){
+        console.log(error);
+      })
     });
   }
   }

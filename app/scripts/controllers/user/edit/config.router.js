@@ -11,7 +11,7 @@
 
     $stateProvider
     .state('dashboard.user_edit', {
-      url: "/user_edit",
+      url: "^/user/edit/profile",
       templateUrl: "views/user_edit_profile.html",
       controller:'UserEditCtrl',
       controllerAs:'vm'

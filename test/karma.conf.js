@@ -36,6 +36,7 @@ module.exports = function(config) {
       'bower_components/angular-gravatar/build/angular-gravatar.js',
       'bower_components/lodash/lodash.js',
       'bower_components/angular-confirm-modal/angular-confirm.js',
+      'bower_components/ng-idle/angular-idle.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

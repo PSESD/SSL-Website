@@ -11,7 +11,7 @@
 
     $stateProvider
     .state('dashboard.manage', {
-      url: "/manage",
+      url: "^/manage",
       templateUrl: "views/user.html",
       controller:'UserCtrl',
       controllerAs:'vm'

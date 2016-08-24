@@ -11,7 +11,7 @@
 
     $stateProvider
     .state('dashboard.user_edit_permission', {
-      url: "/user_edit_permission?id",
+      url: "^/user/edit/permission/:id",
       templateUrl: "views/user_edit_permission.html",
       controller:'UserEditPermissionCtrl',
       controllerAs:'vm'

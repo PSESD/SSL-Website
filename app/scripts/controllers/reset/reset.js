@@ -17,7 +17,7 @@
       redirect_to:$stateParams.redirectTo
     }
     vm.reset = reset;
-   
+   vm.message = "";
     function reset(user){
       if(vm.user.password !== vm.user.confirm_password){
         vm.message = "Password does not match the confirm password.";
@@ -27,12 +27,21 @@
       }else{
     ResetService.reset(user)
       .then(function(response){
+        if(response.data.success === true){
+          vm.message = response.data.message;
+          closeMessage();
+        }
       },function(error){
         
       });
       }
     }
-
+    function closeMessage(){
+      $timeout(function(){
+        vm.message = "";
+        $state.go('login');
+      },2000);
+    }
   }
 
 })();

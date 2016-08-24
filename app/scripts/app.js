@@ -7,7 +7,8 @@
       'ui.bootstrap',
       'ngCookies',
       'ui.gravatar',
-      'angular-confirm'
+      'angular-confirm',
+      'ngIdle'
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {
@@ -21,9 +22,9 @@
     .config(configFunction)
     .run(runFunction);
 
-  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider'];
+  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider'];
 
-  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider) {
+  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider) {
 
     $urlRouterProvider.otherwise("/login");
     $httpProvider.defaults.headers.common = {};
@@ -39,12 +40,16 @@
       size     : 50,
       "default": 'mm'
     };
+    // IdleProvider.idle(5); // in seconds
+    // IdleProvider.timeout(10); // in seconds
+    // KeepaliveProvider.interval(5); // in seconds
   }
 
-  runFunction.$inject = ['$rootScope', '$state', 'RESOURCES'];
+  runFunction.$inject = ['$rootScope', '$state', 'RESOURCES','$cookies','Idle','PROTECTED_PATHS'];
 
-  function runFunction($rootScope, $state, RESOURCES) {
+  function runFunction($rootScope, $state, RESOURCES,$cookies,Idle,PROTECTED_PATHS) {
 
+    // Idle.watch();
     $rootScope.$on('$stateChangeError',
       function(event, toState, toParams, fromState, fromParams, error) {
 
@@ -53,17 +58,45 @@
         }
 
       });
+    // $rootScope.$on('IdleStart', function() {
+    //     console.log("idle start");
+    // });
+    // $rootScope.$on('IdleEnd', function() {
+    //     console.log("idleEnd");
+    // });
+    //  $rootScope.$on('Keepalive', function() {
+    //     console.log("keepalive");
+    // });
+
+    //   $rootScope.$on('IdleTimeout', function() {
+    //   console.log("timeout");
+    //   });
+    //   $rootScope.$on('IdleWarn', function(e, countdown) {
+    //     console.log("idle warn");
+    // });
+
+      $rootScope.$on('$stateNotFound', 
+        function(event, unfoundState, fromState, fromParams){ 
+          console.log(unfoundState);
+        })
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
+      var profile;
+          if(sessionStorage.getItem('id') === null){
+            profile = {
+              is_authenticated:false
+            }
+          }else{
+            profile = $cookies.getObject(sessionStorage.getItem('id'));
+          }
+
         if(toState.name !== "dashboard" && toState.name !== "login" && toState.name !== "forgot"){
             $rootScope.currentURL = toState.name.replace('dashboard.','') + '-page';
         }else{
             $rootScope.currentURL = toState.name.replace('/','') + '-page';
         }
-      
-        var isLoggedIn = true;
-        if (!isLoggedIn && pathIsProtected(toState.url)) {
+        if (!profile.is_authenticated && pathIsProtected(toState.url)) {
           event.preventDefault();
           $state.go('login', {}, {reload: true});
         }
@@ -71,7 +104,7 @@
       });
 
     function pathIsProtected(path) {
-      return RESOURCES.PROTECTED_PATHS.indexOf(path) !== -1;
+      return PROTECTED_PATHS.indexOf(path) !== -1;
     }
 
   }

@@ -1,23 +1,24 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular.module('sslv2App')
-    .controller('UserGroupCtrl', UserGroupCtrl);
+    angular.module('sslv2App')
+        .controller('UserGroupCtrl', UserGroupCtrl);
 
-  UserGroupCtrl.$inject = ['$state','$stateParams','UserService'];
+    UserGroupCtrl.$inject = ['$state', '$stateParams', 'UserService'];
 
-  function UserGroupCtrl($state,$stateParams,UserService) {
+    function UserGroupCtrl($state, $stateParams, UserService) {
 
-    var vm = this;
-    
-    UserService.getAssignedStudent($stateParams.id)
-    .then(function(response){
-      
-      vm.students = _.get(response,'data.data',"");
-      
-    },function(error){
-      console.log(error);
-    });
-  }
+        var vm = this;
+        vm.user_id = $stateParams.id;
+
+        UserService.getAssignedStudent($stateParams.id)
+            .then(function(response) {
+
+                vm.students = _.get(response, 'data.data', "");
+
+            }, function(error) {
+                console.log(error);
+            });
+    }
 
 })();

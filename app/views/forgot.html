@@ -27,10 +27,10 @@
             <div class="row">
 
                 <div class="login-container">
-
+                    <h2 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h2>
                     <h3 class="normal">Sign in to your Student Success Link account:</h3>
 
-                    <form class="login-form forgot-form" ng-click="vm.auth()">
+                    <form class="login-form forgot-form" ng-submit="vm.reset(vm.user)">
                         <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                         <div class="form-group">
                             <h3 class="normal">Enter the email associated with your Student Success Link Profile:</h3>

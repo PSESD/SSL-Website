@@ -1,28 +1,41 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular.module('sslv2App')
-    .controller('UserInviteCtrl', UserInviteCtrl);
+    angular.module('sslv2App')
+        .controller('UserInviteCtrl', UserInviteCtrl);
 
-  UserInviteCtrl.$inject = ['$state','UserService'];
+    UserInviteCtrl.$inject = ['$state', 'UserService', '$timeout', 'RESOURCES'];
 
-  function UserInviteCtrl($state,UserService) {
+    function UserInviteCtrl($state, UserService, $timeout, RESOURCES) {
 
-    var vm = this;
-    vm.user = {
-        email:'',
-        role:''
+        var vm = this;
+        vm.message = "";
+        vm.user = {
+            email: '',
+            role: '',
+            caseWorkerRestricted: true,
+            redirect_url: RESOURCES.REDIRECT_URL
+        }
+        vm.submit = submit;
+
+        function submit(user) {
+            UserService.invite(user)
+                .then(function(response) {
+                    if (response.data.success === true) {
+                        vm.message = response.data.message;
+                        closeMessage();
+                    }
+                }, function(error) {
+                    console.log(error);
+                })
+        }
+
+        function closeMessage() {
+            $timeout(function() {
+                vm.message = "";
+                $state.go('dashboard.manage');
+            }, 2000);
+        }
     }
-    vm.submit = submit;
-
-    function submit(user){
-        UserService.invite(user)
-        .then(function(response){
-          console.log(response);
-        },function(error){
-          console.log(error);
-        })
-    }
-  }
 
 })();

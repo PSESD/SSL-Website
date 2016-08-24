@@ -11,7 +11,7 @@
 
     $stateProvider
     .state('dashboard.user_view', {
-      url: "/user_view?id",
+      url: "^/user/view/:id",
       templateUrl: "views/user_view.html",
       controller:'UserViewCtrl',
       controllerAs:'vm'
