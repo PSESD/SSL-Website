@@ -236,7 +236,6 @@ nav.navbar  {
               }
             }
             button {
-              @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
               color: $color-grey;
               text-transform: uppercase;
               display: block;
