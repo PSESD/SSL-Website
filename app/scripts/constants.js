@@ -9,11 +9,12 @@
     .constant('RESOURCES',__env)
     .constant('PROTECTED_PATHS',[
         '/',
-        '/user',
+        '/manage',
         '/user/edit/profile',
-        '/user/group',
+        '/user/group/',
         '/user/invite',
         '/user/edit/permission',
+        '/user/add/student',
         '/user/view'
     ]);
 })();
