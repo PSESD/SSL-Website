@@ -1,20 +1,22 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular
-    .module('sslv2App')
-    .config(configFunction);
+    angular
+        .module('sslv2App')
+        .config(configFunction);
 
-  configFunction.$inject = ['$stateProvider'];
+    configFunction.$inject = ['$stateProvider'];
 
-  function configFunction($stateProvider) {
+    function configFunction($stateProvider) {
 
-    $stateProvider
-    .state('submission', {
-      url: "/submission",
-      templateUrl: "views/submission.html"
-    });
+        $stateProvider
+            .state('submission', {
+                url: "/submission",
+                templateUrl: "views/submission.html",
+                controller: 'SubmissionCtrl',
+                controllerAs: 'vm'
+            });
 
-  }
+    }
 
 })();
