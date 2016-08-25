@@ -8,7 +8,8 @@
       'ngCookies',
       'ui.gravatar',
       'angular-confirm',
-      'ngIdle'
+      'ngIdle',
+      'ngSanitize'
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {

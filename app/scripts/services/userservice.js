@@ -46,7 +46,6 @@
         }
 
         function getById(id) {
-
             return $http.get(RESOURCES.API_URL + profile.organization_id + '/users/' + id, {
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token
