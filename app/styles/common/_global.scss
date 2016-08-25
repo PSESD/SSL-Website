@@ -14,19 +14,19 @@ h1{
   @include font($font-family-kreon, 3em, 1.166666666666667, 700);
 }
 h2{
-  @include font($font-family-open-sans, 2.33em, 1.285714285714286, 700);
+  @include font($font-family-open-sans, 2.333333333333333em, 1.285714285714286, 700);
 }
 h3{
-  @include font($font-family-open-sans, 1.33em, 1.5, 700);
+  @include font($font-family-open-sans, 1.333333333333333em, 1.5, 700);
 }
 h4{
-  @include font($font-family-open-sans, 1.167em, 1.571428571428571, 700);
+  @include font($font-family-open-sans, 1.166666666666667em, 1.571428571428571, 700);
 }
 h5{
   @include font($font-family-open-sans, 1em, 1.5 ,700);
 }
 h6{
-  @include font($font-family-open-sans, 0.83em, 1.5, 700);
+  @include font($font-family-open-sans, 0.833333333333333em, 1.5, 700);
 }
 
 a{

@@ -2,7 +2,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  @include font-size(0.83em, 1.5);
+  @include font-size(0.833333333333333em, 1.5);
 
   @media (max-width: $screen-xs-max)
   {
@@ -11,7 +11,7 @@ footer {
   }
 
   a {
-    @include font-size(1.21em, 1.5);
+    @include font-size(1.211111111111111em, 1.5);
     &:focus,
     &:hover
     {
