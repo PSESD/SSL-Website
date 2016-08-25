@@ -4,7 +4,7 @@ section.main-section
   margin-bottom: 175px;
 
   @media (max-width: $screen-xs-max) {
-    margin-bottom: 350px;
+    margin-bottom: 0;
   }
 }
 .circle-profile {

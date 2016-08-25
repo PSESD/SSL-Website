@@ -63,7 +63,7 @@ nav.navbar  {
 
     @media (max-width: $screen-xs-max) {
       margin: 0 -15px;
-      @include font($font-family-kreon, 1.17em, 1.571428571428571, 700);
+      @include font($font-family-kreon, 1.177777777777777em, 1.571428571428571, 700);
       text-transform: uppercase;
     }
     li {
@@ -230,7 +230,7 @@ nav.navbar  {
               display: block;
               background: transparent;
               color: $color-cyan;
-              @include font-size(0.83em, 1.25);
+              @include font-size(0.833333333333333em, 1.25);
 
               &:focus,
               &:hover{
