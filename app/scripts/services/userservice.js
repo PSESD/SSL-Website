@@ -164,21 +164,23 @@
                         if(embedded.organization !== "")
                         {
                             profile.access = true;
-                            profile.organization_id = embedded.organization._id;
-                            profile.redirect_url = embedded.organization.url;
-                            profile.organization_name = embedded.organization.name;
-                            localStorage.setItem('organization_name', profile.organization_name);
+                            profile.organization_id = _.get(embedded.organization,"_id","");
+                            profile.redirect_url = _.get(embedded.organization,"url","");
+                            profile.organization_name = _.get(embedded.organization,"name","");
+                            if(profile.organization_name !== ""){
+                                localStorage.setItem('organization_name', profile.organization_name);
+                            }
                             if(embedded.users.total>0){
                                 for (var i = 0; i < embedded.users.total; i++) {
-                                    if (embedded.users.data[i].email === credentials.username) {
+                                    if (_.get(embedded.users.data[i],"email","") === credentials.username) {
                                         profile.exists = true;
-                                        profile.id = embedded.users.data[i].id;
-                                        profile.role = embedded.users.data[i].role;
-                                        if (typeof embedded.users.data[i].first_name !== 'undefined' && embedded.users.data[i].first_name) {
-                                            profile.full_name += embedded.users.data[i].first_name + ' ';
-                                            profile.first_name = embedded.users.data[i].first_name;
+                                        profile.id = _.get(embedded.users.data[i],"id","");
+                                        profile.role = _.get(embedded.users.data[i],"role","");
+                                        if (_.get(embedded.users.data[i],"first_name","") !== "") {
+                                            profile.full_name += _.get(embedded.users.data[i],"first_name","") + ' ';
+                                            profile.first_name = _.get(embedded.users.data[i],"first_name","");
                                         }
-                                        if (typeof embedded.users.data[i].last_name !== 'undefined' && embedded.users.data[i].last_name) {
+                                        if (_.get(embedded.users.data[i],"last_name","")) {
                                             profile.full_name += embedded.users.data[i].last_name;
                                             profile.last_name = embedded.users.data[i].last_name;
                                         }
