@@ -299,12 +299,12 @@ button.btn-login,
   &:after
   {
     position: absolute;
-    content: '';
+    content: none;
     top: 0; bottom: 0;
     left: 0; right: 0;
     background: transparent;
     z-index: -1;
-    border-radius: 50px;
+    border-radius: 0;
   }
 
   &:focus,
@@ -318,12 +318,25 @@ button.btn-default,
 .btn.btn-default
 {
   color: $color-white;
-  border-color: $color-white;
+  border: 3px $color-white solid;
   background-color: transparent;
+
+  &:after
+  {
+    position: absolute;
+    content: none;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    background: transparent;
+    z-index: -1;
+    border-radius: 0;
+  }
+
   &:focus,
   &:hover {
-    color: $color-cyan;
+    color: $color-cyan !important;
     background-color: $color-white;
+    border-color: $color-white !important;
   }
 }
 
