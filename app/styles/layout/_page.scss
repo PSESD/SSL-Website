@@ -7,6 +7,16 @@ section.main-section
     margin-bottom: 0;
   }
 }
+
+h1.page-title {
+  .invite-user
+  {
+    font-size: 0.388888888888em;
+    position: relative;
+    top: -4px;
+  }
+}
+
 .circle-profile {
   border-radius: 50px;
   display: inline-block;
@@ -29,8 +39,9 @@ section.main-section
 
   img {
     border-radius: 50px;
-    width: 100%;
+    width: 47px;
     z-index: -2;
+    border: 3px $color-black solid;
   }
 
 }

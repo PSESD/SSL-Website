@@ -20,6 +20,7 @@ nav.navbar  {
       button
       {
         margin: auto;
+        min-width: 0;
         .icon-bar
         {
           background-color: $color-white;
@@ -74,6 +75,15 @@ nav.navbar  {
         }
       }
 
+      &.active
+      {
+        a
+        {
+          color: $color-white;
+          background-color: $color-grey;
+        }
+      }
+
       a {
         color: $color-grey;
         background-color: $color-blue-navy;
@@ -85,7 +95,6 @@ nav.navbar  {
           line-height: 20px;
         }
 
-        &.active,
         &:focus,
         &:hover
         {
@@ -98,6 +107,7 @@ nav.navbar  {
       {
         margin-left: auto;
         margin-right: auto;
+        min-width: 0;
         @media (max-width: $screen-xs-max) {
           width: 100%;
           padding-top: 10px;
@@ -241,6 +251,7 @@ nav.navbar  {
             button {
               margin-left: auto;
               margin-right: auto;
+              min-width: 0;
               color: $color-grey;
               text-transform: uppercase;
               display: block;

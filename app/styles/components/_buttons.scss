@@ -14,7 +14,7 @@ button {
   font-family: $font-family-kreon;
   font-weight: 700;
   color: $color-grey;
-  padding: 5px 15px;
+  padding: 3px 12px;
   margin: 5px;
   border-radius: 50px;
   display: inline-block;
@@ -23,6 +23,8 @@ button {
   -webkit-appearance: inherit;
   cursor: pointer;
   position: relative;
+  min-width: 100px;
+  text-transform: uppercase;
 
   &:after
   {
@@ -47,6 +49,12 @@ button {
 
 .btn {
   @extend button;
+}
+
+button.no-width,
+.btn.no-width
+{
+  min-width: 0;
 }
 
 button.inverse,
