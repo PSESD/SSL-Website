@@ -7,6 +7,12 @@ nav.navbar  {
     height: auto;
   }
 
+  .arrow-container,
+  .arrow-down
+  {
+    display: none;
+  }
+
   .navbar-header {
     width: 15%;
     background-color: $color-blue-navy;
@@ -156,6 +162,29 @@ nav.navbar  {
         &:first-child
         {
           border-left: 1px $color-true-black solid;
+        }
+
+        &.active
+        {
+          .arrow-container
+          {
+            position: absolute;
+            z-index: 1;
+            bottom: -10px;
+            display: block;
+            width: 100%;
+
+            .arrow-down
+            {
+              width: 0;
+              height: 0;
+              margin: auto;
+              border-right: 15px solid transparent;
+              border-left: 15px solid transparent;
+              border-top: 10px solid $color-grey;
+              display: block;
+            }
+          }
         }
 
         > a {
