@@ -293,7 +293,7 @@ button.btn-login,
   border: 3px $color-white solid;
   background-color: transparent;
   text-transform: uppercase;
-  margin: 15px auto;
+  margin: 30px auto;
   @include font($font-family-kreon, 1.5em, 1.444444444444444, 700);
 
   &:after
@@ -325,4 +325,11 @@ button.btn-default,
     color: $color-cyan;
     background-color: $color-white;
   }
+}
+
+.hvr-fade:hover,
+.hvr-fade:focus,
+.hvr-fade:active {
+  background-color: transparent;
+  color: $cyan;
 }

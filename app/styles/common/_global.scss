@@ -41,16 +41,19 @@ a{
 }
 
 .normal {
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 .bold {
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 .italic {
-  font-style: italic;
+  font-style: italic !important;;
+}
+.capitalize {
+  text-transform: capitalize !important;
 }
 .uppercase {
-  text-transform: uppercase;
+  text-transform: uppercase !important;;
 }
 
 .inverse {

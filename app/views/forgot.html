@@ -31,16 +31,19 @@
                     <h3 class="normal">Sign in to your Student Success Link account:</h3>
 
                     <form class="login-form forgot-form" ng-submit="vm.reset(vm.user)">
-                        <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                        <div class="form-group">
-                            <h3 class="normal">Enter the email associated with your Student Success Link Profile:</h3>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"></label>
-                            <input type="email" class="form-control inverse" id="email" placeholder="Email Address" ng-model="vm.user.email" autocomplete="off">
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-login btn-full">Submit</button>
+                        <div class="blur-bg"></div>
+                        <div class="content-form">
+                            <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            <div class="form-group">
+                                <h3 class="normal">Enter the email associated with your Student Success Link Profile:</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"></label>
+                                <input type="email" class="form-control inverse" id="email" placeholder="Email Address" ng-model="vm.user.email" autocomplete="off">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="hvr-fade btn btn-login btn-full">Submit</button>
+                            </div>
                         </div>
                     </form>
 
