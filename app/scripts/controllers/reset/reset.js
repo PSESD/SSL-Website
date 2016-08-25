@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('ResetCtrl', ResetCtrl);
 
-    ResetCtrl.$inject = ['$state', 'ResetService', '$stateParams', '$timeout'];
+    ResetCtrl.$inject = ['ResetService', '$stateParams', '$timeout','UserService'];
 
-    function ResetCtrl($state, ResetService, $stateParams, $timeout) {
+    function ResetCtrl(ResetService, $stateParams, $timeout,UserService) {
 
         var vm = this;
         vm.help = {
@@ -32,20 +32,17 @@
                 ResetService.reset(user)
                     .then(function(response) {
                         if (response.data.success === true) {
-                            vm.message = response.data.message;
-                            closeMessage();
+                            var credentials ={
+                                email: vm.user.email,
+                                password: vm.user.password,
+                                remember: false
+                            }
+                            UserService.login(credentials,vm);
                         }
                     }, function(error) {
 
                     });
             }
-        }
-
-        function closeMessage() {
-            $timeout(function() {
-                vm.message = "";
-                $state.go('login');
-            }, 2000);
         }
     }
 

@@ -10,7 +10,7 @@
 
     var vm = this;
     var profile = $cookies.getObject(sessionStorage.getItem('id'));
-    vm.full_name  = profile.full_name;
+    vm.full_name  = sessionStorage.getItem('full_name');
     vm.email = profile.email;
     vm.logout = logout;
 

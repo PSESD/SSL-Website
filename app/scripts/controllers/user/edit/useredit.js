@@ -35,6 +35,17 @@
         UserService.updateProfile(data)
         .then(function(response){
             if(response.data.success === true){
+                var full_name = "";
+                if(vm.user.first_name !== ""){
+                    full_name = vm.user.first_name;
+                }
+                if(vm.user.middle_name !== ""){
+                    full_name = full_name +' '+vm.user.middle_name;
+                }
+                if(vm.user.last_name !== ""){
+                    full_name = full_name +' '+vm.user.last_name;
+                }
+                sessionStorage.setItem("full_name",full_name);
                 vm.message = response.data.message;
                 closeMessage();
             }
@@ -45,14 +56,14 @@
     }
     function closeMessage(type){
         if(type === "password"){
-$timeout(function(){
-            vm.message = "";
-        },2000);
+            $timeout(function(){
+                vm.message = "";
+            },2000);
         }else{
-$timeout(function(){
-            vm.message = "";
-            $state.go("dashboard");
-        },2000);
+            $timeout(function(){
+                vm.message = "";
+                $state.go("dashboard",{},{reload:true});
+            },2000);
         }
         
     }
