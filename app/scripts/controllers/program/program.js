@@ -4,12 +4,13 @@
     angular.module('sslv2App')
         .controller('ProgramCtrl', ProgramCtrl);
 
-    ProgramCtrl.$inject = ['$state', 'ProgramService','$filter','$sce'];
+    ProgramCtrl.$inject = ['$state', 'ProgramService','$filter','$sce','$confirm'];
 
-    function ProgramCtrl($state, ProgramService,$filter,$sce) {
+    function ProgramCtrl($state, ProgramService,$filter,$sce,$confirm) {
 
         var vm = this;
         vm.message = "";
+        vm.deleteProgram = deleteProgram;
         ProgramService.getAll()
             .then(function(response){
                 var data = _.get(response,"data","");
@@ -26,6 +27,20 @@
             },function(error){
             console.log(error);
             });
+
+        function deleteProgram(id,index){
+            $confirm({text:'Are you sure you want to delete this record?'})
+                .then(function(){
+                    ProgramService.deleteProgram(id)
+                        .then(function(response){
+                            if(response.data.success === true){
+                                vm.programs.splice(index,1);
+                            }
+                        },function(error){
+                            console.log(error);
+                        })
+                });
+        }
     }
 
 })();
