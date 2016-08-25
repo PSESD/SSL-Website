@@ -7,6 +7,12 @@ nav.navbar  {
     height: auto;
   }
 
+  .arrow-container,
+  .arrow-down
+  {
+    display: none;
+  }
+
   .navbar-header {
     width: 15%;
     background-color: $color-blue-navy;
@@ -20,6 +26,7 @@ nav.navbar  {
       button
       {
         margin: auto;
+        min-width: 0;
         .icon-bar
         {
           background-color: $color-white;
@@ -74,6 +81,15 @@ nav.navbar  {
         }
       }
 
+      &.active
+      {
+        a
+        {
+          color: $color-white;
+          background-color: $color-grey;
+        }
+      }
+
       a {
         color: $color-grey;
         background-color: $color-blue-navy;
@@ -85,7 +101,6 @@ nav.navbar  {
           line-height: 20px;
         }
 
-        &.active,
         &:focus,
         &:hover
         {
@@ -98,6 +113,7 @@ nav.navbar  {
       {
         margin-left: auto;
         margin-right: auto;
+        min-width: 0;
         @media (max-width: $screen-xs-max) {
           width: 100%;
           padding-top: 10px;
@@ -146,6 +162,29 @@ nav.navbar  {
         &:first-child
         {
           border-left: 1px $color-true-black solid;
+        }
+
+        &.active
+        {
+          .arrow-container
+          {
+            position: absolute;
+            z-index: 1;
+            bottom: -10px;
+            display: block;
+            width: 100%;
+
+            .arrow-down
+            {
+              width: 0;
+              height: 0;
+              margin: auto;
+              border-right: 15px solid transparent;
+              border-left: 15px solid transparent;
+              border-top: 10px solid $color-grey;
+              display: block;
+            }
+          }
         }
 
         > a {
@@ -241,6 +280,7 @@ nav.navbar  {
             button {
               margin-left: auto;
               margin-right: auto;
+              min-width: 0;
               color: $color-grey;
               text-transform: uppercase;
               display: block;

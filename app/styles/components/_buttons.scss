@@ -14,7 +14,7 @@ button {
   font-family: $font-family-kreon;
   font-weight: 700;
   color: $color-grey;
-  padding: 5px 15px;
+  padding: 3px 12px;
   margin: 5px;
   border-radius: 50px;
   display: inline-block;
@@ -23,6 +23,8 @@ button {
   -webkit-appearance: inherit;
   cursor: pointer;
   position: relative;
+  min-width: 100px;
+  text-transform: uppercase;
 
   &:after
   {
@@ -47,6 +49,12 @@ button {
 
 .btn {
   @extend button;
+}
+
+button.no-width,
+.btn.no-width
+{
+  min-width: 0;
 }
 
 button.inverse,
@@ -285,7 +293,7 @@ button.btn-login,
   border: 3px $color-white solid;
   background-color: transparent;
   text-transform: uppercase;
-  margin: 15px auto;
+  margin: 30px auto;
   @include font($font-family-kreon, 1.5em, 1.444444444444444, 700);
 
   &:after
@@ -317,4 +325,11 @@ button.btn-default,
     color: $color-cyan;
     background-color: $color-white;
   }
+}
+
+.hvr-fade:hover,
+.hvr-fade:focus,
+.hvr-fade:active {
+  background-color: transparent;
+  color: $cyan;
 }

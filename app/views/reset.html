@@ -31,16 +31,19 @@
                     <h3 class="normal">Sign in to your Student Success Link account:</h3>
 
                     <form class="login-form" ng-submit="vm.reset(vm.user)">
-                        <div class="form-group">
-                            <label for="password"></label>
-                            <input type="password" class="form-control inverse" id="password" placeholder="Password" ng-model="vm.user.password" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label for="password_conf"></label>
-                            <input type="password" class="form-control inverse" id="password_conf" placeholder="Confirm Password" ng-model="vm.user.confirm_password" autocomplete="off">
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-login btn-full">Submit</button>
+                        <div class="blur-bg"></div>
+                        <div class="content-form">
+                            <div class="form-group">
+                                <label for="password"></label>
+                                <input type="password" class="form-control inverse" id="password" placeholder="Password" ng-model="vm.user.password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="password_conf"></label>
+                                <input type="password" class="form-control inverse" id="password_conf" placeholder="Confirm Password" ng-model="vm.user.confirm_password" autocomplete="off">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="hvr-fade btn btn-login btn-full">Submit</button>
+                            </div>
                         </div>
                     </form>
 

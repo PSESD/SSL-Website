@@ -14,10 +14,22 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li ui-sref-active="active"><a class="text-center text-uppercase" href="#">Students</a></li>
-                    <li ui-sref-active="active"><a class="text-center text-uppercase" ui-sref="dashboard.program">Programs</a></li>
-                    <li ui-sref-active="active"><a class="text-center text-uppercase" href="#">Reports</a></li>
-                    <li ui-sref-active="active"><a class="text-center text-uppercase" ui-sref="dashboard.manage">Manage</a></li>
+                    <li ui-sref-active="active">
+                        <div class="arrow-container"><div class="arrow-down"></div></div>
+                        <a class="text-center text-uppercase" href="#">Students</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <div class="arrow-container"><div class="arrow-down"></div></div>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.program">Programs</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <div class="arrow-container"><div class="arrow-down"></div></div>
+                        <a class="text-center text-uppercase" href="#">Reports</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <div class="arrow-container"><div class="arrow-down"></div></div>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.manage">Manage</a>
+                    </li>
                 </ul>
                 <ul class="nav-profile">
                     <li class="profile-tab">
@@ -31,7 +43,7 @@
                     <li class="logout-tab text-center">
                         <div class="user-data">
                             <a ui-sref="dashboard.user_edit" class="edit-profile">Edit Profile</a>
-                            <button class="text-uppercase btn inverse" ng-click="vm.logout()">Logout</button>
+                            <button class="text-uppercase btn inverse no-width" ng-click="vm.logout()">Log out</button>
                         </div>
                     </li>
                 </ul>
@@ -60,8 +72,7 @@
                 <div class="row">
                     <div class="footer-widget footer-widget-2">
                         <ul>
-                            <li><a href="">About Student</a></li>
-                            <li><a href="">Success Link</a></li>
+                            <li><a href="">About Student Success Link</a></li>
                             <li><a href="">Privacy Policy</a></li>
                         </ul>
                         <div class="copyright">&copy;2016 PSESD</div>
@@ -71,7 +82,7 @@
             <div class="col-sm-2">
                 <div class="row">
                     <div class="footer-widget footer-widget-3">
-                        <a href="" class="btn inverse">HELP</a>
+                        <a href="" class="btn inverse no-width">HELP</a>
                     </div>
                 </div>
             </div>
