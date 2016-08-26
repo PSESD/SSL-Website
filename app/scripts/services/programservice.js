@@ -18,6 +18,7 @@
         return service;
 
         function getAll(){
+
             return $http.get(RESOURCES.API_URL + profile.organization_id + '/programs', {
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token

@@ -9,6 +9,7 @@
     function ProgramStudentCtrl(ProgramService,ProgramStudentService,$stateParams,$sce,$filter) {
 
         var vm = this;
+        vm.id = $stateParams.id
         vm.message = "";
         vm.program_students = [];
         vm.program={

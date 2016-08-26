@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['UserService'];
+    LoginCtrl.$inject = ['LoginService',];
 
-    function LoginCtrl(UserService) {
+    function LoginCtrl(LoginService) {
         var vm = this;
         var email = localStorage.getItem("email") || "";
         vm.message = '';
@@ -32,7 +32,7 @@
         vm.auth = auth;
 
         function auth(user) {
-            UserService.login(user,vm);
+            LoginService.validate(user,vm);
         }
     }
 })();

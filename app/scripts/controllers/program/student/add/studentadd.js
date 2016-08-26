@@ -17,7 +17,7 @@
 
             ProgramStudentService.addStudent(id,data)
                 .then(function(response){
-
+                        console.log(response);
                     if(response.data.success === true){
                         closeMessage(true);
                     }
