@@ -317,8 +317,8 @@ button.btn-login,
 button.btn-default,
 .btn.btn-default
 {
-  color: $color-white;
-  border: 3px $color-white solid;
+  color: $color-black;
+  border: 3px $color-black solid;
   background-color: transparent;
 
   &:after
@@ -335,9 +335,24 @@ button.btn-default,
   &:focus,
   &:hover {
     color: $color-cyan !important;
-    background-color: $color-white;
-    border-color: $color-white !important;
+    background-color: transparent;
+    border-color: $color-black !important;
   }
+
+  &.inverse
+  {
+    color: $color-white;
+    border: 3px $color-white solid;
+    background-color: transparent;
+
+    &:focus,
+    &:hover {
+      color: $color-cyan !important;
+      background-color: $color-white;
+      border-color: $color-white !important;
+    }
+  }
+
 }
 
 .hvr-fade:hover,
