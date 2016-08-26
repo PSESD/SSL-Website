@@ -6,9 +6,9 @@ fieldset[disabled] .form-control
   opacity: 0.5;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"]
+input[type="text"].form-control,
+input[type="password"].form-control,
+input[type="email"].form-control
 {
   background: transparent;
   border-radius: 0;
@@ -26,7 +26,7 @@ input[type="email"]
 
 }
 
-textarea {
+textarea.form-control {
   background: transparent;
   border-radius: 0;
   border: 0;
@@ -43,7 +43,7 @@ textarea {
 
 }
 
-select {
+select.form-control {
   background: transparent;
   border-radius: 0;
   border: 0;
@@ -55,6 +55,10 @@ select {
     color: $color-white;
     border-bottom: 1px $color-white solid;
     background: transparent;
+
+    option {
+      background: $color-black;
+    }
 
   }
 
@@ -66,57 +70,67 @@ select {
   font-weight: 700;
 }
 
-select:focus,
-input:focus
+textarea.form-control:focus,
+select.form-control:focus,
+input.form-control:focus
 {
   border-color: $color-black;
   outline: none;
   box-shadow: none;
 }
 
-select.inverse:focus,
-input.inverse:focus
+textarea.form-control.inverse:focus,
+select.form-control.inverse:focus,
+input.form-control.inverse:focus
 {
   border-color: $color-white;
   outline: none;
   box-shadow: none;
 }
 
+textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
 input::-webkit-input-placeholder
 {
   color: $color-black;
 }
+textarea:-moz-placeholder,
 select:-moz-placeholder,
 input:-moz-placeholder
 {
   color: $color-black;
 }
+textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder
 {
   color: $color-black;
 }
+textarea:-ms-input-placeholder,
 select:-ms-input-placeholder,
 input:-ms-input-placeholder
 {
   color: $color-black;
 }
+textarea.inverse::-webkit-input-placeholder,
 select.inverse::-webkit-input-placeholder,
 input.inverse::-webkit-input-placeholder
 {
   color: $color-white;
 }
+textarea.inverse:-moz-placeholder,
 select.inverse:-moz-placeholder,
 input.inverse:-moz-placeholder
 {
   color: $color-white;
 }
+textarea.inverse::-moz-placeholder,
 select.inverse::-moz-placeholder,
 input.inverse::-moz-placeholder
 {
   color: $color-white;
 }
+textarea.inverse:-ms-input-placeholder,
 select.inverse:-ms-input-placeholder,
 input.inverse:-ms-input-placeholder
 {
