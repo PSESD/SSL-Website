@@ -142,3 +142,19 @@ input.inverse:-ms-input-placeholder
   margin-right: -3px;
   border-bottom: 1px $color-black solid;
 }
+
+@media (max-width: $screen-xs-max) {
+  .form-search
+  {
+    .form-group
+    {
+      display: inline-block;
+
+      .form-search-icon
+      {
+        position: relative;
+        top: -2px;
+      }
+    }
+  }
+}
