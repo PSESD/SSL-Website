@@ -6,6 +6,7 @@ footer {
 
   @media (max-width: $screen-xs-max)
   {
+    margin-top: 50px;
     position: relative;
     bottom: auto;
   }
@@ -25,6 +26,11 @@ footer {
     li {
       display: inline-block;
       padding: 0 10px 0 0;
+
+      @media (max-width: $screen-xs-max) {
+        display: block;
+      }
+
     }
   }
 
@@ -36,6 +42,12 @@ footer {
     @media (max-width: $screen-xs-max)
     {
       display: block;
+      padding: 25px;
+      @include font-size(0.91em, 1.8);
+    }
+    @media (max-width: $screen-xss-max)
+    {
+
     }
 
     > div > div.row {
@@ -61,7 +73,6 @@ footer {
       @media (max-width: $screen-xs-max)
       {
         padding: 15px 0 0;
-        text-align: center;
         height: auto;
       }
 
@@ -72,6 +83,7 @@ footer {
         @media (max-width: $screen-xs-max)
         {
           border: 0;
+          font-size: 1.2em;
         }
       }
     }

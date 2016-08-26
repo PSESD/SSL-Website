@@ -22,19 +22,33 @@ nav.navbar  {
     }
     @media (max-width: $screen-xs-max) {
       width: 100%;
+      height: 75px;
 
       button
       {
         margin: auto;
         min-width: 0;
+
+        @media (max-width: $screen-xs-max) {
+          position: relative;
+          top: 22px;
+          right: 30px;
+
+          &:focus,
+          &:hover
+          {
+            background-color: transparent;
+          }
+
+        }
+
         .icon-bar
         {
           background-color: $color-white;
         }
       }
-    }
 
-    @media (max-width: $screen-xs-max) {
+
       #navbar {
         margin-top: -1px;
         margin-left: 25%;
@@ -44,6 +58,7 @@ nav.navbar  {
     .navbar-brand {
       padding: 15px 30px;
       height: auto;
+      float: right;
 
       @media (max-width: $screen-sm-max) {
         padding: 15px 5px 15px 20px;
@@ -51,6 +66,9 @@ nav.navbar  {
       @media (max-width: $screen-xs-max) {
         width: 150px;
         padding: 10px;
+        float: left;
+        margin-top: 10px;
+        margin-left: 30px;
       }
       @media (max-width: $screen-xss-max) {
         width: 150px;

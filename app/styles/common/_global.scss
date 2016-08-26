@@ -7,7 +7,6 @@ body{
   text-rendering: optimizeLegibility;
   @include font($font-family-open-sans, 1em, 1.5, 400);
   color: $color-black;
-  margin-bottom: 50px;
 }
 
 h1{
