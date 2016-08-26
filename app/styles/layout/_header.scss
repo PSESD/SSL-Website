@@ -41,10 +41,31 @@ nav.navbar  {
         margin: auto;
         min-width: 0;
 
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        -o-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+
+        &:after
+        {
+          background: transparent;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+
         @media (max-width: $screen-xs-max) {
           position: relative;
-          top: 22px;
-          right: 30px;
+          top: 26px;
+          right: 40px;
+          width: 24px;
+          height: 24px;
+          padding: 0;
 
           &:focus,
           &:hover
@@ -57,7 +78,69 @@ nav.navbar  {
         .icon-bar
         {
           background-color: $color-white;
+          position: absolute;
+
+          -webkit-transform: rotate(0deg);
+          -moz-transform: rotate(0deg);
+          -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+          -webkit-transition: .25s ease-in-out;
+          -moz-transition: .25s ease-in-out;
+          -o-transition: .25s ease-in-out;
+          transition: .25s ease-in-out;
         }
+
+
+
+        &.navbar-toggle span:nth-child(2) {
+          top: 0;
+          width: 0;
+          left: 50%;
+        }
+
+        &.navbar-toggle span:nth-child(3) {
+          top: 2px;
+          -webkit-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+
+        &.navbar-toggle span:nth-child(4) {
+          top: 2px;
+          -webkit-transform: rotate(-45deg);
+          -moz-transform: rotate(-45deg);
+          -o-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+        }
+
+        &.navbar-toggle span:nth-child(5) {
+          top: 8px;
+          width: 0;
+          left: 50%;
+        }
+
+        &.navbar-toggle.collapsed span:nth-child(2) {
+          top: 0;
+          width: 22px;
+          left: 0;
+        }
+
+        &.navbar-toggle.collapsed span:nth-child(3),
+        &.navbar-toggle.collapsed span:nth-child(4) {
+          top: 2px;
+          -webkit-transform: rotate(0deg);
+          -moz-transform: rotate(0deg);
+          -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+
+        &.navbar-toggle.collapsed span:nth-child(5) {
+          top: 8px;
+          width: 22px;
+          left: 0;
+        }
+
       }
 
 
