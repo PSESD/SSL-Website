@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('ProgramStudentCtrl', ProgramStudentCtrl);
 
-    ProgramStudentCtrl.$inject = ['ProgramService','ProgramStudentService','$stateParams','$sce','$filter'];
+    ProgramStudentCtrl.$inject = ['ProgramService','ProgramStudentService','$stateParams','$sce','$filter','$confirm'];
 
-    function ProgramStudentCtrl(ProgramService,ProgramStudentService,$stateParams,$sce,$filter) {
+    function ProgramStudentCtrl(ProgramService,ProgramStudentService,$stateParams,$sce,$filter,$confirm) {
 
         var vm = this;
         vm.id = $stateParams.id
@@ -15,6 +15,7 @@
         vm.program={
             name:''
         }
+        vm.deleteStudent = deleteStudent;
 
         ProgramService.getById($stateParams.id)
             .then(function (response) {
@@ -51,6 +52,19 @@
             },function (error) {
                 console.log(error);
             });
+        function deleteStudent(id,index){
+            $confirm({text:'Are you sure you want to delete this record?'})
+                .then(function(){
+                    ProgramStudentService.deleteStudent($stateParams.id,id)
+                        .then(function(response){
+                            if(response.data.success === true){
+                                vm.program_students.splice(index,1);
+                            }
+                        },function(error){
+                            console.log(error);
+                        })
+                });
+        }
     }
 
 
