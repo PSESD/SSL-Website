@@ -39,7 +39,8 @@
         exists: false,
         access_token: '',
         refresh_token: '',
-        organization_id: ''
+        organization_id: '',
+        status:''
       }
       var key = GeneralService.base64Encode(RESOURCES.CLIENT_ID + ':' + RESOURCES.CLIENT_SECRET);
       var grant_type = encodeURIComponent(RESOURCES.GRANT_TYPE);
@@ -82,7 +83,11 @@
                         profile.full_name += embedded.users.data[i].last_name;
                         profile.last_name = embedded.users.data[i].last_name;
                       }
-
+                      if(profile.role === "admin"){
+                        profile.status = "";
+                      }else{
+                        profile.status = "?assign=true";
+                      }
                     }
                   }
                   profile.is_authenticated = true;

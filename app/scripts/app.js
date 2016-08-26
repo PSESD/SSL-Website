@@ -9,7 +9,8 @@
       'ui.gravatar',
       'angular-confirm',
       'ngIdle',
-      'ngSanitize'
+      'ngSanitize',
+      'ngTagsInput'
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {
