@@ -19,7 +19,7 @@
 
         ProgramService.getById($stateParams.id)
             .then(function (response) {
-                vm.program.name = response.data.name;
+                vm.program = response.data;
             },function(error){
                 console.log(error);
             });

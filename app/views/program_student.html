@@ -83,7 +83,7 @@
                     </td>
                     <td ng-bind-html="student.cohort"></td>
                     <td class="text-center">
-                        <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.program_edit({id:student._id})"></a>
+                        <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.program_student_edit({id:vm.program._id,student_id:student.id})"></a>
                     </td>
                     <td class="text-center">
                         <a class="glyphicon glyphicon-trash" ng-click="vm.deleteStudent(student.id,$index)"></a>

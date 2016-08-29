@@ -14,9 +14,20 @@
             updateProgram:updateProgram,
             deleteStudent:deleteStudent,
             addStudent:addStudent,
-            getAll:getAll
+            getAll:getAll,
+            getProgramStudent:getProgramStudent,
+            updateProgramStudent:updateProgramStudent
         }
         return service;
+
+        function getProgramStudent(id,student_id){
+
+            return $http.get(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students/' + student_id, {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
 
         function getAll(){
             return $http.get(RESOURCES.API_URL + profile.organization_id + '/students'+profile.status, {
@@ -60,6 +71,14 @@
 
         function addStudent(id,data){
            return $http.post(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students', $.param(data), {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
+
+        function updateProgramStudent(id,student_id,data){
+            return $http.put(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students/' + student_id, $.param(data), {
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token
                 }
