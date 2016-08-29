@@ -10,7 +10,8 @@
       'angular-confirm',
       'ngIdle',
       'ngSanitize',
-      'ngTagsInput'
+      'ngTagsInput',
+      'ui.multiselect'
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {
