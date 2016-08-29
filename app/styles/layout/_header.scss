@@ -162,16 +162,19 @@ nav.navbar  {
         width: 150px;
         padding: 10px;
         float: left;
-        margin-top: 10px;
+        margin-top: 5px;
         margin-left: 30px;
+        height: 69px;
       }
       @media (max-width: $screen-xss-max) {
         width: 150px;
         padding: 5px;
+        margin-top: 10px;
+        height: 64px;
       }
 
       img {
-        height: 100%;
+        width: 100%;
       }
     }
   }
