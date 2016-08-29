@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('ProgramEditCtrl', ProgramEditCtrl);
 
-    ProgramEditCtrl.$inject = ['$state', 'ProgramService','$timeout','$stateParams'];
+    ProgramEditCtrl.$inject = ['$state', 'ProgramService','$timeout','$stateParams','$filter'];
 
-    function ProgramEditCtrl($state, ProgramService,$timeout,$stateParams) {
+    function ProgramEditCtrl($state, ProgramService,$timeout,$stateParams,$filter) {
 
         var vm = this;
         vm.message = "";
@@ -21,8 +21,8 @@
         ProgramService.getById($stateParams.id)
             .then(function (response) {
                 vm.program.name = _.get(response,"data.name","");
-                vm.program.created = _.get(response,"data.created","");
-                vm.program.last_updated = _.get(response,"data.last_updated","");
+                vm.program.created = $filter('date')(_.get(response,"data.created",""), "yyyy/MM/dd");
+                vm.program.last_updated =  $filter('date')(_.get(response,"data.last_updated",""), "yyyy/MM/dd");
             },function (error) {
                 console.log(error);
             });

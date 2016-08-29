@@ -73,18 +73,15 @@
                     cohort.push(v.text);
                 });
                 student.cohort = cohort;
-            }
-            ProgramStudentService.updateProgramStudent(id,student_id,data)
-                .then(function(response){
-                    console.log(response);
-                    // if(response.data.success === true){
-                    //     vm.message = response.data.message;
-                    //     closeMessage(true);
-                    // }
-                    // if(response.data.success === true){
-                    //     closeMessage(true);
-                    // }
 
+            }
+            ProgramStudentService.updateProgramStudent(id,student_id,student)
+                .then(function(response){
+
+                    if(response.data.success === true){
+                        vm.message = response.data.message;
+                        closeMessage(true);
+                    }
                 },function(error){
                     console.log(error);
                 });
