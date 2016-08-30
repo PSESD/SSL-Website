@@ -205,7 +205,6 @@
                         })
                     }
                 });
-                console.log(vm.students);
             }
 
         }
