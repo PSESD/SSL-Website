@@ -35,6 +35,12 @@ h1.page-title {
     font-size: 0.388888888888em;
     position: relative;
     top: -4px;
+
+    @media (max-width: $screen-xs-max) {
+      display: block;
+      margin-top: 20px;
+    }
+
   }
 }
 
