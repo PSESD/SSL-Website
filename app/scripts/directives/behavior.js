@@ -2,17 +2,20 @@
     'use strict';
 
     angular.module('sslv2App')
-        .directive('trend', trend);
+        .directive('behavior', behavior);
 
-    function trend() {
+    function behavior() {
         var directive={
             link:link,
-            template:"<div uib-popover-template='{{url}}' popover-triger='{{trigger}}' popover-placement='left' class='glyphicon glyphicon-arrow-right {{status}}'></div>",
+            template:"<div uib-popover-template='{{url}}' popover-triger='{{trigger}}' popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
             restrict:'E',
             scope:{
                 url:'@',
-                status:'@',
-                trend:'@'
+                label:'@',
+                info:'@',
+                academic:'@',
+                month:'@',
+                trigger:'@'
             }
         }
         return directive;

@@ -112,6 +112,26 @@
                     <td>
                         <attendance trigger="mouseenter" label="{{student.xsre.attendance.month.flag}}" info="{{student.xsre.attendance.month.count}}" url="{{vm.attendance_modal_url}}"></attendance>
                     </td>
+                    <td>
+                        <trend url="{{vm.trend_modal_url}}" trend="{{student.xsre.attendance_risk.trend}}" status="{{student.xsre.attendance_risk.trend}}"></trend>
+                    </td>
+                    <td>
+                        <behavior trigger="mouseenter" label="{{student.xsre.behavior.month.flag}}" info="{{student.xsre.behavior.month.count}}" url="{{vm.behavior_modal_url}}"></behavior>
+                    </td>
+                    <td>
+                        <div ng-if="student.xsre.on_track_to_graduate === 'Yes' ">
+                            <span class="glyphicon glyphicon-ok-sign alert-success" aria-hidden="true"></span>
+                        </div>
+                        <div ng-if="student.xsre.on_track_to_graduate === 'No' ">
+                            <span class="glyphicon glyphicon-remove-sign alert-danger" aria-hidden="true"></span>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-pencil" href=""></a>
+                    </td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-trash" href=""></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -18,6 +18,7 @@
         vm.students = "";
         vm.attendance_modal_url = "templates/attendance.html";
         vm.behavior_modal_url = "templates/behavior.html";
+        vm.trend_modal_url = "templates/trend.html";
         init();
 
         function init(){
@@ -145,7 +146,7 @@
                     student.xsre.grade_level = _.get(data,"xsre.gradeLevel","");
                     student.xsre.latest_date = $filter('date')(_.get(data,"latestDate",""), "yyyy/MM/dd");
                     student.xsre.latest_date_time = $filter('date')(_.get(data,"latestDateTime",""), "yyyy/MM/dd");
-                    student.xsre.on_track_to_graduate = _.get(data,"xsre.onTrackToGraduate",[]);
+                    student.xsre.on_track_to_graduate = _.get(data,"xsre.onTrackToGraduate","");
                     student.xsre.school_name = _.get(data,"xsre.schoolName","");
                     student.xsre.school_year = _.get(data,"xsre.schoolYear","");
 
@@ -204,6 +205,7 @@
                         })
                     }
                 });
+                console.log(vm.students);
             }
 
         }
