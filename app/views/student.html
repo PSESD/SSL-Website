@@ -109,6 +109,9 @@
                     <td>
                         {{student.xsre.school_name}}
                     </td>
+                    <td>
+                        <attendance trigger="mouseenter" label="{{student.xsre.attendance.month.flag}}" info="{{student.xsre.attendance.month.count}}" url="{{vm.attendance_modal_url}}"></attendance>
+                    </td>
                 </tr>
                 </tbody>
             </table>

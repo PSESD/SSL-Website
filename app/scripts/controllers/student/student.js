@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('StudentCtrl', StudentCtrl);
 
-    StudentCtrl.$inject = ['$state','$scope','$timeout','StudentService','$filter'];
+    StudentCtrl.$inject = ['$timeout','StudentService','$filter'];
 
-    function StudentCtrl($state,$scope,$timeout,StudentService,$filter) {
+    function StudentCtrl($timeout,StudentService,$filter) {
 
         var vm = this;
         var data ="";
@@ -16,6 +16,8 @@
         var list_of_district_options = [];
         var list_of_school_options = [];
         vm.students = "";
+        vm.attendance_modal_url = "templates/attendance.html";
+        vm.behavior_modal_url = "templates/behavior.html";
         init();
 
         function init(){
@@ -84,7 +86,11 @@
                             type:''
                         }
                     },
-                    attendance_risk_flag:[],
+                    attendance_risk:{
+                        day_absent:'',
+                        risk_level:'',
+                        trend:''
+                    },
                     behavior:{
                         month:{
                             count:'',
@@ -122,11 +128,11 @@
                     student.district_student_id = _.get(data,"district_student_id","");
                     student.email = _.get(data,"email","");
                     student.emergency1_email = _.get(data,"emergency1_email","");
-                    student.emergency1_name = _.get(data,"emergency1_namev","");
+                    student.emergency1_name = _.get(data,"emergency1_name","");
                     student.emergency1_phone = _.get(data,"emergency1_phone","");
                     student.emergency1_relationship = _.get(data,"emergency1_relationship","");
                     student.emergency2_email = _.get(data,"emergency2_email","");
-                    student.emergency2_name = _.get(data,"emergency2_namev","");
+                    student.emergency2_name = _.get(data,"emergency2_name","");
                     student.emergency2_phone = _.get(data,"emergency2_phone","");
                     student.emergency2_relationship = _.get(data,"emergency2_relationship","");
                     student.first_name = _.get(data,"first_name","");
@@ -136,7 +142,6 @@
                     student.phone = _.get(data,"phone","");
                     student.programs = _.get(data,"programs",[]);
                     student.school_district = _.get(data,"school_district","");
-                    student.xsre.attendance_risk_flag = _.get(data,"xsre.attendanceRiskFlag",[]);
                     student.xsre.grade_level = _.get(data,"xsre.gradeLevel","");
                     student.xsre.latest_date = $filter('date')(_.get(data,"latestDate",""), "yyyy/MM/dd");
                     student.xsre.latest_date_time = $filter('date')(_.get(data,"latestDateTime",""), "yyyy/MM/dd");
@@ -144,27 +149,33 @@
                     student.xsre.school_name = _.get(data,"xsre.schoolName","");
                     student.xsre.school_year = _.get(data,"xsre.schoolYear","");
 
-                    _.forEach(_.get(data,"xsre.behaviorCount",[]),function(value){
-                            if(value.type === "lastMonth"){
-                                student.xsre.behavior.month.count = value.count;
-                                student.xsre.behavior.month.flag = value.flag;
-                                student.xsre.behavior.month.type = value.type;
+                    _.forEach(_.get(data,"xsre.attendanceRiskFlag",[]),function(value){
+                        student.xsre.attendance_risk.day_absent = value.daysAbsent;
+                        student.xsre.attendance_risk.risk_level = value.riskLevel;
+                        student.xsre.attendance_risk.trend = value.trend;
+                    });
 
-                            }else if(value === "currentAcademicYear"){
-                                student.xsre.behavior.academic.count = value.count;
-                                student.xsre.behavior.academic.flag = value.flag;
-                                student.xsre.behavior.academic.type = value.type;
-                            }
+                    _.forEach(_.get(data,"xsre.behaviorCount",[]),function(value){
+                        if(value.type === "lastMonth"){
+                            student.xsre.behavior.month.count = value.count;
+                            student.xsre.behavior.month.flag = value.flag.toLowerCase();
+                            student.xsre.behavior.month.type = value.type;
+
+                        }else if(value === "currentAcademicYear"){
+                            student.xsre.behavior.academic.count = value.count;
+                            student.xsre.behavior.academic.flag = value.flag.toLowerCase();
+                            student.xsre.behavior.academic.type = value.type;
+                        }
                     });
                     _.forEach(_.get(data,"xsre.attendanceCount",[]),function(value){
                         if(value.type === "lastMonth"){
                             student.xsre.attendance.month.count = value.count;
-                            student.xsre.attendance.month.flag = value.flag;
+                            student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
 
                         }else if(value === "currentAcademicYear"){
                             student.xsre.attendance.academic.count = value.count;
-                            student.xsre.attendance.academic.flag = value.flag;
+                            student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
                         }
                     });
@@ -193,7 +204,6 @@
                         })
                     }
                 });
-                console.log(vm.students);
             }
 
         }
