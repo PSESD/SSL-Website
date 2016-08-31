@@ -1,8 +1,9 @@
 section.main-section
 {
   margin-top: 80px;
-  margin-bottom: 175px;
-  min-height: 400px;
+  margin-bottom: 20px;
+  //min-height: 400px;
+  min-height: calc(100vh - 225px);
 
   @media (max-width: $screen-xs-max) {
     margin-top: 75px;

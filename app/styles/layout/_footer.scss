@@ -1,16 +1,7 @@
 footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
-  @include font-size(0.833333333333333em, 1.5);
 
-  @media (max-width: $screen-xs-max)
-  {
-    margin-top: 50px;
-    position: relative;
-    bottom: auto;
-    z-index: 0;
-  }
+  @include font-size(0.833333333333333em, 1.5);
 
   a {
     &:focus,
@@ -37,13 +28,14 @@ footer {
 
   .footer-container
   {
-    padding: 15px;
     display: flex;
+    min-height: 125px;
+    padding: 25px;
 
     @media (max-width: $screen-xs-max)
     {
       display: block;
-      padding: 25px;
+
       @include font-size(0.91em, 1.8);
     }
     @media (max-width: $screen-xss-max)
@@ -61,7 +53,7 @@ footer {
 
     .footer-widget
     {
-      padding: 15px 55px;
+      padding: 5px 55px;
       height: 100%;
       @media (max-width: $screen-md-max)
       {
@@ -90,3 +82,5 @@ footer {
     }
   }
 }
+
+
