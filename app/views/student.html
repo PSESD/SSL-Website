@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 inverse header-background">
             <h1 class="page-title">
-                Students <div class="divider-vertical"></div> <button class="btn-default inverse invite-user">Add Student</button>
+                Students <div class="divider-vertical"></div> <button class="btn-default inverse invite-user" ui-sref="dashboard.student_add">Add Student</button>
             </h1>
         </div>
 
@@ -136,7 +136,7 @@
                             <a class="glyphicon glyphicon-pencil" href=""></a>
                         </td>
                         <td class="text-center">
-                            <a class="glyphicon glyphicon-trash" href=""></a>
+                            <a class="glyphicon glyphicon-trash" ng-click="vm.deleteStudent(student.id,$index)"></a>
                         </td>
                     </tr>
                     </tbody>

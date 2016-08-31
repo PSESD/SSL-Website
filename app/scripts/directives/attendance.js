@@ -7,8 +7,7 @@
     function attendance() {
         var directive={
             link:link,
-            //template:"<div popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
-            template:"",
+            template:"<div popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
             restrict:'E',
             scope:{
                 url:'@',

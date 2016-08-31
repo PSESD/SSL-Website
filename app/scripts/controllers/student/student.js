@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('StudentCtrl', StudentCtrl);
 
-    StudentCtrl.$inject = ['$timeout','StudentService','$filter'];
+    StudentCtrl.$inject = ['$timeout','StudentService','$filter','$confirm'];
 
-    function StudentCtrl($timeout,StudentService,$filter) {
+    function StudentCtrl($timeout,StudentService,$filter,$confirm) {
 
         var vm = this;
         var data ="";
@@ -19,6 +19,7 @@
         vm.attendance_modal_url = "templates/attendance.html";
         vm.behavior_modal_url = "templates/behavior.html";
         vm.trend_modal_url = "templates/trend.html";
+        vm.deleteStudent = deleteStudent;
         init();
 
         function init(){
@@ -32,7 +33,6 @@
 
             StudentService.getAllStudent()
                 .then(function(response){
-                    console.log(response.data);
                     $timeout(getAll(response),500);
                 },function(error){
                     console.log(error);
@@ -45,6 +45,19 @@
                     console.log(error);
                 });
 
+        }
+        function deleteStudent(id,index){
+            $confirm({text:'Are you sure you want to delete this record?'})
+                .then(function(){
+                    StudentService.deleteStudent(id)
+                        .then(function(response){
+                            if(response.data.success === true){
+                                vm.students.splice(index,1);
+                            }
+                        },function(error){
+                            console.log(error);
+                        })
+                });
         }
 
         function clearVariables(){

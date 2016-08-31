@@ -10,4 +10,42 @@
     window.__env.CALLBACK_URL = 'http://localhost:9000/#/reset';
     // window.__env.CALLBACK_URL = 'http://studentsuccesslink.s360.is/#/reset';
     window.__env.ENV = 'http://helpinghand.cbo.upward.st';
+    window.__env.DISTRICT = [{
+        id:'seattle',
+        name:'Seattle'
+    },{
+        id:'highline',
+        name:'Highline'
+    },{
+        id:'federalway',
+        name:'Federal Way'
+    },{
+        id:'renton',
+        name:'Renton'
+    },{
+        id:'northshore',
+        name:'North Shore'
+    },{
+        id:'tukwila',
+        name:'Tukwila'
+    }];
+    window.__env.RELATIONSHIP = [{
+        id:'parent',
+        name:'Parent'
+    },{
+        id:'grandparent',
+        name:'Grandparent'
+    },{
+        id:'aunt',
+        name:'Aunt'
+    },{
+        id:'uncle',
+        name:'Uncle'
+    },{
+        id:'brother',
+        name:'Brother'
+    },{
+        id:'sister',
+        name:'Sister'
+    }];
 })(this);
