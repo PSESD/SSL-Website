@@ -14,7 +14,8 @@
             getXSRE:getXSRE,
             getAllStudent:getAllStudent,
             deleteStudent:deleteStudent,
-            getStudentSummary:getStudentSummary
+            getStudentSummary:getStudentSummary,
+            addStudent:addStudent
 
         };
 
@@ -51,6 +52,22 @@
                     'Authorization': 'Bearer ' + profile.access_token
                 }
 
+            })
+        }
+
+        function addStudent(data){
+            return $http.post(RESOURCES.API_URL + profile.organization_id + '/students', $.param(data), {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
+
+        function deleteStudent(id) {
+           return $http.delete(RESOURCES.API_URL + profile.organization_id + '/students/' + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
             })
         }
     }

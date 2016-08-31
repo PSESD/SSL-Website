@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 inverse header-background">
             <h1 class="page-title">
-                Students <div class="divider-vertical"></div> <button class="btn-default inverse invite-user">Add Student</button>
+                Students <div class="divider-vertical"></div> <button class="btn-default inverse invite-user" ui-sref="dashboard.student_add">Add Student</button>
             </h1>
         </div>
 
@@ -116,13 +116,13 @@
                             {{student.xsre.school_name}}
                         </td>
                         <td>
-                            <attendance trigger="mouseenter" label="{{student.xsre.attendance.month.flag}}" info="{{student.xsre.attendance.month.count}}" url="{{vm.attendance_modal_url}}"></attendance>
+                            <attendance risk_level="{{student.xsre.attendance_risk.risk_level}}" academic="{{student.xsre.attendance.academic.count}}" month="{{student.xsre.attendance.month.count}}" label="{{student.xsre.attendance.academic.flag}}" info="{{student.xsre.attendance.academic.count}}" url="{{vm.attendance_modal_url}}"></attendance>
                         </td>
                         <td>
                             <trend url="{{vm.trend_modal_url}}" trend="{{student.xsre.attendance_risk.trend}}" status="{{student.xsre.attendance_risk.trend}}"></trend>
                         </td>
                         <td>
-                            <behavior trigger="mouseenter" label="{{student.xsre.behavior.month.flag}}" info="{{student.xsre.behavior.month.count}}" url="{{vm.behavior_modal_url}}"></behavior>
+                            <behavior  academic="{{student.xsre.behavior.academic.count}}" month="{{student.xsre.behavior.month.count}}" label="{{student.xsre.behavior.academic.flag}}" info="{{student.xsre.behavior.academic.count}}" url="{{vm.behavior_modal_url}}"></behavior>
                         </td>
                         <td>
                             <div ng-if="student.xsre.on_track_to_graduate === 'Yes' ">
@@ -136,7 +136,7 @@
                             <a class="glyphicon glyphicon-pencil" href=""></a>
                         </td>
                         <td class="text-center">
-                            <a class="glyphicon glyphicon-trash" href=""></a>
+                            <a class="glyphicon glyphicon-trash" ng-click="vm.deleteStudent(student.id,$index)"></a>
                         </td>
                     </tr>
                     </tbody>

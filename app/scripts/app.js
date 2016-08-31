@@ -5,6 +5,7 @@
     .module('sslv2App', [
       'ui.router',
       'ui.bootstrap',
+      'ui.mask',
       'ngCookies',
       'ui.gravatar',
       'angular-confirm',
@@ -12,6 +13,7 @@
       'ngSanitize',
       'ngTagsInput',
       'ui.multiselect'
+
     ])
     .factory('headerInjector', [function() {
       var headerInjector = {

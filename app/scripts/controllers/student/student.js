@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('StudentCtrl', StudentCtrl);
 
-    StudentCtrl.$inject = ['$timeout','StudentService','$filter'];
+    StudentCtrl.$inject = ['$timeout','StudentService','$filter','$confirm'];
 
-    function StudentCtrl($timeout,StudentService,$filter) {
+    function StudentCtrl($timeout,StudentService,$filter,$confirm) {
 
         var vm = this;
         var data ="";
@@ -19,6 +19,7 @@
         vm.attendance_modal_url = "templates/attendance.html";
         vm.behavior_modal_url = "templates/behavior.html";
         vm.trend_modal_url = "templates/trend.html";
+        vm.deleteStudent = deleteStudent;
         init();
 
         function init(){
@@ -44,6 +45,19 @@
                     console.log(error);
                 });
 
+        }
+        function deleteStudent(id,index){
+            $confirm({text:'Are you sure you want to delete this record?'})
+                .then(function(){
+                    StudentService.deleteStudent(id)
+                        .then(function(response){
+                            if(response.data.success === true){
+                                vm.students.splice(index,1);
+                            }
+                        },function(error){
+                            console.log(error);
+                        })
+                });
         }
 
         function clearVariables(){
@@ -162,19 +176,20 @@
                             student.xsre.behavior.month.flag = value.flag.toLowerCase();
                             student.xsre.behavior.month.type = value.type;
 
-                        }else if(value === "currentAcademicYear"){
+                        }else if(value.type === "currentAcademicYear"){
                             student.xsre.behavior.academic.count = value.count;
                             student.xsre.behavior.academic.flag = value.flag.toLowerCase();
                             student.xsre.behavior.academic.type = value.type;
                         }
                     });
                     _.forEach(_.get(data,"xsre.attendanceCount",[]),function(value){
+
                         if(value.type === "lastMonth"){
                             student.xsre.attendance.month.count = value.count;
                             student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
 
-                        }else if(value === "currentAcademicYear"){
+                        }else if(value.type === "currentAcademicYear"){
                             student.xsre.attendance.academic.count = value.count;
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
