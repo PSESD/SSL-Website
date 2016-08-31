@@ -45,6 +45,9 @@
                 if(vm.user.last_name !== ""){
                     full_name = full_name +' '+vm.user.last_name;
                 }
+                if(full_name.length > 10){
+                    full_name = full_name.substr(0,7) + "...";
+                }
                 sessionStorage.setItem("full_name",full_name);
                 vm.message = response.data.message;
                 closeMessage();

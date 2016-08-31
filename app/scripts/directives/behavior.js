@@ -7,15 +7,14 @@
     function behavior() {
         var directive={
             link:link,
-            template:"<div uib-popover-template='{{url}}' popover-triger='{{trigger}}' popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
+            template:"<div uib-popover-template='{{url}}' popover-triger='mouseenter' popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
             restrict:'E',
             scope:{
                 url:'@',
                 label:'@',
                 info:'@',
                 academic:'@',
-                month:'@',
-                trigger:'@'
+                month:'@'
             }
         }
         return directive;

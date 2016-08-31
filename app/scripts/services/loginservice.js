@@ -93,6 +93,9 @@
                   profile.is_authenticated = true;
                   localStorage.clear();
                   sessionStorage.setItem('id', profile.id);
+                  if(profile.full_name.length > 10){
+                    profile.full_name = profile.full_name.substr(0,7) + '...';
+                  }
                   sessionStorage.setItem('full_name',profile.full_name);
                   localStorage.setItem('first_name', profile.first_name);
                   if (user.remember === true) {

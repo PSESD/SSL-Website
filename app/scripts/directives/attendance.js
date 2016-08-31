@@ -7,7 +7,8 @@
     function attendance() {
         var directive={
             link:link,
-            template:"<div uib-popover-template='{{url}}' popover-triger='{{trigger}}' popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
+            //template:"<div popover-placement='left'><span class='label label-{{label}}'>{{info}}</span></div>",
+            template:"",
             restrict:'E',
             scope:{
                 url:'@',
@@ -15,7 +16,7 @@
                 info:'@',
                 academic:'@',
                 month:'@',
-                trigger:'@'
+                risk_level:'@'
             }
         }
         return directive;

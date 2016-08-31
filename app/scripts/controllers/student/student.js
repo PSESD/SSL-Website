@@ -32,6 +32,7 @@
 
             StudentService.getAllStudent()
                 .then(function(response){
+                    console.log(response.data);
                     $timeout(getAll(response),500);
                 },function(error){
                     console.log(error);
@@ -162,19 +163,20 @@
                             student.xsre.behavior.month.flag = value.flag.toLowerCase();
                             student.xsre.behavior.month.type = value.type;
 
-                        }else if(value === "currentAcademicYear"){
+                        }else if(value.type === "currentAcademicYear"){
                             student.xsre.behavior.academic.count = value.count;
                             student.xsre.behavior.academic.flag = value.flag.toLowerCase();
                             student.xsre.behavior.academic.type = value.type;
                         }
                     });
                     _.forEach(_.get(data,"xsre.attendanceCount",[]),function(value){
+
                         if(value.type === "lastMonth"){
                             student.xsre.attendance.month.count = value.count;
                             student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
 
-                        }else if(value === "currentAcademicYear"){
+                        }else if(value.type === "currentAcademicYear"){
                             student.xsre.attendance.academic.count = value.count;
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
