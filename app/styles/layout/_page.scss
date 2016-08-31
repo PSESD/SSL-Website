@@ -8,6 +8,18 @@ section.main-section
     margin-top: 75px;
     margin-bottom: 0;
   }
+
+  .filter-container
+  {
+    .filter-select
+    {
+      @media (max-width: $screen-xs-max) {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+
 }
 
 .header-background
