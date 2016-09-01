@@ -15,7 +15,9 @@
             getAllStudent:getAllStudent,
             deleteStudent:deleteStudent,
             getStudentSummary:getStudentSummary,
-            addStudent:addStudent
+            addStudent:addStudent,
+            getById:getById,
+            updateStudent:updateStudent
 
         };
 
@@ -65,6 +67,22 @@
 
         function deleteStudent(id) {
            return $http.delete(RESOURCES.API_URL + profile.organization_id + '/students/' + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
+
+        function getById(id){
+           return $http.get(RESOURCES.API_URL + profile.organization_id + '/students/' + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
+
+        function updateStudent(id,data){
+            return $http.put(RESOURCES.API_URL + profile.organization_id + '/students/' + id, $.param(data), {
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token
                 }

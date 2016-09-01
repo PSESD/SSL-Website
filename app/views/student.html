@@ -101,7 +101,9 @@
                     <tbody>
                     <tr ng-repeat="student in vm.students |filter:search|orderBy:sortType:sortReverse">
                         <td>
-                            {{student.first_name}} {{student.last_name}}
+                            <a href="javascript:void(0)" ui-sref="dashboard.student_detail({id:student.id})">
+                                {{student.first_name}} {{student.last_name}}
+                            </a>
                         </td>
                         <td>
                             {{student.district_student_id}}
@@ -133,7 +135,7 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <a class="glyphicon glyphicon-pencil" href=""></a>
+                            <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.student_edit({id:student.id})"></a>
                         </td>
                         <td class="text-center">
                             <a class="glyphicon glyphicon-trash" ng-click="vm.deleteStudent(student.id,$index)"></a>
