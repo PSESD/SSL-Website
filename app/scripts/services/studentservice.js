@@ -17,7 +17,8 @@
             getStudentSummary:getStudentSummary,
             addStudent:addStudent,
             getById:getById,
-            updateStudent:updateStudent
+            updateStudent:updateStudent,
+            getStudentById:getStudentById
 
         };
 
@@ -83,6 +84,14 @@
 
         function updateStudent(id,data){
             return $http.put(RESOURCES.API_URL + profile.organization_id + '/students/' + id, $.param(data), {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
+
+        function getStudentById(id){
+            return $http.get(RESOURCES.API_URL + profile.organization_id + '/students/' + id+'/general', {
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token
                 }
