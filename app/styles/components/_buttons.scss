@@ -5,307 +5,63 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active
-{
-  transition: background-color 5000s ease-in-out 0s;
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 button {
-  font-family: $font-family-kreon;
-  font-weight: 700;
-  color: $color-grey;
-  padding: 3px 12px;
-  margin: 5px;
-  border-radius: 50px;
-  display: inline-block;
-  background-color: $color-white;
-  border: 0;
-  -webkit-appearance: inherit;
-  cursor: pointer;
-  position: relative;
-  min-width: 100px;
-  text-transform: uppercase;
-
-  &:after
-  {
-    position: absolute;
-    content: '';
-    top: -2px; bottom: -2px;
-    left: -3px; right: -3px;
-    background: linear-gradient(to right, $color-cyan, $color-purple);
-    z-index: -1;
-    border-radius: 50px;
-  }
-
-  &:focus,
-  &:hover {
+    font-family: $font-family-kreon;
+    font-weight: 700;
+    display: inline-block;
     color: $color-grey;
-    background-color: $color-black;
-    outline: none;
-    box-shadow: none;
-  }
+    text-transform: uppercase;
+    margin: 5px;
+    padding: 2px 20px;
+    position: relative;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    background-color: $white;
+    background-clip: padding-box;
+    cursor: pointer;
+    min-width: 100px;
 
+    &::after {
+        position: absolute;
+        top: -2px;
+        bottom: -2px;
+        left: -2px;
+        right: -2px;
+        content: '';
+        z-index: -1;
+        border-radius: 15px;
+        @include linear-gradient(45deg, $cyan 0%, $purple 100%);
+    }
+    &:hover, &:focus{
+      color: $color-white;
+      background-color: transparent;
+    }
 }
+
+//Button Default
 
 .btn {
-  @extend button;
+    @extend button;
 }
 
-button.no-width,
-.btn.no-width
-{
-  min-width: 0;
-}
 
-button.inverse,
-.btn.inverse {
-  color: $color-grey;
-  border-color: $color-white;
-  background-color: $color-black;
-
-  &:focus,
-  &:hover {
-    color: $color-grey;
-    background-color: $color-white;
-  }
-}
-
-button.btn-full,
-.btn.btn-full {
-  display: block;
-  width: 100%;
-}
-
-button.btn-black,
-.btn.btn-black {
-  color: $color-black;
-  border-color: $color-black;
-
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-black;
-  }
-}
-
-button.btn-black.inverse,
-.btn.btn-black.inverse {
-  color: $color-white;
-  border-color: $color-black;
-  background-color: $color-black;
-
-  &:focus,
-  &:hover {
-    color: $color-black;
-    background-color: $color-white;
-  }
-}
-
-button.btn-blue-navy,
-.btn.btn-blue-navy {
-  color: $color-blue-navy;
-  border-color: $color-blue-navy;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-blue-navy;
-  }
-}
-
-button.btn-blue-navy.inverse,
-.btn.btn-blue-navy.inverse {
-  color: $color-white;
-  border-color: $color-blue-navy;
-  background-color: $color-blue-navy;
-  &:focus,
-  &:hover {
-    color: $color-blue-navy;
-    background-color: $color-white;
-  }
-}
-
-button.btn-grey,
-.btn.btn-grey {
-  color: $color-grey;
-  border-color: $color-grey;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-grey;
-  }
-}
-
-button.btn-grey.inverse,
-.btn.btn-grey.inverse {
-  color: $color-white;
-  border-color: $color-grey;
-  background-color: $color-grey;
-  &:focus,
-  &:hover {
-    color: $color-grey;
-    background-color: $color-white;
-  }
-}
-
-button.btn-purple,
-.btn.btn-purple {
-  color: $color-purple;
-  border-color: $color-purple;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-purple;
-  }
-}
-
-button.btn-purple.inverse,
-.btn.btn-purple.inverse {
-  color: $color-white;
-  border-color: $color-purple;
-  background-color: $color-purple;
-  &:focus,
-  &:hover {
-    color: $color-purple;
-    background-color: $color-white;
-  }
-}
-
-button.btn-cyan,
-.btn.btn-cyan {
-  color: $color-cyan;
-  border-color: $color-cyan;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-cyan;
-  }
-}
-
-button.btn-cyan.inverse,
-.btn.btn-cyan.inverse {
-  color: $color-white;
-  border-color: $color-cyan;
-  background-color: $color-cyan;
-  &:focus,
-  &:hover {
-    color: $color-cyan;
-    background-color: transparent;
-  }
-}
-
-button.btn-teal,
-.btn.btn-teal {
-  color: $color-teal;
-  border-color: $color-teal;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-teal;
-  }
-}
-
-button.btn-teal.inverse,
-.btn.btn-teal.inverse {
-  color: $color-white;
-  border-color: $color-teal;
-  background-color: $color-teal;
-  &:focus,
-  &:hover {
-    color: $color-teal;
-    background-color: transparent;
-  }
-}
-
-button.btn-orange,
-.btn.btn-orange {
-  color: $color-orange;
-  border-color: $color-orange;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-orange;
-  }
-}
-
-button.btn-orange.inverse,
-.btn.btn-orange.inverse {
-  color: $color-white;
-  border-color: $color-orange;
-  background-color: $color-orange;
-  &:focus,
-  &:hover {
-    color: $color-orange;
-    background-color: transparent;
-  }
-}
-
-button.btn-pink,
-.btn.btn-pink {
-  color: $color-pink;
-  border-color: $color-pink;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-pink;
-  }
-}
-
-button.btn-pink.inverse,
-.btn.btn-pink.inverse {
-  color: $color-white;
-  border-color: $color-pink;
-  background-color: $color-pink;
-  &:focus,
-  &:hover {
-    color: $color-pink;
-    background-color: transparent;
-  }
-}
-
-button.btn-dark-grey,
-.btn.btn-dark-grey {
-  color: $color-dark-grey;
-  border-color: $color-dark-grey;
-  &:focus,
-  &:hover {
-    color: $color-white;
-    background-color: $color-dark-grey;
-  }
-}
-
-button.btn-dark-grey.inverse,
-.btn.btn-dark-grey.inverse {
-  color: $color-white;
-  border-color: $color-dark-grey;
-  background-color: $color-dark-grey;
-  &:focus,
-  &:hover {
-    color: $color-dark-grey;
-    background-color: transparent;
-  }
-}
+//Button Login
 
 button.btn-login,
 .btn.btn-login
 {
-  padding: 15px 30px;
+  padding: 15px 40px;
   color: $color-white;
   border: 3px $color-white solid;
   background-color: transparent;
   text-transform: uppercase;
   margin: 30px auto;
+  border-radius: 30px;
   @include font($font-family-kreon, 1.5em, 1.444444444444444, 700);
-
-  &:after
-  {
-    position: absolute;
-    content: none;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    background: transparent;
-    z-index: -1;
-    border-radius: 0;
-  }
 
   &:focus,
   &:hover {
@@ -314,50 +70,41 @@ button.btn-login,
   }
 }
 
-button.btn-default,
-.btn.btn-default
-{
-  color: $color-black;
-  border: 3px $color-black solid;
+//Button Reverse
+button.btn-reverse,
+.btn.btn-reverse{
   background-color: transparent;
-
-  &:after
-  {
-    position: absolute;
-    content: none;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    background: transparent;
-    z-index: -1;
-    border-radius: 0;
+  border: 2px $color-white solid;
+  color: $white;
+  &:focus,
+  &:hover {
+    color: $color-cyan;
+    background-color: $color-white;
   }
+}
+
+
+//Button Dark
+button.btn-dark,
+.btn.btn-dark{
+  background-color: $color-blue-navy;
 
   &:focus,
   &:hover {
-    color: $color-cyan !important;
-    background-color: transparent;
-    border-color: $color-black !important;
+
+
   }
-
-  &.inverse
-  {
-    color: $color-white;
-    border: 3px $color-white solid;
-    background-color: transparent;
-
-    &:focus,
-    &:hover {
-      color: $color-cyan !important;
-      background-color: $color-white;
-      border-color: $color-white !important;
-    }
-  }
-
 }
 
-.hvr-fade:hover,
-.hvr-fade:focus,
-.hvr-fade:active {
-  background-color: transparent;
-  color: $cyan;
+//Button Helper Classes
+
+button.no-width,
+.btn.no-width {
+    min-width: 0;
+}
+
+button.btn-full,
+.btn.btn-full {
+    display: block;
+    width: 100%;
 }

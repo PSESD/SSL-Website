@@ -2,69 +2,59 @@ body.login-page,
 body.forgot-page,
 body.submission-page,
 body.reset-page {
-
   background: url('../../images/bg-full-width.jpg') no-repeat center center fixed;
   background-size: cover;
   justify-content: center;
   color: $color-white;
   background-color: $color-pink;
-
   a {
     color: $color-white;
-
     &:focus,
     &:hover {
-
       color: $color-white;
       text-decoration: underline;
-
     }
   }
 
-  .message-outer
-  {
+
+  .login-wrapper{
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 2em;
+  }
+
+  .message-outer {
     position: fixed;
     width: 100%;
     top: 15px;
-
     @media (max-width: $screen-xs-max) {
       position: relative;
     }
-
     @media (max-height: 600px) {
       position: relative;
     }
-
   }
 
-  .greating-message
-  {
-    margin-bottom: 0;
-  }
-  .signin-message
-  {
-    margin-top: 0;
-  }
+
 
   div.checkbox {
     margin-bottom: 5px;
   }
 
-  .login-form
-  {
-    background: rgba(255,255,255,0.4);
+  .login-welcome-content{
+    h3{
+      margin: 0;
+    }
+  }
+
+  .login-form {
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 5px;
-    box-shadow: 0 0 25px -5px $color-true-black;
+    box-shadow: 0 0 40px -5px rgba($color-true-black, 0.3);
     padding: 15px 45px;
     margin: 15px auto;
     position: relative;
-
-    @media (max-width: $screen-xs-max) {
-      padding: 15px;
-    }
-
-    .blur-bg
-    {
+    .blur-bg {
       position: absolute;
       top: 0;
       left: 0;
@@ -75,86 +65,66 @@ body.reset-page {
       z-index: -1;
       background-position-y: 66%;
     }
-
     input {
       text-align: center;
     }
-
   }
-
-  .forgot-form
-  {
-    padding-bottom: 30px;
-
-    .back_btn
-    {
-      margin-bottom: 15px;
+  .forgot-form {
+    //padding-bottom: 30px;
+    .back_btn {
+      position: absolute;
+      right: 0;
+      top: 0;
       display: block;
-      width: 100%;
-      text-align: right;
+      padding: 1em;
+      // margin-bottom: 15px;
+      // display: block;
+      // width: 100%;
+      // text-align: right;
     }
   }
-
   ui-view.ng-scope {
-
     height: 100%;
     width: 100%;
     position: absolute;
-
     div.page-wrapper {
-
       position: relative;
       top: 45%;
       transform: translateY(-50%);
-
       @media (max-width: $screen-xs-max) {
         top: 0;
         transform: none;
       }
-
-      @media (max-height: 600px) {
+      @media (max-height: 640px) {
         top: 0;
         transform: none;
       }
-
     }
-
-    footer
-    {
+    footer {
       width: 100%;
       position: fixed;
       bottom: 0;
       margin-bottom: 40px;
-      @include font-size(1em, 1.5);
-
-      @media (max-height: 600px) {
+      @include font-size(1em,
+        1.5);
+      @media (max-height: 640px) {
         position: relative;
       }
-
       @media (max-width: $screen-xs-max) {
         position: relative;
       }
-
       ul {
         padding-left: 0;
         list-style: none;
-
         li {
           display: inline-block;
           padding: 0 15px;
-
-          @media (max-width: $screen-xss-max)
-          {
+          @media (max-width: $screen-xss-max) {
             display: block;
             width: 100%;
           }
-
         }
-
       }
-
     }
-
   }
-
 }

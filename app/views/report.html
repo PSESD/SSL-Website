@@ -16,11 +16,14 @@
         <div class="col-xs-12">
             <h2 class="text-center text-uppercase">Filter</h2>
         </div>
-        <div class="col-xs-12 text-center">
-            <multiselect change="vm.changePrograms()" enable-filter="true" header="Programs" ng-model="vm.selected_programs" options="c.name for c in vm.programs" data-multiple="true"></multiselect>
-            <multiselect enable-filter="true" header="Districts" ng-model="vm.selected_districts" options="c.name for c in vm.districts" data-multiple="true"></multiselect>
-            <multiselect enable-filter="true" header="Cohorts" ng-model="vm.selected_cohorts" options="c.name for c in vm.cohorts" data-multiple="true"></multiselect>
+        <div class="clearfix"></div>
+        <div class="col-xs-12 text-center filter-container">
+            <multiselect class="filter-select" change="vm.changePrograms()" enable-filter="true" header="Programs" ng-model="vm.selected_programs" options="c.name for c in vm.programs" data-multiple="true"></multiselect>
+            <multiselect class="filter-select" enable-filter="true" header="Districts" ng-model="vm.selected_districts" options="c.name for c in vm.districts" data-multiple="true"></multiselect>
+            <multiselect class="filter-select" enable-filter="true" header="Cohorts" ng-model="vm.selected_cohorts" options="c.name for c in vm.cohorts" data-multiple="true"></multiselect>
+            <div class="clearfix"></div>
         </div>
+        <div class="clearfix"></div>
         <div class="col-md-4 text-center">
             <h2>{{vm.report.total_student}}</h2>
             <h3>Student</h3>

@@ -248,3 +248,13 @@
   @include bg-color($color-dark-grey, .5);
   color: $color-white;
 }
+
+.bg-gradient-purple{
+  @include linear-gradient(145deg, $color-purple 0%, $pink 80%);
+  color: $color-white;
+}
+
+.bg-gradient-orange{
+  @include linear-gradient(-145deg, $color-orange 0%, $pink 80%);
+  color: $color-white;
+}

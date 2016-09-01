@@ -18,3 +18,20 @@
     line-height: $line-height;
     font-weight: unquote($font-weight);
 }
+
+
+/*----------  Gradient https://www.sitepoint.com/building-linear-gradient-mixin-sass/  ----------*/
+
+// ex. @include linear-gradient(-45deg, $orange 0%, $pink 69%);
+
+@mixin linear-gradient($direction, $color-stops...) {
+  // Direction has been omitted and happens to be a color-stop
+  @if is-direction($direction) == false {
+    $color-stops: $direction, $color-stops;
+    $direction: 180deg;
+  }
+
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}

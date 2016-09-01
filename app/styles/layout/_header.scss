@@ -219,7 +219,7 @@ nav.navbar  {
         a
         {
           color: $color-white;
-          background-color: $color-grey;
+          background-color: $dark-grey;
         }
       }
 
@@ -314,7 +314,7 @@ nav.navbar  {
               margin: auto;
               border-right: 15px solid transparent;
               border-left: 15px solid transparent;
-              border-top: 10px solid $color-grey;
+              border-top: 10px solid $dark-grey;
               display: block;
             }
           }
@@ -330,7 +330,7 @@ nav.navbar  {
           &:hover
           {
             color: $color-white;
-            background-color: $color-grey;
+            background-color: $dark-grey;
           }
 
           @media (max-width: $screen-sm-max) {
@@ -347,7 +347,7 @@ nav.navbar  {
       width: 25%;
       margin-bottom: 0;
       float: left;
-      padding: 8px 0;
+      padding: 11px 0;
 
       @media (max-width: $screen-md-max) {
         width: 30%;
