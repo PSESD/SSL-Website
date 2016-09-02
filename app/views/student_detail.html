@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-xs-12 inverse header-background">
-            <h1 class="page-title"></h1>
+            <h1 class="page-title">{{vm.student.personal.first_name}} {{vm.student.personal.last_name}}</h1>
         </div>
 
         <div class="clearfix space20"></div>
@@ -22,26 +22,26 @@
                 <legend>Personal Information</legend>
                 <dl>
                     <dt>District ID</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.local_id}}</dd>
                     <dt>Birthday</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.xsre.demographics.birth_date}}</dd>
                     <dt>Race/Ethnicity</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.xsre.demographics.races}}</dd>
                     <dt>Gender</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.xsre.demographics.sex}}</dd>
                     <dt>College Bound</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.college_bound}}</dd>
                 </dl>
             </fieldset>
             <fieldset>
                 <legend>Personal Contact</legend>
                 <dl>
                     <dt>Phone</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.phone}}</dd>
                     <dt>Email</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.email}}</dd>
                     <dt>Address</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.address}}</dd>
                 </dl>
             </fieldset>
         </div>
@@ -50,29 +50,33 @@
                 <legend>Emergency Contacts</legend>
                 <dl>
                     <dt>Name</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency1.name}}</dd>
                     <dt>Relationship</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency1.relationship}}</dd>
                     <dt>Email</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency1.email}}</dd>
                     <dt>Phone</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency1.phone}}</dd>
                 </dl>
                 <dl>
                     <dt>Name</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency2.name}}</dd>
                     <dt>Relationship</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency2.relationship}}</dd>
                     <dt>Email</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency2.email}}</dd>
                     <dt>Phone</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.emergency2.phone}}</dd>
                 </dl>
             </fieldset>
         </div>
         <div class="col-md-2">
             <fieldset>
                 <legend>Assigned Users</legend>
+                <dl ng-repeat="person in vm.student.embedded.users">
+                    <dt></dt>
+                    <dd>{{person.fullname}}</dd>
+                </dl>
             </fieldset>
         </div>
         <div class="col-md-2">
@@ -80,26 +84,40 @@
                 <legend>School Information</legend>
                 <dl>
                     <dt>Current School</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.xsre.enrollment.school_name}}</dd>
                     <dt>Expected Graduation Year</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.xsre.enrollment.projected_graduation_year}}</dd>
                     <dt>Grade Level</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
                 </dl>
                 <dl>
                     <dt>IEP</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.idea_indicator}}</dd>
                     <dt>s504</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.section_504_status}}</dd>
                     <dt>Free or Reduced Lunch</dt>
-                    <dd></dd>
+                    <dd>{{vm.student.personal.eligibility_status}}</dd>
                 </dl>
             </fieldset>
         </div>
         <div class="col-md-2">
             <fieldset>
-                <legend>Current Class Schedule</legend>
+                <legend>Current Class Schedule {{}}</legend>
+                <span ng-repeat ="course in vm.student.transcript.source.transcript_term.courses | orderBy:'timeTablePeriod'">
+                    <span class="label label-success" ng-show="course.timeTablePeriod">{{course.timeTablePeriod}}</span><span>{{course.courseTitle}}</span>
+                </span>
             </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <uib-tabset justified="true">
+                <uib-tab index="0" heading="Attendance & Behavior">Attendance & Behavior</uib-tab>
+                <uib-tab index="1" heading="Transcript">transcript</uib-tab>
+                <uib-tab index="2" heading="Program Participation">Program participation</uib-tab>
+                <uib-tab index="3" heading="Assessment">Assessment Content</uib-tab>
+                <uib-tab index="4" heading="Graph">Graph</uib-tab>
+            </uib-tabset>
         </div>
     </div>
 </div>
