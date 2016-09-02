@@ -9,95 +9,115 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+
+
 button {
+    position: relative;
+    display: inline-block;
+    min-width: 80px;
+    padding: 2px 15px;
+    margin: 5px;
     font-family: $font-family-kreon;
     font-weight: 700;
-    display: inline-block;
     color: $color-grey;
-    text-transform: uppercase;
-    margin: 5px;
-    padding: 2px 20px;
-    position: relative;
+    background-color: $color-white;
+    border: 0;
     border-radius: 15px;
-    border: 2px solid transparent;
-    background-color: $white;
-    background-clip: padding-box;
     cursor: pointer;
-    min-width: 100px;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+    box-shadow: none;
 
-    &::after {
+    &:after {
         position: absolute;
+        content: '';
         top: -2px;
         bottom: -2px;
         left: -2px;
         right: -2px;
-        content: '';
         z-index: -1;
         border-radius: 15px;
         @include linear-gradient(45deg, $cyan 0%, $purple 100%);
     }
-    &:hover, &:focus{
-      color: $color-white;
-      background-color: transparent;
+    &:focus,
+    &:hover {
+        background-color: transparent;
+        color: $color-white;
+        outline: none;
+        box-shadow: none;
     }
 }
 
 //Button Default
-
 .btn {
+    -webkit-appearance: none;
     @extend button;
 }
 
-
 //Button Login
-
 button.btn-login,
-.btn.btn-login
-{
-  padding: 15px 40px;
-  color: $color-white;
-  border: 3px $color-white solid;
-  background-color: transparent;
-  text-transform: uppercase;
-  margin: 30px auto;
-  border-radius: 30px;
-  @include font($font-family-kreon, 1.5em, 1.444444444444444, 700);
+.btn.btn-login {
+    padding: 15px 40px;
+    color: $color-white;
+    border: 3px $color-white solid;
+    background-color: transparent;
+    text-transform: uppercase;
+    margin: 30px auto;
+    border-radius: 30px;
+    @include font($font-family-kreon, 1.5em, 1.444444444444444, 700);
 
-  &:focus,
-  &:hover {
-    color: $color-cyan;
-    background-color: $color-white;
-  }
+    &:after{
+      background: none;
+    }
+
+    &:focus,
+    &:hover {
+        color: $color-cyan;
+        background-color: $color-white;
+    }
+
+
 }
 
 //Button Reverse
 button.btn-reverse,
-.btn.btn-reverse{
-  background-color: transparent;
-  border: 2px $color-white solid;
-  color: $white;
-  &:focus,
-  &:hover {
-    color: $color-cyan;
-    background-color: $color-white;
-  }
+.btn.btn-reverse {
+    background-color: transparent;
+    border: 2px $color-white solid;
+    color: $white;
+
+    &:after{
+      background: none;
+    }
+
+    &:focus,
+    &:hover {
+        color: $color-cyan;
+        background-color: $color-white;
+    }
 }
 
-
 //Button Dark
+
+
+.btn-dark-container{
+  //Must set parent element with relative position to have dark background work with :psudo element because of z-index.
+  position: relative;
+  z-index: 1;
+
+}
+
 button.btn-dark,
-.btn.btn-dark{
-  background-color: $color-blue-navy;
-
-  &:focus,
-  &:hover {
-
-
-  }
+.btn.btn-dark {
+    background: $color-black;
+    &:focus,
+    &:hover {
+      background: transparent;
+      color: $color-white !important;
+    }
 }
 
 //Button Helper Classes
-
 button.no-width,
 .btn.no-width {
     min-width: 0;

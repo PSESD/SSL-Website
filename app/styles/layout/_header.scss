@@ -197,7 +197,7 @@ nav.navbar  {
           .user-profile
           {
             background-color: $color-blue-navy;
-            text-align: center;
+
             .circle-profile
             {
               display: inline-block;
@@ -242,35 +242,6 @@ nav.navbar  {
         }
       }
 
-      button
-      {
-        margin-left: auto;
-        margin-right: auto;
-        min-width: 0;
-        @media (max-width: $screen-xs-max) {
-          width: 100%;
-          padding-top: 10px;
-          padding-bottom: 10px;
-          line-height: 20px;
-          margin: 0;
-          display: block;
-          border-radius: 0;
-          color: $color-grey;
-          background-color: $color-blue-navy;
-
-          &:after
-          {
-            position: absolute;
-            content: '';
-            top: 0; bottom: 0;
-            left: 0; right: 0;
-            background: transparent;
-            z-index: -1;
-            border-radius: 0;
-          }
-        }
-
-      }
     }
   }
   @media (min-width: $screen-tablet)
@@ -347,7 +318,7 @@ nav.navbar  {
       width: 25%;
       margin-bottom: 0;
       float: left;
-      padding: 11px 0;
+      padding: 12px 0;
 
       @media (max-width: $screen-md-max) {
         width: 30%;
@@ -368,7 +339,7 @@ nav.navbar  {
           .user-profile
           {
             position: relative;
-            top: -4px;
+            top: 0px;
             border-right: 1px $color-white solid;
 
             .circle-profile
@@ -402,6 +373,7 @@ nav.navbar  {
               display: block;
               background: transparent;
               color: $color-cyan;
+
               @include font-size(0.833333333333333em, 1.25);
 
               &:focus,
@@ -410,19 +382,7 @@ nav.navbar  {
                 text-decoration: none;
               }
             }
-            button {
-              margin-left: auto;
-              margin-right: auto;
-              min-width: 0;
-              color: $color-grey;
-              text-transform: uppercase;
-              display: block;
-              &:focus,
-              &:hover
-              {
-                color: $color-grey;
-              }
-            }
+
           }
         }
       }
