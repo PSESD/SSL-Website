@@ -2,7 +2,22 @@
     <div class="row">
 
         <div class="col-xs-12 inverse header-background">
-            <h1 class="page-title">{{vm.student.personal.first_name}} {{vm.student.personal.last_name}}</h1>
+            <h1 class="page-title">
+                {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
+                <div class="divider-vertical hidden-xs"></div>
+                <div class="header-title-student-detail">
+                    <div class="student-detail-edit"><a href="#" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
+                    <div><a href="#" class="uppercase">CHECK FOR UPDATES <span class="glyphicon glyphicon-refresh"></span></a></div>
+                    <div>Last Updates: 11/25/2015</div>
+                </div>
+
+                <div class="pull-right">
+                    <a class="btn btn-default inverse invite-user" ui-sref="dashboard.user">View All Student</a>
+                    <a class="btn btn-default inverse invite-user"><span class="glyphicon glyphicon-menu-left"></span></a>
+                    <a class="btn btn-default inverse invite-user"><span class="glyphicon glyphicon-menu-right"></span></a>
+                </div>
+
+            </h1>
         </div>
 
         <div class="clearfix space20"></div>

@@ -57,6 +57,32 @@ h1.page-title {
   }
 }
 
+.header-title-student-detail
+{
+  display: inline-block;
+  @include font($font-family-open-sans, 0.3em, 1.5, 400);
+  position: relative;
+  top: 2px;
+
+  @media (max-width: $screen-xs-max) {
+    display: block;
+  }
+
+  .student-detail-edit
+  {
+    @include font-size(1.2em, 1.5);
+  }
+
+  a {
+    color: $color-white;
+
+    &:focus,
+    &:hover {
+      color: $color-white;
+    }
+  }
+}
+
 .circle-profile {
   border-radius: 50px;
   display: inline-block;
