@@ -128,3 +128,10 @@ button.btn-full,
     display: block;
     width: 100%;
 }
+
+
+button.btn-circle,
+.btn.btn-circle {
+    min-width: 0;
+    padding: 2px 5px;
+}
