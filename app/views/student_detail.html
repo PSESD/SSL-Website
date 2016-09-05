@@ -111,13 +111,133 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <uib-tabset justified="true">
-                <uib-tab index="0" heading="Attendance & Behavior">Attendance & Behavior</uib-tab>
-                <uib-tab index="1" heading="Transcript">transcript</uib-tab>
-                <uib-tab index="2" heading="Program Participation">Program participation</uib-tab>
-                <uib-tab index="3" heading="Assessment">Assessment Content</uib-tab>
-                <uib-tab index="4" heading="Graph">Graph</uib-tab>
-            </uib-tabset>
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li role="presentation" class="active"><a href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" data-target="#graph" data-toggle="tab" role="tab" aria-controls="attendance_home"><span class="glyphicon glyphicon-stats"></span></a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="attendance_behavior">
+                    <div style="display: flex;height: 80px;align-items: center">
+                        <div style="flex-grow: 1;text-align: center;width: 30%;">Attendance Dates</div>
+                        <div style="flex-grow: 2;text-align: center;display: flex;width: 40%;">
+                            <div style="flex-grow: 1">M</div>
+                            <div style="flex-grow: 1">T</div>
+                            <div style="flex-grow: 1">W</div>
+                            <div style="flex-grow: 1">TH</div>
+                            <div style="flex-grow: 1">F</div>
+                            <div style="flex-grow: 1">SA</div>
+                            <div style="flex-grow: 1">S</div>
+                        </div>
+                        <div style="flex-grow: 1;text-align: center;width: 30%;">Weekly Change</div>
+                    </div>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#first" style="padding:0;display: flex;height: 50px;align-items: center">
+                                <div style="flex-grow: 1;text-align: center;width: 30%;">11/23/2015 - 11/29/2015</div>
+                                <div style="flex-grow: 2;text-align: center;display: flex;width: 40%;">
+                                    <div style="flex-grow: 1">50%</div>
+                                    <div style="flex-grow: 1">50%</div>
+                                    <div style="flex-grow: 1">50%</div>
+                                    <div style="flex-grow: 1">50%</div>
+                                    <div style="flex-grow: 1">50%</div>
+                                    <div style="flex-grow: 1">50%</div>
+                                    <div style="flex-grow: 1">50%</div>
+                                </div>
+                                <div style="flex-grow: 1;text-align: center;width: 30%;">50%</div>
+                            </div>
+                            <div id="first" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" >
+                                <div class="panel-body" style="display: flex; padding: 0">
+                                    <div style="flex-grow: 1;text-align: center;width: 30%;">
+                                        <div class="text-uppercase detail-item">Period 1</div>
+                                        <div class="text-uppercase detail-item">Period 2</div>
+                                        <div class="text-uppercase detail-item">Period 3</div>
+                                        <div class="text-uppercase detail-item">Period 4</div>
+                                        <div class="text-uppercase detail-item">Period 5</div>
+                                        <div class="text-uppercase detail-item">Period 6</div>
+                                    </div>
+                                    <div style="flex-grow: 2;text-align: center;display: flex;width: 40%;">
+                                        <div style="flex-grow: 1;display: flex;flex-direction: column">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                            <div class="detail-item">Test</div>
+                                        </div>
+                                    </div>
+                                    <div style="flex-grow: 1;text-align: center;width: 30%;">50%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="transcript">
+                    Transcript
+                </div>
+                <div role="tabpanel" class="tab-pane" id="program_participation">
+                    program participation
+                </div>
+                <div role="tabpanel" class="tab-pane" id="assessment">
+                    assessment
+                </div>
+                <div role="tabpanel" class="tab-pane" id="graph">
+                    graph
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

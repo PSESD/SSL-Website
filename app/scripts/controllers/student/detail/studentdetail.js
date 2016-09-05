@@ -1,4 +1,4 @@
-(function() {
+(function($) {
     'use strict';
 
     angular.module('sslv2App')
@@ -11,8 +11,8 @@
         var vm = this;
         var id = $stateParams.id;
         var student = "";
-        init();
 
+        init();
         function init(){
             student = {
                 embedded:{
@@ -182,7 +182,7 @@
                         student.personal.xsre.enrollment.entry_date = data.personal.xSre.enrollment.entryDate;
                         student.personal.xsre.enrollment.exit_date = data.personal.xSre.enrollment.exitDate;
                         student.personal.xsre.enrollment.grade_level = data.personal.xSre.enrollment.gradeLevel;
-                        student.personal.xsre.enrollment.lea_ref_id = data.personal.xSre.enrollment.leaRefId;
+                        student.personal.xsre.enrollment.lea_ref_id = _.get(data,'personal.xSre.enrollment.leaRefId',"");
                         student.personal.xsre.enrollment.membership_type = data.personal.xSre.enrollment.membershipType;
                         student.personal.xsre.enrollment.projected_graduation_year = data.personal.xSre.enrollment.projectedGraduationYear;
                         student.personal.xsre.enrollment.school_name = data.personal.xSre.enrollment.schoolName;
@@ -224,7 +224,7 @@
                         student.transcript.source.total_credits_earned = data.source.totalCreditsEarned;
                         student.transcript.source.total_cumulative_gpa = data.source.totalCumulativeGpa;
                         student.transcript.source.transcript_term.courses = data.source.transcriptTerm.courses;
-                        student.transcript.source.transcript_term.school.lea_ref_id = data.source.transcriptTerm.school.leaRefId;
+                        student.transcript.source.transcript_term.school.lea_ref_id = _.get(data,'source.transcriptTerm.school.leaRefId',"");
                         student.transcript.source.transcript_term.school.local_id = data.source.transcriptTerm.school.localId;
                         student.transcript.source.transcript_term.school.school_name = data.source.transcriptTerm.school.schoolName;
                         student.transcript.source.transcript_term.school_year = data.source.transcriptTerm.schoolYear;
@@ -235,7 +235,8 @@
 
             StudentService.getAttendance(id)
                 .then(function(response){
-                    console.log(response);
+                    var data = _.get(response,'data.info.data',[]);
+
                 },function(error){
                     console.log(error);
                 });
@@ -243,4 +244,4 @@
         }
     }
 
-})();
+})(jQuery);
