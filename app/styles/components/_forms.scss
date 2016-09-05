@@ -143,6 +143,39 @@ input.inverse:-ms-input-placeholder
   border-bottom: 1px $color-black solid;
 }
 
+fieldset
+{
+  legend
+  {
+    @include font-size(1em, 1.5);
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+  }
+
+  dl
+  {
+    dt {
+      @include font-size(1em, 1.5);
+      font-weight: 400;
+      width: 49%;
+      padding: 0 15px 0 0;
+      display: inline-block;
+      box-sizing: border-box;
+    }
+
+    dd {
+      @include font-size(1em, 1.5);
+      font-weight: 400;
+      width: 49%;
+      padding: 0;
+      display: inline-block;
+      box-sizing: border-box;
+    }
+  }
+}
+
 @media (max-width: $screen-xs-max) {
   .form-search
   {
