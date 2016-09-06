@@ -4,13 +4,102 @@
     angular.module('sslv2App')
         .controller('StudentDetailCtrl', StudentDetailCtrl);
 
-    StudentDetailCtrl.$inject = ['$state','StudentService','$stateParams'];
+    StudentDetailCtrl.$inject = ['$state','StudentService','$stateParams','$q','$timeout','$http','RESOURCES','$cookies'];
 
-    function StudentDetailCtrl($state,StudentService,$stateParams) {
+    function StudentDetailCtrl($state,StudentService,$stateParams,$http,RESOURCES,$cookies) {
 
         var vm = this;
         var id = $stateParams.id;
         var student = "";
+        var list_of_student_data = [];
+        var periods = [];
+        vm.text ="";
+        vm.changeStatus = changeStatus;
+
+        vm.list_of_details = "";
+
+        StudentService.getAttendance(id)
+             .then(function(response){
+                 var data = _.get(response,'data.info.data',[]);
+                 _.forEach(data,function(values){
+        
+                     for(var v in values){
+                         var data = values[v];
+                         var header = {
+                             date: data.weekDate,
+                             monday:data.summary.M,
+                             tuesday:data.summary.T,
+                             wednesday:data.summary.W,
+                             thursday:data.summary.TH,
+                             friday:data.summary.F,
+                             saturday:data.summary.SA,
+                             sunday:data.summary.S,
+                             weekly_change:data.weeklyChange
+                         }
+        
+                         var header_detail ={
+                             date:data.details[0].title,
+                             day:{
+                                 monday:{
+                                     date:data.details[0].M,
+                                     value:data.summary.M
+                                 },
+                                 tuesday:{
+                                     date:data.details[0].T,
+                                     value:data.summary.T
+                                 },
+                                 wednesday: {
+                                     date: data.details[0].W,
+                                     value: data.summary.W
+                                 },
+                                 thursday:{
+                                     date: data.details[0].TH,
+                                     value: data.summary.TH
+                                 },
+                                 friday:{
+                                     date: data.details[0].F,
+                                     value: data.summary.F
+                                 },
+                                 saturday:{
+                                     date: data.details[0].SA,
+                                     value: data.summary.SA
+                                 },
+                                 sunday:{
+                                     date: data.details[0].S,
+                                     value: data.summary.S
+                                 }
+                             }
+                         }
+                         var detail_columns = {
+                             monday: data.detailColumns.M,
+                             tuesday:data.detailColumns.T,
+                             wednesday:data.detailColumns.W,
+                             thursday:data.detailColumns.TH,
+                             friday:data.detailColumns.F,
+                             saturday:data.detailColumns.SA,
+                             sunday:data.detailColumns.S
+                         }
+
+                         for (var period in data.periods){
+                             if(data.periods[period].includes("Period")){
+                                 periods.push(data.periods[period]);
+                             }
+                         }
+                         var list_of_item = {
+                             header:header,
+                             header_detail:header_detail,
+                             detail_columns:detail_columns,
+                             periods:_.uniq(periods),
+                             status:false
+                         }
+                         list_of_student_data.push(list_of_item);
+                         console.log(list_of_student_data);
+                     }
+                 });
+                 vm.list_of_details = list_of_student_data;
+             },function(error){
+                 console.log(error);
+             });
 
         init();
         function init(){
@@ -173,7 +262,11 @@
                         if(data.personal.xSre.demographics.races.length > 0){
                             student.personal.xsre.demographics.races = data.personal.xSre.demographics.races.join();
                         }else{
-                            student.personal.xsre.demographics.races = data.personal.xSre.demographics.races;
+                            if(data.personal.xSre.demographics.races.length === 0){
+                                student.personal.xsre.demographics.races = '';
+                            }else{
+                                student.personal.xsre.demographics.races = data.personal.xSre.demographics.races;
+                            }
                         }
                         student.personal.xsre.demographics.sex = data.personal.xSre.demographics.sex;
                         student.personal.xsre.email = data.personal.xSre.email;
@@ -225,7 +318,7 @@
                         student.transcript.source.total_cumulative_gpa = data.source.totalCumulativeGpa;
                         student.transcript.source.transcript_term.courses = data.source.transcriptTerm.courses;
                         student.transcript.source.transcript_term.school.lea_ref_id = _.get(data,'source.transcriptTerm.school.leaRefId',"");
-                        student.transcript.source.transcript_term.school.local_id = data.source.transcriptTerm.school.localId;
+                        student.transcript.source.transcript_term.school.local_id = _.get(data,'source.transcriptTerm.school.localId',"");
                         student.transcript.source.transcript_term.school.school_name = data.source.transcriptTerm.school.schoolName;
                         student.transcript.source.transcript_term.school_year = data.source.transcriptTerm.schoolYear;
                     }
@@ -233,14 +326,12 @@
                     console.log(error);
                 });
 
-            StudentService.getAttendance(id)
-                .then(function(response){
-                    var data = _.get(response,'data.info.data',[]);
+            
 
-                },function(error){
-                    console.log(error);
-                });
 
+        }
+        function changeStatus(student){
+            student.status = !student.status;
         }
     }
 
