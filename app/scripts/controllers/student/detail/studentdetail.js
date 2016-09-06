@@ -71,13 +71,23 @@
                              }
                          }
                          var detail_columns = {
-                             monday: data.detailColumns.M,
-                             tuesday:data.detailColumns.T,
-                             wednesday:data.detailColumns.W,
-                             thursday:data.detailColumns.TH,
-                             friday:data.detailColumns.F,
-                             saturday:data.detailColumns.SA,
-                             sunday:data.detailColumns.S
+                             monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
+                             tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
+                             wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
+                             thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
+                             friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
+                             saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
+                             sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
+                         }
+
+                         var behaviors = {
+                             monday:data.behaviors.M,
+                             tuesday:data.behaviors.T,
+                             wednesday:data.behaviors.W,
+                             thursday:data.behaviors.TH,
+                             friday:data.behaviors.F,
+                             saturday:data.behaviors.SA,
+                             sunday:data.behaviors.S,
                          }
 
                          for (var period in data.periods){
@@ -90,13 +100,14 @@
                              header_detail:header_detail,
                              detail_columns:detail_columns,
                              periods:_.uniq(periods),
+                             behaviors:behaviors,
                              status:false
                          }
                          list_of_student_data.push(list_of_item);
-                         console.log(list_of_student_data);
                      }
                  });
                  vm.list_of_details = list_of_student_data;
+                 console.log(list_of_student_data);
              },function(error){
                  console.log(error);
              });

@@ -258,3 +258,22 @@
   @include linear-gradient(-145deg, $color-orange 0%, $pink 80%);
   color: $color-white;
 }
+
+.Present {
+  background-color: #A9D8BE;
+}
+.Excused {
+  background-color: #2F9DBB;
+}
+.n_a {
+  background-color: #efefef;
+}
+.Tardy {
+  background-color: #4E73A7;
+}
+.Other {
+  background-color: #765B74;
+}
+.Unexcused {
+  background-color: #CD5728;
+}

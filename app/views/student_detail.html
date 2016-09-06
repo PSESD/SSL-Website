@@ -176,65 +176,89 @@
                                 <div class="panel-body" style="display: flex; padding: 0">
                                     <div style="flex-grow: 1;text-align: center;width: 30%;" >
                                         <div class="text-uppercase detail-item" ng-repeat="period in student.periods track by $index">{{period}}</div>
+                                        <div class="detail-item"></div>
+                                        <div class="text-uppercase detail-item">Behavior</div>
                                     </div>
                                     <div style="flex-grow: 2;text-align: center;display: flex;width: 40%;">
                                         <div style="flex-grow: 1">
                                             <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.monday">
-                                                <div class="detail-item " style="background: grey"></div>
+                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
                                             </div>
-                                        </div>
-                                        <div style="flex-grow: 1">
                                             <div style="padding: 0 2px">
-                                                <div class="detail-item" style="background: grey"></div>
+                                                <div class="detail-item "></div>
                                             </div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.monday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
                                         </div>
                                         <div style="flex-grow: 1">
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
+                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.tuesday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
+                                            <div style="padding: 0 2px">
+                                                <div class="detail-item "></div>
+                                            </div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.tuesday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
                                         </div>
                                         <div style="flex-grow: 1">
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
+                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.wednesday">
+                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
+                                            </div>
+                                            <div style="padding: 0 2px">
+                                                <div class="detail-item "></div>
+                                            </div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.wednesday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
                                         </div>
                                         <div style="flex-grow: 1">
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
+                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.thursday">
+                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
+                                            </div>
+                                            <div style="padding: 0 2px">
+                                                <div class="detail-item "></div>
+                                            </div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.thursday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
                                         </div>
                                         <div style="flex-grow: 1">
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
+                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.friday">
+                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
+                                            </div>
+                                            <div style="padding: 0 2px">
+                                                <div class="detail-item "></div>
+                                            </div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.friday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
                                         </div>
                                         <div style="flex-grow: 1">
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
-                                            <div class="detail-item">Test</div>
+                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.saturday">
+                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
+                                            </div>
+                                            <div style="padding: 0 2px">
+                                                <div class="detail-item "></div>
+                                            </div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.saturday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
+                                        </div>
+                                        <div style="flex-grow: 1">
+                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.sunday">
+                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
+                                            </div>
+                                            <div style="padding: 0 2px">
+                                                <div class="detail-item "></div>
+                                            </div>
+                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.sunday">
+                                                <div class="detail-item n_a"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div style="flex-grow: 1;text-align: center;width: 30%;">50%</div>
+                                    <div style="flex-grow: 1;text-align: center;width: 30%;"></div>
                                 </div>
                             </div>
                         </div>
