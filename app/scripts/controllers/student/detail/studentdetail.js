@@ -15,7 +15,7 @@
         var periods = [];
         vm.text ="";
         vm.changeStatus = changeStatus;
-
+        vm.student_id = $stateParams.id;
         vm.list_of_details = "";
 
         StudentService.getAttendance(id)
@@ -107,13 +107,61 @@
                      }
                  });
                  vm.list_of_details = list_of_student_data;
-                 console.log(list_of_student_data);
              },function(error){
                  console.log(error);
              });
 
         init();
         function init(){
+
+            var link = JSON.parse(sessionStorage.getItem("link"));
+            var current_index = _.findIndex(link,{'id':id});
+            vm.prev_link = _.get(link[current_index - 1],'value',"");
+            vm.next_link = _.get(link[current_index + 1],'value',"");
+            StudentService.getTranscriptById(id)
+                .then(function(response){
+                    if(response.data.success === true){
+                        var data = response.data.info.data;
+                        var source = response.data.info.source;
+                        var list_high_schools = [];
+                        var list_transcripts = [];
+                        var high_school = {};
+                        var transcript_header = {};
+                        _.forEach(data,function(high_school_value){
+                            list_transcripts = [];
+                            _.forEach(high_school_value.transcripts,function(transcripts){
+                                if(_.isNull(transcripts)){
+                                    transcripts = [];
+                                }
+                                list_transcripts.push(transcripts);
+                            });
+                            high_school = {
+                                grade_level : _.get(high_school_value,'gradeLevel',""),
+                                school_name : _.get(high_school_value,'schoolName',""),
+                                school_year : _.get(high_school_value,'schoolYear',""),
+                                session : _.get(high_school_value,'session',""),
+                                start_date : _.get(high_school_value,'startDate',""),
+                                start_date_time : _.get(high_school_value,'startDateTime',""),
+                                transcripts:list_transcripts
+                            }
+                            list_high_schools.push(high_school);
+                        });
+
+                        transcript_header ={
+                            credits:_.get(source,'credits',""),
+                            grade_level:_.get(source,'gradeLevel',""),
+                            total_credits_earned:_.get(source,'totalCreditsEarned',""),
+                            total_credits_attempted:_.get(source,'totalCreditsAttempted',""),
+                            total_cumulative_gpa:_.get(source,'totalCumulativeGpa',""),
+                            subject_values:_.get(source,'subjectValues',"")
+
+                        }
+                        vm.list_high_schools = list_high_schools;
+                        vm.transcript_header = transcript_header;
+                    }
+                },function(error){
+                    console.log(error);
+                });
             student = {
                 embedded:{
                     programs:[],
@@ -233,8 +281,8 @@
                 .then(function(response){
                     if(response.data.success === true){
                         var data = _.get(response,'data.info',"");
-                        student.embedded.programs = data._embedded.programs;
-                        student.embedded.users = data._embedded.users;
+                        student.embedded.programs = _.get(data,'_embedded.programs',"");
+                        student.embedded.users = _.get(data,'_embedded.users',"");
                         student.last_update = data.lastUpdated;
                         student.report_date = data.reportDate;
                         student.local_id = data.localId;
@@ -289,7 +337,7 @@
                         student.personal.xsre.enrollment.lea_ref_id = _.get(data,'personal.xSre.enrollment.leaRefId',"");
                         student.personal.xsre.enrollment.membership_type = data.personal.xSre.enrollment.membershipType;
                         student.personal.xsre.enrollment.projected_graduation_year = data.personal.xSre.enrollment.projectedGraduationYear;
-                        student.personal.xsre.enrollment.school_name = data.personal.xSre.enrollment.schoolName;
+                        student.personal.xsre.enrollment.school_name = _.get(data,'personal.xSre.enrollment.schoolName',"");
                         student.personal.xsre.enrollment.school_ref_id = data.personal.xSre.enrollment.schoolRefId;
                         student.personal.xsre.enrollment.school_year = data.personal.xSre.enrollment.schoolYear;
                         student.personal.xsre.languages = data.personal.xSre.languages;

@@ -132,9 +132,16 @@
             success = _.get(response,"data.success",false);
             data = _.get(response,"data.data","");
             if(success === true && data !== ""){
+                var link = [];
+                var single_link = {};
                 _.forEach(data,function(data){
                     clearVariables();
                     student.id = _.get(data,"_id","");
+                    single_link = {
+                        id:student.id,
+                        value:"#/student/"+student.id+"/detail"
+                    }
+                    link.push(single_link);
                     student.address = _.get(data,"address","");
                     student.addresses = _.get(data,"addresses","");
                     student.college_bound = _.get(data,"college_bound","");
@@ -220,6 +227,10 @@
                         })
                     }
                 });
+                if(sessionStorage.getItem("link")!== null){
+                    sessionStorage.removeItem("link");
+                }
+                sessionStorage.setItem("link",JSON.stringify(link));
             }
 
         }

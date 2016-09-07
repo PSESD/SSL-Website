@@ -6,15 +6,15 @@
                 {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
                 <div class="divider-vertical hidden-xs"></div>
                 <div class="header-title-student-detail">
-                    <div class="student-detail-edit"><a href="#" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
+                    <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
                     <div><a href="#" class="uppercase">CHECK FOR UPDATES <span class="glyphicon glyphicon-refresh"></span></a></div>
-                    <div>Last Updates: 11/25/2015</div>
+                    <div>Last Updates: {{vm.student.last_update}}</div>
                 </div>
 
                 <div class="pull-right">
-                    <a class="btn btn-reverse" ui-sref="dashboard.user">View All Student</a>
-                    <a class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
-                    <a class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
+                    <a class="btn btn-reverse" ui-sref="dashboard.student">View All Student</a>
+                    <a href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
+                    <a href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
                 </div>
 
             </h1>
@@ -130,6 +130,7 @@
                 <li role="presentation" class="active"><a href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
                 <li role="presentation" ><a href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
                 <li role="presentation" ><a href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
                 <li role="presentation" ><a href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
                 <li role="presentation" ><a href="javascript:void(0)" data-target="#graph" data-toggle="tab" role="tab" aria-controls="attendance_home"><span class="glyphicon glyphicon-stats"></span></a></li>
             </ul>
@@ -258,17 +259,108 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="flex-grow: 1;text-align: center;width: 30%;"></div>
+                                    <div style="flex-grow: 1;text-align: center;width: 30%;">
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="transcript">
-                    Transcript
+                    <div style="display: flex;">
+                        <div style="flex-grow: 1;width:20%;">
+                            <dl>
+                                <dt>Total Credits</dt>
+                                <dd>{{vm.transcript_header.credits}}</dd>
+                                <dt>Cumulative GPA</dt>
+                                <dd>{{vm.transcript_header.total_cumulative_gpa}}</dd>
+                                <dt>Grade Level</dt>
+                                <dd>{{vm.transcript_header.grade_level}}</dd>
+                            </dl>
+                        </div>
+                        <div style="flex-grow: 2;width:80%;display: flex;justify-content: space-around;">
+                            <div ng-repeat="subject in vm.transcript_header.subject_values" style="width: 12%">
+                                <h5 class="text-center text-uppercase">{{subject.name}}<br/>{{subject.value}} {{subject.value == 1 ? 'Credit':'Credits'}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex" ng-repeat="high_school in vm.list_high_schools">
+                        <div style="flex-grow: 1;width:20%;">
+                            {{high_school.school_year}} - {{high_school.session}}
+                            <dl>
+                                <dt>Credit</dt>
+                                <dd>{{vm.transcript_header.credits}}</dd>
+                                <dt>Grade Level</dt>
+                                <dd>{{vm.transcript_header.total_cumulative_gpa}}</dd>
+                            </dl>
+                        </div>
+                        <div style="flex-grow: 2;width:80%;display: flex;justify-content: space-around;">
+                            <div ng-repeat="transcript in high_school.transcripts" style="width: 12%">
+                                <div ng-repeat="details in transcript">
+                                    <h4>{{details.courseTitle}}</h4>
+                                    <hr>
+                                    <dl>
+                                        <dt></dt>
+                                        <dd>{{details.leaCourseId}}</dd>
+                                        <dt>Grade</dt>
+                                        <dd>{{details.mark}}</dd>
+                                        <dt>Grade Level</dt>
+                                        <dd>{{details.gradeLevel}}</dd>
+                                        <dt>Credits</dt>
+                                        <dd>{{details.creditsAttempted == details.creditsEarned ? details.creditsEarned : details.creditsEarned + '/' + details.creditsAttempted}}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="program_participation">
                     program participation
+                </div>
+                <div role="tabpanel" class="tab-pane" id="enrollment_history">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">
+                                School Name
+                            </th>
+                            <th class="text-center">
+                                School Year
+                            </th>
+                            <th class="text-center">
+                                Entry Date
+                            </th>
+                            <th  class="text-center">
+                                Exit Date
+                            </th>
+                            <th  class="text-center">
+                                Grade Level
+                            </th>
+                            <th  class="text-center">
+                                Status
+                            </th>
+                            <th  class="text-center">
+                                Non Promotional Change
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
+                            <td class="text-center">{{enrollement.schoolName}}</td>
+                            <td class="text-center">{{enrollement.schoolYear}}</td>
+                            <td class="text-center">{{enrollement.entryDate}}</td>
+                            <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
+                            <td class="text-center">{{enrollement.gradeLevel}}</td>
+                            <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
+                            <td class="text-center">
+                                <div ng-if="enrollement.nonPromotionalChange === true">
+                                    <input type="checkbox"disabled checked>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="assessment">
                     assessment
