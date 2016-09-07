@@ -21,10 +21,14 @@
         StudentService.getAttendance(id)
              .then(function(response){
                  var data = _.get(response,'data.info.data',[]);
+                 var legend = [];
                  _.forEach(data,function(values){
         
                      for(var v in values){
                          var data = values[v];
+                         for( var l in data.legend){
+                             legend.push(l)
+                         }
                          var header = {
                              date: data.weekDate,
                              monday:data.summary.M,
@@ -106,6 +110,7 @@
                          list_of_student_data.push(list_of_item);
                      }
                  });
+                 vm.legend = _.uniq(legend);
                  vm.list_of_details = list_of_student_data;
              },function(error){
                  console.log(error);

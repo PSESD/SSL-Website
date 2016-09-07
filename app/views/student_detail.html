@@ -259,8 +259,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="flex-grow: 1;text-align: center;width: 30%;">
-                                        
+                                    <div style="justify-content: center;align-items: center; display: flex;flex-grow: 1;text-align: center;width: 30%;">
+                                        <div ng-show="vm.legend !== null ? true : false" class="panel panel-default" style="width:75%;height: 75%">
+                                            <div class="panel-heading">Legend</div>
+                                            <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;justify-content: space-between;">
+                                                <div ng-repeat="legend in vm.legend">{{legend}}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
