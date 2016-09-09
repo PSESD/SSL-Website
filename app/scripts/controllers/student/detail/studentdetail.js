@@ -17,7 +17,8 @@
         vm.changeStatus = changeStatus;
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
-
+        vm.list_programs = [];
+        vm.list_program_years = [];
         StudentService.getAttendance(id)
              .then(function(response){
                  var data = _.get(response,'data.info.data',[]);
@@ -119,10 +120,13 @@
         init();
         function init(){
 
-            var link = JSON.parse(sessionStorage.getItem("link"));
-            var current_index = _.findIndex(link,{'id':id});
-            vm.prev_link = _.get(link[current_index - 1],'value',"");
-            vm.next_link = _.get(link[current_index + 1],'value',"");
+            var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
+            var current_index = _.findIndex(student_profile,{'id':id});
+            vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
+            vm.next_link = _.get(student_profile[current_index + 1],'value',"");
+            var student = student_profile[current_index];
+
+            vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
             StudentService.getTranscriptById(id)
                 .then(function(response){
                     if(response.data.success === true){
@@ -282,6 +286,15 @@
                 }
             }
 
+            StudentService.getAssessmentById(id)
+                .then(function(response){
+                    if(response.data.success === true){
+                        vm.assessment = response.data.info.data;
+                    }
+                },function(error){
+                    console.log(error);
+                });
+
             StudentService.getStudentById(id)
                 .then(function(response){
                     if(response.data.success === true){
@@ -351,6 +364,21 @@
                         student.personal.xsre.other_enrollments = data.personal.xSre.otherEnrollments;
                         student.personal.xsre.other_phone_numbers = data.personal.xSre.otherPhoneNumbers;
                         student.personal.xsre.phone_number = data.personal.xSre.phoneNumber;
+
+                        _.forEach(student.embedded.programs,function(value){
+                            vm.list_program_years.push(new Date(value.participation_start_date).getFullYear());
+                           var program = {
+                               "years":new Date(value.participation_start_date).getFullYear(),
+                               "name":value.program_name,
+                               "start_date":value.participation_start_date,
+                               "end_date":new Date(value.participation_end_date) >= Date.now()?'Present':value.participation_end_date,
+                               "active": value.active ? 'Active':'Inactive',
+                               "cohorts":value.cohort
+                           };
+                            vm.list_programs.push(program);
+                        });
+                        vm.list_program_years = _.uniq(vm.list_program_years);
+                        vm.list_programs = _.sortBy(vm.list_programs,function(val){return val.years});
                         vm.student = student;
                     }
                 },function (error) {

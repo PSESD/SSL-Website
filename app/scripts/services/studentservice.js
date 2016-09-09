@@ -21,7 +21,8 @@
             getStudentById:getStudentById,
             getTranscript:getTranscript,
             getAttendance:getAttendance,
-            getTranscriptById:getTranscriptById
+            getTranscriptById:getTranscriptById,
+            getAssessmentById:getAssessmentById
 
         };
 
@@ -117,6 +118,14 @@
 
         function getTranscriptById(id){
             return $http.get(RESOURCES.API_URL + profile.organization_id + '/students/' + id + '/transcript?pageSize=all', {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                }
+            })
+        }
+
+        function getAssessmentById(id){
+            return $http.get(RESOURCES.API_URL + profile.organization_id + '/students/' + id + '/assessment', {
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token
                 }

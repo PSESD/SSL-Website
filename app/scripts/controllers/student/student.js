@@ -132,16 +132,13 @@
             success = _.get(response,"data.success",false);
             data = _.get(response,"data.data","");
             if(success === true && data !== ""){
-                var link = [];
-                var single_link = {};
+                var student_profiles = [];
+                var single_profile = {};
+
                 _.forEach(data,function(data){
                     clearVariables();
                     student.id = _.get(data,"_id","");
-                    single_link = {
-                        id:student.id,
-                        value:"#/student/"+student.id+"/detail"
-                    }
-                    link.push(single_link);
+
                     student.address = _.get(data,"address","");
                     student.addresses = _.get(data,"addresses","");
                     student.college_bound = _.get(data,"college_bound","");
@@ -170,7 +167,12 @@
                     student.xsre.on_track_to_graduate = _.get(data,"xsre.onTrackToGraduate","");
                     student.xsre.school_name = _.get(data,"xsre.schoolName","");
                     student.xsre.school_year = _.get(data,"xsre.schoolYear","");
-
+                    single_profile = {
+                        id:student.id,
+                        value:"#/student/"+student.id+"/detail",
+                        on_track_graduate : _.get(data,"xsre.onTrackToGraduate","")
+                    }
+                    student_profiles.push(single_profile);
                     _.forEach(_.get(data,"xsre.attendanceRiskFlag",[]),function(value){
                         student.xsre.attendance_risk.day_absent = value.daysAbsent;
                         student.xsre.attendance_risk.risk_level = value.riskLevel;
@@ -227,10 +229,10 @@
                         })
                     }
                 });
-                if(sessionStorage.getItem("link")!== null){
-                    sessionStorage.removeItem("link");
+                if(sessionStorage.getItem("student_profiles")!== null){
+                    sessionStorage.removeItem("student_profiles");
                 }
-                sessionStorage.setItem("link",JSON.stringify(link));
+                sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
             }
 
         }

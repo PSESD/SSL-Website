@@ -32,25 +32,24 @@
 
     </div>
     <div class="row">
-        <div class="col-md-offset-1 col-md-2">
+        <div class="col-md-3">
             <fieldset>
                 <legend>Personal Information</legend>
                 <dl>
-                    <dt>District ID</dt>
-                    <dd>{{vm.student.local_id}}</dd>
                     <dt>Birthday</dt>
                     <dd>{{vm.student.personal.xsre.demographics.birth_date}}</dd>
+                    <dt>Grade Level</dt>
+                    <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
+                    <dt>District ID</dt>
+                    <dd>{{vm.student.local_id}}</dd>
                     <dt>Race/Ethnicity</dt>
                     <dd>{{vm.student.personal.xsre.demographics.races}}</dd>
                     <dt>Gender</dt>
                     <dd>{{vm.student.personal.xsre.demographics.sex}}</dd>
-                    <dt>College Bound</dt>
-                    <dd>{{vm.student.personal.college_bound}}</dd>
-                </dl>
-            </fieldset>
-            <fieldset>
-                <legend>Personal Contact</legend>
-                <dl>
+                    <dt>Dominate Language</dt>
+                    <dd>{{vm.student.personal.xsre.languages[0].description}}</dd>
+                    <dt>Home Language</dt>
+                    <dd>{{vm.student.personal.xsre.languages[1].description}}</dd>
                     <dt>Phone</dt>
                     <dd>{{vm.student.personal.phone}}</dd>
                     <dt>Email</dt>
@@ -60,51 +59,9 @@
                 </dl>
             </fieldset>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <fieldset>
-                <legend>Emergency Contacts</legend>
-                <dl>
-                    <dt>Name</dt>
-                    <dd>{{vm.student.personal.emergency1.name}}</dd>
-                    <dt>Relationship</dt>
-                    <dd>{{vm.student.personal.emergency1.relationship}}</dd>
-                    <dt>Email</dt>
-                    <dd>{{vm.student.personal.emergency1.email}}</dd>
-                    <dt>Phone</dt>
-                    <dd>{{vm.student.personal.emergency1.phone}}</dd>
-                </dl>
-                <dl>
-                    <dt>Name</dt>
-                    <dd>{{vm.student.personal.emergency2.name}}</dd>
-                    <dt>Relationship</dt>
-                    <dd>{{vm.student.personal.emergency2.relationship}}</dd>
-                    <dt>Email</dt>
-                    <dd>{{vm.student.personal.emergency2.email}}</dd>
-                    <dt>Phone</dt>
-                    <dd>{{vm.student.personal.emergency2.phone}}</dd>
-                </dl>
-            </fieldset>
-        </div>
-        <div class="col-md-2">
-            <fieldset>
-                <legend>Assigned Users</legend>
-                <dl ng-repeat="person in vm.student.embedded.users">
-                    <dt></dt>
-                    <dd>{{person.fullname}}</dd>
-                </dl>
-            </fieldset>
-        </div>
-        <div class="col-md-2">
-            <fieldset>
-                <legend>School Information</legend>
-                <dl>
-                    <dt>Current School</dt>
-                    <dd>{{vm.student.personal.xsre.enrollment.school_name}}</dd>
-                    <dt>Expected Graduation Year</dt>
-                    <dd>{{vm.student.personal.xsre.enrollment.projected_graduation_year}}</dd>
-                    <dt>Grade Level</dt>
-                    <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
-                </dl>
+                <legend>District Programs</legend>
                 <dl>
                     <dt>IEP</dt>
                     <dd>{{vm.student.personal.idea_indicator}}</dd>
@@ -114,13 +71,74 @@
                     <dd>{{vm.student.personal.eligibility_status}}</dd>
                 </dl>
             </fieldset>
-        </div>
-        <div class="col-md-2">
             <fieldset>
-                <legend>Current Class Schedule {{}}</legend>
+                <legend>District Metrics</legend>
+                <dl>
+                    <dt>Current GPA</dt>
+                    <dd></dd>
+                    <dt>Cummulative GPA</dt>
+                    <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd>
+                    <dt>Attendance</dt>
+                    <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
+                    <dt>Attendance Trend</dt>
+                    <dd></dd>
+                    <dt>Behavior</dt>
+                    <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
+                    <dt>On Track Graduate</dt>
+                    <dd>
+                        <span ng-show="vm.on_track_to_graduate ===''?false:true" ng-class="vm.on_track_to_graduate === 'Yes' ? 'glyphicon glyphicon-ok-sign alert-success' : 'glyphicon glyphicon-remove-sign alert-danger'" aria-hidden="true"></span>
+                    </dd>
+                </dl>
+            </fieldset>
+        </div>
+        <div class="col-md-3">
+            <fieldset>
+                <legend>School Information</legend>
+                <dl>
+                    <dt>{{vm.student.personal.xsre.enrollment.school_name}}</dt>
+                    <dd></dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <legend>Current Class Schedule</legend>
                 <span ng-repeat ="course in vm.student.transcript.source.transcript_term.courses | orderBy:'timeTablePeriod'">
-                    <span class="label label-success" ng-show="course.timeTablePeriod">{{course.timeTablePeriod}}</span><span>{{course.courseTitle}}</span>
+                    {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
                 </span>
+            </fieldset>
+        </div>
+        <div class="col-md-3">
+            <fieldset>
+                <legend>Primary Contacts</legend>
+                <dl>
+                    <dt>{{vm.student.personal.emergency1.name}}</dt>
+                    <dd></dd>
+                    <dt>{{vm.student.personal.emergency1.relationship}}</dt>
+                    <dd></dd>
+                    <dt>{{vm.student.personal.emergency1.phone}}</dt>
+                    <dd></dd>
+                    <dt>{{vm.student.personal.emergency1.email}}</dt>
+                    <dd></dd>
+                </dl>
+                </fieldset>
+            <fieldset>
+                <legend>Additional Contacts</legend>
+                <dl>
+                    <dt>{{vm.student.personal.emergency2.name}}</dt>
+                    <dd></dd>
+                    <dt>{{vm.student.personal.emergency2.relationship}}</dt>
+                    <dd></dd>
+                    <dt>{{vm.student.personal.emergency2.phone}}</dt>
+                    <dd></dd>
+                    <dt>{{vm.student.personal.emergency2.email}}</dt>
+                    <dd></dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <legend>Misc.</legend>
+                <dl>
+                    <dt ng-show="vm.student.personal.college_bound">College Bound</dt>
+                    <dd></dd>
+                </dl>
             </fieldset>
         </div>
     </div>
@@ -321,7 +339,19 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="program_participation">
-                    program participation
+                    <div style="display: flex;flex-direction: column">
+                        <div style="display: flex;flex-grow: 1" ng-repeat="years in vm.list_program_years track by $index">
+                            <h3>{{years}}</h3>
+                            <div ng-repeat="program in vm.list_programs track by $index">
+                                <p>{{program.name}}</p>
+                                <p>{{program.active}}</p>
+                                <p>{{program.start_date | date : 'MM/dd/yyyy' : timezone}} - {{program.end_date | date : 'MM/dd/yyyy' : timezone}}</p>
+                                <span ng-repeat="cohort in program.cohorts">
+                                    {{cohort}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="enrollment_history">
                     <table class="table table-striped">
@@ -368,7 +398,49 @@
                     </table>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="assessment">
-                    assessment
+                <div style="display: flex;justify-content: space-around;">
+                    <div class="text-uppercase text-center">
+                        Map
+                    </div>
+                    <div class="text-uppercase text-center">
+                        State
+                    </div>
+                </div>
+                    <div style="display: flex;" ng-repeat="assessment in vm.assessment track by $index ">
+
+                        <div class="text-uppercase" style="display:flex;flex-grow: 1;width: 50%;flex-wrap: wrap;">
+                            <div style="width: 100%">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
+                            <div ng-repeat="map in assessment.maps" style="flex-grow: 1;width: 33.33%">
+                                <h6>{{map.subTestName}}</h6>
+                                <dl>
+                                    <dt>RIT Score</dt>
+                                    <dd>{{map.RITScore}}</dd>
+                                    <dt>School Name</dt>
+                                    <dd>{{map.schoolName}}</dd>
+                                    <dt>Student Grade Level</dt>
+                                    <dd>{{assessment.studentGradeLevel}}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="text-uppercase" style="display: flex;flex-grow: 1;width: 50%;flex-wrap: wrap;">
+                            <div style="width: 100%">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
+                            <div ng-repeat="state in assessment.states" style="flex-grow: 1;width: 33.33%">
+                                <h6>{{state.subTestName}}</h6>
+                                <dl>
+                                    <dt>Score</dt>
+                                    <dd></dd>
+                                    <dt>Attempt Code</dt>
+                                    <dd>{{student.attemptCode}}</dd>
+                                    <dt>Attempt Description</dt>
+                                    <dd>{{state.attemptCodeDescription}}</dd>
+                                    <dt>School Name</dt>
+                                    <dd>{{state.schoolName}}</dd>
+                                    <dt>Grade Level</dt>
+                                    <dd>{{assessment.studentGradeLevel}}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="graph">
                     graph
