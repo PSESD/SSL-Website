@@ -4,7 +4,7 @@ nav.navbar  {
 
   @media (max-width: $screen-xs-max) {
     background: transparent;
-    height: auto;
+    height: 100%;
   }
 
   &.navbar-fixed-top
@@ -16,6 +16,24 @@ nav.navbar  {
         margin-top: -1px;
         margin-left: auto;
       }
+       @media (max-width: $screen-xs-max) {
+        position: absolute;
+        background: $black;
+        min-height: 100%;
+        width: 300px;
+        right: -3000px;
+        transition: right 0.2s ease;
+
+      }
+
+      &.collapsing{
+        transition: height 0.01s;
+      }
+
+      &.in{
+        right: 0;
+      }
+
     }
   }
 
@@ -181,69 +199,109 @@ nav.navbar  {
   .navbar-nav,
   .nav-profile
   {
-    padding-left: 0;
-    list-style: none;
+     padding-left: 0;
+     list-style: none;
+     @media (max-width: $screen-xs-max) {
+         margin: 0 -15px;
+         //@include font($font-family-kreon, 1.177777777777777em, 1.571428571428571, 700);
+         font-size: rem(16);
+         font-weight: 700;
+         text-transform: uppercase;
+         background-color: $black;
+         li {
+            padding-left: 2em;
+            padding-right: 2em;
+             &.profile-tab {
+                 //display: none;
+                 padding-top: 15px;
+                 padding-bottom: 15px;
+                 .user-profile {
+                     font-size: rem(12);
+                     text-transform: none;
+                     font-weight: 400;
+                     .circle-profile {
+                         display: inline-block;
+                         z-index: 0;
+                     }
+                     .circle-profile-text {
+                         display: inline-block;
+                         position: relative;
+                         top: 10px;
+                         margin-left: 10px;
+                     }
+                 }
+             }
+             &.logout-tab{
+                  text-align: left;
+                  padding-bottom: 20px;
+                   @include clearfix;
+                .edit-profile{
+                  font-size: rem(12);
+                  text-transform: none;
+                  float: left;
+                  margin-top: 8px;
+                  margin-right: 20px;
+                }
+                .btn-dark-container{
+                    float: left;
 
-    @media (max-width: $screen-xs-max) {
-      margin: 0 -15px;
-      @include font($font-family-kreon, 1.177777777777777em, 1.571428571428571, 700);
-      text-transform: uppercase;
-    }
-    li {
+                    .btn{
+                      font-size: rem(12);
+                    }
+                }
+             }
+         }
 
-      @media (max-width: $screen-xs-max) {
-        &.profile-tab {
-          //display: none;
-          .user-profile
-          {
-            background-color: $color-blue-navy;
+     }
+ }
 
-            .circle-profile
-            {
-              display: inline-block;
-              z-index: 0;
-            }
-            .circle-profile-text
-            {
-              display: inline-block;
-              position: relative;
-              top: 10px;
-              margin-left: 10px;
-            }
-          }
-        }
-      }
+ .navbar-nav {
+     @media (max-width: $screen-xs-max) {
+         li {
+             border-bottom: 1px solid #28353c;
+             font-family: $font-family-kreon;
+             &.active,
+             &:focus,
+             &:hover {
+                 background: $color-dark-grey;
+                 a {
+                     color: $color-white;
+                 }
+             }
+             a {
+                 color: $color-grey;
+                 display: block;
+                 padding-top: 15px;
+                 padding-bottom: 15px;
+                 line-height: 20px;
+                 text-align: left;
 
-      &.active
-      {
-        a
-        {
-          color: $color-white;
-          background-color: $dark-grey;
-        }
-      }
+                 &:after{
+                    font-family: 'Glyphicons Halflings';
+                    content: "\e080";
+                    font-weight: 400;
+                    float: right;
+                 }
 
-      a {
-        color: $color-grey;
-        background-color: $color-blue-navy;
+                 &:focus,
+                 &:hover {
+                     color: $color-white;
+                     background: transparent;
+                 }
+             }
+         }
+     }
+ }
 
-        @media (max-width: $screen-xs-max) {
-          display: block;
-          padding-top: 10px;
-          padding-bottom: 10px;
-          line-height: 20px;
-        }
 
-        &:focus,
-        &:hover
-        {
-          color: $color-white;
-          background-color: $color-grey;
-        }
-      }
 
-    }
-  }
+
+
+
+
+//Tablet up
+
+
   @media (min-width: $screen-tablet)
   {
     .navbar-nav

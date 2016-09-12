@@ -24,6 +24,16 @@ $light-black: #28353b;
 $font-family-kreon: "Kreon",serif!default;
 $font-family-open-sans: "Open Sans", sans-serif!default;
 
+// $base-font-size
+// Base font size in used in _mixins.scss
+// $base-font-size - {number}
+$base-font-size:              12;
+// $base-line-height
+// Base line-height in used in _mixins.scss
+// $base-line-height - {number}
+$base-line-height:            24;
+
+
 //== Media queries breakpoints
 //
 //## Define the breakpoints at which your layout will change, adapting to different screen sizes.

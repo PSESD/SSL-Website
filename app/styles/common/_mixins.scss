@@ -19,6 +19,18 @@
     font-weight: unquote($font-weight);
 }
 
+// Media Queries
+//
+// Allows you to use inline media queries.
+//
+// $breakpoint - Desired breakpoint. Can be variable or unit.
+// $query - Defaults to `min-width`.
+// $type - Defaults to `screen`.
+
+@mixin mq($breakpoint, $query: 'min-width', $type: 'screen') {
+    @media #{$type} and (#{$query}: #{$breakpoint}) { @content; }
+}
+
 
 /*----------  Gradient https://www.sitepoint.com/building-linear-gradient-mixin-sass/  ----------*/
 

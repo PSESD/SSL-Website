@@ -1,0 +1,77 @@
+// Functions
+
+// Unit Conversion
+
+// strip-unit($num)
+//
+// Strip units from values.
+//
+// $num       - Value to be stripped.
+// @returns   - number
+// @source    - http://hugogiraudel.com/2013/08/12/sass-functions
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+// em()
+//
+//  Convert pixel values to ems.
+//
+// $target    - Value to convert to ems.
+// $context   - The context the conversion is based on. Defaults to `$base-font-size`
+// @requires  - `$base-font-size` / `@strip-units`
+// @returns   - number
+// @source    - http://www.pjmccormick.com/sweet-sass-function-convert-px-em
+
+@function em($target, $context: $base-font-size) {
+  @if not unitless($target) {
+    $target: strip-units($target);
+  }
+  @if not unitless($context) {
+    $context: strip-units($context);
+  }
+  @if $target == 0 { @return 0 }
+  @return $target / $context + 0em;
+}
+// rem()
+//
+// Convert pixel values to rems.
+//
+// $target    - Value to convert to ems.
+// $context   - The context the conversion is based on. Defaults to `$base-font-size`
+// @requires  - `$base-font-size` / `@strip-units`
+// @returns   - number
+// @source    - http://www.pjmccormick.com/sweet-sass-function-convert-px-em
+
+@function rem($target, $context: $base-font-size) {
+  @if not unitless($target) {
+    $target: strip-units($target);
+  }
+  @if not unitless($context) {
+    $context: strip-units($context);
+  }
+  @if $target == 0 { @return 0 }
+  @return $target / $context + 0rem;
+}
+
+// px()
+//
+// Convery em values to pixels.
+//
+// $target    - Value to convert to ems.
+// $context   - The context the conversion is based on. Defaults to `$base-font-size`
+// @requires  - `$base-font-size` / `@strip-units`
+// @returns   - number
+// @source    - http://www.pjmccormick.com/sweet-sass-function-convert-px-em
+
+@function px($target, $context: $base-font-size) {
+  @if not unitless($target) {
+    $pxval: strip-units($target);
+  }
+  @if not unitless($context) {
+    $base: strip-units($context);
+  }
+  @if $target == 0 { @return 0 }
+  @return $target * $context + 0px;
+}

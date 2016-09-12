@@ -66,8 +66,41 @@ body.reset-page {
       background-position-y: 66%;
     }
     input {
-      text-align: center;
+        text-align: center;
+        transform: all 0.3s ease-out;
+        &::-webkit-input-placeholder {
+            color: $white;
+        }
+        &:-moz-placeholder {
+            color: $white;
+            opacity: 1;
+        }
+        &::-moz-placeholder {
+            color: $white;
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            color: $white;
+        }
+        &:focus::-webkit-input-placeholder {
+            color: transparent;
+        }
+        &:focus:-moz-placeholder {
+            color: transparent;
+        }
+        /* FF 4-18 */
+        &:focus::-moz-placeholder {
+            color: transparent;
+        }
+        /* FF 19+ */
+        &:focus:-ms-input-placeholder {
+            color: transparent;
+        }
+        /* IE 10+ */
     }
+
+
+
   }
   .forgot-form {
     //padding-bottom: 30px;
