@@ -1,5 +1,7 @@
-(function() {
+(function($) {
     'use strict';
+
+
 
     angular.module('sslv2App')
         .controller('StudentCtrl', StudentCtrl);
@@ -23,6 +25,8 @@
         init();
 
         function init(){
+
+
 
             vm.selected_schools =[];
             vm.selected_districts =[];
@@ -240,4 +244,4 @@
 
         }
     }
-})();
+})(jQuery);

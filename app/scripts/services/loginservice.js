@@ -104,7 +104,7 @@
                     localStorage.setItem('email', "");
                   }
                   CookieService.set(profile);
-                  $state.go('dashboard',{},{reload:true});
+                  $state.go('dashboard.student',{},{reload:true});
                 }else{
 
                 }

@@ -113,6 +113,11 @@
                  });
                  vm.legend = _.uniq(legend);
                  vm.list_of_details = list_of_student_data;
+                 if(vm.list_of_details.length === 0){
+                     vm.list_of_details.show = false;
+                 }else if(vm.list_of_details.length !== 0){
+                     vm.list_of_details.show = true;
+                 }
              },function(error){
                  console.log(error);
              });
@@ -301,17 +306,17 @@
                         var data = _.get(response,'data.info',"");
                         student.embedded.programs = _.get(data,'_embedded.programs',"");
                         student.embedded.users = _.get(data,'_embedded.users',"");
-                        student.last_update = data.lastUpdated;
-                        student.report_date = data.reportDate;
-                        student.local_id = data.localId;
-                        student.personal.address = data.personal.address;
-                        student.personal.college_bound = data.personal.collegeBound;
-                        student.personal.days_absent = data.personal.daysAbsent;
-                        student.personal.days_in_attendance = data.personal.daysInAttendance;
-                        student.personal.eligibility_status = data.personal.eligibilityStatus;
-                        student.personal.email = data.personal.email;
-                        student.personal.emergency1.email = data.personal.emergency1.email;
-                        student.personal.emergency1.mentor = data.personal.emergency1.mentor;
+                        student.last_update = _.get(data,'lastUpdated',"");
+                        student.report_date = _.get(data,'reportDate',"");
+                        student.local_id = _.get(data,'localId',"");
+                        student.personal.address = _.get(data,'personal.address',"");
+                        student.personal.college_bound = _.get(data,'personal.collegeBound',"");
+                        student.personal.days_absent = _.get(data,'personal.daysAbsent',"");
+                        student.personal.days_in_attendance = _.get(data,'personal.daysInAttendance',"");
+                        student.personal.eligibility_status = _.get(data,'personal.eligibilityStatus',"");
+                        student.personal.email = _.get(data,'personal.email',"");
+                        student.personal.emergency1.email = _.get(data,'personal.emergency1.email',"");
+                        student.personal.emergency1.mentor = _.get(data,'personal.emergency1.mentor',"");
                         student.personal.emergency1.name = data.personal.emergency1.name;
                         student.personal.emergency1.phone = data.personal.emergency1.phone;
                         student.personal.emergency1.relationship = data.personal.emergency1.relationship
@@ -378,6 +383,11 @@
                             vm.list_programs.push(program);
                         });
                         vm.list_program_years = _.uniq(vm.list_program_years);
+                        if(vm.list_program_years.length === 0){
+                            vm.list_program_years.show = true;
+                        }else if(vm.list_program_years.length !== 0){
+                            vm.list_program_years.show = false;
+                        }
                         vm.list_programs = _.sortBy(vm.list_programs,function(val){return val.years});
                         vm.student = student;
                     }

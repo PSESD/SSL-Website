@@ -66,3 +66,19 @@ a{
   height: 50px;
   line-height: 50px;
 }
+
+.display-flex{
+  display: flex;
+}
+.align-items-center{
+  align-items: center;
+}
+.flex-grow-1{
+  flex-grow: 1;
+}
+.flex-grow-2{
+  flex-grow: 2;
+}
+.no-padding{
+  padding:0;
+}
