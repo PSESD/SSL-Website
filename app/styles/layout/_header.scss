@@ -328,6 +328,10 @@ nav.navbar  {
 
         &.active
         {
+          a{
+            background: $dark-grey;
+            color: $color-white;
+          }
           .arrow-container
           {
             position: absolute;
@@ -354,12 +358,11 @@ nav.navbar  {
           line-height: 50px;
           color: $color-grey;
           background-color: $color-blue-navy;
-          &.active,
-          &:focus,
-          &:hover
-          {
+          transition: all 0.25s ease;
+
+          &:hover{
+            background: $dark-grey;
             color: $color-white;
-            background-color: $dark-grey;
           }
 
           @media (max-width: $screen-sm-max) {

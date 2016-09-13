@@ -117,6 +117,27 @@ button.btn-dark,
     }
 }
 
+//Button Dropdown
+
+button.dropdown-toggle{
+  border: 1px solid $grey-light;
+  color: $black;
+  font-family: $font-family-sans-serif;
+  text-transform: none;
+  font-weight: normal;
+  &:hover{
+    color: $black;
+  }
+  &:after{
+    position: relative;
+  }
+  .caret{
+    top: 11px !important;
+  }
+}
+
+
+
 //Button Helper Classes
 button.no-width,
 .btn.no-width {

@@ -13,7 +13,7 @@ input[type="email"].form-control
   background: transparent;
   border-radius: 0;
   border: 0;
-  border-bottom: 1px $color-black solid;
+  //border-bottom: 1px $color-black solid;
   box-shadow: none;
   color: $color-black;
 
@@ -140,7 +140,7 @@ input.inverse:-ms-input-placeholder
 .form-search-icon
 {
   margin-right: -3px;
-  border-bottom: 1px $color-black solid;
+  //border-bottom: 1px $color-black solid;
 }
 
 fieldset
@@ -190,4 +190,16 @@ fieldset
       }
     }
   }
+}
+
+
+
+//Specific form styles
+
+.form-search{
+  border: 1px solid $grey-light;
+  background: lighten($grey-light, 10%);
+  color: $grey-light;
+  padding: 0 20px;
+  border-radius: 20px;
 }
