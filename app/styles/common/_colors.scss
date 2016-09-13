@@ -259,21 +259,44 @@
   color: $color-white;
 }
 
-.Present {
+.Present,
+.present{
   background-color: #A9D8BE;
 }
-.Excused {
+.Excused,
+.excused{
   background-color: #2F9DBB;
 }
-.n_a {
+.n_a{
   background-color: #efefef;
 }
-.Tardy {
+.Tardy,
+.tardy{
   background-color: #4E73A7;
 }
-.Other {
+.Other,
+.other{
   background-color: #765B74;
 }
-.Unexcused {
+.Unexcused,
+.unexcused{
   background-color: #CD5728;
+}
+.Improving{
+  -ms-transform: rotate(-45deg); /* IE 9 */
+  -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+  transform: rotate(-45deg);
+  color:#5cb85c;
+}
+.Steady{
+  -ms-transform: rotate(0deg); /* IE 9 */
+  -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+  transform: rotate(0deg);
+  color:black;
+}
+.Worsening{
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+  color:#d9534f;
 }

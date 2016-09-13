@@ -63,12 +63,12 @@
             <fieldset>
                 <legend>District Programs</legend>
                 <dl>
-                    <dt>IEP</dt>
-                    <dd>{{vm.student.personal.idea_indicator}}</dd>
+                    <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">IEP</dt>
+                    <dd></dd>
                     <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">504 Plan</dt>
                     <dd></dd>
-                    <dt>Free or Reduced Lunch</dt>
-                    <dd>{{vm.student.personal.eligibility_status}}</dd>
+                    <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">Free or Reduced Lunch</dt>
+                    <dd></dd>
                 </dl>
             </fieldset>
             <fieldset>
@@ -81,7 +81,7 @@
                     <dt>Attendance</dt>
                     <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
                     <dt>Attendance Trend</dt>
-                    <dd></dd>
+                    <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd>
                     <dt>Behavior</dt>
                     <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
                     <dt>On Track Graduate</dt>
@@ -173,35 +173,33 @@
                             <div ng-click="vm.changeStatus(student,$index)" class="panel-heading" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                 <div class="flex-grow-1 text-center attendance-date">{{student.header.date}}</div>
                                 <div class="flex-grow-2  text-center attendance-days display-flex">
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.monday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.tuesday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.tuesday.date}}<br/>{{student.header_detail.day.tuesday.value}}</div>
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.wednesday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.wednesday.date}}<br/>{{student.header_detail.day.wednesday.value}}</div>
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.thursday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.thursday.date}}<br/>{{student.header_detail.day.thursday.value}}</div>
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.friday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.friday.date}}<br/>{{student.header_detail.day.friday.value}}</div>
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.saturday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.saturday.date}}<br/>{{student.header_detail.day.saturday.value}}</div>
-                                    <div class="flex-grow-1" ng-hide="student.status">{{student.header.sunday}}</div>
-                                    <div class="flex-grow-1" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.monday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.tuesday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.tuesday.date}}<br/>{{student.header_detail.day.tuesday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.wednesday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.wednesday.date}}<br/>{{student.header_detail.day.wednesday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.thursday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.thursday.date}}<br/>{{student.header_detail.day.thursday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.friday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.friday.date}}<br/>{{student.header_detail.day.friday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.saturday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.saturday.date}}<br/>{{student.header_detail.day.saturday.value}}</div>
+                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.sunday}}</div>
+                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
                                 </div>
                                 <div class="attendance-weekly-change flex-grow-1 text-center">{{student.header.weekly_change}}</div>
                             </div>
                             <div id="tabs-{{$index}}" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body display-flex no-padding">
-                                    <div style="flex-grow: 1;text-align: center;width: 30%;" >
+                                    <div class="flex-grow-1 text-center attendance-date content">
                                         <div class="text-uppercase detail-item" ng-repeat="period in student.periods track by $index">{{period}}</div>
                                         <div class="detail-item"></div>
                                         <div class="text-uppercase detail-item">Behavior</div>
                                     </div>
-                                    <div style="flex-grow: 2;text-align: center;display: flex;width: 40%;">
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.monday">
-                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
-                                            </div>
+                                    <div class="display-flex flex-grow-2 text-center attendance-days content">
+                                        <div class="flex-grow-1 day">
+                                            <list-attendance ng-repeat="detail in student.detail_columns.monday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -209,10 +207,8 @@
                                                 <div class="detail-item n_a"></div>
                                             </div>
                                         </div>
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.tuesday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
+                                        <div class="flex-grow-1 day">
+                                            <list-attendance ng-repeat="detail in student.detail_columns.tuesday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -220,10 +216,8 @@
                                                 <div class="detail-item n_a"></div>
                                             </div>
                                         </div>
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.wednesday">
-                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
-                                            </div>
+                                        <div class="flex-grow-1 day">
+                                            <list-attendance ng-repeat="detail in student.detail_columns.wednesday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -231,10 +225,8 @@
                                                 <div class="detail-item n_a"></div>
                                             </div>
                                         </div>
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.thursday">
-                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
-                                            </div>
+                                        <div class="flex-grow-1 day">
+                                                <list-attendance ng-repeat="detail in student.detail_columns.thursday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -242,10 +234,8 @@
                                                 <div class="detail-item n_a"></div>
                                             </div>
                                         </div>
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.friday">
-                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
-                                            </div>
+                                        <div class="flex-grow-1 day">
+                                            <list-attendance ng-repeat="detail in student.detail_columns.friday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -253,10 +243,8 @@
                                                 <div class="detail-item n_a"></div>
                                             </div>
                                         </div>
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.saturday">
-                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
-                                            </div>
+                                        <div class="flex-grow-1 day">
+                                            <list-attendance ng-repeat="detail in student.detail_columns.saturday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -264,10 +252,8 @@
                                                 <div class="detail-item n_a"></div>
                                             </div>
                                         </div>
-                                        <div style="flex-grow: 1">
-                                            <div style="padding: 0 2px" ng-repeat="detail in student.detail_columns.sunday">
-                                                <div class="detail-item " ng-class="detail.value !== 'N/A'?detail.value:'n_a'"></div>
-                                            </div>
+                                        <div class="flex-grow-1 day">
+                                            <list-attendance ng-repeat="detail in student.detail_columns.sunday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -276,11 +262,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="justify-content: center;align-items: center; display: flex;flex-grow: 1;text-align: center;width: 30%;">
-                                        <div ng-show="vm.legend !== null ? true : false" class="panel panel-default" style="width:75%;height: 75%">
+                                    <div class="align-items-center display-flex flex-grow-1 text-center attendance-weekly-change justify-content-center">
+                                        <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
                                             <div class="panel-heading">Legend</div>
-                                            <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;justify-content: space-between;">
-                                                <div ng-repeat="legend in vm.legend">{{legend}}</div>
+                                            <div class="panel-body no-padding" style="display: flex; flex-direction: column;height: 88%;">
+                                                <div ng-repeat="legend in vm.legend">
+                                                    <span class="legend-item {{legend}}">
+                                                    {{legend}}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -339,7 +329,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane" id="program_participation">
                     <div ng-show="vm.list_program_years.show" class="text-center">
-                        This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program_student_add({id:vm.student_id})" to programs add>Enroll this student in a program</a>
+                        This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program">Go to Program</a>
                     </div>
                     <div style="display: flex;flex-direction: column">
                         <div style="display: flex;flex-grow: 1" ng-repeat="years in vm.list_program_years track by $index">
