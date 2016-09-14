@@ -13,13 +13,13 @@
         var student = "";
         var list_of_student_data = [];
         var periods = [];
-        vm.text ="";
+        var template = "<div class='attendance-modal'><dl><dt>{date}</dt><dd></dd><dt>Reason:</dt><dd>{reason}</dd><dt>Description:</dt><dd>{description}</dd></dl></div>";
         vm.changeStatus = changeStatus;
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
         vm.list_programs = [];
         vm.list_program_years = [];
-        // vm.attendance_template = "templates/behavior.html";
+
         StudentService.getAttendance(id)
              .then(function(response){
                  var data = _.get(response,'data.info.data',[]);
@@ -85,6 +85,125 @@
                              saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
                              sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
                          }
+                         _.forEach(detail_columns.monday,function(value,key){
+                             var event = _.get(value,'event',"");
+                             if(event !== ""){
+                                 var date = _.get(value,'event.calendarEventDate',"");
+                                 var reason = _.get(value,'event.absentReasonDescription',"");
+                                 var description = _.get(value,'event.attendanceStatusTitle',"");
+                                 if(date!=="" && reason !== "" && description !== ""){
+                                     var temp_template = template;
+                                     temp_template = _.replace(temp_template,'{date}',date);
+                                     temp_template = _.replace(temp_template,'{reason}',reason);
+                                     temp_template = _.replace(temp_template,'{description}',description);
+                                     detail_columns.monday[key].template = temp_template;
+                                 }else{
+                                     detail_columns.monday[key].template = "";
+                                 }
+                             }
+                         });
+                         _.forEach(detail_columns.tuesday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.tuesday[key].template = temp_template;
+                                }else{
+                                    detail_columns.tuesday[key].template = "";
+                                }
+                            }
+                         });
+                         _.forEach(detail_columns.wednesday,function(value,key){
+                             var event = _.get(value,'event',"");
+                             if(event !== ""){
+                                 var date = _.get(value,'event.calendarEventDate',"");
+                                 var reason = _.get(value,'event.absentReasonDescription',"");
+                                 var description = _.get(value,'event.attendanceStatusTitle',"");
+                                 if(date!=="" && reason !== "" && description !== ""){
+                                     var temp_template = template;
+                                     temp_template = _.replace(temp_template,'{date}',date);
+                                     temp_template = _.replace(temp_template,'{reason}',reason);
+                                     temp_template = _.replace(temp_template,'{description}',description);
+                                     detail_columns.wednesday[key].template = temp_template;
+                                 }else{
+                                     detail_columns.wednesday[key].template = "";
+                                 }
+                             }
+                         });
+                         _.forEach(detail_columns.thursday,function(value,key){
+                             var event = _.get(value,'event',"");
+                             if(event !== ""){
+                                 var date = _.get(value,'event.calendarEventDate',"");
+                                 var reason = _.get(value,'event.absentReasonDescription',"");
+                                 var description = _.get(value,'event.attendanceStatusTitle',"");
+                                 if(date!=="" && reason !== "" && description !== ""){
+                                     var temp_template = template;
+                                     temp_template = _.replace(temp_template,'{date}',date);
+                                     temp_template = _.replace(temp_template,'{reason}',reason);
+                                     temp_template = _.replace(temp_template,'{description}',description);
+                                     detail_columns.thursday[key].template = temp_template;
+                                 }else{
+                                     detail_columns.thursday[key].template = "";
+                                 }
+                             }
+                         });
+                         _.forEach(detail_columns.friday,function(value,key){
+                             var event = _.get(value,'event',"");
+                             if(event !== ""){
+                                 var date = _.get(value,'event.calendarEventDate',"");
+                                 var reason = _.get(value,'event.absentReasonDescription',"");
+                                 var description = _.get(value,'event.attendanceStatusTitle',"");
+                                 if(date!=="" && reason !== "" && description !== ""){
+                                     var temp_template = template;
+                                     temp_template = _.replace(temp_template,'{date}',date);
+                                     temp_template = _.replace(temp_template,'{reason}',reason);
+                                     temp_template = _.replace(temp_template,'{description}',description);
+                                     detail_columns.friday[key].template = temp_template;
+                                 }else{
+                                     detail_columns.friday[key].template = "";
+                                 }
+                             }
+                         });
+                         _.forEach(detail_columns.saturday,function(value,key){
+                             var event = _.get(value,'event',"");
+                             if(event !== ""){
+                                 var date = _.get(value,'event.calendarEventDate',"");
+                                 var reason = _.get(value,'event.absentReasonDescription',"");
+                                 var description = _.get(value,'event.attendanceStatusTitle',"");
+                                 if(date!=="" && reason !== "" && description !== ""){
+                                     var temp_template = template;
+                                     temp_template = _.replace(temp_template,'{date}',date);
+                                     temp_template = _.replace(temp_template,'{reason}',reason);
+                                     temp_template = _.replace(temp_template,'{description}',description);
+                                     detail_columns.saturday[key].template = temp_template;
+                                 }else{
+                                     detail_columns.saturday[key].template = "";
+                                 }
+                             }
+                         });
+                         _.forEach(detail_columns.sunday,function(value,key){
+                             var event = _.get(value,'event',"");
+                             if(event !==""){
+                                 var date = _.get(value,'event.calendarEventDate',"");
+                                 var reason = _.get(value,'event.absentReasonDescription',"");
+                                 var description = _.get(value,'event.attendanceStatusTitle',"");
+                                 if(date!=="" && reason !== "" && description !== ""){
+                                     var temp_template = template;
+                                     temp_template = _.replace(temp_template,'{date}',date);
+                                     temp_template = _.replace(temp_template,'{reason}',reason);
+                                     temp_template = _.replace(temp_template,'{description}',description);
+                                     detail_columns.sunday[key].template = temp_template;
+                                 }else{
+                                     detail_columns.sunday[key].template = "";
+                                 }
+                             }
+                         });
                          var behaviors = {
                              monday:data.behaviors.M,
                              tuesday:data.behaviors.T,

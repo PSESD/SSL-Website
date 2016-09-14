@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="display-flex flex-grow-2 text-center attendance-days content">
                                         <div class="flex-grow-1 day">
-                                            <list-attendance ng-repeat="detail in student.detail_columns.monday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.monday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -208,7 +208,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 day">
-                                            <list-attendance ng-repeat="detail in student.detail_columns.tuesday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.tuesday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -217,7 +217,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 day">
-                                            <list-attendance ng-repeat="detail in student.detail_columns.wednesday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.wednesday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -226,7 +226,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 day">
-                                                <list-attendance ng-repeat="detail in student.detail_columns.thursday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.thursday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -235,7 +235,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 day">
-                                            <list-attendance ng-repeat="detail in student.detail_columns.friday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.friday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -244,7 +244,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 day">
-                                            <list-attendance ng-repeat="detail in student.detail_columns.saturday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.saturday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
@@ -253,7 +253,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 day">
-                                            <list-attendance ng-repeat="detail in student.detail_columns.sunday" url={{vm.attendance_template}}" value="{{detail.value === 'N/A' ? 'n_a' : detail.value}}"></list-attendance>
+                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.sunday"></div>
                                             <div style="padding: 0 2px">
                                                 <div class="detail-item "></div>
                                             </div>
