@@ -65,3 +65,9 @@
 .alert-danger{
   color: $alert-red;
 }
+
+table.floatThead-table {
+  border-top: none;
+  border-bottom: none;
+  background-color: #FFF;
+}

@@ -86,6 +86,26 @@
                         </tr>
                     </tbody>
                 </table>
+                    </td>
+                    <td class="text-center">
+                        {{program.totalActive}}
+                    </td>
+                    <td class="text-center">
+                        {{program.totalStudent}}
+                    </td>
+                    <td ng-bind-html="program.cohorts"></td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-user" ui-sref="dashboard.program_student_add({id:program._id})"></a>
+                    </td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.program_edit({id:program._id})"></a>
+                    </td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-trash" ng-click="vm.deleteProgram(program._id,$index)"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             </div>
         </div>
     </div>

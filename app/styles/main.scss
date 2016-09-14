@@ -12,6 +12,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "components/_buttons.scss";
 @import "components/_forms.scss";
 @import "components/_popover.scss";
+@import "components/_tabs.scss";
 @import "layout/_typography.scss";
 @import "layout/_dashboard.scss";
 @import "layout/_header.scss";
@@ -19,6 +20,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "layout/_page.scss";
 @import "layout/_login.scss";
 @import "libs/_jquery-ui.scss";
+
 /*
 @import "_variables.scss";
 @import "_mixins.scss";

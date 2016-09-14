@@ -1,0 +1,50 @@
+.tab-content{
+  .attendance-header{
+    height: 80px;
+  }
+  .attendance-date{
+    width: 30%;
+  }
+  .attendance-days{
+    width:40%;
+  }
+  .attendance-weekly-change{
+    width: 30%;
+    .panel{
+      &.panel-default{
+        width:75%;
+        border:1px solid #ddd!important;
+        .panel-heading{
+          background: white;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  .content{
+    padding-top: 5px;
+  }
+  #attendance_behavior{
+    #accordion{
+      margin: 0;
+      .panel{
+        border-radius: 0;
+        border:none;
+      }
+    }
+  }
+}
+.legend-item{
+  display: block;
+  height:40px;
+  line-height: 40px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color:black;
+}
+.value{
+  margin: 0 2px;
+}
+.day{
+  width: 14.28%;
+}
