@@ -126,7 +126,7 @@ button.dropdown-toggle{
   text-transform: none;
   font-weight: normal;
   text-align:left;
-  padding: 2px 30px 2px 15px;
+  padding: 2px 50px 2px 15px;
   &:hover{
     color: $black;
   }
@@ -145,7 +145,10 @@ button.dropdown-toggle{
       content: "\e114";
     }
   }
+
 }
+
+
 
 
 

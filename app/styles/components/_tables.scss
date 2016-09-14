@@ -3,6 +3,7 @@
 ==============================*/
 
 .table {
+  margin-bottom: 3em;
     thead {
 
         tr {
@@ -12,7 +13,18 @@
                 vertical-align: top;
                 line-height: 1.2em;
                 a {
+                    position: relative;
+                    display: inline-block;
                     color: $black;
+                    padding-right: 15px;
+                    &:hover{
+                      color: $dark-grey;
+                    }
+                    span{
+                      position: absolute;
+                      right: 0;
+                      color: $cyan;
+                    }
                 }
             }
         }
@@ -31,6 +43,12 @@
             }
         }
     }
+}
+
+.table-responsive{
+  @media (max-width: $screen-md-max){
+    margin-bottom: 3em;
+  }
 }
 
 

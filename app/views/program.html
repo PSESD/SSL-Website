@@ -27,21 +27,21 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>
+                            <th style="width: 25%;">
                                 <a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">
                             Name
                             <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
                             <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
                             </th>
-                            <th class="text-center">
+                            <th style="width: 5%;" class="text-center">
                                 <a href="" ng-click="sortType = 'totalActive';sortReverse = !sortReverse">
                             Total Active
                             <span ng-show="sortType == 'totalActive' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
                             <span ng-show="sortType == 'totalActive' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
                             </th>
-                            <th class="text-center">
+                            <th style="width: 5%;" class="text-center">
                                 <a href="" ng-click="sortType = 'totalStudent';sortReverse = !sortReverse">
                             Total Student
                             <span ng-show="sortType == 'totalStudent' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
@@ -55,9 +55,9 @@
                             <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
                             </th>
-                            <th class="text-center">Assign Students</th>
-                            <th class="text-center">Edit</th>
-                            <th class="text-center">Delete</th>
+                            <th style="width: 5%;" class="text-center">Assign Students</th>
+                            <th style="width: 5%;" class="text-center">Edit</th>
+                            <th style="width: 5%;" class="text-center">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
