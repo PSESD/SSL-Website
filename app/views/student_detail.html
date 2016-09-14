@@ -145,11 +145,11 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="presentation" class="active"><a href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
+                <li role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
+                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
+                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
+                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
+                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -173,20 +173,20 @@
                             <div ng-click="vm.changeStatus(student,$index)" class="panel-heading" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                 <div class="flex-grow-1 text-center attendance-date">{{student.header.date}}</div>
                                 <div class="flex-grow-2  text-center attendance-days display-flex">
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.monday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.tuesday}}</div>
+                                    <div class="flex-grow-1 day general border-left-2" ng-hide="student.status">{{student.header.monday}}</div>
+                                    <div class="flex-grow-1 day border-left-2" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>
+                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.tuesday}}</div>
                                     <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.tuesday.date}}<br/>{{student.header_detail.day.tuesday.value}}</div>
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.wednesday}}</div>
+                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.wednesday}}</div>
                                     <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.wednesday.date}}<br/>{{student.header_detail.day.wednesday.value}}</div>
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.thursday}}</div>
+                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.thursday}}</div>
                                     <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.thursday.date}}<br/>{{student.header_detail.day.thursday.value}}</div>
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.friday}}</div>
+                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.friday}}</div>
                                     <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.friday.date}}<br/>{{student.header_detail.day.friday.value}}</div>
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.saturday}}</div>
+                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.saturday}}</div>
                                     <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.saturday.date}}<br/>{{student.header_detail.day.saturday.value}}</div>
-                                    <div class="flex-grow-1 day" ng-hide="student.status">{{student.header.sunday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
+                                    <div class="flex-grow-1 day general border-right-2" ng-hide="student.status">{{student.header.sunday}}</div>
+                                    <div class="flex-grow-1 day border-right-2" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
                                 </div>
                                 <div class="attendance-weekly-change flex-grow-1 text-center">{{student.header.weekly_change}}</div>
                             </div>
@@ -280,8 +280,8 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="transcript">
-                    <div style="display: flex;">
-                        <div style="flex-grow: 1;width:20%;">
+                    <div class="display-flex" ng-show="vm.transcript_header.show || vm.show">
+                        <div class="flex-grow-1" style="width:20%;">
                             <dl>
                                 <dt>Total Credits</dt>
                                 <dd>{{vm.transcript_header.credits}}</dd>
@@ -297,7 +297,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="display: flex" ng-repeat="high_school in vm.list_high_schools">
+                    <div style="display: flex" ng-repeat="high_school in vm.list_high_schools" ng-show="vm.list_high_schools.show || vm.show">
                         <div style="flex-grow: 1;width:20%;">
                             {{high_school.school_year}} - {{high_school.session}}
                             <dl>
@@ -331,16 +331,18 @@
                     <div ng-show="vm.list_program_years.show" class="text-center">
                         This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program">Go to Program</a>
                     </div>
-                    <div style="display: flex;flex-direction: column">
-                        <div style="display: flex;flex-grow: 1" ng-repeat="years in vm.list_program_years track by $index">
-                            <h3>{{years}}</h3>
-                            <div ng-repeat="program in vm.list_programs track by $index">
-                                <p>{{program.name}}</p>
-                                <p>{{program.active}}</p>
-                                <p>{{program.start_date | date : 'MM/dd/yyyy' : timezone}} - {{program.end_date | date : 'MM/dd/yyyy' : timezone}}</p>
-                                <span ng-repeat="cohort in program.cohorts">
-                                    {{cohort}}
-                                </span>
+                    <div class="display-flex flex-direction-column">
+                        <div class="display-flex flex-direction-column align-items-baseline" ng-repeat="program in vm.list_program_participations | orderBy:'-years'">
+                            <h5>{{program.years}}</h5>
+                            <div class="display-flex">
+                                <div class="flex-grow-1 program-participation" ng-repeat="item in program.programs">
+                                    <p>{{item.name}}</p>
+                                    <p>{{item.start_date | date : 'MM/dd/yyyy' : timezone}} - {{item.end_date | date : 'MM/dd/yyyy' : timezone}}</p>
+                                    <p>{{item.active}}</p>
+                                    <div class="display-flex flex-direction-column" ng-repeat="cohort in item.cohorts">
+                                        {{cohort}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

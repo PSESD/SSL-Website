@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('StudentDetailCtrl', StudentDetailCtrl);
 
-    StudentDetailCtrl.$inject = ['$state','StudentService','$stateParams','$q','$timeout','$http','RESOURCES','$cookies'];
+    StudentDetailCtrl.$inject = ['$state','StudentService','$stateParams','$q','$timeout'];
 
-    function StudentDetailCtrl($state,StudentService,$stateParams,$http,RESOURCES,$cookies) {
+    function StudentDetailCtrl($state,StudentService,$stateParams) {
 
         var vm = this;
         var id = $stateParams.id;
@@ -18,7 +18,6 @@
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
         vm.list_programs = [];
-        vm.list_program_years = [];
 
         StudentService.getAttendance(id)
              .then(function(response){
@@ -249,7 +248,11 @@
             vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
             vm.next_link = _.get(student_profile[current_index + 1],'value',"");
             var student = student_profile[current_index];
-
+            vm.show_transcript = true;
+            vm.show_attendance = true;
+            vm.show_program_participation = true;
+            vm.show_enrollment = true;
+            vm.show_assessment = true;
             vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
             StudentService.getTranscriptById(id)
                 .then(function(response){
@@ -291,6 +294,19 @@
                         }
                         vm.list_high_schools = list_high_schools;
                         vm.transcript_header = transcript_header;
+                        if(list_high_schools === "" ){
+                            vm.list_high_schools.show = false;
+                        }else if(vm.list_of_details.length !== 0){
+                            vm.list_high_schools.show = true;
+                        }
+
+                        if(transcript_header === "" ){
+                            vm.transcript_header.show = false;
+                        }else if(vm.list_of_details.length !== 0){
+                            vm.transcript_header.show = true;
+                        }
+                    }else{
+                        vm.show_transcript = false;
                     }
                 },function(error){
                     console.log(error);
@@ -413,7 +429,14 @@
             StudentService.getAssessmentById(id)
                 .then(function(response){
                     if(response.data.success === true){
-                        vm.assessment = response.data.info.data;
+                        vm.assessment = _.get(response,'data.info.data',"");
+                        if(vm.assessment === ""){
+                            vm.assessment.show = false;
+                        }else{
+                            vm.assessment.show = true;
+                        }
+                    }else{
+                        vm.show_assessment = false;
                     }
                 },function(error){
                     console.log(error);
@@ -422,6 +445,8 @@
             StudentService.getStudentById(id)
                 .then(function(response){
                     if(response.data.success === true){
+                        var list_program_years =[];
+                        var list_program_participation = [];
                         var data = _.get(response,'data.info',"");
                         student.embedded.programs = _.get(data,'_embedded.programs',"");
                         student.embedded.users = _.get(data,'_embedded.users',"");
@@ -490,24 +515,29 @@
                         student.personal.xsre.phone_number = _.get(data,'personal.xSre.phoneNumber',"");
 
                         _.forEach(student.embedded.programs,function(value){
-                            vm.list_program_years.push(new Date(value.participation_start_date).getFullYear());
-                           var program = {
-                               "years":new Date(value.participation_start_date).getFullYear(),
-                               "name":value.program_name,
-                               "start_date":value.participation_start_date,
-                               "end_date":new Date(value.participation_end_date) >= Date.now()?'Present':value.participation_end_date,
-                               "active": value.active ? 'Active':'Inactive',
-                               "cohorts":value.cohort
-                           };
-                            vm.list_programs.push(program);
+                            list_program_years.push(new Date(value.participation_start_date).getFullYear());
                         });
-                        vm.list_program_years = _.uniq(vm.list_program_years);
-                        if(vm.list_program_years.length === 0){
-                            vm.list_program_years.show = true;
-                        }else if(vm.list_program_years.length !== 0){
-                            vm.list_program_years.show = false;
-                        }
-                        vm.list_programs = _.sortBy(vm.list_programs,function(val){return val.years});
+                        list_program_years = _.uniq(list_program_years);
+                        _.forEach(list_program_years,function(value){
+                            var programs = {
+                                years:value,
+                                programs:[]
+                            }
+                           list_program_participation.push(programs);
+                        });
+                        _.forEach(student.embedded.programs,function(value){
+                            var years = new Date(value.participation_start_date).getFullYear();
+                            var idx = _.findIndex(list_program_participation,{'years':years});
+                            var program = {
+                                "name":value.program_name,
+                                "start_date":_.get(value,"participation_start_date",""),
+                                "end_date": new Date(value.participation_end_date) >= Date.now() ? 'Present' : _.get(value,"participation_end_date",""),
+                                "active": value.active ? "Active" : "Inactive",
+                                "cohorts": value.cohort
+                            }
+                            list_program_participation[idx].programs.push(program);
+                        });
+                        vm.list_program_participations = list_program_participation;
                         vm.student = student;
                     }
                 },function (error) {
@@ -542,6 +572,13 @@
                         student.transcript.source.transcript_term.school.local_id = _.get(data,'source.transcriptTerm.school.localId',"");
                         student.transcript.source.transcript_term.school.school_name = _.get(data,'source.transcriptTerm.school.schoolName',"");
                         student.transcript.source.transcript_term.school_year = _.get(data,'source.transcriptTerm.schoolYear',"");
+                        if(data === ""){
+
+                        }else{
+
+                        }
+                    }else{
+
                     }
                 },function(error){
                     console.log(error);
