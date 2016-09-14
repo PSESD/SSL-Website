@@ -1,90 +1,91 @@
 <div class="container-fluid" ng-class="currentURL">
     <div class="row">
-
-        <div class="col-xs-12 inverse header-background">
-            <h1 class="page-title">
-                Programs <div class="divider-vertical hidden-xs"></div> <button class="btn-default inverse invite-user" ui-sref="dashboard.program_add">Add Program</button>
-            </h1>
-        </div>
-
-        <div class="clearfix space20"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <form class="form-inline form-search">
-                <div class="form-group">
-                    <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
+        <div class="header-background clearfix inverse">
+            <div class="container">
+                <div class="pull-left">
+                    <h1 class="page-title">
+                Programs <div class="divider-vertical"></div>
+              </h1>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Programs">
+                <div class="pull-right">
+                    <button class="btn btn-reverse invite-user" ui-sref="dashboard.program_add">Add Program</button>
                 </div>
-            </form>
+            </div>
         </div>
-        <div class="clearfix space20"></div>
-
-        <div class="col-xs-12">
+        <div id="main" class="container">
+            <div class="data-filters clearfix">
+                <form class="form-inline form-search">
+                    <div class="form-group">
+                        <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Programs">
+                    </div>
+                    <div class="form-group">
+                        <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
+                    </div>
+                </form>
+            </div>
             <div class="table-responsive">
-                <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>
-                        <a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">
                             Name
                             <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
                             <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
-                    </th>
-                    <th class="text-center">
-                        <a href="" ng-click="sortType = 'totalActive';sortReverse = !sortReverse">
+                            </th>
+                            <th class="text-center">
+                                <a href="" ng-click="sortType = 'totalActive';sortReverse = !sortReverse">
                             Total Active
                             <span ng-show="sortType == 'totalActive' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
                             <span ng-show="sortType == 'totalActive' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
-                    </th>
-                    <th class="text-center">
-                        <a href="" ng-click="sortType = 'totalStudent';sortReverse = !sortReverse">
+                            </th>
+                            <th class="text-center">
+                                <a href="" ng-click="sortType = 'totalStudent';sortReverse = !sortReverse">
                             Total Student
                             <span ng-show="sortType == 'totalStudent' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
                             <span ng-show="sortType == 'totalStudent' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
-                    </th>
-                    <th  class="text-center">
-                        <a href="" ng-click="sortType = 'cohorts';sortReverse = !sortReverse">
+                            </th>
+                            <th class="text-center">
+                                <a href="" ng-click="sortType = 'cohorts';sortReverse = !sortReverse">
                             Cohorts
                             <span ng-show="sortType == 'cohorts' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
                             <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
-                    </th>
-                    <th class="text-center">Assign Students</th>
-                    <th class="text-center">Edit</th>
-                    <th class="text-center">Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="program in vm.programs |filter:search|orderBy:sortType:sortReverse">
-                    <td>
-                        <a ui-sref="dashboard.program_student({id:program._id})">
+                            </th>
+                            <th class="text-center">Assign Students</th>
+                            <th class="text-center">Edit</th>
+                            <th class="text-center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="program in vm.programs |filter:search|orderBy:sortType:sortReverse">
+                            <td>
+                                <a ui-sref="dashboard.program_student({id:program._id})">
                             {{program.name}}
                         </a>
-                    </td>
-                    <td class="text-center">
-                        {{program.totalActive}}
-                    </td>
-                    <td class="text-center">
-                        {{program.totalStudent}}
-                    </td>
-                    <td ng-bind-html="program.cohorts"></td>
-                    <td class="text-center">
-                        <a class="glyphicon glyphicon-user" ui-sref="dashboard.program_student({id:program._id})"></a>
-                    </td>
-                    <td class="text-center">
-                        <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.program_edit({id:program._id})"></a>
-                    </td>
-                    <td class="text-center">
-                        <a class="glyphicon glyphicon-trash" ng-click="vm.deleteProgram(program._id,$index)"></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                            </td>
+                            <td class="text-center">
+                                {{program.totalActive}}
+                            </td>
+                            <td class="text-center">
+                                {{program.totalStudent}}
+                            </td>
+                            <td ng-bind-html="program.cohorts"></td>
+                            <td class="text-center">
+                                <a class="glyphicon glyphicon-user" ui-sref="dashboard.program_student({id:program._id})"></a>
+                            </td>
+                            <td class="text-center">
+                                <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.program_edit({id:program._id})"></a>
+                            </td>
+                            <td class="text-center">
+                                <a class="glyphicon glyphicon-trash" ng-click="vm.deleteProgram(program._id,$index)"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

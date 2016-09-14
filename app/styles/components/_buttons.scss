@@ -125,6 +125,8 @@ button.dropdown-toggle{
   font-family: $font-family-sans-serif;
   text-transform: none;
   font-weight: normal;
+  text-align:left;
+  padding: 2px 30px 2px 15px;
   &:hover{
     color: $black;
   }
@@ -132,7 +134,16 @@ button.dropdown-toggle{
     position: relative;
   }
   .caret{
-    top: 11px !important;
+    right: 20px !important;
+    top: 5px !important;
+    border: none;
+    &:after{
+      color: $cyan;
+      display: inline-block;
+      line-height: 1;
+      font-family: 'Glyphicons Halflings';
+      content: "\e114";
+    }
   }
 }
 
