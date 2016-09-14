@@ -1,26 +1,28 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
 
-        <div class="col-xs-12 inverse header-background">
+        <header class="header-background clearfix inverse">
+          <div class="container">
             <h1 class="page-title">
-                {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
-                <div class="divider-vertical hidden-xs"></div>
-                <div class="header-title-student-detail">
-                    <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
-                    <div><a href="#" class="uppercase">CHECK FOR UPDATES <span class="glyphicon glyphicon-refresh"></span></a></div>
-                    <div>Last Updates: {{vm.student.last_update}}</div>
-                </div>
+              {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
+              <div class="divider-vertical hidden-xs"></div>
+              <div class="header-title-student-detail">
+                <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
+                <div><a href="#" class="uppercase">CHECK FOR UPDATES <span class="glyphicon glyphicon-refresh"></span></a></div>
+                <div>Last Updates: {{vm.student.last_update}}</div>
+              </div>
 
-                <div class="pull-right">
-                    <a class="btn btn-reverse" ui-sref="dashboard.student">View All Student</a>
-                    <a href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
-                    <a href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
-                </div>
+              <div class="pull-right">
+                <a class="btn btn-reverse" ui-sref="dashboard.student">View All Student</a>
+                <a href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
+                <a href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
+              </div>
 
             </h1>
-        </div>
+          </div>
+          </header>
 
-        <div class="clearfix space20"></div>
+       <section class="main-content container">
 
         <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
             <div class="row">
@@ -30,7 +32,6 @@
             </div>
         </div>
 
-    </div>
     <div class="row">
         <div class="col-md-3">
             <fieldset>
@@ -142,6 +143,7 @@
             </fieldset>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -438,6 +440,7 @@
                 </div>
             </div>
 
-        </div>
+          </div></div>
+      </section>
     </div>
 </div>

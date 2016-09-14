@@ -23,6 +23,10 @@ section.main-section
 
 }
 
+.main-content{
+  padding-top: 3em;
+}
+
 .header-background
 {
   background: url('../../images/bg-list-banner.jpg') no-repeat center center;
@@ -118,7 +122,8 @@ section.main-section
 }
 
 .data-filters {
-  padding: 2em 0;
+  margin-bottom: 2em;
+
   @media (min-width: $screen-xs-max) {
 
     .form-search {

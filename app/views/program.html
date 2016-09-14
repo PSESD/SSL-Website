@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-class="currentURL">
     <div class="row">
-        <div class="header-background clearfix inverse">
+        <header class="header-background clearfix inverse">
             <div class="container">
                 <div class="pull-left">
                     <h1 class="page-title">
@@ -11,8 +11,9 @@
                     <button class="btn btn-reverse invite-user" ui-sref="dashboard.program_add">Add Program</button>
                 </div>
             </div>
-        </div>
-        <div id="main" class="container">
+        </header>
+        <section class="main-content container">
+
             <div class="data-filters clearfix">
                 <form class="form-inline form-search">
                     <div class="form-group">
@@ -23,6 +24,7 @@
                     </div>
                 </form>
             </div>
+
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -30,29 +32,29 @@
                             <th style="width: 25%;">
                                 <a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">
                             Name
-                            <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                             </th>
                             <th style="width: 5%;" class="text-center">
                                 <a href="" ng-click="sortType = 'totalActive';sortReverse = !sortReverse">
                             Total Active
-                            <span ng-show="sortType == 'totalActive' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'totalActive' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == 'totalActive' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'totalActive' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                             </th>
                             <th style="width: 5%;" class="text-center">
                                 <a href="" ng-click="sortType = 'totalStudent';sortReverse = !sortReverse">
                             Total Student
-                            <span ng-show="sortType == 'totalStudent' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'totalStudent' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == 'totalStudent' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'totalStudent' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                             </th>
                             <th class="text-center">
                                 <a href="" ng-click="sortType = 'cohorts';sortReverse = !sortReverse">
                             Cohorts
-                            <span ng-show="sortType == 'cohorts' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == 'cohorts' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                             </th>
                             <th style="width: 5%;" class="text-center">Assign Students</th>
@@ -86,27 +88,7 @@
                         </tr>
                     </tbody>
                 </table>
-                    </td>
-                    <td class="text-center">
-                        {{program.totalActive}}
-                    </td>
-                    <td class="text-center">
-                        {{program.totalStudent}}
-                    </td>
-                    <td ng-bind-html="program.cohorts"></td>
-                    <td class="text-center">
-                        <a class="glyphicon glyphicon-user" ui-sref="dashboard.program_student_add({id:program._id})"></a>
-                    </td>
-                    <td class="text-center">
-                        <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.program_edit({id:program._id})"></a>
-                    </td>
-                    <td class="text-center">
-                        <a class="glyphicon glyphicon-trash" ng-click="vm.deleteProgram(program._id,$index)"></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
             </div>
-        </div>
+        </section>
     </div>
 </div>

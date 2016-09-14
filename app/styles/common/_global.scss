@@ -85,3 +85,15 @@ a{
 .justify-content-center{
   justify-content: center;
 }
+
+.container-fluid .container{
+  width: auto;
+  margin-left: 10%;
+  margin-right: 10%;
+
+  @media (max-width: $screen-sm-max) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+

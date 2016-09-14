@@ -1,8 +1,8 @@
 <div class="container-fluid" ng-class="currentURL">
-    <div class="row">
+  <div class="row">
 
-      <div class="header-background clearfix inverse">
-          <div class="container">
+      <header class="header-background clearfix inverse">
+        <div class="container">
           <div class="pull-left">
             <h1 class="page-title">Manage Users<div class="divider-vertical"></div></h1>
           </div>
@@ -10,99 +10,99 @@
             <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_invite">Invite User</button>
           </div>
         </div>
-        </div>
+      </header>
 
-      <div id="main" class="container">
+      <section class="main-content container">
 
         <div class="data-filters clearfix">
-              <form class="form-inline form-search">
-                  <div class="form-group">
-                       <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Users">
-                  </div>
-                   <div class="form-group">
-                      <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
-                  </div>
-              </form>
+          <form class="form-inline form-search">
+            <div class="form-group">
+             <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Users">
+           </div>
+           <div class="form-group">
+            <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
           </div>
+        </form>
+      </div>
 
-            <div class="table-responsive">
-                <table class="table">
-                <thead>
-                <tr>
-                    <th style="width: 15%;">
-                        <a href="" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
-                            Name
-                            <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
-                        </a>
-                    </th>
-                    <th style="width: 22%;">
-                        <a href="" ng-click="sortType = 'email';sortReverse = !sortReverse">
-                            Email
-                            <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
-                        </a>
-                    </th>
-                    <th style="width: 15%;">
-                        <a href="" ng-click="sortType = 'role';sortReverse = !sortReverse">
-                            Role
-                            <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
-                        </a>
-                    </th>
-                    <th style="width: 15%;"  class="text-center">
-                        <a href="" ng-click="sortType = 'activate';sortReverse = !sortReverse">
-                            Active
-                            <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
-                        </a>
-                    </th>
-                    <th style="width: 5%;">
-                        <a href="" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
-                            Assigned Students
-                            <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
-                        </a>
-                    </th>
-                    <th style="width: 5%;" class="text-center">Permissions</th>
-                    <th style="width: 5%;" class="text-center">Assign Students</th>
-                    <th style="width: 5%;" class="text-center">Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="user in vm.users |filter:search|orderBy:first_name|orderBy:sortType:sortReverse">
-                    <td>
-                        <a ui-sref="dashboard.user_view({id:user._id})">
-                            {{user.full_name}}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="mailto:{{user.email}}">
-                            {{user.email}}
-                        </a>
-                    </td>
-                    <td>{{user.role}}</td>
-                    <td class="text-center">
-                        {{user.activate ? 'Active' : 'Pending'}}
-                        <span ng-if="!user.activate">
-                                <a href="" ng-click="vm.reInvite(user)">Reinvite</a>
-                            </span>
-                    </td>
-                    <td class="text-center">{{user.studentCount}}</td>
-                    <td class="text-center">
-                        <a ui-sref="dashboard.user_edit_permission({id:user._id})" class="glyphicon-relative glyphicon glyphicon-lock"></a>
-                    </td>
-                    <td class="text-center">
-                        <a ui-sref="dashboard.user_group({id:user._id})" class="glyphicon-relative glyphicon glyphicon-user"></a>
-                    </td>
-                    <td class="text-center">
-                        <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="vm.deleteUser(user._id,$index)" confirm-settings="{size: 'sm'}"></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 15%;">
+                <a href="" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
+                  Name
+                  <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+              </th>
+              <th style="width: 22%;">
+                <a href="" ng-click="sortType = 'email';sortReverse = !sortReverse">
+                  Email
+                  <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+              </th>
+              <th style="width: 15%;">
+                <a href="" ng-click="sortType = 'role';sortReverse = !sortReverse">
+                  Role
+                  <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+              </th>
+              <th style="width: 15%;"  class="text-center">
+                <a href="" ng-click="sortType = 'activate';sortReverse = !sortReverse">
+                  Active
+                  <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+              </th>
+              <th style="width: 5%;">
+                <a href="" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
+                  Assigned Students
+                  <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+              </th>
+              <th style="width: 5%;" class="text-center">Permissions</th>
+              <th style="width: 5%;" class="text-center">Assign Students</th>
+              <th style="width: 5%;" class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in vm.users |filter:search|orderBy:first_name|orderBy:sortType:sortReverse">
+              <td>
+                <a ui-sref="dashboard.user_view({id:user._id})">
+                  {{user.full_name}}
+                </a>
+              </td>
+              <td>
+                <a href="mailto:{{user.email}}">
+                  {{user.email}}
+                </a>
+              </td>
+              <td>{{user.role}}</td>
+              <td class="text-center">
+                {{user.activate ? 'Active' : 'Pending'}}
+                <span ng-if="!user.activate">
+                  <a href="" ng-click="vm.reInvite(user)">Reinvite</a>
+                </span>
+              </td>
+              <td class="text-center">{{user.studentCount}}</td>
+              <td class="text-center">
+                <a ui-sref="dashboard.user_edit_permission({id:user._id})" class="glyphicon-relative glyphicon glyphicon-lock"></a>
+              </td>
+              <td class="text-center">
+                <a ui-sref="dashboard.user_group({id:user._id})" class="glyphicon-relative glyphicon glyphicon-user"></a>
+              </td>
+              <td class="text-center">
+                <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="vm.deleteUser(user._id,$index)" confirm-settings="{size: 'sm'}"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    </div>
+    </section>
   </div>
 </div>

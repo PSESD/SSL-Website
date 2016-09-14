@@ -1,65 +1,67 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
 
-        <div class="col-xs-12 inverse header-background">
+       <header class="header-background clearfix inverse">
+          <div class="container">
             <h1 class="page-title">Edit {{vm.program.name}} Student {{vm.student.name}} </h1>
-        </div>
+          </div>
+        </header>
 
-        <div class="clearfix space20"></div>
+        <section class="main-content container">
+          <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
+              <div class="row">
+                  <div class="alert alert-info text-left message" ng-show=vm.message>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+                  </div>
+              </div>
+          </div>
 
-        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
-            <div class="row">
-                <div class="alert alert-info text-left message" ng-show=vm.message>
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
-                </div>
-            </div>
-        </div>
+          <div class="col-xs-12">
+              <form class="form-horizontal">
 
-        <div class="col-xs-12">
-            <form class="form-horizontal">
+                  <div class="form-group">
+                      <label  class="col-sm-2 control-label">Student:</label>
+                      <div class="col-md-6 col-sm-10">
+                          <p>{{vm.student.name}}</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                          <div class="checkbox">
+                              <label for="active">
+                                  <input type="checkbox" ng-model="vm.student.active" id="active">
+                                  Status
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Participation Start Date:</label>
+                      <div class="col-md-6 col-sm-10">
+                          <input type="text" class="form-control datepicker" ng-model="vm.student.participation_start_date">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Participation End Date:</label>
+                      <div class="col-md-6 col-sm-10">
+                          <input type="text" class="form-control datepicker" ng-model="vm.student.participation_end_date">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Cohort:</label>
+                      <div class="col-md-6 col-sm-10">
+                          <tags-input ng-model="vm.student.cohort" placeholder="{{vm.placeholder}}"></tags-input>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                          <button ng-click="vm.submit(vm.student)">Submit</button>
+                          <button ui-sref="dashboard.program">Back</button>
+                      </div>
+                  </div>
 
-                <div class="form-group">
-                    <label  class="col-sm-2 control-label">Student:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <p>{{vm.student.name}}</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label for="active">
-                                <input type="checkbox" ng-model="vm.student.active" id="active">
-                                Status
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Participation Start Date:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control datepicker" ng-model="vm.student.participation_start_date">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Participation End Date:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control datepicker" ng-model="vm.student.participation_end_date">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Cohort:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <tags-input ng-model="vm.student.cohort" placeholder="{{vm.placeholder}}"></tags-input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button ng-click="vm.submit(vm.student)">Submit</button>
-                        <button ui-sref="dashboard.program">Back</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
+              </form>
+          </div>
+      </section>
     </div>
 </div>

@@ -1,11 +1,15 @@
 <div class="container-fluid" ng-class="currentURL">
     <div class="row">
 
-        <div class="col-xs-12 inverse header-background">
-            <h1 class="page-title">{{vm.user.full_name}}</h1>
-        </div>
+        <header class="header-background clearfix inverse">
+          <div class="container">
+            <div class="pull-left">
+               <h1 class="page-title">{{vm.user.full_name}}</h1>
+            </div>
+          </div>
+        </header>
 
-        <div class="clearfix space20"></div>
+        <section class="main-content container">
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <form class="form-horizontal">
@@ -67,5 +71,7 @@
 
             </form>
         </div>
+
+      </section>
     </div>
 </div>

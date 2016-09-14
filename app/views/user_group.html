@@ -1,17 +1,24 @@
 <div class="container-fluid" ng-class="currentURL">
     <div class="row">
 
-        <div class="col-xs-12 inverse header-background">
+      <header class="header-background clearfix inverse">
+        <div class="container">
+          <div class="pull-left">
             <h1 class="page-title">
-                User Group <div class="divider-vertical hidden-xs"></div> <button class="btn-default inverse invite-user" ui-sref="dashboard.user_student_add({id:vm.user_id})">Add Student</button>
+                User Group <div class="divider-vertical hidden-xs"></div>
             </h1>
+          </div>
+          <div class="pull-right">
+            <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_student_add({id:vm.user_id})">Add Student</button>
+          </div>
         </div>
+      </header>
 
-        <div class="clearfix space20"></div>
+      <section class="main-content container">
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table">
                 <thead>
                     <tr>
                         <th>
@@ -57,5 +64,6 @@
             </table>
             </div>
         </div>
+      </section>
     </div>
 </div>
