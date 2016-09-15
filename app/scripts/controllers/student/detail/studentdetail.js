@@ -9,6 +9,12 @@
     function StudentDetailCtrl($state,StudentService,$stateParams) {
 
         var vm = this;
+        vm.show_general = false;
+        vm.show_attendance = false;
+        vm.show_transcript = false;
+        vm.show_assessment = false;
+        vm.program_participation = false;
+        vm.show_enrollment = false;
         var id = $stateParams.id;
         var student = "";
         var list_of_student_data = [];
@@ -231,13 +237,14 @@
                  });
                  vm.legend = _.uniq(legend);
                  vm.list_of_details = list_of_student_data;
-                 if(vm.list_of_details.length === 0){
-                     vm.list_of_details.show = false;
-                 }else if(vm.list_of_details.length !== 0){
-                     vm.list_of_details.show = true;
+                 if(list_of_student_data.length !== 0){
+                     vm.show_attendance = true;
+                 }else{
+                     vm.show_attendance = false;
                  }
+
              },function(error){
-                 console.log(error);
+
              });
 
         init();
@@ -248,11 +255,6 @@
             vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
             vm.next_link = _.get(student_profile[current_index + 1],'value',"");
             var student = student_profile[current_index];
-            vm.show_transcript = true;
-            vm.show_attendance = true;
-            vm.show_program_participation = true;
-            vm.show_enrollment = true;
-            vm.show_assessment = true;
             vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
             StudentService.getTranscriptById(id)
                 .then(function(response){
@@ -263,7 +265,7 @@
                         var list_transcripts = [];
                         var high_school = {};
                         var transcript_header = {};
-                        _.forEach(data,function(high_school_value){
+                        _.forEach(data,function(high_school_value,key){
                             list_transcripts = [];
                             _.forEach(high_school_value.transcripts,function(transcripts){
                                 if(_.isNull(transcripts)){
@@ -294,22 +296,11 @@
                         }
                         vm.list_high_schools = list_high_schools;
                         vm.transcript_header = transcript_header;
-                        if(list_high_schools === "" ){
-                            vm.list_high_schools.show = false;
-                        }else if(vm.list_of_details.length !== 0){
-                            vm.list_high_schools.show = true;
-                        }
-
-                        if(transcript_header === "" ){
-                            vm.transcript_header.show = false;
-                        }else if(vm.list_of_details.length !== 0){
-                            vm.transcript_header.show = true;
-                        }
+                       vm.show_transcript = true;
                     }else{
                         vm.show_transcript = false;
                     }
                 },function(error){
-                    console.log(error);
                 });
             student = {
                 embedded:{
@@ -429,11 +420,11 @@
             StudentService.getAssessmentById(id)
                 .then(function(response){
                     if(response.data.success === true){
-                        vm.assessment = _.get(response,'data.info.data',"");
-                        if(vm.assessment === ""){
-                            vm.assessment.show = false;
+                        if(response.data.info.total > 0){
+                            vm.assessment = _.get(response,'data.info.data',"");
+                            vm.show_assessment = true;
                         }else{
-                            vm.assessment.show = true;
+                            vm.show_assessment = false;
                         }
                     }else{
                         vm.show_assessment = false;
@@ -537,8 +528,19 @@
                             }
                             list_program_participation[idx].programs.push(program);
                         });
-                        vm.list_program_participations = list_program_participation;
+                        if(student.personal.xsre.other_enrollments.length !== 0){
+                            vm.show_enrollment = true;
+                        }else{
+                            vm.show_enrollment = false;
+                        }
+                        if(list_program_participation.length !== 0){
+                            vm.list_program_participations = list_program_participation;
+                            vm.show_program_participation = true;
+                        }else{
+                            vm.show_program_participation = false;
+                        }
                         vm.student = student;
+                        vm.show_general = true;
                     }
                 },function (error) {
                     console.log(error);
@@ -547,6 +549,7 @@
             StudentService.getTranscript(id)
                 .then(function(response){
                     if(response.data.success === true){
+
                         var data = _.get(response,'data.info',"");
                         student.transcript.data = data.data;
                         student.transcript.source.academic_summary.class_rank = _.get(data,'source.academicSummary.classRank',"");

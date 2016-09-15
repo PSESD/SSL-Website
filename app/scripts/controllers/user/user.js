@@ -9,6 +9,7 @@
   function UserCtrl($state,UserService,$confirm) {
 
     var vm = this;
+    vm.show_user = false;
     vm.reInvite = reInvite;
     vm.deleteUser = deleteUser;
     UserService.getAll()
@@ -16,6 +17,7 @@
                   if(response.data.success){
                     vm.users = _.get(response,'data.data',"");
                   }
+                  vm.show_user = true;
                },function(error){
                  $state.go('login');
                });

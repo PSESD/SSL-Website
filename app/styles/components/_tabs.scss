@@ -71,3 +71,15 @@ align-items: baseline;
 .program-participation{
   margin-right:10px;
 }
+hr{
+  &.transcript{
+    border-top: 2px solid black;
+    width: 25px;
+    margin: 0 0 10px 0;
+  }
+}
+.state,.map{
+  width: 50%;
+  height: 50px;
+  line-height: 50px;
+}

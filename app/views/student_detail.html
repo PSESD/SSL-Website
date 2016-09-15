@@ -32,7 +32,7 @@
             </div>
         </div>
 
-    <div class="row">
+    <div ng-show="vm.show_general" class="row">
         <div class="col-md-3">
             <fieldset>
                 <legend>Personal Information</legend>
@@ -44,7 +44,7 @@
                     <dt>District ID</dt>
                     <dd>{{vm.student.local_id}}</dd>
                     <dt>Race/Ethnicity</dt>
-                    <dd>{{vm.student.personal.xsre.demographics.races}}</dd>
+                    <dd class="break-word">{{vm.student.personal.xsre.demographics.races}}</dd>
                     <dt>Gender</dt>
                     <dd>{{vm.student.personal.xsre.demographics.sex}}</dd>
                     <dt>Dominate Language</dt>
@@ -147,17 +147,17 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
-                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
-                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
-                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
-                <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
+                <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
+                <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
+                <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
+                <li  ng-show="vm.show_enrollment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
+                <li  ng-show="vm.show_assessment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="attendance_behavior">
-                    <div class="display-flex align-items-center attendance-header" ng-show="vm.list_of_details.show">
+                <div ng-show="vm.show_attendance" role="tabpanel" class="tab-pane active" id="attendance_behavior">
+                    <div class="display-flex align-items-center attendance-header">
                         <div class="flex-grow-1 text-center attendance-date">Attendance Dates</div>
                         <div class="flex-grow-2  text-center attendance-days display-flex">
                             <div class="flex-grow-1">M</div>
@@ -281,48 +281,48 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="transcript">
-                    <div class="display-flex" ng-show="vm.transcript_header.show || vm.show">
-                        <div class="flex-grow-1" style="width:20%;">
+                <div ng-show="vm.show_transcript" role="tabpanel" class="tab-pane" id="transcript">
+                    <div class="display-flex">
+                        <div class="flex-grow-1" style="width:10%;">
                             <dl>
-                                <dt>Total Credits</dt>
-                                <dd>{{vm.transcript_header.credits}}</dd>
-                                <dt>Cumulative GPA</dt>
-                                <dd>{{vm.transcript_header.total_cumulative_gpa}}</dd>
-                                <dt>Grade Level</dt>
-                                <dd>{{vm.transcript_header.grade_level}}</dd>
+                                <dt class="display-inline">Total Credits</dt>
+                                <dd class="display-inline">{{vm.transcript_header.credits}}</dd>
+                                <dt class="display-inline">Cumulative GPA</dt>
+                                <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
+                                <dt class="display-inline">Grade Level</dt>
+                                <dd class="display-inline">{{vm.transcript_header.grade_level}}</dd>
                             </dl>
                         </div>
-                        <div style="flex-grow: 2;width:80%;display: flex;justify-content: space-around;">
-                            <div ng-repeat="subject in vm.transcript_header.subject_values" style="width: 12%">
-                                <h5 class="text-center text-uppercase">{{subject.name}}<br/>{{subject.value}} {{subject.value == 1 ? 'Credit':'Credits'}}</h5>
+                        <div style="flex-grow: 2;width:90%;display: flex;justify-content:flex-start;">
+                            <div class="display-flex align-items-center justify-content-center ctype-{{$index + 1}}" ng-repeat="subject in vm.transcript_header.subject_values track by $index" style="width: 15%">
+                                <h5 class="text-center text-uppercase" style="color: #fff;">{{subject.name}}<br/>{{subject.value}} {{subject.value == 1 ? 'Credit':'Credits'}}</h5>
                             </div>
                         </div>
                     </div>
-                    <div style="display: flex" ng-repeat="high_school in vm.list_high_schools" ng-show="vm.list_high_schools.show || vm.show">
-                        <div style="flex-grow: 1;width:20%;">
+                    <div ng-class="$index % 2 === 0 ?'dark':'light-dark'" style="display: flex" ng-repeat="high_school in vm.list_high_schools">
+                        <div style="flex-grow: 1;width:10%;padding: 15px 0 0 15px">
                             {{high_school.school_year}} - {{high_school.session}}
                             <dl>
-                                <dt>Credit</dt>
-                                <dd>{{vm.transcript_header.credits}}</dd>
-                                <dt>Grade Level</dt>
-                                <dd>{{vm.transcript_header.total_cumulative_gpa}}</dd>
+                                <dt class="display-inline">Credit</dt>
+                                <dd class="display-inline">{{vm.transcript_header.credits}}</dd><br/>
+                                <dt class="display-inline">Grade Level</dt>
+                                <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
                             </dl>
                         </div>
-                        <div style="flex-grow: 2;width:80%;display: flex;justify-content: space-around;">
-                            <div ng-repeat="transcript in high_school.transcripts" style="width: 12%">
+                        <div class="display-flex" style="flex-grow: 2;width:90%;justify-content:flex-start;">
+                            <div ng-repeat="transcript in high_school.transcripts" style="width: 15%;padding: 5px">
                                 <div ng-repeat="details in transcript">
-                                    <h4>{{details.courseTitle}}</h4>
-                                    <hr>
+                                    <h4 class="ctype-font-{{details.index + 1}}">{{details.courseTitle}}</h4>
+                                    <hr class="transcript">
                                     <dl>
                                         <dt></dt>
                                         <dd>{{details.leaCourseId}}</dd>
-                                        <dt>Grade</dt>
-                                        <dd>{{details.mark}}</dd>
-                                        <dt>Grade Level</dt>
-                                        <dd>{{details.gradeLevel}}</dd>
-                                        <dt>Credits</dt>
-                                        <dd>{{details.creditsAttempted == details.creditsEarned ? details.creditsEarned : details.creditsEarned + '/' + details.creditsAttempted}}</dd>
+                                        <dt class="display-inline">Grade</dt>
+                                        <dd class="display-inline">{{details.mark}}</dd><br/>
+                                        <dt class="display-inline">Grade Level</dt>
+                                        <dd class="display-inline">{{details.gradeLevel}}</dd><br/>
+                                        <dt class="display-inline">Credits</dt>
+                                        <dd class="display-inline">{{details.creditsAttempted == details.creditsEarned ? details.creditsEarned : details.creditsEarned + '/' + details.creditsAttempted}}</dd>
                                     </dl>
                                 </div>
                             </div>
@@ -330,7 +330,7 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="program_participation">
-                    <div ng-show="vm.list_program_years.show" class="text-center">
+                    <div ng-hide="vm.show_program_participation" class="text-center">
                         This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program">Go to Program</a>
                     </div>
                     <div class="display-flex flex-direction-column">
@@ -394,34 +394,34 @@
                     </table>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="assessment">
-                <div style="display: flex;justify-content: space-around;">
-                    <div class="text-uppercase text-center">
+                <div style="display: flex;justify-content: flex-start;">
+                    <div class="map text-uppercase text-center">
                         Map
                     </div>
-                    <div class="text-uppercase text-center">
+                    <div class="state text-uppercase text-center">
                         State
                     </div>
                 </div>
                     <div style="display: flex;" ng-repeat="assessment in vm.assessment track by $index ">
 
                         <div class="text-uppercase" style="display:flex;flex-grow: 1;width: 50%;flex-wrap: wrap;">
-                            <div style="width: 100%">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
+                            <div style="width: 100%;height: 18px">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
                             <div ng-repeat="map in assessment.maps" style="flex-grow: 1;width: 33.33%">
-                                <h6>{{map.subTestName}}</h6>
+                                <h4 class="map-font">{{map.subTestName}}</h4>
                                 <dl>
                                     <dt>RIT Score</dt>
                                     <dd>{{map.RITScore}}</dd>
                                     <dt>School Name</dt>
-                                    <dd>{{map.schoolName}}</dd>
-                                    <dt>Student Grade Level</dt>
-                                    <dd>{{assessment.studentGradeLevel}}</dd>
+                                    <dd>{{map.schoolName}}</dd><br/>
+                                    <dt class="display-inline">Student Grade Level</dt>
+                                    <dd class="display-inline">{{assessment.studentGradeLevel}}</dd>
                                 </dl>
                             </div>
                         </div>
                         <div class="text-uppercase" style="display: flex;flex-grow: 1;width: 50%;flex-wrap: wrap;">
-                            <div style="width: 100%">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
+                            <div style="width: 100%;height: 18px">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
                             <div ng-repeat="state in assessment.states" style="flex-grow: 1;width: 33.33%">
-                                <h6>{{state.subTestName}}</h6>
+                                <h4 class="state-font">{{state.subTestName}}</h4>
                                 <dl>
                                     <dt>Score</dt>
                                     <dd></dd>
@@ -430,9 +430,9 @@
                                     <dt>Attempt Description</dt>
                                     <dd>{{state.attemptCodeDescription}}</dd>
                                     <dt>School Name</dt>
-                                    <dd>{{state.schoolName}}</dd>
-                                    <dt>Grade Level</dt>
-                                    <dd>{{assessment.studentGradeLevel}}</dd>
+                                    <dd>{{state.schoolName}}</dd><br/>
+                                    <dt class="display-inline">Grade Level</dt>
+                                    <dd class="display-inline">{{assessment.studentGradeLevel}}</dd>
                                 </dl>
                             </div>
                         </div>

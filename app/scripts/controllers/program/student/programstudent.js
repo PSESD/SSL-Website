@@ -9,6 +9,7 @@
     function ProgramStudentCtrl(ProgramService,ProgramStudentService,$stateParams,$sce,$filter,$confirm) {
 
         var vm = this;
+        vm.show_program_student = false;
         vm.id = $stateParams.id
         vm.message = "";
         vm.program_students = [];
@@ -48,6 +49,9 @@
                             }
                         });
                     });
+                    vm.show_program_student = true;
+                }else{
+                    vm.show_program_student = false;
                 }
             },function (error) {
                 console.log(error);

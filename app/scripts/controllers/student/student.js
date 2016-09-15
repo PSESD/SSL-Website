@@ -11,6 +11,7 @@
     function StudentCtrl($timeout,StudentService,$filter,$confirm) {
 
         var vm = this;
+        vm.show_user = false;
         var data ="";
         var success = "";
         var student ={};
@@ -237,6 +238,9 @@
                     sessionStorage.removeItem("student_profiles");
                 }
                 sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                vm.show_user = true;
+            }else{
+                vm.show_user = false;
             }
 
         }

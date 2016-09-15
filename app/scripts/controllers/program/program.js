@@ -9,6 +9,7 @@
     function ProgramCtrl($state, ProgramService,$filter,$sce,$confirm) {
 
         var vm = this;
+        vm.show_program = false;
         vm.message = "";
         vm.deleteProgram = deleteProgram;
         ProgramService.getAll()
@@ -23,6 +24,9 @@
                         return value;
                     });
                     vm.programs = $filter('orderBy')(listProgram,'name');
+                    vm.show_program = true;
+                }else{
+                    vm.show_program = false;
                 }
             },function(error){
             console.log(error);

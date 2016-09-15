@@ -9,11 +9,13 @@
     function UserGroupCtrl($state, $stateParams, UserService, $confirm) {
 
         var vm = this;
+        vm.show_user_group = false;
         vm.user_id = $stateParams.id;
         vm.deleteUser = deleteUser;
         UserService.getAssignedStudent($stateParams.id)
             .then(function(response) {
                 vm.students = _.get(response, 'data.data', "");
+                vm.show_user_group = true;
             }, function(error) {
                 console.log(error);
             });
