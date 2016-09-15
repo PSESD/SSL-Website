@@ -16,6 +16,10 @@
                .then(function(response){
                   if(response.data.success){
                     vm.users = _.get(response,'data.data',"");
+                    vm.users.full_name = _.get(response,'data.data.first_name',"");
+                    vm.users.full_name = vm.users.full_name +" "+_.get(response,'data.data.middle_name',"");
+                    vm.users.full_name = vm.users.full_name +" "+_.get(response,'data.data.last_name',"");
+                    vm.users.full_name = vm.users.full_name.trim();
                   }
                   vm.show_user = true;
                },function(error){

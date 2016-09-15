@@ -30,10 +30,10 @@
           <thead>
             <tr>
               <th style="width: 15%;">
-                <a href="" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
+                <a href="" ng-click="sortType = 'full_name';sortReverse = !sortReverse">
                   Name
-                  <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-show="sortType == 'full_name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="sortType == 'full_name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 22%;">
@@ -70,7 +70,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="user in vm.users |filter:search|orderBy:first_name|orderBy:sortType:sortReverse">
+            <tr ng-repeat="user in vm.users |filter:search|orderBy:'full_name'|orderBy:sortType:sortReverse">
               <td>
                 <a ui-sref="dashboard.user_view({id:user._id})">
                   {{user.full_name}}
