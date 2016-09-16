@@ -22,7 +22,8 @@
             getTranscript:getTranscript,
             getAttendance:getAttendance,
             getTranscriptById:getTranscriptById,
-            getAssessmentById:getAssessmentById
+            getAssessmentById:getAssessmentById,
+            getXsre:getXsre
 
         };
 
@@ -129,6 +130,15 @@
                 headers: {
                     'Authorization': 'Bearer ' + profile.access_token
                 }
+            })
+        }
+        function getXsre(id)
+        {
+            return $http.get(RESOURCES.API_URL + profile.organization_id + '/students/'+id+'/xsre.xml?raw=1', {
+                headers: {
+                    'Authorization': 'Bearer ' + profile.access_token
+                },
+                timeout: 15000
             })
         }
     }

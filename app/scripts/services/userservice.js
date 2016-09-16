@@ -3,10 +3,11 @@
     angular.module('sslv2App')
         .service('UserService', UserService);
 
-    UserService.$inject = ['$http', 'RESOURCES','$cookies','LoginService','GeneralService','CookieService','$timeout','$state'];
+    UserService.$inject = ['$http', 'RESOURCES','$cookies','ProfileService'];
 
-    function UserService($http, RESOURCES, $cookies) {
+    function UserService($http, RESOURCES, $cookies,ProfileService) {
         var profile = $cookies.getObject(sessionStorage.getItem('id'));
+        console.log(ProfileService.getId());
         var service = {
             getAll: getAll,
             reInvite: reInvite,

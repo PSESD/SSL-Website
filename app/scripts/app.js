@@ -12,7 +12,9 @@
       'ngIdle',
       'ngSanitize',
       'ngTagsInput',
-      'ui.multiselect'
+      'ui.multiselect',
+      'fsm',
+      'ui.codemirror'
 
     ])
     .factory('headerInjector', [function() {

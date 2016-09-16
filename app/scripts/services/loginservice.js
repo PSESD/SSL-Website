@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .service('LoginService', LoginService)
 
-  LoginService.$inject = ['$http', 'RESOURCES','GeneralService','CookieService','$timeout','$state']
+  LoginService.$inject = ['$http', 'RESOURCES','GeneralService','CookieService','$timeout','$state','ProfileService']
 
-  function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state) {
+  function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state,ProfileService) {
     var service = {
       authenticate: authenticate,
       validate:validate
@@ -27,6 +27,7 @@
 
     function validate(user,vm){
       var profile = {
+        expire_time:'',
         is_authenticated: false,
         first_name: '',
         last_name: '',
@@ -60,6 +61,7 @@
               }
               profile.access_token = response.data.access_token;
               profile.refresh_token = response.data.refresh_token;
+              profile.expire_time = response.data.expires_in;
               if(embedded.organization !== "")
               {
                 profile.access = true;
@@ -90,6 +92,7 @@
                       }
                     }
                   }
+                  ProfileService.set(profile.id,profile.organization_id,profile.access_token,profile.refresh_token,profile.expire_time);
                   profile.is_authenticated = true;
                   localStorage.clear();
                   sessionStorage.setItem('id', profile.id);

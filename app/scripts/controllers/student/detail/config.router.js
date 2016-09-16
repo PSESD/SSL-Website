@@ -11,7 +11,7 @@
 
         $stateProvider
             .state('dashboard.student_detail', {
-                url: "^/student/:id/detail",
+                url: "^/student/:id/detail?debug",
                 templateUrl: "views/student_detail.html",
                 controller: 'StudentDetailCtrl',
                 controllerAs: 'vm'

@@ -34,8 +34,8 @@
       </div>
 
       <div class="table-responsive">
-        <table class="table">
-          <thead>
+        <table id="student" class="table">
+          <thead fsm-sticky-header scroll-body="#student" scroll-stop="80">
             <tr >
               <th style="width: 20%;">
                 <a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">
@@ -112,27 +112,54 @@
                 </a>
               </td>
               <td>
+                <span ng-if="student.district_student_id === ''">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
                 {{student.district_student_id}}
               </td>
               <td>
+                <span ng-if="student.school_district === ''">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
                 {{student.school_district}}
               </td>
               <td>
+                <span ng-if="student.xsre.grade_level === ''">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
                 {{student.xsre.grade_level}}
               </td>
               <td>
+                <span ng-if="student.xsre.school_name === ''">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
                 {{student.xsre.school_name}}
               </td>
               <td>
-                <attendance risk_level="{{student.xsre.attendance_risk.risk_level}}" academic="{{student.xsre.attendance.academic.count}}" month="{{student.xsre.attendance.month.count}}" label="{{student.xsre.attendance.academic.flag}}" info="{{student.xsre.attendance.academic.count}}" url="{{vm.attendance_modal_url}}"></attendance>
+                <span ng-if="student.xsre.attendance.academic.count === ''">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
+                <div class='label label-{{student.xsre.attendance.academic.flag}}'>{{student.xsre.attendance.academic.count}}</div>
               </td>
               <td>
-                <trend url="{{vm.trend_modal_url}}" trend="{{student.xsre.attendance_risk.trend}}" status="{{student.xsre.attendance_risk.trend}}"></trend>
+                <span ng-if="student.xsre.attendance_risk.trend === '' || student.xsre.attendance_risk.trend === undefined">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
+                <span ng-if="student.xsre.attendance_risk.trend !== '' && student.xsre.attendance_risk.trend !== undefined">
+                <div class='glyphicon glyphicon-arrow-right {{student.xsre.attendance_risk.trend}}'></div>
+                </span>
+
               </td>
               <td>
+                <span ng-if="student.xsre.behavior.month.count === ''">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
                 <behavior  academic="{{student.xsre.behavior.academic.count}}" month="{{student.xsre.behavior.month.count}}" label="{{student.xsre.behavior.academic.flag}}" info="{{student.xsre.behavior.academic.count}}" url="{{vm.behavior_modal_url}}"></behavior>
               </td>
               <td>
+                <span ng-if="student.xsre.on_track_to_graduate === '' || student.xsre.on_track_to_graduate === null">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
                 <div ng-if="student.xsre.on_track_to_graduate === 'Yes' ">
                   <span class="glyphicon glyphicon-ok-sign alert-success" aria-hidden="true"></span>
                 </div>
