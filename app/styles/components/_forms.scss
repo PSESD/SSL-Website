@@ -1,203 +1,129 @@
-.form-control[disabled],
-.form-control[readonly],
-fieldset[disabled] .form-control
-{
-  background-color: transparent;
-  opacity: 0.5;
-}
+/*----------  General Input Styles  ----------*/
 
 input[type="text"].form-control,
 input[type="password"].form-control,
-input[type="email"].form-control
-{
-  background: transparent;
-  border-radius: 0;
-  border: 0;
-  //border-bottom: 1px $color-black solid;
-  box-shadow: none;
-  color: $color-black;
+input[type="email"].form-control,
+textarea.form-control,
+select.form-control {
+    background: lighten($grey-light, 10%);
+    border-radius: 15px;
+    border: 1px solid $grey-light;
+    box-shadow: none;
+    color: $color-black;
+    padding: 5px 15px;
+    line-height: 1.4em;
+    &:focus, &:active {
+        border-color: $grey-light;
+        background: lighten($grey-light, 6%);
+        outline: none;
+        box-shadow: none;
+    }
 
-  &.inverse {
+   &.inverse {
     color: $color-white;
+    border: none;
+    border-radius: 0;
     border-bottom: 1px $color-white solid;
     background: transparent;
 
   }
-
 }
 
 textarea.form-control {
-  background: transparent;
-  border-radius: 0;
-  border: 0;
-  border-bottom: 1px $color-black solid;
-  box-shadow: none;
-  color: $color-black;
-
-  &.inverse {
-    color: $color-white;
-    border-bottom: 1px $color-white solid;
-    background: transparent;
-
-  }
-
+  min-height: 150px;
+  padding: 10px 15px;
 }
 
 select.form-control {
-  background: transparent;
-  border-radius: 0;
-  border: 0;
-  border-bottom: 1px $color-black solid;
-  box-shadow: none;
-  color: $color-black;
-
-  &.inverse {
-    color: $color-white;
-    border-bottom: 1px $color-white solid;
-    background: transparent;
-
-    option {
-      background: $color-black;
-    }
-
-  }
-
+  -webkit-appearance: none;
 }
+
+
+/*----------  Labels  ----------*/
+
+.form-group{
+  label{
+    text-transform: uppercase;
+    //font-weight: 400;
+    color: $dark-grey;
+  }
+}
+
+
+
+/*----------  Radio  ----------*/
 
 .radio label,
-.checkbox label
-{
-  font-weight: 700;
-}
-
-textarea.form-control:focus,
-select.form-control:focus,
-input.form-control:focus
-{
-  border-color: $color-black;
-  outline: none;
-  box-shadow: none;
-}
-
-textarea.form-control.inverse:focus,
-select.form-control.inverse:focus,
-input.form-control.inverse:focus
-{
-  border-color: $color-white;
-  outline: none;
-  box-shadow: none;
-}
-
-textarea::-webkit-input-placeholder,
-select::-webkit-input-placeholder,
-input::-webkit-input-placeholder
-{
-  color: $color-black;
-}
-textarea:-moz-placeholder,
-select:-moz-placeholder,
-input:-moz-placeholder
-{
-  color: $color-black;
-}
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder
-{
-  color: $color-black;
-}
-textarea:-ms-input-placeholder,
-select:-ms-input-placeholder,
-input:-ms-input-placeholder
-{
-  color: $color-black;
-}
-textarea.inverse::-webkit-input-placeholder,
-select.inverse::-webkit-input-placeholder,
-input.inverse::-webkit-input-placeholder
-{
-  color: $color-white;
-}
-textarea.inverse:-moz-placeholder,
-select.inverse:-moz-placeholder,
-input.inverse:-moz-placeholder
-{
-  color: $color-white;
-}
-textarea.inverse::-moz-placeholder,
-select.inverse::-moz-placeholder,
-input.inverse::-moz-placeholder
-{
-  color: $color-white;
-}
-textarea.inverse:-ms-input-placeholder,
-select.inverse:-ms-input-placeholder,
-input.inverse:-ms-input-placeholder
-{
-  color: $color-white;
-}
-
-
-fieldset
-{
-  legend
-  {
-    @include font-size(1em, 1.5);
+.checkbox label {
     font-weight: 700;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    text-transform: uppercase;
-  }
-
-  dl
-  {
-    dt {
-      @include font-size(1em, 1.5);
-      font-weight: 400;
-      width: 49%;
-      padding: 0 15px 0 0;
-      display: inline-block;
-      box-sizing: border-box;
-    }
-
-    dd {
-      @include font-size(1em, 1.5);
-      font-weight: 400;
-      width: 49%;
-      padding: 0;
-      display: inline-block;
-      box-sizing: border-box;
-    }
-  }
 }
 
 
-//Specific form styles
 
-.form-search{
-  position: relative;
-  border: 1px solid $grey-light;
-  background: lighten($grey-light, 10%);
-  color: $grey-light;
-  padding: 0 20px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  min-width: 280px;
 
-   .form-group
-    {
-      display: block;
-      margin: 0;
+/*----------  Fieldset  ----------*/
 
-      #search{
-        width: 100%;
-      }
-      .form-search-icon
-      {
-        position: absolute;
-        right: 20px;
-        top: 2px;
-      }
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+fieldset {
+    legend {
+        @include font-size(1em, 1.5);
+        font-weight: 700;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
     }
+    dl {
+        dt {
+            @include font-size(1em, 1.5);
+            font-weight: 400;
+            width: 49%;
+            padding: 0 15px 0 0;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+        dd {
+            @include font-size(1em, 1.5);
+            font-weight: 400;
+            width: 49%;
+            padding: 0;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+    }
+}
 
+
+/*----------  Specific form styles  ----------*/
+
+.form-search {
+    position: relative;
+    border: 1px solid $grey-light;
+    background: lighten($grey-light, 10%);
+    color: $grey-light;
+    padding: 0 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    min-width: 280px;
+
+    .form-group {
+        display: block;
+        margin: 0;
+        input{
+          border: none;
+        }
+        #search {
+            width: 100%;
+        }
+        .form-search-icon {
+            position: absolute;
+            right: 20px;
+            top: 2px;
+        }
+    }
 }

@@ -119,7 +119,7 @@ button.btn-dark,
 
 //Button Dropdown
 
-button.dropdown-toggle{
+.dropdown-toggle{
   border: 1px solid $grey-light;
   color: $black;
   font-family: $font-family-sans-serif;
@@ -127,12 +127,15 @@ button.dropdown-toggle{
   font-weight: normal;
   text-align:left;
   padding: 2px 50px 2px 15px;
+  min-width: 120px;
+
   &:hover{
     color: $black;
   }
   &:after{
     position: relative;
   }
+
   .caret{
     right: 20px !important;
     top: 5px !important;
@@ -145,10 +148,14 @@ button.dropdown-toggle{
       content: "\e114";
     }
   }
-
 }
 
-
+//Dropdown Active
+.open > .btn-default.dropdown-toggle{
+  background-color: lighten($grey-light, 10%) !important;
+      box-shadow: none !important;
+      border: 1px solid $grey-light !important;
+}
 
 
 
