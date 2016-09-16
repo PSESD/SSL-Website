@@ -15,6 +15,7 @@
         vm.show_assessment = false;
         vm.program_participation = false;
         vm.show_enrollment = false;
+        vm.show_xsre = false;
         var id = $stateParams.id;
         var student = "";
         var list_of_student_data = [];
@@ -24,7 +25,24 @@
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
         vm.list_programs = [];
+        vm.xsre = xsre;
+        vm.options = {
+            //lineWrapping : true,
+            height: '500px',
+            tabSize: 6,
+            lineNumbers: true,
+            //readOnly: 'nocursor',
+            theme: 'monokai',
+            mode: 'xml',
+            extraKeys: {"Alt-F": "findPersistent"}
 
+        }
+
+        if($stateParams.debug === "true"){
+            vm.show_xsre = true;
+        }else if($stateParams.debug === undefined){
+            vm.show_xsre = false;
+        }
         StudentService.getAttendance(id)
              .then(function(response){
                  var data = _.get(response,'data.info.data',[]);
@@ -593,6 +611,17 @@
         }
         function changeStatus(student){
             student.status = !student.status;
+        }
+        function xsre()
+        {
+            StudentService.getXsre(id)
+                .then(function(response){
+                    vm.data = response.data;
+                    vm.refresh = true;
+                    jQuery('#debug_modal').modal("show");
+                },function(error){
+                    console.log(error);
+                })
         }
     }
 
