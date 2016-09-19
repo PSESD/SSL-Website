@@ -25,6 +25,8 @@
         var trend_template = "<div>{trend}</div>";
         var behavior_template = "<dl><dt></dt><dd>Student has {behavior_month} {incident_month} in the latest term of which we have data.</dd><dt></dt><dd>Student has {behavior_academic} {incident_academic} in the current academic year.</dd></dl>";
         vm.deleteStudent = deleteStudent;
+        vm.school_selected = school_selected;
+        vm.district_selected = district_selected;
         init();
 
         function init(){
@@ -35,6 +37,8 @@
             vm.selected_districts =[];
             vm.schools_options = [];
             vm.districts_options = [];
+
+
 
             clearVariables();
 
@@ -52,6 +56,32 @@
                     console.log(error);
                 });
 
+        }
+        function school_selected(){
+            return function(val){
+                if(vm.selected_schools.length > 0){
+                    for(var i in vm.selected_schools){
+                        if(val.xsre.school_name === vm.selected_schools[i].name){
+                            return true;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+           }
+        }
+        function district_selected(){
+            return function(val){
+                if(vm.selected_districts.length > 0){
+                    for(var i in vm.selected_districts){
+                        if(val.school_district === vm.selected_districts[i].name){
+                            return true;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+            }
         }
         function deleteStudent(id,index){
             $confirm({text:'Are you sure you want to delete this record?'})

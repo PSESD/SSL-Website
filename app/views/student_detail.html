@@ -217,7 +217,7 @@
                                     <div class="flex-grow-1 day general border-right-2" ng-hide="student.status">{{student.header.sunday}}</div>
                                     <div class="flex-grow-1 day border-right-2" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
                                 </div>
-                                <div class="attendance-weekly-change flex-grow-1 text-center">{{student.header.weekly_change}}</div>
+                                <div class="attendance-weekly-change flex-grow-1 text-center display-flex justify-content-space-between"><div>&nbsp;</div><div>{{student.header.weekly_change}}</div> <div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
                             </div>
                             <div id="tabs-{{$index}}" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body display-flex no-padding">

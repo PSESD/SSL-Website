@@ -29,7 +29,7 @@
         <div class="input-filters">
           <span class="filter-label"><strong>Filter by:</strong></span>
           <multiselect enable-filter="true" header="District" ng-model="vm.selected_districts" options="c.name for c in vm.districts_options" data-multiple="true"></multiselect>
-          <multiselect enable-filter="true" header="School" ng-model="vm.selected_schools" options="c.name for c in vm.schools_options" data-multiple="true"></multiselect>
+          <multiselect change="vm.school_selected()" enable-filter="true" header="School" ng-model="vm.selected_schools" options="c.name for c in vm.schools_options" data-multiple="true"></multiselect>
         </div>
       </div>
 
@@ -105,7 +105,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="student in vm.students |filter:search|orderBy:sortType:sortReverse">
+            <tr ng-repeat="student in vm.students |filter:search|filter:vm.district_selected()|filter:vm.school_selected()|orderBy:sortType:sortReverse">
               <td>
                 <a href="javascript:void(0)" ui-sref="dashboard.student_detail({id:student.id})">
                   {{student.first_name}} {{student.last_name}}
