@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .service('LoginService', LoginService)
 
-  LoginService.$inject = ['$http', 'RESOURCES','GeneralService','CookieService','$timeout','$state','ProfileService']
+  LoginService.$inject = ['$http', 'RESOURCES','GeneralService','CookieService','$timeout','$state','$cookies']
 
-  function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state,ProfileService) {
+  function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state,$cookies) {
     var service = {
       authenticate: authenticate,
       validate:validate
@@ -92,7 +92,7 @@
                       }
                     }
                   }
-                  ProfileService.set(profile.id,profile.organization_id,profile.access_token,profile.refresh_token,profile.expire_time);
+
                   profile.is_authenticated = true;
                   localStorage.clear();
                   sessionStorage.setItem('id', profile.id);
@@ -106,6 +106,11 @@
                   }else{
                     localStorage.setItem('email', "");
                   }
+                  $cookies.put('id',profile.id);
+                  $cookies.put('organization_id',profile.organization_id);
+                  $cookies.put('access_token',profile.access_token);
+                  $cookies.put('refresh_token',profile.refresh_token);
+                  $cookies.put('expire_time',profile.expire_time);
                   CookieService.set(profile);
                   $state.go('dashboard.student',{},{reload:true});
                 }else{

@@ -29,7 +29,7 @@
             .then(function(response){
                 vm.program.name = response.data.name;
             },function(error){
-                console.log(error);
+
             });
 
         ProgramStudentService.getProgramStudent(id,student_id)

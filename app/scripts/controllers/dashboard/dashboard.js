@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = ['$state', '$cookies', 'RESOURCES'];
+  DashboardCtrl.$inject = ['$state', '$cookies'];
 
-  function DashboardCtrl($state, $cookies, RESOURCES) {
+  function DashboardCtrl($state, $cookies) {
 
     var vm = this;
     var profile = $cookies.getObject(sessionStorage.getItem('id'));

@@ -35,7 +35,7 @@
                 closeMessage();
             }
         },function(error){
-            console.log(error);
+
         })
     }
     function closeMessage(){

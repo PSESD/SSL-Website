@@ -3,11 +3,9 @@
     angular.module('sslv2App')
         .service('UserService', UserService);
 
-    UserService.$inject = ['$http', 'RESOURCES','$cookies','ProfileService'];
+    UserService.$inject = ['$http', 'RESOURCES','ProfileService'];
 
-    function UserService($http, RESOURCES, $cookies,ProfileService) {
-        var profile = $cookies.getObject(sessionStorage.getItem('id'));
-        console.log(ProfileService.getId());
+    function UserService($http, RESOURCES,ProfileService) {
         var service = {
             getAll: getAll,
             reInvite: reInvite,
@@ -25,9 +23,9 @@
 
         return service;
         function getAll() {
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/users?pending=true', {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users?pending=true', {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
@@ -39,39 +37,39 @@
             }
             return $http.put(RESOURCES.AUTH_URL + 'user/invite', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function getById(id) {
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/users/' + id, {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function updatePermission(id, data) {
-            return $http.put(RESOURCES.API_URL + profile.organization_id + '/users/' + id, $.param(data), {
+            return $http.put(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id, $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function getAssignedStudent(id) {
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/users/' + id + '/students', {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id + '/students', {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function deleteUser(id) {
-            return $http.delete(RESOURCES.API_URL + profile.organization_id + '/users/' + id, {
+            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
@@ -79,7 +77,7 @@
         function invite(data) {
             return $http.post(RESOURCES.AUTH_URL + '/user/invite', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
@@ -87,39 +85,39 @@
         function updateProfile(data) {
             return $http.put(RESOURCES.API_URL + 'user/', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function getListStudent(id) {
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/students?noxsre=1&noprogram=1&userId=' + id, {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students?noxsre=1&noprogram=1&userId=' + id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function addNewStudent(id, data) {
-            return $http.post(RESOURCES.API_URL + profile.organization_id + '/users/' + id + '/students', $.param(data), {
+            return $http.post(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id + '/students', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function updateStudent(id, student_id) {
-            return $http.put(RESOURCES.API_URL + profile.organization_id + '/users/' + id + '/students/' + student_id, {}, {
+            return $http.put(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id + '/students/' + student_id, {}, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             });
         }
 
         function deleteStudent(id, student_id) {
-            return $http.delete(RESOURCES.API_URL + profile.organization_id + '/users/' + id + '/students/' + student_id, {
+            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/users/' + id + '/students/' + student_id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }

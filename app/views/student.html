@@ -139,22 +139,21 @@
                 <span ng-if="student.xsre.attendance.academic.count === ''">
                   <span class="glyphicon glyphicon-minus"></span>
                 </span>
-                <div class='label label-{{student.xsre.attendance.academic.flag}}'>{{student.xsre.attendance.academic.count}}</div>
+                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.attendance.template" class='label label-{{student.xsre.attendance.academic.flag}}'>{{student.xsre.attendance.academic.count}}</div>
               </td>
               <td>
                 <span ng-if="student.xsre.attendance_risk.trend === '' || student.xsre.attendance_risk.trend === undefined">
                   <span class="glyphicon glyphicon-minus"></span>
                 </span>
                 <span ng-if="student.xsre.attendance_risk.trend !== '' && student.xsre.attendance_risk.trend !== undefined">
-                <div class='glyphicon glyphicon-arrow-right {{student.xsre.attendance_risk.trend}}'></div>
+                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.attendance_risk.template" class='glyphicon glyphicon-arrow-right {{student.xsre.attendance_risk.trend}}'></div>
                 </span>
-
               </td>
               <td>
                 <span ng-if="student.xsre.behavior.month.count === ''">
                   <span class="glyphicon glyphicon-minus"></span>
                 </span>
-                <behavior  academic="{{student.xsre.behavior.academic.count}}" month="{{student.xsre.behavior.month.count}}" label="{{student.xsre.behavior.academic.flag}}" info="{{student.xsre.behavior.academic.count}}" url="{{vm.behavior_modal_url}}"></behavior>
+                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.behavior.template" class="label label-{{student.xsre.behavior.academic.flag}}">{{student.xsre.behavior.academic.count}}</div>
               </td>
               <td>
                 <span ng-if="student.xsre.on_track_to_graduate === '' || student.xsre.on_track_to_graduate === null">

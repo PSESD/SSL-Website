@@ -26,7 +26,7 @@
                         closeMessage();
                     }
                 }, function(error) {
-                    console.log(error);
+
                 })
         }
 

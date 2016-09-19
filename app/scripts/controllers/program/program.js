@@ -29,7 +29,7 @@
                     vm.show_program = false;
                 }
             },function(error){
-            console.log(error);
+
             });
 
         function deleteProgram(id,index){

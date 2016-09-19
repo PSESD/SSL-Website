@@ -29,7 +29,6 @@
                     vm.students = response.data.data;
                 }
             },function (error) {
-                console.log(error);
             });
 
         function submit(data){
@@ -61,7 +60,7 @@
                     }
 
                 },function(error){
-                    console.log(error);
+
                 });
 
         }

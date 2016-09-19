@@ -47,9 +47,29 @@
       size     : 50,
       "default": 'mm'
     };
+      $httpProvider.interceptors.push(function ($q,ProfileService,$location) {
+          return {
+              'response': function (response) {
+                  if (response.status === 401) {
+                      sessionStorage.clear();
+                      ProfileService.clear();
+                      $location.path('/login');
+                  }
+                  return response || $q.when(response);
+              },
+              'responseError': function (rejection) {
+                  if (rejection.status === 401) {
+                      sessionStorage.clear();
+                      ProfileService.clear();
+                      $location.path('/login');
+                  }
+                  return $q.reject(rejection);
+              }
+          };
+      });
     // IdleProvider.idle(5); // in seconds
     // IdleProvider.timeout(10); // in seconds
-    // KeepaliveProvider.interval(5); // in seconds
+    // KeepaliveProvider.interval(1); // in seconds
   }
 
   runFunction.$inject = ['$rootScope', '$state', 'RESOURCES','$cookies','Idle','PROTECTED_PATHS'];

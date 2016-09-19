@@ -448,7 +448,7 @@
                         vm.show_assessment = false;
                     }
                 },function(error){
-                    console.log(error);
+
                 });
 
             StudentService.getStudentById(id)
@@ -561,7 +561,7 @@
                         vm.show_general = true;
                     }
                 },function (error) {
-                    console.log(error);
+
                 });
 
             StudentService.getTranscript(id)
@@ -602,7 +602,7 @@
 
                     }
                 },function(error){
-                    console.log(error);
+
                 });
 
             
@@ -620,7 +620,7 @@
                     vm.refresh = true;
                     jQuery('#debug_modal').modal("show");
                 },function(error){
-                    console.log(error);
+
                 })
         }
     }

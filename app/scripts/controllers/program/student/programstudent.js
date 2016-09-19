@@ -22,7 +22,7 @@
             .then(function (response) {
                 vm.program = response.data;
             },function(error){
-                console.log(error);
+
             });
 
         ProgramStudentService.getById($stateParams.id)

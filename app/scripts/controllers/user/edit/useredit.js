@@ -25,7 +25,7 @@
         vm.user.middle_name = _.get(response,'data.middle_name',"");
         vm.user.email = _.get(response,'data.email',"");
     },function(error){
-      console.log(error);
+
     });
     function save(data){
         if(data.password !== data.confirm_password){
@@ -53,7 +53,7 @@
                 closeMessage();
             }
         },function(error){
-            console.log(error);
+
         });
         }
     }

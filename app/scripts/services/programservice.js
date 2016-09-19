@@ -4,10 +4,10 @@
     angular.module('sslv2App')
         .service('ProgramService', ProgramService)
 
-    ProgramService.$inject = ['$http','$cookies','RESOURCES']
+    ProgramService.$inject = ['$http','RESOURCES','ProfileService']
 
-    function ProgramService ($http,$cookies,RESOURCES) {
-        var profile = $cookies.getObject(sessionStorage.getItem('id'));
+    function ProgramService ($http,RESOURCES,ProfileService) {
+
         var service = {
             getAll:getAll,
             addProgram:addProgram,
@@ -19,41 +19,41 @@
 
         function getAll(){
 
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/programs', {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs', {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function addProgram(data){
-            return $http.post(RESOURCES.API_URL + profile.organization_id + '/programs', $.param(data), {
+            return $http.post(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function getById(id){
-            return  $http.get(RESOURCES.API_URL + profile.organization_id + '/programs/' + id, {
+            return  $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function updateProgram(id,data){
-            return $http.put(RESOURCES.API_URL  + profile.organization_id + '/programs/' + id, $.param(data), {
+            return $http.put(RESOURCES.API_URL  + ProfileService.getOrganizationId() + '/programs/' + id, $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function deleteProgram(id){
-            return $http.delete(RESOURCES.API_URL + profile.organization_id + '/programs/' + id, {
+            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }

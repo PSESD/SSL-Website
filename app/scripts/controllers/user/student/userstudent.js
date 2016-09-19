@@ -22,7 +22,7 @@
                     });
                 }
             }, function(error) {
-                console.log(error);
+
             });
 
         function submit(data) {
@@ -35,7 +35,7 @@
                             closeMessage();
                         }
                     }, function(error) {
-                        console.log(error);
+
                     });
             } else {
                 var data = _.omit(data, ['district_student_id', 'first_name', 'last_name', 'school_district', '']);
@@ -46,7 +46,7 @@
                             closeMessage();
                         }
                     }, function(error) {
-                        console.log(error);
+
                     });
             }
         }

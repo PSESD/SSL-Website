@@ -33,7 +33,7 @@
         vm.user.full_name = _.get(response,'data.full_name',"");
       
     },function(error){
-      console.log(error);
+
     });
   }
 

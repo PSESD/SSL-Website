@@ -24,7 +24,6 @@
                 vm.program.created = $filter('date')(_.get(response,"data.created",""), "yyyy/MM/dd");
                 vm.program.last_updated =  $filter('date')(_.get(response,"data.last_updated",""), "yyyy/MM/dd");
             },function (error) {
-                console.log(error);
             });
 
         function submit(data){
@@ -40,7 +39,6 @@
                             closeMessage(true);
                         }
                     },function(error){
-                        console.log(error);
                     });
             }
 

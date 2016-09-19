@@ -4,10 +4,10 @@
     angular.module('sslv2App')
         .service('ProgramStudentService', ProgramStudentService)
 
-    ProgramStudentService.$inject = ['$http','$cookies','RESOURCES'];
+    ProgramStudentService.$inject = ['$http','RESOURCES','ProfileService'];
 
-    function ProgramStudentService ($http,$cookies,RESOURCES) {
-        var profile = $cookies.getObject(sessionStorage.getItem('id'));
+    function ProgramStudentService ($http,RESOURCES,ProfileService) {
+
         var service = {
             addProgram:addProgram,
             getById:getById,
@@ -22,65 +22,65 @@
 
         function getProgramStudent(id,student_id){
 
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students/' + student_id, {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id + '/students/' + student_id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function getAll(){
-            return $http.get(RESOURCES.API_URL + profile.organization_id + '/students'+profile.status, {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students'+profile.status, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function addProgram(id,data){
-            return  $http.post(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students', $.param(data), {
+            return  $http.post(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id + '/students', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function getById(id){
-            return  $http.get(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students', {
+            return  $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id + '/students', {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function updateProgram(id,data){
-            return $http.put(RESOURCES.API_URL  + profile.organization_id + '/programs/' + id, $.param(data), {
+            return $http.put(RESOURCES.API_URL  + ProfileService.getOrganizationId() + '/programs/' + id, $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function deleteStudent(id,student_id){
-            return $http.delete(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students/' + student_id, {
+            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id + '/students/' + student_id, {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function addStudent(id,data){
-           return $http.post(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students', $.param(data), {
+           return $http.post(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id + '/students', $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }
 
         function updateProgramStudent(id,student_id,data){
-            return $http.put(RESOURCES.API_URL + profile.organization_id + '/programs/' + id + '/students/' + student_id, $.param(data), {
+            return $http.put(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id + '/students/' + student_id, $.param(data), {
                 headers: {
-                    'Authorization': 'Bearer ' + profile.access_token
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
             })
         }

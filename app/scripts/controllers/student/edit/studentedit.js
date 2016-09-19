@@ -53,7 +53,7 @@
                     profile.school_district = response.data.school_district;
                     vm.student = profile;
                 },function(error){
-                    console.log(error);
+
                 })
         }
 
@@ -65,7 +65,7 @@
                         closeMessage();
                     }
                 },function(error){
-                    console.log(error);
+
                 });
         }
 

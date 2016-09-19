@@ -17,7 +17,7 @@
                 vm.students = _.get(response, 'data.data', "");
                 vm.show_user_group = true;
             }, function(error) {
-                console.log(error);
+
             });
 
         function deleteUser(id, index) {
@@ -29,7 +29,7 @@
                                 vm.students.splice(index, 1);
                             }
                         }, function(error) {
-                            console.log(error);
+
                         })
                 });
         }

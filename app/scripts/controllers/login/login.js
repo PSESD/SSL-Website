@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['LoginService',];
+    LoginCtrl.$inject = ['LoginService','$window'];
 
-    function LoginCtrl(LoginService) {
+    function LoginCtrl(LoginService,$window) {
         var vm = this;
         var email = localStorage.getItem("email") || "";
         vm.message = '';

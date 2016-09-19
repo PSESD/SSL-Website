@@ -2,7 +2,7 @@
   'use strict'
 
   angular.module('sslv2App')
-    .service('ForgotService', ForgotService)
+      .service('ForgotService', ForgotService)
 
   ForgotService.$inject = ['$http', 'RESOURCES']
 

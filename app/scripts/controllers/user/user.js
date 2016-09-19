@@ -27,7 +27,7 @@
     .then(function(response){
       console.log(response);
     },function(error){
-      console.log(error);
+
     });
   }
   function deleteUser(id,index){
@@ -39,7 +39,7 @@
             vm.users.splice(index,1);
           }
       },function(error){
-        console.log(error);
+
       })
     });
   }

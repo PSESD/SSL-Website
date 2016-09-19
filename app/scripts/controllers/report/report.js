@@ -43,7 +43,7 @@
         vm.selected_cohorts=[];
 
         function changePrograms(){
-            console.log(vm.selected_programs);
+
         }
 
     }
