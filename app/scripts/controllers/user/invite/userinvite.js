@@ -21,9 +21,15 @@
         function submit(user) {
             UserService.invite(user)
                 .then(function(response) {
+
                     if (response.data.success === true) {
                         vm.message = response.data.message;
                         closeMessage();
+                    }else{
+                        vm.message = response.data.error;
+                        $timeout(function() {
+                            vm.message = "";
+                        }, 2000);
                     }
                 }, function(error) {
 

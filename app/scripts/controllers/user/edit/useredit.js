@@ -65,7 +65,7 @@
         }else{
             $timeout(function(){
                 vm.message = "";
-                $state.go("dashboard",{},{reload:true});
+                $state.go("dashboard.student",{},{reload:true});
             },2000);
         }
         

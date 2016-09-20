@@ -127,3 +127,9 @@ fieldset {
         }
     }
 }
+label.remember{
+    color:white;
+    input[type="checkbox"]{
+        top:-2px;
+    }
+}
