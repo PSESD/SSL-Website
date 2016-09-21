@@ -14,7 +14,6 @@
         vm.program = {
             name:''
         }
-        jQuery('.datepicker').datepicker();
         vm.submit = submit;
         ProgramService.getById(id)
             .then(function(response){
@@ -42,7 +41,8 @@
             if(_.get(data,"cohort","") === ""){
                 student.cohort = [];
             }
-            if(data.cohort.length > 0){
+            var cohort = _.get(data,'cohort',[]);
+            if(cohort.length > 0){
                 var cohort = [];
                 _.forEach(data.cohort,function(v,k){
                     cohort.push(v.text);
