@@ -37,8 +37,11 @@ body.reset-page {
 
 
 
-  div.checkbox {
+  .login-checkbox {
     margin-bottom: 5px;
+    label{
+      text-transform: none;
+    }
   }
 
   .login-welcome-content{

@@ -2,6 +2,9 @@
 =            Tables            =
 ==============================*/
 
+/*----------  General Table Styles  ----------*/
+
+
 .table {
   margin-bottom: 3em;
     thead {
@@ -49,10 +52,16 @@
   @media (max-width: $screen-md-max){
     margin-bottom: 3em;
   }
+
+  .table-edit{
+    border-left: 20px solid $white;
+  }
 }
 
 
-//Labels
+
+/*----------  Labels  ----------*/
+
 
 .label{
     display: inline-block;
@@ -69,8 +78,14 @@
   background-color: $color-cyan;
 }
 
+.glyphicon-minus{
+  &:before{
+    content: "-";
+  }
+}
 
-//Alerts
+
+/*----------  Alerts  ----------*/
 .alert-success, .alert-danger{
   font-size: rem(14);
   background-color: transparent;
