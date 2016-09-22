@@ -85,7 +85,7 @@
               <td class="text-center">
                 {{user.activate ? 'Active' : 'Pending'}}
                 <span ng-if="!user.activate">
-                  <a href="" ng-click="vm.reInvite(user)">Reinvite</a>
+                  <a class="reinvite" href="" ng-click="vm.reInvite(user)">Reinvite</a>
                 </span>
               </td>
               <td class="text-center">{{user.studentCount}}</td>

@@ -4,7 +4,8 @@ input[type="text"].form-control,
 input[type="password"].form-control,
 input[type="email"].form-control,
 textarea.form-control,
-select.form-control {
+select.form-control,
+tags-input .tags {
     background: lighten($grey-light, 10%);
     border-radius: 15px;
     border: 1px solid $grey-light;
@@ -13,6 +14,8 @@ select.form-control {
     padding: 5px 15px;
     line-height: 1.4em;
     transition: all 0.3s ease;
+    -webkit-appearance: none;
+    outline: none;
     &:focus, &:active {
         border-color: $grey-light;
         background: lighten($grey-light, 8%);
@@ -104,7 +107,7 @@ textarea.form-control {
     .tick {
         display: block;
         position: absolute;
-        top: 2px;
+        top: 1px;
         left: 0;
         height: 15px;
         width: 15px;
@@ -221,3 +224,37 @@ label.remember{
         top:-2px;
     }
 }
+
+
+/*----------  Tags Input  ----------*/
+
+tags-input{
+  .tags{
+    box-shadow: none;
+    border-radius: 20px;
+    .tag-item{
+      margin: 2px;
+      padding: 0 10px;
+      display: inline-block;
+      float: left;
+      font-size: rem(14);
+      font-family: $font-family-open-sans;
+      height: 26px;
+      line-height: 25px;
+      border: none;
+      border-radius: 10px;
+      @include linear-gradient(180deg, lighten($cyan, 15%) 0%,$cyan  50%);
+      .remove-button:active{
+        color: $white;
+      }
+    }
+    input{
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+      width: 88px !important;
+
+    }
+  }
+}
+
+
