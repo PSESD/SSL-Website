@@ -57,7 +57,7 @@
                             <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                             </th>
-                            <th style="width: 5%;" class="text-center">Assign Students</th>
+                            <th style="width: 5%;" class="table-space text-center">Assign Students</th>
                             <th style="width: 5%;" class="text-center">Edit</th>
                             <th style="width: 5%;" class="text-center">Delete</th>
                         </tr>
@@ -76,7 +76,7 @@
                                 {{program.totalStudent}}
                             </td>
                             <td ng-bind-html="program.cohorts"></td>
-                            <td class="text-center">
+                            <td class="table-space text-center">
                                 <a class="glyphicon glyphicon-user" ui-sref="dashboard.program_student_add({id:program._id})"></a>
                             </td>
                             <td class="text-center">
