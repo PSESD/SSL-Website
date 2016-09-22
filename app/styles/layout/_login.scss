@@ -50,6 +50,14 @@ body.reset-page {
     }
   }
 
+  .header-logo{
+    text-align: center;
+    margin: 1em 0 1.8em;
+    img{
+      max-width: 180px;
+    }
+  }
+
   .login-form {
     background: rgba(255, 255, 255, 0.4);
     border-radius: 5px;
