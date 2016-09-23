@@ -557,6 +557,11 @@
                         }else{
                             vm.show_program_participation = false;
                         }
+                        if((student.personal.idea_indicator === 'No' || student.personal.idea_indicator === '')&&(student.personal.section_504_status === 'No' || student.personal.section_504_status === '') &&(student.personal.eligibility_status === 'No' || student.personal.eligibility_status ==='')){
+                            student.personal.status = false;
+                        }else{
+                            student.personal.status = true;
+                        }
                         vm.student = student;
                         vm.show_general = true;
                     }

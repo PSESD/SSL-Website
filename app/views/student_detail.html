@@ -88,7 +88,7 @@
             </fieldset>
         </div>
         <div class="col-md-3">
-            <fieldset>
+            <fieldset ng-show="vm.student.personal.status">
                 <legend>District Programs</legend>
                 <dl>
                     <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">IEP</dt>
@@ -162,7 +162,7 @@
                 </dl>
             </fieldset>
             <fieldset>
-                <legend>Misc.</legend>
+                <legend ng-show="vm.student.personal.college_bound">Misc.</legend>
                 <dl>
                     <dt ng-show="vm.student.personal.college_bound">College Bound</dt>
                     <dd></dd>
@@ -173,7 +173,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
+            <ul ng-show="vm.show_general" class="nav nav-tabs nav-justified" role="tablist">
                 <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
                 <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
                 <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
@@ -183,7 +183,7 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div ng-show="vm.show_attendance" role="tabpanel" class="tab-pane active" id="attendance_behavior">
+                <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
                     <div class="display-flex align-items-center attendance-header">
                         <div class="flex-grow-1 text-center attendance-date">Attendance Dates</div>
                         <div class="flex-grow-2  text-center attendance-days display-flex">
@@ -308,7 +308,7 @@
                         </div>
                     </div>
                 </div>
-                <div ng-show="vm.show_transcript" role="tabpanel" class="tab-pane" id="transcript">
+                <div ng-show="vm.show_transcript && vm.show_general" role="tabpanel" class="tab-pane" id="transcript">
                     <div class="display-flex">
                         <div class="flex-grow-1" style="padding:10px;width:10%;">
                             <dl>
@@ -357,7 +357,7 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="program_participation">
-                    <div ng-hide="vm.show_program_participation" class="text-center" style="margin-top: 10px;">
+                    <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
                         This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program">Go to Program</a>
                     </div>
                     <div class="display-flex flex-direction-column">
