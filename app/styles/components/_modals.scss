@@ -1,0 +1,23 @@
+
+.modal-content{
+text-align: center;
+border-radius: 5px;
+}
+.modal-header{
+  border: none;
+  padding: 40px;
+  font-size: rem(30);
+  background: $color-dark-grey;
+  color: $white;
+}
+.modal-body{
+  font-size: rem(16);
+}
+.modal-footer{
+  border: none;
+  .btn{
+    &:hover{
+      color: $color-dark-grey;
+    }
+  }
+}
