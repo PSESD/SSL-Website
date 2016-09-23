@@ -6,9 +6,9 @@
     angular.module('sslv2App')
         .controller('StudentCtrl', StudentCtrl);
 
-    StudentCtrl.$inject = ['$timeout','StudentService','$filter','$confirm'];
+    StudentCtrl.$inject = ['$timeout','StudentService','$filter','$confirm','listStudents','listSummary'];
 
-    function StudentCtrl($timeout,StudentService,$filter,$confirm) {
+    function StudentCtrl($timeout,StudentService,$filter,$confirm,listStudents,listSummary) {
 
         var vm = this;
         vm.show_user = false;
@@ -43,19 +43,9 @@
 
             clearVariables();
 
-            StudentService.getAllStudent()
-                .then(function(response){
-                    $timeout(getAll(response),500);
-                },function(error){
+            getAll(listStudents);
+            getSummary(listSummary);
 
-                });
-
-            StudentService.getStudentSummary()
-                .then(function(response){
-                    $timeout(getSummary(response),500);
-                },function(error){
-
-                });
 
         }
         function school_selected(){
