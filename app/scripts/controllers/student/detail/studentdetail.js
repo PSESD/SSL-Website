@@ -562,6 +562,12 @@
                         }else{
                             student.personal.status = true;
                         }
+                        if(student.personal.emergency2.name === "" || student.personal.emergency2.relationship === "" || student.personal.emergency2.phone === "" || student.personal.emergency2.email === "")
+                        {
+                            student.personal.additional_status = false;
+                        }else{
+                            student.personal.additional_status = false;
+                        }
                         vm.student = student;
                         vm.show_general = true;
                     }
