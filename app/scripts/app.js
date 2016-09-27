@@ -20,7 +20,7 @@
     .factory('headerInjector', [function() {
       var headerInjector = {
         request: function(config) {
-          config.headers['X-Cbo-Client-Url'] = 'http://cbo.upward.st';
+          config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
           return config;
         }
       };
