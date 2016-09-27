@@ -11,9 +11,27 @@
         var vm = this;
         vm.message = "";
         vm.submit = submit;
+        vm.student = {
+            first_name:'',
+            last_name:'',
+            school_district:'',
+            district_student_id:'',
+            college_bound:'No',
+            phone:'',
+            email:'',
+            address:'',
+            emergency1_name:'',
+            emergency1_relationship:'',
+            emergency1_email:'',
+            emergency1_phone:'',
+            emergency2_name:'',
+            emergency2_relationship:'',
+            emergency2_email:'',
+            emergency2_phone:'',
+
+        }
         vm.list_of_school_district = RESOURCES.DISTRICT;
         vm.list_of_relationships = RESOURCES.RELATIONSHIP;
-
         function submit(student){
             StudentService.addStudent(student)
                 .then(function(response){
