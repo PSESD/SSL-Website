@@ -15,7 +15,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ 'active': currentURL.indexOf('student') != -1 &&  currentURL.indexOf('program/student') === -1 }">
+                    <li ng-class="{ 'active': currentURL.indexOf('student') != -1 &&  currentURL.indexOf('program') === -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.student">Students</a>
                     </li>
@@ -23,11 +23,11 @@
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.program">Programs</a>
                     </li>
-                    <li ng-class="{ 'active': currentURL.indexOf('report') != -1 }">
-                        <div class="arrow-container"><div class="arrow-down"></div></div>
-                        <a class="text-center text-uppercase" ui-sref="dashboard.report">Reports</a>
-                    </li>
-                    <li ng-class="{ 'active': currentURL.indexOf('manage') != -1 }">
+                    <!--<li ng-class="{ 'active': currentURL.indexOf('report') != -1 }">-->
+                        <!--<div class="arrow-container"><div class="arrow-down"></div></div>-->
+                        <!--<a class="text-center text-uppercase" ui-sref="dashboard.report">Reports</a>-->
+                    <!--</li>-->
+                    <li ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.manage">Manage</a>
                     </li>
