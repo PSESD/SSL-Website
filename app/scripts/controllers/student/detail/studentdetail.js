@@ -9,6 +9,8 @@
     function StudentDetailCtrl($state,StudentService,$stateParams) {
 
         var vm = this;
+        vm.attandance_show = false;
+        vm.show_update = true;
         vm.show_general = false;
         vm.show_attendance = false;
         vm.show_transcript = false;
@@ -25,7 +27,9 @@
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
         vm.list_programs = [];
+        var listOfYears = [];
         vm.xsre = xsre;
+        vm.updateData = updateData;
         vm.options = {
             //lineWrapping : true,
             height: '500px',
@@ -37,6 +41,155 @@
             extraKeys: {"Alt-F": "findPersistent"}
 
         }
+        student = {
+            embedded:{
+                programs:[],
+                users:[]
+            },
+            last_update:'',
+            report_date:'',
+            personal:{
+                address:'',
+                college_bound:'',
+                days_absent:'',
+                days_in_attendance:'',
+                eligibility_status:'',
+                email:'',
+                emergency1:{
+                    email:'',
+                    mentor:'',
+                    name:'',
+                    phone:'',
+                    relationship:''
+                },
+                emergency2:{
+                    email:'',
+                    mentor:'',
+                    name:'',
+                    phone:'',
+                    relationship:''
+                },
+                enrollment_status:'',
+                first_name:'',
+                ideal_indicator:'',
+                last_name:'',
+                middle_name:'',
+                phone:'',
+                school_district:'',
+                school_year:'',
+                section_504_status:'',
+                summary:{
+                    attendance_count:[],
+                    behavior_count:[],
+                    date:{
+                        latest:'',
+                        max:'',
+                        min:''
+                    },
+                    risk_flag:[]
+                },
+                xsre:{
+                    address:'',
+                    demographics:{
+                        birth_date:'',
+                        hispanic_latino_ethnicity:'',
+                        races:[],
+                        sex:''
+                    },
+                    email:{},
+                    enrollment:{
+                        enrollment_status:'',
+                        enrollment_status_description:'',
+                        entry_date:'',
+                        exit_date:'',
+                        grade_level:'',
+                        lea_ref_id:'',
+                        membership_type:'',
+                        projected_graduation_year:'',
+                        school_name:'',
+                        school_ref_id:'',
+                        school_year:''
+                    },
+                    languages:{},
+                    local_id:'',
+                    other_emails:[],
+                    other_enrollments:[],
+                    other_phone_numbers:[],
+                    phone_number:{}
+                }
+            },
+            transcript:{
+                data:[],
+                source:{
+                    academic_summary:{
+                        class_rank:'',
+                        cumulative_gpa:'',
+                        gpa_scale:'',
+                        term_credits_attempted:'',
+                        term_credits_earned:'',
+                        term_weighted_gpa:'',
+                        total_credits_attempted:'',
+                        total_credits_earned:''
+                    },
+                    credits:'',
+                    grade_level:'',
+                    info:{
+                        grade_level:'',
+                        total_attempted:'',
+                        total_earned:''
+                    },
+                    subject:[],
+                    subject_values:[],
+                    total_credits_attempted:'',
+                    total_credits_earned:'',
+                    total_cumulative_gpa:'',
+                    transcript_term:{
+                        courses:[],
+                        school:{
+                            lea_ref_id:'',
+                            local_id:'',
+                            school_name:''
+                        },
+                        school_year:''
+                    }
+                }
+            }
+        }
+        vm.changeYear = changeYear;
+        function updateData()
+        {
+            vm.show_update = false;
+            var year = _.get(vm.student.selected_years,'id',listOfYears[0].id);
+            StudentService.deleteXsre(id)
+                .then(function(){
+                    loadGeneral(id);
+                    StudentService.deleteAttendance(id)
+                        .then(function(){
+                            StudentService.getAttendanceByYear(id,year)
+                                .then(function(response){
+                                    var data = _.get(response,'data.info.data',[]);
+                                    loadAttendance(data);
+                                    vm.show_update = true;
+                                },function(error){
+                                })
+                        },function(){
+
+                        });
+                },function(error){
+
+
+                });
+        }
+        function changeYear(){
+            vm.list_of_details = [];
+            vm.attandance_show = true;
+                StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
+                .then(function(response){
+                    var data = _.get(response,'data.info.data',[]);
+                    loadAttendance(data);
+                },function(error){
+                })
+        }
 
         if($stateParams.debug === "true"){
             vm.show_xsre = true;
@@ -45,412 +198,27 @@
         }
         StudentService.getAttendance(id)
              .then(function(response){
-                 var data = _.get(response,'data.info.data',[]);
-                 var legend = [];
-                 _.forEach(data,function(values){
-        
-                     for(var v in values){
-                         var data = values[v];
-                         for( var l in data.legend){
-                             legend.push(l)
-                         }
-                         var header = {
-                             date: data.weekDate,
-                             monday:data.summary.M,
-                             tuesday:data.summary.T,
-                             wednesday:data.summary.W,
-                             thursday:data.summary.TH,
-                             friday:data.summary.F,
-                             saturday:data.summary.SA,
-                             sunday:data.summary.S,
-                             weekly_change:data.weeklyChange
-                         }
-        
-                         var header_detail ={
-                             date:data.details[0].title,
-                             day:{
-                                 monday:{
-                                     date:data.details[0].M,
-                                     value:data.summary.M
-                                 },
-                                 tuesday:{
-                                     date:data.details[0].T,
-                                     value:data.summary.T
-                                 },
-                                 wednesday: {
-                                     date: data.details[0].W,
-                                     value: data.summary.W
-                                 },
-                                 thursday:{
-                                     date: data.details[0].TH,
-                                     value: data.summary.TH
-                                 },
-                                 friday:{
-                                     date: data.details[0].F,
-                                     value: data.summary.F
-                                 },
-                                 saturday:{
-                                     date: data.details[0].SA,
-                                     value: data.summary.SA
-                                 },
-                                 sunday:{
-                                     date: data.details[0].S,
-                                     value: data.summary.S
-                                 }
-                             }
-                         }
-                         var detail_columns = {
-                             monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
-                             tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
-                             wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
-                             thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
-                             friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
-                             saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
-                             sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
-                         }
-                         _.forEach(detail_columns.monday,function(value,key){
-                             var event = _.get(value,'event',"");
-                             if(event !== ""){
-                                 var date = _.get(value,'event.calendarEventDate',"");
-                                 var reason = _.get(value,'event.absentReasonDescription',"");
-                                 var description = _.get(value,'event.attendanceStatusTitle',"");
-                                 if(date!=="" && reason !== "" && description !== ""){
-                                     var temp_template = template;
-                                     temp_template = _.replace(temp_template,'{date}',date);
-                                     temp_template = _.replace(temp_template,'{reason}',reason);
-                                     temp_template = _.replace(temp_template,'{description}',description);
-                                     detail_columns.monday[key].template = temp_template;
-                                 }else{
-                                     detail_columns.monday[key].template = "";
-                                 }
-                             }
-                         });
-                         _.forEach(detail_columns.tuesday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.tuesday[key].template = temp_template;
-                                }else{
-                                    detail_columns.tuesday[key].template = "";
-                                }
-                            }
-                         });
-                         _.forEach(detail_columns.wednesday,function(value,key){
-                             var event = _.get(value,'event',"");
-                             if(event !== ""){
-                                 var date = _.get(value,'event.calendarEventDate',"");
-                                 var reason = _.get(value,'event.absentReasonDescription',"");
-                                 var description = _.get(value,'event.attendanceStatusTitle',"");
-                                 if(date!=="" && reason !== "" && description !== ""){
-                                     var temp_template = template;
-                                     temp_template = _.replace(temp_template,'{date}',date);
-                                     temp_template = _.replace(temp_template,'{reason}',reason);
-                                     temp_template = _.replace(temp_template,'{description}',description);
-                                     detail_columns.wednesday[key].template = temp_template;
-                                 }else{
-                                     detail_columns.wednesday[key].template = "";
-                                 }
-                             }
-                         });
-                         _.forEach(detail_columns.thursday,function(value,key){
-                             var event = _.get(value,'event',"");
-                             if(event !== ""){
-                                 var date = _.get(value,'event.calendarEventDate',"");
-                                 var reason = _.get(value,'event.absentReasonDescription',"");
-                                 var description = _.get(value,'event.attendanceStatusTitle',"");
-                                 if(date!=="" && reason !== "" && description !== ""){
-                                     var temp_template = template;
-                                     temp_template = _.replace(temp_template,'{date}',date);
-                                     temp_template = _.replace(temp_template,'{reason}',reason);
-                                     temp_template = _.replace(temp_template,'{description}',description);
-                                     detail_columns.thursday[key].template = temp_template;
-                                 }else{
-                                     detail_columns.thursday[key].template = "";
-                                 }
-                             }
-                         });
-                         _.forEach(detail_columns.friday,function(value,key){
-                             var event = _.get(value,'event',"");
-                             if(event !== ""){
-                                 var date = _.get(value,'event.calendarEventDate',"");
-                                 var reason = _.get(value,'event.absentReasonDescription',"");
-                                 var description = _.get(value,'event.attendanceStatusTitle',"");
-                                 if(date!=="" && reason !== "" && description !== ""){
-                                     var temp_template = template;
-                                     temp_template = _.replace(temp_template,'{date}',date);
-                                     temp_template = _.replace(temp_template,'{reason}',reason);
-                                     temp_template = _.replace(temp_template,'{description}',description);
-                                     detail_columns.friday[key].template = temp_template;
-                                 }else{
-                                     detail_columns.friday[key].template = "";
-                                 }
-                             }
-                         });
-                         _.forEach(detail_columns.saturday,function(value,key){
-                             var event = _.get(value,'event',"");
-                             if(event !== ""){
-                                 var date = _.get(value,'event.calendarEventDate',"");
-                                 var reason = _.get(value,'event.absentReasonDescription',"");
-                                 var description = _.get(value,'event.attendanceStatusTitle',"");
-                                 if(date!=="" && reason !== "" && description !== ""){
-                                     var temp_template = template;
-                                     temp_template = _.replace(temp_template,'{date}',date);
-                                     temp_template = _.replace(temp_template,'{reason}',reason);
-                                     temp_template = _.replace(temp_template,'{description}',description);
-                                     detail_columns.saturday[key].template = temp_template;
-                                 }else{
-                                     detail_columns.saturday[key].template = "";
-                                 }
-                             }
-                         });
-                         _.forEach(detail_columns.sunday,function(value,key){
-                             var event = _.get(value,'event',"");
-                             if(event !==""){
-                                 var date = _.get(value,'event.calendarEventDate',"");
-                                 var reason = _.get(value,'event.absentReasonDescription',"");
-                                 var description = _.get(value,'event.attendanceStatusTitle',"");
-                                 if(date!=="" && reason !== "" && description !== ""){
-                                     var temp_template = template;
-                                     temp_template = _.replace(temp_template,'{date}',date);
-                                     temp_template = _.replace(temp_template,'{reason}',reason);
-                                     temp_template = _.replace(temp_template,'{description}',description);
-                                     detail_columns.sunday[key].template = temp_template;
-                                 }else{
-                                     detail_columns.sunday[key].template = "";
-                                 }
-                             }
-                         });
-                         var behaviors = {
-                             monday:data.behaviors.M,
-                             tuesday:data.behaviors.T,
-                             wednesday:data.behaviors.W,
-                             thursday:data.behaviors.TH,
-                             friday:data.behaviors.F,
-                             saturday:data.behaviors.SA,
-                             sunday:data.behaviors.S,
-                         }
 
-                         for (var period in data.periods){
-                             if(data.periods[period].includes("Period")){
-                                 periods.push(data.periods[period]);
-                             }
-                         }
-                         var list_of_item = {
-                             header:header,
-                             header_detail:header_detail,
-                             detail_columns:detail_columns,
-                             periods:_.uniq(periods),
-                             behaviors:behaviors,
-                             status:false
-                         }
-                         list_of_student_data.push(list_of_item);
-                     }
+                 var years = _.get(response,'data.info.source.years',"");
+                 _.forEach(years,function(value){
+                     listOfYears.push({
+                         id:_.replace(value,'/','-'),
+                         name:_.replace(value,'/','-')
+                     })
                  });
-                 vm.legend = _.uniq(legend);
-                 vm.list_of_details = list_of_student_data;
-                 if(list_of_student_data.length !== 0){
-                     vm.show_attendance = true;
-                 }else{
-                     vm.show_attendance = false;
-                 }
+                 vm.listOfYears = listOfYears;
+                 var data = _.get(response,'data.info.data',[]);
+
+                 loadAttendance(data);
 
              },function(error){
 
              });
 
         init();
-        function init(){
-
-            var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
-            var current_index = _.findIndex(student_profile,{'id':id});
-            vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
-            vm.next_link = _.get(student_profile[current_index + 1],'value',"");
-            var student = student_profile[current_index];
-            vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
-            StudentService.getTranscriptById(id)
-                .then(function(response){
-                    if(response.data.success === true){
-                        var data = response.data.info.data;
-                        var source = response.data.info.source;
-                        var list_high_schools = [];
-                        var list_transcripts = [];
-                        var high_school = {};
-                        var transcript_header = {};
-                        _.forEach(data,function(high_school_value,key){
-                            list_transcripts = [];
-                            _.forEach(high_school_value.transcripts,function(transcripts){
-                                if(_.isNull(transcripts)){
-                                    transcripts = [];
-                                }
-                                list_transcripts.push(transcripts);
-                            });
-                            high_school = {
-                                grade_level : _.get(high_school_value,'gradeLevel',""),
-                                school_name : _.get(high_school_value,'schoolName',""),
-                                school_year : _.get(high_school_value,'schoolYear',""),
-                                session : _.get(high_school_value,'session',""),
-                                start_date : _.get(high_school_value,'startDate',""),
-                                start_date_time : _.get(high_school_value,'startDateTime',""),
-                                transcripts:list_transcripts
-                            }
-                            list_high_schools.push(high_school);
-                        });
-
-                        transcript_header ={
-                            credits:_.get(source,'credits',""),
-                            grade_level:_.get(source,'gradeLevel',""),
-                            total_credits_earned:_.get(source,'totalCreditsEarned',""),
-                            total_credits_attempted:_.get(source,'totalCreditsAttempted',""),
-                            total_cumulative_gpa:_.get(source,'totalCumulativeGpa',""),
-                            subject_values:_.get(source,'subjectValues',"")
-
-                        }
-                        vm.list_high_schools = list_high_schools;
-                        vm.transcript_header = transcript_header;
-                       vm.show_transcript = true;
-                    }else{
-                        vm.show_transcript = false;
-                    }
-                },function(error){
-                });
-            student = {
-                embedded:{
-                    programs:[],
-                    users:[]
-                },
-                last_update:'',
-                report_date:'',
-                personal:{
-                    address:'',
-                    college_bound:'',
-                    days_absent:'',
-                    days_in_attendance:'',
-                    eligibility_status:'',
-                    email:'',
-                    emergency1:{
-                        email:'',
-                        mentor:'',
-                        name:'',
-                        phone:'',
-                        relationship:''
-                    },
-                    emergency2:{
-                        email:'',
-                        mentor:'',
-                        name:'',
-                        phone:'',
-                        relationship:''
-                    },
-                    enrollment_status:'',
-                    first_name:'',
-                    ideal_indicator:'',
-                    last_name:'',
-                    middle_name:'',
-                    phone:'',
-                    school_district:'',
-                    school_year:'',
-                    section_504_status:'',
-                    summary:{
-                        attendance_count:[],
-                        behavior_count:[],
-                        date:{
-                            latest:'',
-                            max:'',
-                            min:''
-                        },
-                        risk_flag:[]
-                    },
-                    xsre:{
-                        address:'',
-                        demographics:{
-                            birth_date:'',
-                            hispanic_latino_ethnicity:'',
-                            races:[],
-                            sex:''
-                        },
-                        email:{},
-                        enrollment:{
-                            enrollment_status:'',
-                            enrollment_status_description:'',
-                            entry_date:'',
-                            exit_date:'',
-                            grade_level:'',
-                            lea_ref_id:'',
-                            membership_type:'',
-                            projected_graduation_year:'',
-                            school_name:'',
-                            school_ref_id:'',
-                            school_year:''
-                        },
-                        languages:{},
-                        local_id:'',
-                        other_emails:[],
-                        other_enrollments:[],
-                        other_phone_numbers:[],
-                        phone_number:{}
-                    }
-                },
-                transcript:{
-                    data:[],
-                    source:{
-                        academic_summary:{
-                            class_rank:'',
-                            cumulative_gpa:'',
-                            gpa_scale:'',
-                            term_credits_attempted:'',
-                            term_credits_earned:'',
-                            term_weighted_gpa:'',
-                            total_credits_attempted:'',
-                            total_credits_earned:''
-                        },
-                        credits:'',
-                        grade_level:'',
-                        info:{
-                            grade_level:'',
-                            total_attempted:'',
-                            total_earned:''
-                        },
-                        subject:[],
-                        subject_values:[],
-                        total_credits_attempted:'',
-                        total_credits_earned:'',
-                        total_cumulative_gpa:'',
-                        transcript_term:{
-                            courses:[],
-                            school:{
-                                lea_ref_id:'',
-                                local_id:'',
-                                school_name:''
-                            },
-                            school_year:''
-                        }
-                    }
-                }
-            }
-
-            StudentService.getAssessmentById(id)
-                .then(function(response){
-                    if(response.data.success === true){
-                        if(response.data.info.total > 0){
-                            vm.assessment = _.get(response,'data.info.data',"");
-                            vm.show_assessment = true;
-                        }else{
-                            vm.show_assessment = false;
-                        }
-                    }else{
-                        vm.show_assessment = false;
-                    }
-                },function(error){
-
-                });
-
+        loadGeneral(id);
+        function loadGeneral(id)
+        {
             StudentService.getStudentById(id)
                 .then(function(response){
                     if(response.data.success === true){
@@ -532,7 +300,7 @@
                                 years:value,
                                 programs:[]
                             }
-                           list_program_participation.push(programs);
+                            list_program_participation.push(programs);
                         });
                         _.forEach(student.embedded.programs,function(value){
                             var years = new Date(value.participation_start_date).getFullYear();
@@ -574,47 +342,339 @@
                 },function (error) {
 
                 });
+        }
+        function loadAttendance(data){
+            vm.attandance_show = false;
+            var legend = [];
+            list_of_student_data = [];
+            _.forEach(data,function(values){
 
-            StudentService.getTranscript(id)
+                for(var v in values){
+                    var data = values[v];
+                    for( var l in data.legend){
+                        legend.push(l)
+                    }
+                    var header = {
+                        date: data.weekDate,
+                        monday:data.summary.M,
+                        tuesday:data.summary.T,
+                        wednesday:data.summary.W,
+                        thursday:data.summary.TH,
+                        friday:data.summary.F,
+                        saturday:data.summary.SA,
+                        sunday:data.summary.S,
+                        weekly_change:data.weeklyChange
+                    }
+
+                    var header_detail ={
+                        date:data.details[0].title,
+                        day:{
+                            monday:{
+                                date:data.details[0].M,
+                                value:data.summary.M
+                            },
+                            tuesday:{
+                                date:data.details[0].T,
+                                value:data.summary.T
+                            },
+                            wednesday: {
+                                date: data.details[0].W,
+                                value: data.summary.W
+                            },
+                            thursday:{
+                                date: data.details[0].TH,
+                                value: data.summary.TH
+                            },
+                            friday:{
+                                date: data.details[0].F,
+                                value: data.summary.F
+                            },
+                            saturday:{
+                                date: data.details[0].SA,
+                                value: data.summary.SA
+                            },
+                            sunday:{
+                                date: data.details[0].S,
+                                value: data.summary.S
+                            }
+                        }
+                    }
+                    var detail_columns = {
+                        monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
+                        tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
+                        wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
+                        thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
+                        friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
+                        saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
+                        sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
+                    }
+                    _.forEach(detail_columns.monday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !== ""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.monday[key].template = temp_template;
+                            }else{
+                                detail_columns.monday[key].template = "";
+                            }
+                        }
+                    });
+                    _.forEach(detail_columns.tuesday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !== ""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.tuesday[key].template = temp_template;
+                            }else{
+                                detail_columns.tuesday[key].template = "";
+                            }
+                        }
+                    });
+                    _.forEach(detail_columns.wednesday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !== ""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.wednesday[key].template = temp_template;
+                            }else{
+                                detail_columns.wednesday[key].template = "";
+                            }
+                        }
+                    });
+                    _.forEach(detail_columns.thursday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !== ""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.thursday[key].template = temp_template;
+                            }else{
+                                detail_columns.thursday[key].template = "";
+                            }
+                        }
+                    });
+                    _.forEach(detail_columns.friday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !== ""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.friday[key].template = temp_template;
+                            }else{
+                                detail_columns.friday[key].template = "";
+                            }
+                        }
+                    });
+                    _.forEach(detail_columns.saturday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !== ""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.saturday[key].template = temp_template;
+                            }else{
+                                detail_columns.saturday[key].template = "";
+                            }
+                        }
+                    });
+                    _.forEach(detail_columns.sunday,function(value,key){
+                        var event = _.get(value,'event',"");
+                        if(event !==""){
+                            var date = _.get(value,'event.calendarEventDate',"");
+                            var reason = _.get(value,'event.absentReasonDescription',"");
+                            var description = _.get(value,'event.attendanceStatusTitle',"");
+                            if(date!=="" && reason !== "" && description !== ""){
+                                var temp_template = template;
+                                temp_template = _.replace(temp_template,'{date}',date);
+                                temp_template = _.replace(temp_template,'{reason}',reason);
+                                temp_template = _.replace(temp_template,'{description}',description);
+                                detail_columns.sunday[key].template = temp_template;
+                            }else{
+                                detail_columns.sunday[key].template = "";
+                            }
+                        }
+                    });
+                    var behaviors = {
+                        monday:data.behaviors.M,
+                        tuesday:data.behaviors.T,
+                        wednesday:data.behaviors.W,
+                        thursday:data.behaviors.TH,
+                        friday:data.behaviors.F,
+                        saturday:data.behaviors.SA,
+                        sunday:data.behaviors.S,
+                    }
+
+                    for (var period in data.periods){
+                        if(data.periods[period].includes("Period")){
+                            periods.push(data.periods[period]);
+                        }
+                    }
+                    var list_of_item = {
+                        header:header,
+                        header_detail:header_detail,
+                        detail_columns:detail_columns,
+                        periods:_.uniq(periods),
+                        behaviors:behaviors,
+                        status:false
+                    }
+                    list_of_student_data.push(list_of_item);
+                    vm.legend = _.uniq(legend);
+                    vm.list_of_details = list_of_student_data;
+                    if(list_of_student_data.length !== 0){
+                        vm.show_attendance = true;
+                    }else{
+                        vm.show_attendance = false;
+                    }
+                }
+            });
+        }
+        function init(){
+
+            var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
+            var current_index = _.findIndex(student_profile,{'id':id});
+            vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
+            vm.next_link = _.get(student_profile[current_index + 1],'value',"");
+            var student = student_profile[current_index];
+            vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
+            StudentService.getTranscriptById(id)
                 .then(function(response){
                     if(response.data.success === true){
+                        var data = response.data.info.data;
+                        var source = response.data.info.source;
+                        var list_high_schools = [];
+                        var list_transcripts = [];
+                        var high_school = {};
+                        var transcript_header = {};
+                        _.forEach(data,function(high_school_value,key){
+                            list_transcripts = [];
+                            _.forEach(high_school_value.transcripts,function(transcripts){
+                                if(_.isNull(transcripts)){
+                                    transcripts = [];
+                                }
+                                list_transcripts.push(transcripts);
+                            });
+                            high_school = {
+                                grade_level : _.get(high_school_value,'gradeLevel',""),
+                                school_name : _.get(high_school_value,'schoolName',""),
+                                school_year : _.get(high_school_value,'schoolYear',""),
+                                session : _.get(high_school_value,'session',""),
+                                start_date : _.get(high_school_value,'startDate',""),
+                                start_date_time : _.get(high_school_value,'startDateTime',""),
+                                transcripts:list_transcripts
+                            }
+                            list_high_schools.push(high_school);
+                        });
 
-                        var data = _.get(response,'data.info',"");
-                        student.transcript.data = data.data;
-                        student.transcript.source.academic_summary.class_rank = _.get(data,'source.academicSummary.classRank',"");
-                        student.transcript.source.academic_summary.cumulative_gpa = _.get(data,'source.academicSummary.cumulativeGpa',"");
-                        student.transcript.source.academic_summary.gpa_scale = _.get(data,'source.academicSummary.gpaScale',"");
-                        student.transcript.source.academic_summary.term_credits_attempted = _.get(data,'source.academicSummary.termCreditsAttempted',"");
-                        student.transcript.source.academic_summary.term_credits_earned = _.get(data,'source.academicSummary.termCreditsEarned',"");
-                        student.transcript.source.academic_summary.term_weighted_gpa = _.get(data,'source.academicSummary.termWeightedGpa',"");
-                        student.transcript.source.academic_summary.total_credits_attempted = _.get(data,'source.academicSummary.totalCreditsAttempted',"");
-                        student.transcript.source.academic_summary.total_credits_earned = _.get(data,'source.academicSummary.totalCreditsEarned',"");
-                        student.transcript.source.credits = _.get(data,'source.credits',"");
-                        student.transcript.source.grade_level = _.get(data,'source.gradeLevel',"");
-                        student.transcript.source.info.grade_level = _.get(data,'source.info.gradeLevel',"");
-                        student.transcript.source.info.total_attempted = _.get(data,'source.info.totalAttempted',"");
-                        student.transcript.source.info.total_earned = _.get(data,'source.info.totalEarned',"");
-                        student.transcript.source.subject = _.get(data,'source.subject',"");
-                        student.transcript.source.subject_values = _.get(data,'source.subjectValues',"");
-                        student.transcript.source.total_credits_attempted = _.get(data,'source.totalCreditsAttempted',"");
-                        student.transcript.source.total_credits_earned = _.get(data,'source.totalCreditsEarned',"");
-                        student.transcript.source.total_cumulative_gpa = _.get(data,'source.totalCumulativeGpa',"");
-                        student.transcript.source.transcript_term.courses = _.get(data,'source.transcriptTerm.courses',"");
-                        student.transcript.source.transcript_term.school.lea_ref_id = _.get(data,'source.transcriptTerm.school.leaRefId',"");
-                        student.transcript.source.transcript_term.school.local_id = _.get(data,'source.transcriptTerm.school.localId',"");
-                        student.transcript.source.transcript_term.school.school_name = _.get(data,'source.transcriptTerm.school.schoolName',"");
-                        student.transcript.source.transcript_term.school_year = _.get(data,'source.transcriptTerm.schoolYear',"");
-                        if(data === ""){
-
-                        }else{
+                        transcript_header ={
+                            credits:_.get(source,'credits',""),
+                            grade_level:_.get(source,'gradeLevel',""),
+                            total_credits_earned:_.get(source,'totalCreditsEarned',""),
+                            total_credits_attempted:_.get(source,'totalCreditsAttempted',""),
+                            total_cumulative_gpa:_.get(source,'totalCumulativeGpa',""),
+                            subject_values:_.get(source,'subjectValues',"")
 
                         }
+                        vm.list_high_schools = list_high_schools;
+                        vm.transcript_header = transcript_header;
+                       vm.show_transcript = true;
                     }else{
+                        vm.show_transcript = false;
+                    }
+                },function(error){
+                });
 
+
+            StudentService.getAssessmentById(id)
+                .then(function(response){
+                    if(response.data.success === true){
+                        if(response.data.info.total > 0){
+                            vm.assessment = _.get(response,'data.info.data',"");
+                            vm.show_assessment = true;
+                        }else{
+                            vm.show_assessment = false;
+                        }
+                    }else{
+                        vm.show_assessment = false;
                     }
                 },function(error){
 
                 });
+
+
+
+            // StudentService.getTranscript(id)
+            //     .then(function(response){
+            //         if(response.data.success === true){
+            //
+            //             var data = _.get(response,'data.info',"");
+            //             student.transcript.data = data.data;
+            //             student.transcript.source.academic_summary.class_rank = _.get(data,'source.academicSummary.classRank',"");
+            //             student.transcript.source.academic_summary.cumulative_gpa = _.get(data,'source.academicSummary.cumulativeGpa',"");
+            //             student.transcript.source.academic_summary.gpa_scale = _.get(data,'source.academicSummary.gpaScale',"");
+            //             student.transcript.source.academic_summary.term_credits_attempted = _.get(data,'source.academicSummary.termCreditsAttempted',"");
+            //             student.transcript.source.academic_summary.term_credits_earned = _.get(data,'source.academicSummary.termCreditsEarned',"");
+            //             student.transcript.source.academic_summary.term_weighted_gpa = _.get(data,'source.academicSummary.termWeightedGpa',"");
+            //             student.transcript.source.academic_summary.total_credits_attempted = _.get(data,'source.academicSummary.totalCreditsAttempted',"");
+            //             student.transcript.source.academic_summary.total_credits_earned = _.get(data,'source.academicSummary.totalCreditsEarned',"");
+            //             student.transcript.source.credits = _.get(data,'source.credits',"");
+            //             student.transcript.source.grade_level = _.get(data,'source.gradeLevel',"");
+            //             student.transcript.source.info.grade_level = _.get(data,'source.info.gradeLevel',"");
+            //             student.transcript.source.info.total_attempted = _.get(data,'source.info.totalAttempted',"");
+            //             student.transcript.source.info.total_earned = _.get(data,'source.info.totalEarned',"");
+            //             student.transcript.source.subject = _.get(data,'source.subject',"");
+            //             student.transcript.source.subject_values = _.get(data,'source.subjectValues',"");
+            //             student.transcript.source.total_credits_attempted = _.get(data,'source.totalCreditsAttempted',"");
+            //             student.transcript.source.total_credits_earned = _.get(data,'source.totalCreditsEarned',"");
+            //             student.transcript.source.total_cumulative_gpa = _.get(data,'source.totalCumulativeGpa',"");
+            //             student.transcript.source.transcript_term.courses = _.get(data,'source.transcriptTerm.courses',"");
+            //             student.transcript.source.transcript_term.school.lea_ref_id = _.get(data,'source.transcriptTerm.school.leaRefId',"");
+            //             student.transcript.source.transcript_term.school.local_id = _.get(data,'source.transcriptTerm.school.localId',"");
+            //             student.transcript.source.transcript_term.school.school_name = _.get(data,'source.transcriptTerm.school.schoolName',"");
+            //             student.transcript.source.transcript_term.school_year = _.get(data,'source.transcriptTerm.schoolYear',"");
+            //             if(data === ""){
+            //
+            //             }else{
+            //
+            //             }
+            //         }else{
+            //
+            //         }
+            //     },function(error){
+            //
+            //     });
 
             
 

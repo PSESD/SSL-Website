@@ -21,7 +21,10 @@
             getAttendance:getAttendance,
             getTranscriptById:getTranscriptById,
             getAssessmentById:getAssessmentById,
-            getXsre:getXsre
+            getXsre:getXsre,
+            getAttendanceByYear:getAttendanceByYear,
+            deleteXsre:deleteXsre,
+            deleteAttendance:deleteAttendance
 
         };
 
@@ -137,6 +140,33 @@
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 },
                 timeout: 15000
+            })
+        }
+
+        function getAttendanceByYear(id,year)
+        {
+            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/attendance?pageSize=all&year='+year, {
+                headers: {
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
+                }
+            })
+        }
+
+        function deleteXsre(id)
+        {
+            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/xsre', {
+                headers: {
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
+                }
+            })
+        }
+
+        function deleteAttendance(id)
+        {
+            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/xsre?separate=attendance', {
+                headers: {
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
+                }
             })
         }
     }

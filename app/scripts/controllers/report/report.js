@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('ReportCtrl', ReportCtrl);
 
-    ReportCtrl.$inject = ['$state','$scope'];
+    ReportCtrl.$inject = ['$state','$scope','ReportService','$timeout'];
 
-    function ReportCtrl($state,$scope) {
+    function ReportCtrl($state,$scope,ReportService,$timeout) {
 
         var vm = this;
         vm.changePrograms = changePrograms;
@@ -44,6 +44,26 @@
 
         function changePrograms(){
 
+        }
+
+        ReportService.getStudentFilters()
+            .then(function(response){
+
+                if(response.data.success === true){
+
+                }else{
+                    vm.message = _.get(response,'data.error.code',"An error has occured");
+                    closeMessage();
+                }
+            },function(error){
+
+            });
+
+        function closeMessage()
+        {
+            $timeout(function(){
+              vm.message ="";
+            },2000)
         }
 
     }
