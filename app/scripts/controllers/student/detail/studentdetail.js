@@ -633,8 +633,14 @@
 
                 });
 
+            // jQuery('#calendar').calendar({
+            //
+            //     customDayRenderer: render
+            //
+            // });
 
-
+            jQuery('#calendar').calendar({});
+            jQuery('.calendar-header table').children("[class=year-title]").addClass('current-years');
             // StudentService.getTranscript(id)
             //     .then(function(response){
             //         if(response.data.success === true){

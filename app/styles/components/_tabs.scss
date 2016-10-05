@@ -99,3 +99,137 @@ justify-content: space-between;
   margin-bottom: 2px;
   top: 45px;
 }
+
+.calendar-details{
+  background: #f9f9f9;
+  border-top: 1px solid #d0d6d9;
+}
+.detail-info{
+  margin: 40px 20px;
+}
+.detail-info .category{
+  font-weight: 100;
+  padding: 0 5px;
+}
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+  display: inline-block;
+  margin: 0 10px;
+}
+.circle.late-class{
+  background-color: #ff9933;
+}
+.circle.missed-class{
+  background-color: #ff3399;
+}
+.circle.missed-day{
+  border: 2px solid #7b27c9;
+}
+.circle.incident{
+  border: 2px solid #28353c;
+}
+.calendar{
+  overflow: hidden;
+}
+.calendar .months-container{
+  transform: translateX(5%);
+
+}
+.calendar .month-container{
+  background: white;
+  margin: 15px;
+  width: 300px;
+  box-shadow: 5px 5px 15px #d0d6d9;
+  min-height: 300px;
+  padding: 15px;
+}
+.calendar .months-container .month-container .month{
+  width: 90%;
+}
+.calendar .months-container .month-container .month thead{
+  border-bottom: 1px solid #d0d6d9;
+}
+.calendar table.month th.month-title{
+  text-align: left;
+  padding-left: 7px;
+}
+.calendar table.month th.month-title a{
+  float: right;
+  color: #000000;
+}
+.calendar table.month tr td .day-content{
+  padding: 8px;
+  position: relative;
+}
+.calendar table.month td.day .day-content:hover{
+  border-radius: 25px;
+}
+.calendar table.month tr td .day-content.incident{
+  border: 3px solid #28353c;
+  border-radius: 25px;
+}
+.calendar table.month tr td .day-content.missed-day{
+  border: 3px solid #7b27c9;
+  border-radius: 25px;
+}
+.calendar table.month th.day-header{
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.calendar table.month tr td .day-content .circle-missed{
+  background-color: #ffffff;
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  bottom: -6px;
+  right: 5px;
+  border-radius: 25px;
+
+}
+.calendar table.month tr td .day-content .circle-late{
+  background-color: #ffffff;
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  bottom: -6px;
+  left: 5px;
+  border-radius: 25px;
+
+}
+.calendar table.month tr td .day-content .circle-missed .missed-class{
+  width: 10px;
+  height: 10px;
+  background: #ff3399;
+  border-radius: 25px;
+  margin: auto;
+  transform: translateY(25%);
+}
+.calendar table.month tr td .day-content .circle-late .late-class{
+  width: 10px;
+  height: 10px;
+  background: #ff9933;
+  border-radius: 25px;
+  margin: auto;
+  transform: translateY(25%);
+}
+.calendar-header.panel.panel-default{
+  display: none;
+}
+th{
+  &.month-title{
+    font-size: 18px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .calendar .months-container{
+    transform: none;
+  }
+  .calendar .month-container{
+    float: none;
+    margin: auto;
+  }
+}
