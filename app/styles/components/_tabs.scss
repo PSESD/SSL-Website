@@ -223,6 +223,9 @@ th{
   }
 }
 
+.calendar{
+  overflow: hidden;
+}
 
 @media (max-width: 767px) {
   .calendar .months-container{
