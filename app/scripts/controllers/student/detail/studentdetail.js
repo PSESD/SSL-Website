@@ -347,6 +347,7 @@
             vm.attandance_show = false;
             var legend = [];
             list_of_student_data = [];
+            var listOfEvents = [{}];
             _.forEach(data,function(values){
 
                 for(var v in values){
@@ -420,6 +421,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.monday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:description
+                                });
                             }else{
                                 detail_columns.monday[key].template = "";
                             }
@@ -437,6 +442,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.tuesday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:event.attendanceEventType
+                                });
                             }else{
                                 detail_columns.tuesday[key].template = "";
                             }
@@ -454,6 +463,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.wednesday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:event.attendanceEventType
+                                });
                             }else{
                                 detail_columns.wednesday[key].template = "";
                             }
@@ -471,6 +484,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.thursday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:event.attendanceEventType
+                                });
                             }else{
                                 detail_columns.thursday[key].template = "";
                             }
@@ -488,6 +505,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.friday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:event.attendanceEventType
+                                });
                             }else{
                                 detail_columns.friday[key].template = "";
                             }
@@ -505,6 +526,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.saturday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:event.attendanceEventType
+                                });
                             }else{
                                 detail_columns.saturday[key].template = "";
                             }
@@ -522,6 +547,10 @@
                                 temp_template = _.replace(temp_template,'{reason}',reason);
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.sunday[key].template = temp_template;
+                                listOfEvents.push({
+                                    date:new Date(date).getTime(),
+                                    event:event.attendanceEventType
+                                });
                             }else{
                                 detail_columns.sunday[key].template = "";
                             }
@@ -559,7 +588,46 @@
                         vm.show_attendance = false;
                     }
                 }
+               
             });
+            jQuery('#calendar').calendar({
+
+                customDayRenderer: render
+
+            });
+
+            jQuery('#calendar').data('calendar').setYear('2015');
+
+            function render(element, date) {
+
+                jQuery.each(listOfEvents, function(key, value) {
+                    // console.log(value);
+                    //     console.log(new Date(date),value.date);
+                    //     if (date.getTime() == value.date) {
+                    //         console.log('in');
+                    //         if($(element).hasClass('missed-day')){
+                    //             return;
+                    //         }else{
+                    //             console.log('add class');
+                                $(element).addClass('missed-day');
+                            //}
+                        //}
+
+
+                    //if (date.getTime() == value.date) {
+                        $(element).addClass('incident');
+
+                    //if (date.getTime() == value.date) {
+                        $(element).append('<div class="circle-missed"><div class="missed-class"></div></div>');
+                    //}
+                    //if (date.getTime() == value.date) {
+                        $(element).append('<div class="circle-late"><div class="late-class"></div></div>');
+                    //}
+
+                });
+            }
+
+
         }
         function init(){
 
@@ -639,8 +707,6 @@
             //
             // });
 
-            jQuery('#calendar').calendar({});
-            jQuery('.calendar-header table').children("[class=year-title]").addClass('current-years');
             // StudentService.getTranscript(id)
             //     .then(function(response){
             //         if(response.data.success === true){
