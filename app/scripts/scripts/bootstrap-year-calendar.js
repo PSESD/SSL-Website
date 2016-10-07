@@ -174,7 +174,7 @@
 			var monthsDiv = $(document.createElement('div'));
 			monthsDiv.addClass('months-container');
 			
-			for(var m = 0; m < 12; m++) {
+			for(var m = 5; m < 17; m++) {
 				/* Container */
 				var monthDiv = $(document.createElement('div'));
 				monthDiv.addClass('month-container');
@@ -193,8 +193,11 @@
 				var titleCell = $(document.createElement('th'));
 				titleCell.addClass('month-title');
 				titleCell.attr('colspan', this.options.displayWeekNumber ? 8 : 7);
-				titleCell.text(dates[this.options.language].months[m] +' '+ this.options.startYear);
-				
+				if(m > 11){
+					titleCell.text(dates[this.options.language].months[m] +' '+ parseInt(this.options.startYear + 1));
+				}else{
+					titleCell.text(dates[this.options.language].months[m] +' '+ this.options.startYear);
+				}
 				titleRow.append(titleCell);
 				thead.append(titleRow);
 				
@@ -928,7 +931,7 @@
 			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			weekShort: 'W',
 			weekStart:0
