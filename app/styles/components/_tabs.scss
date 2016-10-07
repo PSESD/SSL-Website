@@ -99,7 +99,9 @@ justify-content: space-between;
   margin-bottom: 2px;
   top: 45px;
 }
-
+.calendar-header.panel.panel-default{
+  display: none;
+}
 .calendar-details{
   background: #f9f9f9;
   border-top: 1px solid #d0d6d9;
@@ -131,7 +133,7 @@ justify-content: space-between;
   border: 2px solid #28353c;
 }
 .calendar{
-  overflow: hidden;
+  overflow: hidden!important;
 }
 .calendar .months-container{
   transform: translateX(5%);
@@ -140,9 +142,9 @@ justify-content: space-between;
 .calendar .month-container{
   background: white;
   margin: 15px;
-  width: 300px;
+  width: 325px;
   box-shadow: 5px 5px 15px #d0d6d9;
-  min-height: 300px;
+  min-height: 330px;
   padding: 15px;
 }
 .calendar .months-container .month-container .month{
@@ -159,12 +161,17 @@ justify-content: space-between;
   float: right;
   color: #000000;
 }
+.calendar table.month tr td{
+  padding:3px;
+}
 .calendar table.month tr td .day-content{
-  padding: 8px;
+  padding: 6px 8px;
   position: relative;
+  margin: 1px;
 }
 .calendar table.month td.day .day-content:hover{
   border-radius: 25px;
+  background-color: transparent;
 }
 .calendar table.month tr td .day-content.incident{
   border: 3px solid #28353c;
@@ -181,51 +188,40 @@ justify-content: space-between;
 .calendar table.month tr td .day-content .circle-missed{
   background-color: #ffffff;
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   bottom: -6px;
-  right: 5px;
+  right: 3px;
   border-radius: 25px;
 
 }
 .calendar table.month tr td .day-content .circle-late{
   background-color: #ffffff;
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   bottom: -6px;
-  left: 5px;
+  left: 3px;
   border-radius: 25px;
 
 }
 .calendar table.month tr td .day-content .circle-missed .missed-class{
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   background: #ff3399;
   border-radius: 25px;
   margin: auto;
   transform: translateY(25%);
 }
 .calendar table.month tr td .day-content .circle-late .late-class{
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   background: #ff9933;
   border-radius: 25px;
   margin: auto;
   transform: translateY(25%);
 }
-.calendar-header.panel.panel-default{
-  display: none;
-}
-th{
-  &.month-title{
-    font-size: 18px;
-  }
-}
 
-#calendar{
-  overflow: hidden;
-}
 
 @media (max-width: 767px) {
   .calendar .months-container{

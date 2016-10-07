@@ -416,6 +416,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -425,7 +426,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -440,6 +442,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -449,7 +452,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -464,6 +468,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -473,7 +478,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -488,6 +494,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -497,7 +504,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -512,6 +520,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -521,7 +530,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -536,6 +546,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -545,7 +556,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -560,6 +572,7 @@
                             var reason = _.get(value,'event.absentReasonDescription',"");
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
+                            var attendanceStatus = _.get(event,'attendanceStatus',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -569,7 +582,8 @@
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
-                                        event:event.attendanceEventType
+                                        event:event.attendanceEventType,
+                                        eventStatus:attendanceStatus
                                     });
                                 }
                             }else{
@@ -619,25 +633,28 @@
             jQuery("#calendar").calendar({
                 customDayRenderer:render
             });
-            jQuery("#calendar").data('calendar').setYear(tempYear);
 
+            jQuery("#calendar").data('calendar').setYear(tempYear);
+            jQuery('table').find('th.month-title').append('<a href="#" class="button">+</a>');
             function render(element,date) {
                 _.forEach(listOfEvents,function (v) {
                     var item = v.date;
                     var calendar = date.getFullYear()+'/'+date.getMonth()+'/'+date.getDate();
+
                     if(item === calendar){
-                        if (v.event.indexOf('Summer')>-1) {
-                            $(element).addClass('missed-day');
-                        }
-                        // if (false) {
-                        //     $(element).addClass('incident');
+                        console.log(true);
+                        // if (v.event.indexOf('Summer')>-1) {
+                        //     $(element).addClass('missed-day');
                         // }
-                        if (v.event.indexOf('Section') > -1) {
+                        // if (false) {
+                        //      $(element).addClass('incident');
+                        // }
+                        if (v.event.indexOf('ClassSectionAttendance') > -1 && (v.eventStatus.indexOf('ExcusedAbsence ') > -1 || v.eventStatus.indexOf('UnexcusedAbsence ') > -1)) {
                             $(element).append('<div class="circle-missed"><div class="missed-class"></div></div>');
                         }
-                        // if (date.getTime() == value.lateClass) {
-                        //     $(element).append('<div class="circle-late"><div class="late-class"></div></div>');
-                        // }
+                         if (v.event.indexOf('ClassSectionAttendance') > -1 && v.eventStatus.indexOf('Tardy') > -1) {
+                             $(element).append('<div class="circle-late"><div class="late-class"></div></div>');
+                        }
                     }
                 });
             }
