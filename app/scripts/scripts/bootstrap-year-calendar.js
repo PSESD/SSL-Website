@@ -174,7 +174,7 @@
 			var monthsDiv = $(document.createElement('div'));
 			monthsDiv.addClass('months-container');
 			
-			for(var m = 8; m < 20; m++) {
+			for(var m = 5; m < 17; m++) {
 				/* Container */
 				var monthDiv = $(document.createElement('div'));
 				monthDiv.addClass('month-container');
@@ -182,8 +182,8 @@
 				if(m==12){
 					m=1;
 				}
-				var firstDate = "";
-				// var firstDate = new Date(this.options.startYear, m, 1);
+
+				var firstDate = new Date(this.options.startYear, m, 1);
 				var table = $(document.createElement('table'));
 				table.addClass('month');
 				
@@ -197,10 +197,8 @@
 				titleCell.attr('colspan', this.options.displayWeekNumber ? 8 : 7);
 				if(m > 11){
 					titleCell.text(dates[this.options.language].months[m] +' '+ parseInt(this.options.startYear + 1));
-					firstDate = new Date(parseInt(this.options.startYear + 1), m, 1);
 				}else{
 					titleCell.text(dates[this.options.language].months[m] +' '+ this.options.startYear);
-					firstDate = new Date(this.options.startYear, m, 1);
 				}
 				titleRow.append(titleCell);
 				thead.append(titleRow);
