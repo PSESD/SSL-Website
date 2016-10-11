@@ -161,6 +161,7 @@
             }
         }
         vm.changeYear = changeYear;
+        vm.checkDate = checkDate;
         function updateData()
         {
             vm.show_update = false;
@@ -435,7 +436,7 @@
                                 detail_columns.monday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -461,7 +462,7 @@
                                 detail_columns.tuesday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -487,7 +488,7 @@
                                 detail_columns.wednesday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -513,7 +514,7 @@
                                 detail_columns.thursday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -539,7 +540,7 @@
                                 detail_columns.friday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -565,7 +566,7 @@
                                 detail_columns.saturday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -591,7 +592,7 @@
                                 detail_columns.sunday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
                                     listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'/'+new Date(date).getMonth()+'/'+new Date(date).getDate(),
+                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
                                         eventStatus:attendanceStatus
                                     });
@@ -622,7 +623,8 @@
                         detail_columns:detail_columns,
                         periods:_.uniq(periods),
                         behaviors:behaviors,
-                        status:false
+                        status:false,
+                        events:listOfEvents
                     }
                     list_of_student_data.push(list_of_item);
                     vm.legend = _.uniq(legend);
@@ -664,12 +666,6 @@
                     });
             });
 
-           //console.log(jQuery('#2015-10-1').next());
-            console.log("A");
-            if(jQuery('#2015-10-1 .missed-late-class-container .dot').hasClass('hide') == true)
-            {
-                jQuery('#2015-10-1 .missed-late-class-container .dot').removeClass('hide');
-            }
         }
         function _removeTime(date) {
             return date.day(0).hour(0).minute(0).second(0).millisecond(0);
@@ -701,7 +697,8 @@
                     isToday: date.isSame(new Date(), "day"),
                     date: date,
                     month:date.month(),
-                    year:month.year()
+                    year:month.year(),
+                    value:date.year()+'-'+date.month()+'-'+date.date()
                 });
                 date = date.clone();
                 date.add(1, "d");
@@ -793,6 +790,36 @@
 
                 })
         }
+        function checkDate(date) {
+            if(date < 10)
+            {
+                return true;
+            }
+            return false;
+        }
+        var object = null;
+        function set_inter() {
+            object = jQuery('.missed-late-class-container .late-class').html();
+            if(object != undefined){
+                _.forEach(listOfEvents,function (v) {
+                    var date = _.get(v,'date',"");
+                    if(date !== "")
+                    {
+
+
+                        if(v.event === "ClassSectionAttendance" && v.eventStatus === "Tardy"){
+                            jQuery("#"+date+" .late-class").removeClass('hide');
+                        }
+                        if(v.event === "ClassSectionAttendance" && v.eventStatus === "Unexcused")
+                        jQuery("#"+date+" .missed-class").removeClass('hide');
+                    }
+
+                })
+                clearInterval(inter);
+            }
+        }
+        var inter = setInterval(set_inter,1000)
+
 
     }
 
