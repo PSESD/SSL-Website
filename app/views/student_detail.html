@@ -314,16 +314,38 @@
                                 <!--</div>-->
                             <!--</div>-->
                         <!--</div>-->
-                    <!--</div>-->
-                    <div class="detail-info">
-                        <label>DETAILS</label>
-                        <label class="category"><div class="circle late-class"></div>Late To Class</label>
-                        <label class="category"><div class="circle missed-class"></div>Missed Class</label>
-                        <label class="category"><div class="circle missed-day"></div>Missed Day</label>
-                        <label class="category"><div class="circle incident"></div>Behavior Incident</label>
+                    <div class="calendar-container">
+                        <div class="month-container" ng-repeat="month in vm.listOfCalendar">
+                            <div class="header">
+                                <h4>{{month.name.format("MMMM YYYY")}}</h4>
+                            </div>
+                            <div class="days-header-container">
+                                <h5 class="days-header">Sun</h5>
+                                <h5 class="days-header">Mon</h5>
+                                <h5 class="days-header">Tue</h5>
+                                <h5 class="days-header">Wed</h5>
+                                <h5 class="days-header">Thu</h5>
+                                <h5 class="days-header">Fri</h5>
+                                <h5 class="days-header">Sat</h5>
+                            </div>
+                            <div ng-repeat="week in month.data">
+                <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.number}}" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
+                    <span ng-class="vm.checkDate(day.number) ? 'padding-10-14':'padding-10'">
+                        {{day.number}}
+                    </span>
+                    <span class="issues-container">
+                    <span class="missed-late-class-container">
+                        <span class="dot late-class hide"></span>
+                    </span>
+                    <span class="missed-late-class-container">
+                        <span class="dot missed-class hide"></span>
+                    </span>
+                    </span>
+                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div id="calendar"></div>
-                </div>
+                    </div>
                 <div ng-show="vm.show_transcript && vm.show_general" role="tabpanel" class="tab-pane" id="transcript">
                     <div class="display-flex">
                         <div class="flex-grow-1" style="padding:10px;width:10%;">

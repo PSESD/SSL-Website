@@ -222,6 +222,72 @@ justify-content: space-between;
   transform: translateY(25%);
 }
 
+.padding-10{
+  padding:10px;
+}
+.padding-10-14{
+  padding: 10px 14px;
+}
+.different-month {
+  color: #aaa;
+}
+.late-class{
+  background: orange;
+}
+.missed-class{
+  background: deeppink;
+}
+.calendar-container{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.month-container{
+  width: 30%;
+  margin-right: 25px;
+}
+.days-header-container{
+  margin-bottom: 15px;
+  border-bottom: 1px solid #aaa;
+  display: flex;
+  justify-content: space-between;
+}
+.days-header{
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 14.28%;
+  text-align: center;
+}
+.weeks-container{
+  line-height: 48px;
+  height: 48px;
+  display: inline-block;
+  text-align: center;
+  width: 14.28%;
+}
+.missed-day{
+  border: 2px solid black;
+  border-radius: 20px
+}
+.issues-container{
+  position: relative;
+  bottom: 10px;
+  display: flex;
+  justify-content: center
+}
+.dot{
+  border-radius: 5px;
+  display: block;
+  height: 10px;
+  width: 10px
+}
+.missed-late-class-container
+{
+  padding: 1px;
+  background: white;
+}
+
 
 @media (max-width: 767px) {
   .calendar .months-container{

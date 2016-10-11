@@ -14,7 +14,8 @@
       'ngTagsInput',
       'ui.multiselect',
       'fsm',
-      'ui.codemirror'
+      'ui.codemirror',
+      'angularMoment'
 
     ])
     .factory('headerInjector', [function() {
