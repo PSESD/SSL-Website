@@ -315,7 +315,7 @@
                             <!--</div>-->
                         <!--</div>-->
                     <div class="calendar-container">
-                        <div class="month-container" ng-repeat="month in vm.listOfCalendar">
+                        <div ng-class="{'Current-month':day.isCurrentMonth}" class="month-container" ng-repeat="month in vm.listOfCalendar">
                             <div class="header">
                                 <h4>{{month.name.format("MMMM YYYY")}}</h4>
                             </div>
@@ -329,8 +329,8 @@
                                 <h5 class="days-header">Sat</h5>
                             </div>
                             <div ng-repeat="week in month.data">
-                <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.number}}" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
-                    <span ng-class="vm.checkDate(day.number) ? 'padding-10-14':'padding-10'">
+                <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.number}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
+                    <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
                         {{day.number}}
                     </span>
                     <span class="issues-container">

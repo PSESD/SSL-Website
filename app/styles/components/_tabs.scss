@@ -222,71 +222,116 @@ justify-content: space-between;
   transform: translateY(25%);
 }
 
-.padding-10{
-  padding:10px;
+.padding-6 {
+  padding: 6px;
 }
-.padding-10-14{
-  padding: 10px 14px;
+
+.padding-8-10 {
+  padding: 8px 10px;
 }
+
 .different-month {
   color: #aaa;
 }
-.late-class{
+
+.late-class {
   background: orange;
 }
-.missed-class{
+
+.missed-class {
   background: deeppink;
 }
-.calendar-container{
+
+.calendar-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  background: #eee;
+  padding: 40px;
   width: 100%;
   flex-wrap: wrap;
 }
-.month-container{
-  width: 30%;
-  margin-right: 25px;
+
+.month-container {
+  width: 31%;
+  padding: 20px;
+  background-color: #fff;
+  font-size: 12px;
+  margin-bottom: 40px;
 }
-.days-header-container{
-  margin-bottom: 15px;
-  border-bottom: 1px solid #aaa;
+
+.month-container.current-month{
+  box-shadow: 5px 5px 15px #d0d6d9;
+}
+
+.month-container .header h4{
+  font-weight: 700;
+  padding-left: 5px;
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+.month-container .header h4 a{
+  float: right;
+  margin-right: 10px;
+  font-size: 25px;
+  color: #000000;
+  margin-top: -6px;
+}
+
+.days-header-container {
+  margin-bottom: 27px;
+  border-bottom: 2px solid #eee;
   display: flex;
   justify-content: space-between;
 }
-.days-header{
+
+.days-header {
   text-transform: uppercase;
   font-weight: bold;
   width: 14.28%;
   text-align: center;
 }
-.weeks-container{
-  line-height: 48px;
-  height: 48px;
+
+.days-header{
+  margin-bottom: 3px;
+}
+.weeks-container {
+  line-height: 28px;
+  height: 43px;
   display: inline-block;
   text-align: center;
   width: 14.28%;
+  vertical-align: top;
 }
-.missed-day{
+
+.missed-day {
+  border: 2px solid #7b27c9;
+  border-radius: 20px
+}
+
+.incident{
   border: 2px solid black;
   border-radius: 20px
 }
-.issues-container{
+
+.issues-container {
   position: relative;
-  bottom: 10px;
+  bottom: 3px;
   display: flex;
   justify-content: center
 }
-.dot{
+
+.dot {
   border-radius: 5px;
   display: block;
-  height: 10px;
-  width: 10px
+  height: 8px;
+  width: 8px
 }
-.missed-late-class-container
-{
+
+.missed-late-class-container {
   padding: 1px;
   background: white;
 }
+
 
 
 @media (max-width: 767px) {
