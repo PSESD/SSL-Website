@@ -184,140 +184,153 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
+                    <div class="detail-info">
+                        <label>DETAILS</label>
+                        <label class="category"><div class="circle late-class"></div>Late To Class</label>
+                        <label class="category"><div class="circle missed-class"></div>Missed Class</label>
+                        <label class="category"><div class="circle missed-day"></div>Missed Day</label>
+                        <label class="category"><div class="circle incident"></div>Behavior Incident</label>
+                    </div>
                     <select ng-change="vm.changeYear()" ng-model="vm.student.selected_years" class="attendance-year form-control" ng-options="option.name for option in vm.listOfYears">
-                        <option value="">Years</option>
+                        <option value="">Years </option>
                     </select>
-                    <!--<div class="display-flex align-items-center attendance-header">-->
-                        <!--<div class="flex-grow-1 text-center attendance-date">Attendance Dates</div>-->
-                        <!--<div class="flex-grow-2  text-center attendance-days display-flex">-->
-                            <!--<div class="flex-grow-1">M</div>-->
-                            <!--<div class="flex-grow-1">T</div>-->
-                            <!--<div class="flex-grow-1">W</div>-->
-                            <!--<div class="flex-grow-1">TH</div>-->
-                            <!--<div class="flex-grow-1">F</div>-->
-                            <!--<div class="flex-grow-1">SA</div>-->
-                            <!--<div class="flex-grow-1">S</div>-->
-                        <!--</div>-->
-                        <!--<div class="attendance-weekly-change flex-grow-1 text-center">Weekly Change</div>-->
-                    <!--</div>-->
-                    <!--<div ng-show="vm.attandance_show" class="text-center" style="margin-top: 2%">-->
-                        <!--<div class="icon-wrapper">-->
-                            <!--<span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.list_of_details">-->
-                        <!--<div class="panel panel-default">-->
-                            <!--<div ng-click="vm.changeStatus(student,$index)" class="panel-heading" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">-->
-                                <!--<div class="flex-grow-1 text-center attendance-date">{{student.header.date}}</div>-->
-                                <!--<div class="flex-grow-2  text-center attendance-days display-flex">-->
-                                    <!--<div class="flex-grow-1 day general border-left-2" ng-hide="student.status">{{student.header.monday}}</div>-->
-                                    <!--<div class="flex-grow-1 day border-left-2" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>-->
-                                    <!--<div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.tuesday}}</div>-->
-                                    <!--<div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.tuesday.date}}<br/>{{student.header_detail.day.tuesday.value}}</div>-->
-                                    <!--<div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.wednesday}}</div>-->
-                                    <!--<div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.wednesday.date}}<br/>{{student.header_detail.day.wednesday.value}}</div>-->
-                                    <!--<div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.thursday}}</div>-->
-                                    <!--<div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.thursday.date}}<br/>{{student.header_detail.day.thursday.value}}</div>-->
-                                    <!--<div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.friday}}</div>-->
-                                    <!--<div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.friday.date}}<br/>{{student.header_detail.day.friday.value}}</div>-->
-                                    <!--<div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.saturday}}</div>-->
-                                    <!--<div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.saturday.date}}<br/>{{student.header_detail.day.saturday.value}}</div>-->
-                                    <!--<div class="flex-grow-1 day general border-right-2" ng-hide="student.status">{{student.header.sunday}}</div>-->
-                                    <!--<div class="flex-grow-1 day border-right-2" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>-->
-                                <!--</div>-->
-                                <!--<div class="attendance-weekly-change flex-grow-1 text-center display-flex justify-content-space-between"><div>&nbsp;</div><div>{{student.header.weekly_change}}</div> <div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>-->
-                            <!--</div>-->
-                            <!--<div id="tabs-{{$index}}" class="panel-collapse collapse" role="tabpanel">-->
-                                <!--<div class="panel-body display-flex no-padding">-->
-                                    <!--<div class="flex-grow-1 text-center attendance-date content">-->
-                                        <!--<div class="text-uppercase detail-item" ng-repeat="period in student.periods track by $index">{{period}}</div>-->
-                                        <!--<div class="detail-item"></div>-->
-                                        <!--<div class="text-uppercase detail-item">Behavior</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="display-flex flex-grow-2 text-center attendance-days content">-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.monday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.monday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.tuesday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.tuesday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.wednesday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.wednesday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.thursday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.thursday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.friday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.friday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.saturday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.saturday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="flex-grow-1 day">-->
-                                            <!--<div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.sunday"></div>-->
-                                            <!--<div style="padding: 0 2px">-->
-                                                <!--<div class="detail-item "></div>-->
-                                            <!--</div>-->
-                                            <!--<div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.sunday">-->
-                                                <!--<div class="detail-item n_a"></div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="align-items-center display-flex flex-grow-1 text-center attendance-weekly-change justify-content-center">-->
-                                        <!--<div ng-show="vm.legend !== null ? true : false" class="panel panel-default">-->
-                                            <!--<div class="panel-heading">Legend</div>-->
-                                            <!--<div class="panel-body no-padding" style="display: flex; flex-direction: column;height: 88%;">-->
-                                                <!--<div ng-repeat="legend in vm.legend">-->
-                                                    <!--<span class="legend-item {{legend}}">-->
-                                                    <!--{{legend}}-->
-                                                    <!--</span>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!-- <div class="display-flex align-items-center attendance-header">
+                         <div class="flex-grow-1 text-center attendance-date">Attendance Dates</div>
+                         <div class="flex-grow-2  text-center attendance-days display-flex">
+                             <div class="flex-grow-1">M</div>
+                             <div class="flex-grow-1">T</div>
+                             <div class="flex-grow-1">W</div>
+                             <div class="flex-grow-1">TH</div>
+                             <div class="flex-grow-1">F</div>
+                             <div class="flex-grow-1">SA</div>
+                             <div class="flex-grow-1">S</div>
+                         </div>
+                         <div class="attendance-weekly-change flex-grow-1 text-center">Weekly Change</div>
+                     </div>-->
+                    <div ng-show="vm.attandance_show" class="text-center" style="margin-top: 2%">
+                        <div class="icon-wrapper">
+                            <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
+                        </div>
+                    </div>
+
+                    <div class="month-detail" ng-show="vm.selectedMonth">
+                        <div class="month-detail-name" >{{vm.month_name}}<span class="pull-right glyphicon glyphicon-remove close-month-detail"></span></div>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.selectedMonth">
+                            <div class="panel panel-default">
+                                <div ng-click="vm.changeStatus(student,$index)" class="panel-heading" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                    <div class="flex-grow-1 text-center attendance-date">{{student.header.date}}</div>
+                                    <div class="flex-grow-2  text-center attendance-days display-flex">
+                                        <div class="flex-grow-1 day general border-left-2" ng-hide="student.status">{{student.header.monday}}</div>
+                                        <div class="flex-grow-1 day border-left-2" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>
+                                        <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.tuesday}}</div>
+                                        <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.tuesday.date}}<br/>{{student.header_detail.day.tuesday.value}}</div>
+                                        <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.wednesday}}</div>
+                                        <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.wednesday.date}}<br/>{{student.header_detail.day.wednesday.value}}</div>
+                                        <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.thursday}}</div>
+                                        <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.thursday.date}}<br/>{{student.header_detail.day.thursday.value}}</div>
+                                        <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.friday}}</div>
+                                        <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.friday.date}}<br/>{{student.header_detail.day.friday.value}}</div>
+                                        <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.saturday}}</div>
+                                        <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.saturday.date}}<br/>{{student.header_detail.day.saturday.value}}</div>
+                                        <div class="flex-grow-1 day general border-right-2" ng-hide="student.status">{{student.header.sunday}}</div>
+                                        <div class="flex-grow-1 day border-right-2" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
+                                    </div>
+                                    <div class="attendance-weekly-change flex-grow-1 text-center display-flex justify-content-space-between"><div>&nbsp;</div><div>{{student.header.weekly_change}}</div> <div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
+                                </div>
+                                <div id="tabs-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                    <div class="panel-body display-flex no-padding">
+                                        <div class="flex-grow-1 text-center attendance-date content">
+                                            <div class="text-uppercase detail-item" ng-repeat="period in student.periods track by $index">{{period}}</div>
+                                            <div class="detail-item"></div>
+                                            <div class="text-uppercase detail-item">Behavior</div>
+                                        </div>
+                                        <div class="display-flex flex-grow-2 text-center attendance-days content">
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.monday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.monday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.tuesday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.tuesday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.wednesday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.wednesday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.thursday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.thursday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.friday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.friday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.saturday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.saturday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 day">
+                                                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.sunday"></div>
+                                                <div style="padding: 0 2px">
+                                                    <div class="detail-item "></div>
+                                                </div>
+                                                <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.sunday">
+                                                    <div class="detail-item n_a"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="align-items-center display-flex flex-grow-1 text-center attendance-weekly-change justify-content-center">
+                                            <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
+                                                <div class="panel-heading">Legend</div>
+                                                <div class="panel-body no-padding" style="display: flex; flex-direction: column;height: 88%;">
+                                                    <div ng-repeat="legend in vm.legend">
+                                                    <span class="legend-item {{legend}}">
+                                                    {{legend}}
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="calendar-container">
                         <div ng-class="{'Current-month':day.isCurrentMonth}" class="month-container" ng-repeat="month in vm.listOfCalendar">
                             <div class="header">
-                                <h4>{{month.name.format("MMMM YYYY")}}</h4>
+                                <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'))"></span></h4>
                             </div>
                             <div class="days-header-container">
                                 <h5 class="days-header">Sun</h5>
@@ -345,7 +358,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <div ng-show="vm.show_transcript && vm.show_general" role="tabpanel" class="tab-pane" id="transcript">
                     <div class="display-flex">
                         <div class="flex-grow-1" style="padding:10px;width:10%;">

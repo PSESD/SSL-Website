@@ -1,4 +1,6 @@
 .tab-content{
+  margin-top: 15px;
+  background: #eee;
   .attendance-header{
     height: 80px;
   }
@@ -14,9 +16,32 @@
       &.panel-default{
         width:75%;
         border:1px solid #ddd!important;
+        background-color: #eee;
         .panel-heading{
-          background: white;
-          text-transform: uppercase;
+          background: #eee;
+          border: none;
+          border-top:none ;
+        }
+        .panel-body{
+          .attendance-weekly-change{
+            .legend-item{
+              position: relative;
+              top: 1px;
+              display: inline-block;
+              font-family: 'Glyphicons Halflings';
+              font-style: normal;
+              font-weight: normal;
+              line-height: 1;
+              -webkit-font-smoothing: antialiased;
+
+              &.present{
+                background-color: transparent;
+                &:before{
+                  content: "\e084";
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -33,313 +58,376 @@
       }
     }
   }
-}
-.legend-item{
-  display: block;
-  height:40px;
-  line-height: 40px;
-  text-transform: uppercase;
-  font-weight: 400;
-  color:black;
-}
-.value{
-  margin: 0 2px;
-}
-.day{
-  width: 14.28%;
-  &.general{
-    height: 36px;
-    line-height: 36px;
+
+  /*.legend-item{
+    display: block;
+    height:40px;
+    line-height: 40px;
+    font-weight: 400;
+    color:black;
+  }*/
+  .value{
+    margin: 0 2px;
   }
-}
-.border-right-2{
-  border-right: 2px solid #ddd;
-}
-.border-left-2{
-  border-left: 2px solid #ddd;
-}
-.attendance-modal,.list-modal{
-  padding: 10px;
-}
-.flex-direction-column{
-flex-direction: column;
-}
-.align-items-baseline{
-align-items: baseline;
-}
-
-.program-participation{
-  margin-right:10px;
-}
-hr{
-  &.transcript{
-    border-top: 2px solid black;
-    width: 25px;
-    margin: 0 0 10px 0;
+  .day{
+    width: 14.28%;
+    &.general{
+      height: 36px;
+      line-height: 36px;
+    }
   }
-}
-.state,.map{
-  width: 50%;
-  height: 50px;
-  line-height: 50px;
-}
-.justify-content-space-between{
-justify-content: space-between;
-}
-.arrow{
-  margin-right:15px;
-}
-.tab-content{
-  margin-top: 15px;
-}
-.attendance-year{
-  width: 15%;
-  position: absolute;
-  right: 15px;
-  margin-bottom: 2px;
-  top: 45px;
-}
-.calendar-header.panel.panel-default{
-  display: none;
-}
-.calendar-details{
-  background: #f9f9f9;
-  border-top: 1px solid #d0d6d9;
-}
-.detail-info{
-  margin: 40px 20px;
-}
-.detail-info .category{
-  font-weight: 100;
-  padding: 0 5px;
-}
-.circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 25px;
-  display: inline-block;
-  margin: 0 10px;
-}
-.circle.late-class{
-  background-color: #ff9933;
-}
-.circle.missed-class{
-  background-color: #ff3399;
-}
-.circle.missed-day{
-  border: 2px solid #7b27c9;
-}
-.circle.incident{
-  border: 2px solid #28353c;
-}
-.calendar{
-  overflow: hidden!important;
-}
-.calendar .months-container{
-  transform: translateX(5%);
+  .border-right-2{
+    border-right: 2px solid #ddd;
+  }
+  .border-left-2{
+    border-left: 2px solid #ddd;
+  }
+  .attendance-modal,.list-modal{
+    padding: 10px;
+  }
+  .flex-direction-column{
+    flex-direction: column;
+  }
+  .align-items-baseline{
+    align-items: baseline;
+  }
 
-}
-.calendar .month-container{
-  background: white;
-  margin: 15px;
-  width: 325px;
-  box-shadow: 5px 5px 15px #d0d6d9;
-  min-height: 330px;
-  padding: 15px;
-}
-.calendar .months-container .month-container .month{
-  width: 90%;
-}
-.calendar .months-container .month-container .month thead{
-  border-bottom: 1px solid #d0d6d9;
-}
-.calendar table.month th.month-title{
-  text-align: left;
-  padding-left: 7px;
-}
-.calendar table.month th.month-title a{
-  float: right;
-  color: #000000;
-}
-.calendar table.month tr td{
-  padding:3px;
-}
-.calendar table.month tr td .day-content{
-  padding: 6px 8px;
-  position: relative;
-  margin: 1px;
-}
-.calendar table.month td.day .day-content:hover{
-  border-radius: 25px;
-  background-color: transparent;
-}
-.calendar table.month tr td .day-content.incident{
-  border: 3px solid #28353c;
-  border-radius: 25px;
-}
-.calendar table.month tr td .day-content.missed-day{
-  border: 3px solid #7b27c9;
-  border-radius: 25px;
-}
-.calendar table.month th.day-header{
-  font-size: 12px;
-  text-transform: uppercase;
-}
-.calendar table.month tr td .day-content .circle-missed{
-  background-color: #ffffff;
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  bottom: -6px;
-  right: 3px;
-  border-radius: 25px;
+  .program-participation{
+    margin-right:10px;
+  }
+  hr{
+    &.transcript{
+      border-top: 2px solid black;
+      width: 25px;
+      margin: 0 0 10px 0;
+    }
+  }
+  .state,.map{
+    width: 50%;
+    height: 50px;
+    line-height: 50px;
+  }
+  .justify-content-space-between{
+    justify-content: space-between;
+  }
+  .arrow{
+    margin-right:15px;
+  }
 
-}
-.calendar table.month tr td .day-content .circle-late{
-  background-color: #ffffff;
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  bottom: -6px;
-  left: 3px;
-  border-radius: 25px;
+  .attendance-year{
+    width: 15%;
+    position: absolute;
+    right: 15px;
+    margin-bottom: 2px;
+    top: 45px;
+  }
+  .calendar-header.panel.panel-default{
+    display: none;
+  }
+  .calendar-details{
+    background: #f9f9f9;
+    border-top: 1px solid #d0d6d9;
+  }
+  .detail-info{
+    padding:20px 40px;
+    &.category{
+      font-weight: 100;
+      padding: 0 5px;
+    }
+    .circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 25px;
+      display: inline-block;
+      margin: 0 10px;
 
-}
-.calendar table.month tr td .day-content .circle-missed .missed-class{
-  width: 9px;
-  height: 9px;
-  background: #ff3399;
-  border-radius: 25px;
-  margin: auto;
-  transform: translateY(25%);
-}
-.calendar table.month tr td .day-content .circle-late .late-class{
-  width: 9px;
-  height: 9px;
-  background: #ff9933;
-  border-radius: 25px;
-  margin: auto;
-  transform: translateY(25%);
-}
+      &.late-class{
+        background-color: #ff9933;
+      }
+      &.missed-class{
+        background-color: #ff3399;
+      }
+      &.incident{
+        border: 2px solid #28353c;
+      }
+      &.missed-day{
+        border: 2px solid #7b27c9;
+      }
+    }
+  }
+  .attendance-year{
+    top: 72px;
+    right: 55px;
+    &.form-control{
+      height: 25px;
+      padding: 2px 10px;
+      @extend input[type="text"];
+      background: url("../images/icon-select.png") no-repeat;
+      background-position: right center;
+      background-color: white;
+      transition:none;
+      &:focus{
+        background: url("../images/icon-select.png") no-repeat;
+        background-position: right center;
+        background-color: white;
+        transition:none;
+      }
+    }
+  }
 
-.padding-6 {
-  padding: 6px;
-}
-
-.padding-8-10 {
-  padding: 8px 10px;
-}
-
-.different-month {
-  color: #aaa;
-}
-
-.late-class {
-  background: orange;
-}
-
-.missed-class {
-  background: deeppink;
-}
-
-.calendar-container {
-  display: flex;
-  justify-content: space-between;
-  background: #eee;
-  padding: 40px;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.month-container {
-  width: 31%;
-  padding: 20px;
-  background-color: #fff;
-  font-size: 12px;
-  margin-bottom: 40px;
-}
-
-.month-container.current-month{
-  box-shadow: 5px 5px 15px #d0d6d9;
-}
-
-.month-container .header h4{
-  font-weight: 700;
-  padding-left: 5px;
-  font-size: 17px;
-  margin-bottom: 7px;
-}
-.month-container .header h4 a{
-  float: right;
-  margin-right: 10px;
-  font-size: 25px;
-  color: #000000;
-  margin-top: -6px;
-}
-
-.days-header-container {
-  margin-bottom: 27px;
-  border-bottom: 2px solid #eee;
-  display: flex;
-  justify-content: space-between;
-}
-
-.days-header {
-  text-transform: uppercase;
-  font-weight: bold;
-  width: 14.28%;
-  text-align: center;
-}
-
-.days-header{
-  margin-bottom: 3px;
-}
-.weeks-container {
-  line-height: 28px;
-  height: 43px;
-  display: inline-block;
-  text-align: center;
-  width: 14.28%;
-  vertical-align: top;
-}
-
-.missed-day {
-  border: 2px solid #7b27c9;
-  border-radius: 20px
-}
-
-.incident{
-  border: 2px solid black;
-  border-radius: 20px
-}
-
-.issues-container {
-  position: relative;
-  bottom: 3px;
-  display: flex;
-  justify-content: center
-}
-
-.dot {
-  border-radius: 5px;
-  display: block;
-  height: 8px;
-  width: 8px
-}
-
-.missed-late-class-container {
-  padding: 1px;
-  background: white;
-}
+  .month-detail{
+    margin: 0 40px;
+    background: white;
+    padding: 20px;
+    -webkit-box-shadow: 10px 10px 30px -5px #B3B3B3;
+    box-shadow: 10px 10px 30px -5px #B3B3B3;
+    .month-detail-name{
+      font-weight: 700;
+      padding-left: 5px;
+      font-size: 17px;
+      margin-bottom: 7px;
+      .close-month-detail{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+    .panel-default {
+      .panel-heading{
+        background: linear-gradient(#fff, #eee);
+        margin: 10px 0;
+        border: 1px solid #eee;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+      }
+      /* .panel-heading:not(.collapsed){
+         background-color: white;
+         border-radius: 0;
+         border: 1px solid #eee;
+         border-top: 5px solid #74d5d6;
+       }*/
+      .attendance-weekly-change{
+        .glyphicon{
+          color: #74d5d6;
+        }
+      }
+    }
+  }
 
 
 
-@media (max-width: 767px) {
+  .calendar{
+    overflow: hidden!important;
+  }
   .calendar .months-container{
-    transform: none;
+    transform: translateX(5%);
+
   }
   .calendar .month-container{
-    float: none;
+    background: white;
+    margin: 15px;
+    width: 325px;
+    box-shadow: 5px 5px 15px #d0d6d9;
+    min-height: 330px;
+    padding: 15px;
+  }
+  .calendar .months-container .month-container .month{
+    width: 90%;
+  }
+  .calendar .months-container .month-container .month thead{
+    border-bottom: 1px solid #d0d6d9;
+  }
+  .calendar table.month th.month-title{
+    text-align: left;
+    padding-left: 7px;
+  }
+  .calendar table.month th.month-title a{
+    float: right;
+    color: #000000;
+  }
+  .calendar table.month tr td{
+    padding:3px;
+  }
+  .calendar table.month tr td .day-content{
+    padding: 6px 8px;
+    position: relative;
+    margin: 1px;
+  }
+  .calendar table.month td.day .day-content:hover{
+    border-radius: 25px;
+    background-color: transparent;
+  }
+  .calendar table.month tr td .day-content.incident{
+    border: 3px solid #28353c;
+    border-radius: 25px;
+  }
+  .calendar table.month tr td .day-content.missed-day{
+    border: 3px solid #7b27c9;
+    border-radius: 25px;
+  }
+  .calendar table.month th.day-header{
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  .calendar table.month tr td .day-content .circle-missed{
+    background-color: #ffffff;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    bottom: -6px;
+    right: 3px;
+    border-radius: 25px;
+
+  }
+  .calendar table.month tr td .day-content .circle-late{
+    background-color: #ffffff;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    bottom: -6px;
+    left: 3px;
+    border-radius: 25px;
+
+  }
+  .calendar table.month tr td .day-content .circle-missed .missed-class{
+    width: 9px;
+    height: 9px;
+    background: #ff3399;
+    border-radius: 25px;
     margin: auto;
+    transform: translateY(25%);
+  }
+  .calendar table.month tr td .day-content .circle-late .late-class{
+    width: 9px;
+    height: 9px;
+    background: #ff9933;
+    border-radius: 25px;
+    margin: auto;
+    transform: translateY(25%);
+  }
+
+  .padding-6 {
+    padding: 6px;
+  }
+
+  .padding-8-10 {
+    padding: 8px 10px;
+  }
+
+  .different-month {
+    color: #aaa;
+  }
+
+  .late-class {
+    background: orange;
+  }
+
+  .missed-class {
+    background: deeppink;
+  }
+
+  .calendar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .month-container {
+    width: 31%;
+    padding: 20px;
+    background-color: #fff;
+    font-size: 12px;
+    margin-bottom: 40px;
+  }
+
+  .month-container.current-month{
+    box-shadow: 5px 5px 15px #d0d6d9;
+  }
+
+  .month-container .header h4{
+    font-weight: 700;
+    padding-left: 5px;
+    font-size: 17px;
+    margin-bottom: 7px;
+    .open-month{
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+  .month-container .header h4 a{
+    float: right;
+    margin-right: 10px;
+    font-size: 25px;
+    color: #000000;
+    margin-top: -6px;
+  }
+
+  .days-header-container {
+    margin-bottom: 27px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .days-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 14.28%;
+    text-align: center;
+  }
+
+  .days-header{
+    margin-bottom: 3px;
+  }
+  .weeks-container {
+    line-height: 28px;
+    height: 43px;
+    display: inline-block;
+    text-align: center;
+    width: 14.28%;
+    vertical-align: top;
+  }
+
+  .missed-day {
+    border: 2px solid #7b27c9;
+    border-radius: 20px
+  }
+
+  .incident{
+    border: 2px solid black;
+    border-radius: 20px
+  }
+
+  .issues-container {
+    position: relative;
+    bottom: 3px;
+    display: flex;
+    justify-content: center
+  }
+
+  .dot {
+    border-radius: 5px;
+    display: block;
+    height: 8px;
+    width: 8px
+  }
+
+  .missed-late-class-container {
+    padding: 1px;
+    background: white;
+  }
+
+
+  @media (max-width: 767px) {
+    .calendar .months-container{
+      transform: none;
+    }
+    .calendar .month-container{
+      float: none;
+      margin: auto;
+    }
   }
 }

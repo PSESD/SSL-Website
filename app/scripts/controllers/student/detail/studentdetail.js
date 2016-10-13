@@ -21,16 +21,23 @@
         vm.show_xsre = false;
         vm.listOfCalendar = [];
         var listOfEvents = [{}];
+        var isFirstTime = true;
         var momentjs = moment();
         var listOfDateTime = [];
         var id = $stateParams.id;
         var student = "";
         var list_of_student_data = [];
+        var listOfSelectedMonth = [];
         var periods = [];
+        var selectedMonth = "";
+        var data ="";
         var template = "<div class='attendance-modal'><dl><dt>{date}</dt><dd></dd><dt>Reason:</dt><dd>{reason}</dd><dt>Description:</dt><dd>{description}</dd></dl></div>";
         vm.changeStatus = changeStatus;
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
+        vm.selectedMonth ="";
+        vm.expand = expand;
+
         vm.list_programs = [];
         var listOfYears = [];
         vm.xsre = xsre;
@@ -186,7 +193,21 @@
 
                 });
         }
+        function expand(month,year,name) {
+            vm.month_name = name;
+            isFirstTime = false;
+            selectedMonth = year+"-"+month;
+            while(vm.selectedMonth.length>0){
+                vm.selectedMonth.pop();
+            }
+            loadAttendance(data);
+        }
         function changeYear(){
+            isFirstTime = true;
+            while(vm.selectedMonth.length > 0)
+            {
+                vm.selectedMonth.pop();
+            }
             vm.list_of_details = [];
             while(vm.listOfCalendar.length > 0){
                 vm.listOfCalendar.pop();
@@ -197,7 +218,7 @@
             vm.attandance_show = true;
             StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
                 .then(function(response){
-                    var data = _.get(response,'data.info.data',[]);
+                   data  = _.get(response,'data.info.data',[]);
                     loadAttendance(data);
                 },function(error){
                 })
@@ -219,8 +240,7 @@
                     })
                 });
                 vm.listOfYears = listOfYears;
-                var data = _.get(response,'data.info.data',[]);
-
+                data = _.get(response,'data.info.data',[]);
                 loadAttendance(data);
 
             },function(error){
@@ -362,280 +382,303 @@
             _.forEach(data,function(values){
 
                 for(var v in values){
-                    var data = values[v];
-                    for( var l in data.legend){
-                        legend.push(l)
-                    }
-                    var header = {
-                        date: data.weekDate,
-                        monday:data.summary.M,
-                        tuesday:data.summary.T,
-                        wednesday:data.summary.W,
-                        thursday:data.summary.TH,
-                        friday:data.summary.F,
-                        saturday:data.summary.SA,
-                        sunday:data.summary.S,
-                        weekly_change:data.weeklyChange
+                    var isValid = false;
+                    var dateTime = v.split('-');
+                    var date = new Date(dateTime[0]);
+                    if(selectedMonth === date.getFullYear()+'-'+parseInt(date.getMonth()+1)){
+                        isValid = true;
                     }
 
-                    var header_detail ={
-                        date:data.details[0].title,
-                        day:{
-                            monday:{
-                                date:data.details[0].M,
-                                value:data.summary.M
-                            },
-                            tuesday:{
-                                date:data.details[0].T,
-                                value:data.summary.T
-                            },
-                            wednesday: {
-                                date: data.details[0].W,
-                                value: data.summary.W
-                            },
-                            thursday:{
-                                date: data.details[0].TH,
-                                value: data.summary.TH
-                            },
-                            friday:{
-                                date: data.details[0].F,
-                                value: data.summary.F
-                            },
-                            saturday:{
-                                date: data.details[0].SA,
-                                value: data.summary.SA
-                            },
-                            sunday:{
-                                date: data.details[0].S,
-                                value: data.summary.S
-                            }
-                        }
-                    }
-                    var detail_columns = {
-                        monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
-                        tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
-                        wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
-                        thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
-                        friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
-                        saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
-                        sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
-                    }
-                    _.forEach(detail_columns.monday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.monday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.monday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.tuesday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.tuesday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.tuesday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.wednesday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.wednesday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.wednesday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.thursday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.thursday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.thursday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.friday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.friday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.friday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.saturday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.saturday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.saturday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.sunday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !==""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.sunday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+new Date(date).getMonth()+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
-                                    });
-                                }
-                            }else{
-                                detail_columns.sunday[key].template = "";
-                            }
-                        }
-                    });
-                    var behaviors = {
-                        monday:data.behaviors.M,
-                        tuesday:data.behaviors.T,
-                        wednesday:data.behaviors.W,
-                        thursday:data.behaviors.TH,
-                        friday:data.behaviors.F,
-                        saturday:data.behaviors.SA,
-                        sunday:data.behaviors.S,
-                    }
 
-                    for (var period in data.periods){
-                        if(data.periods[period].includes("Period")){
-                            periods.push(data.periods[period]);
+                        var data = values[v];
+                        for( var l in data.legend){
+                            legend.push(l)
                         }
-                    }
-                    var list_of_item = {
-                        header:header,
-                        header_detail:header_detail,
-                        detail_columns:detail_columns,
-                        periods:_.uniq(periods),
-                        behaviors:behaviors,
-                        status:false,
-                        events:listOfEvents
-                    }
-                    list_of_student_data.push(list_of_item);
-                    vm.legend = _.uniq(legend);
-                    vm.list_of_details = list_of_student_data;
-                    if(list_of_student_data.length !== 0){
-                        vm.show_attendance = true;
-                    }else{
-                        vm.show_attendance = false;
-                    }
+                        var header = {
+                            date: data.weekDate,
+                            monday:data.summary.M,
+                            tuesday:data.summary.T,
+                            wednesday:data.summary.W,
+                            thursday:data.summary.TH,
+                            friday:data.summary.F,
+                            saturday:data.summary.SA,
+                            sunday:data.summary.S,
+                            weekly_change:data.weeklyChange
+                        }
+
+                        var header_detail ={
+                            date:data.details[0].title,
+                            day:{
+                                monday:{
+                                    date:data.details[0].M,
+                                    value:data.summary.M
+                                },
+                                tuesday:{
+                                    date:data.details[0].T,
+                                    value:data.summary.T
+                                },
+                                wednesday: {
+                                    date: data.details[0].W,
+                                    value: data.summary.W
+                                },
+                                thursday:{
+                                    date: data.details[0].TH,
+                                    value: data.summary.TH
+                                },
+                                friday:{
+                                    date: data.details[0].F,
+                                    value: data.summary.F
+                                },
+                                saturday:{
+                                    date: data.details[0].SA,
+                                    value: data.summary.SA
+                                },
+                                sunday:{
+                                    date: data.details[0].S,
+                                    value: data.summary.S
+                                }
+                            }
+                        }
+                        var detail_columns = {
+                            monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
+                            tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
+                            wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
+                            thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
+                            friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
+                            saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
+                            sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
+                        }
+                        _.forEach(detail_columns.monday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.monday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.monday[key].template = "";
+                                }
+                            }
+                        });
+                        _.forEach(detail_columns.tuesday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.tuesday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.tuesday[key].template = "";
+                                }
+                            }
+                        });
+                        _.forEach(detail_columns.wednesday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.wednesday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.wednesday[key].template = "";
+                                }
+                            }
+                        });
+                        _.forEach(detail_columns.thursday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.thursday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.thursday[key].template = "";
+                                }
+                            }
+                        });
+                        _.forEach(detail_columns.friday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.friday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.friday[key].template = "";
+                                }
+                            }
+                        });
+                        _.forEach(detail_columns.saturday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !== ""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.saturday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.saturday[key].template = "";
+                                }
+                            }
+                        });
+                        _.forEach(detail_columns.sunday,function(value,key){
+                            var event = _.get(value,'event',"");
+                            if(event !==""){
+                                var date = _.get(value,'event.calendarEventDate',"");
+                                var reason = _.get(value,'event.absentReasonDescription',"");
+                                var description = _.get(value,'event.attendanceStatusTitle',"");
+                                var attendanceEventType = _.get(event,'attendanceEventType',"");
+                                var attendanceStatus = _.get(event,'attendanceStatus',"");
+                                if(date!=="" && reason !== "" && description !== ""){
+                                    var temp_template = template;
+                                    temp_template = _.replace(temp_template,'{date}',date);
+                                    temp_template = _.replace(temp_template,'{reason}',reason);
+                                    temp_template = _.replace(temp_template,'{description}',description);
+                                    detail_columns.sunday[key].template = temp_template;
+                                    if(attendanceEventType !== ""){
+                                        listOfEvents.push({
+                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                            event:event.attendanceEventType,
+                                            eventStatus:attendanceStatus
+                                        });
+                                    }
+                                }else{
+                                    detail_columns.sunday[key].template = "";
+                                }
+                            }
+                        });
+                        var behaviors = {
+                            monday:data.behaviors.M,
+                            tuesday:data.behaviors.T,
+                            wednesday:data.behaviors.W,
+                            thursday:data.behaviors.TH,
+                            friday:data.behaviors.F,
+                            saturday:data.behaviors.SA,
+                            sunday:data.behaviors.S,
+                        }
+
+                        for (var period in data.periods){
+                            if(data.periods[period].includes("Period")){
+                                periods.push(data.periods[period]);
+                            }
+                        }
+                        var arrMonth = header_detail.date.split('-');
+                        var date = new Date(arrMonth[0].trim());
+                        var month_detail = {
+                            month:date.getMonth() +1,
+                            year:date.getFullYear()
+                        }
+                        var list_of_item = {
+                            header:header,
+                            header_detail:header_detail,
+                            detail_columns:detail_columns,
+                            periods:_.uniq(periods),
+                            behaviors:behaviors,
+                            status:false,
+                            events:listOfEvents,
+                            month:month_detail
+                        }
+                            list_of_student_data.push(list_of_item);
+                            vm.legend = _.uniq(legend);
+                            vm.list_of_details = list_of_student_data;
+
+
+                        if(list_of_student_data.length !== 0){
+                            vm.show_attendance = true;
+                        }else{
+                            vm.show_attendance = false;
+                        }
+                        if(isValid === true)
+                        {
+                            listOfSelectedMonth.push(list_of_item);
+                            vm.selectedMonth = listOfSelectedMonth;
+                        }
+
                 }
-
+                console.log(vm.selectedMonth);
             });
 
             _.forEach(vm.list_of_details,function (value) {
@@ -650,7 +693,7 @@
             });
             _.forEach(listOfDateTime,function(v){
                 var clonedMoment = momentjs.clone();
-                var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month - 1 }));
+                var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
                 var month = moment.clone();
 
                 var start = moment.clone();
@@ -658,12 +701,13 @@
                 start.date(1);
 
                 _removeTime(start.day(0));
-
-                vm.listOfCalendar.push(
-                    {
-                        'data':_buildMonth(start,month),
-                        'name':moment
-                    });
+                if(isFirstTime === true){
+                    vm.listOfCalendar.push(
+                        {
+                            'data':_buildMonth(start,month),
+                            'name':moment
+                        });
+                }
             });
 
         }
