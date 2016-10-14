@@ -218,7 +218,7 @@
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.selectedMonth">
                                     <div class="panel panel-default">
                                         <div ng-click="vm.changeStatus(student,$index)" class="panel-heading collapsed" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
-                                            <div class="flex-grow-1 attendance-date">week 22-29 | june 2016</div>
+                                            <div class="flex-grow-1 attendance-date">{{student.weekName}}</div>
                                             <div class="attendance-weekly-change flex-grow-1 text-center display-flex justify-content-space-between"><div>&nbsp;</div><div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
                                         </div>
                                         <div id="tabs-{{$index}}" class="panel-collapse collapse" role="tabpanel">
