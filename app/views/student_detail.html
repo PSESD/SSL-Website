@@ -437,48 +437,50 @@
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="enrollment_history">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">
-                                        School Name
-                                    </th>
-                                    <th class="text-center">
-                                        School Year
-                                    </th>
-                                    <th class="text-center">
-                                        Entry Date
-                                    </th>
-                                    <th  class="text-center">
-                                        Exit Date
-                                    </th>
-                                    <th  class="text-center">
-                                        Grade Level
-                                    </th>
-                                    <th  class="text-center">
-                                        Status
-                                    </th>
-                                    <th  class="text-center">
-                                        Non Promotional Change
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
-                                    <td class="text-center">{{enrollement.schoolName}}</td>
-                                    <td class="text-center">{{enrollement.schoolYear}}</td>
-                                    <td class="text-center">{{enrollement.entryDate}}</td>
-                                    <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
-                                    <td class="text-center">{{enrollement.gradeLevel}}</td>
-                                    <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
-                                    <td class="text-center">
-                                        <div ng-if="enrollement.nonPromotionalChange === true">
-                                            <input type="checkbox"disabled checked>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            School Name
+                                        </th>
+                                        <th class="text-center">
+                                            School Year
+                                        </th>
+                                        <th class="text-center">
+                                            Entry Date
+                                        </th>
+                                        <th  class="text-center">
+                                            Exit Date
+                                        </th>
+                                        <th  class="text-center">
+                                            Grade Level
+                                        </th>
+                                        <th  class="text-center">
+                                            Status
+                                        </th>
+                                        <th  class="text-center">
+                                            Non Promotional Change
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
+                                        <td class="text-center">{{enrollement.schoolName}}</td>
+                                        <td class="text-center">{{enrollement.schoolYear}}</td>
+                                        <td class="text-center">{{enrollement.entryDate}}</td>
+                                        <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
+                                        <td class="text-center">{{enrollement.gradeLevel}}</td>
+                                        <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
+                                        <td class="text-center">
+                                            <div ng-if="enrollement.nonPromotionalChange === true">
+                                                <input type="checkbox"disabled checked>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="assessment">
                             <div style="display: flex;justify-content: flex-start;">
