@@ -6,41 +6,72 @@
   }
   .attendance-date{
     width: 30%;
+    text-transform: uppercase;
+    padding: 0 20px;
+    font-weight: 700;
+
+    @media (max-width: $screen-md-max){
+      width: 20%;
+    }
   }
   .attendance-days{
-    width:40%;
+    width:50%;
   }
   .attendance-weekly-change{
-    width: 30%;
+    width: 20%;
+    @media (max-width: $screen-md-max){
+      width: 30%;
+    }
+    @media (max-width: $screen-xss-max){
+      display: none;
+    }
     .panel{
       &.panel-default{
-        width:75%;
+        width:100%;
         border:1px solid #ddd!important;
         background-color: #eee;
         .panel-heading{
           background: #eee;
           border: none;
           border-top:none ;
+          font-weight: 700;
+          font-size: 20px;
+          font-family: $font-family-open-sans;
+        }
+        .panel-heading:not(.collapsed){
+          background: #eee;
+          border: none;
+          border-top:none ;
+          font-family: $font-family-open-sans;
         }
         .panel-body{
-          .attendance-weekly-change{
+          text-transform: capitalize;
+          font-weight: 600;
+          .legend{
+            margin: 7px 0;
             .legend-item{
-              position: relative;
-              top: 1px;
-              display: inline-block;
-              font-family: 'Glyphicons Halflings';
-              font-style: normal;
-              font-weight: normal;
-              line-height: 1;
-              -webkit-font-smoothing: antialiased;
-
-              &.present{
-                background-color: transparent;
-                &:before{
-                  content: "\e084";
-                }
-              }
+              padding: 5px 9px;
+              border-radius: 25px;
+              color: white;
             }
+            .excused{
+              color: #8adc66;
+              margin-right: 5px;
+              background-color: transparent;
+              font-size: 15px;
+            }
+            .unexcused{
+              color: red;
+              margin-right: 5px;
+              background-color: transparent;
+              font-size: 15px;
+            }
+          }
+          .legend-excused{
+            margin-top: 40px;
+          }
+          .legend-missed-class{
+            color: $color-grey;
           }
         }
       }
@@ -55,6 +86,10 @@
       .panel{
         border-radius: 0;
         border:none;
+        padding: 0 20px;
+        @media (max-width: $screen-sm-max){
+          padding:0;
+        }
       }
     }
   }
@@ -193,19 +228,22 @@
       }
     }
     .panel-default {
-      .panel-heading{
+      .panel-heading.collapsed{
         background: linear-gradient(#fff, #eee);
         margin: 10px 0;
         border: 1px solid #eee;
         border-top-right-radius: 0;
         border-top-left-radius: 0;
+        color: $color-grey;
+        font-family: $font-family-kreon;
       }
-      /* .panel-heading:not(.collapsed){
-         background-color: white;
-         border-radius: 0;
-         border: 1px solid #eee;
-         border-top: 5px solid #74d5d6;
-       }*/
+      .panel-heading:not(.collapsed){
+        background-color: white;
+        border-radius: 0;
+        border: 1px solid #eee;
+        border-top: 5px solid #74d5d6;
+        font-family: $font-family-kreon;
+      }
       .attendance-weekly-change{
         .glyphicon{
           color: #74d5d6;
@@ -340,6 +378,12 @@
     background-color: #fff;
     font-size: 12px;
     margin-bottom: 40px;
+    @media (max-width: $screen-sm-max){
+      width: 49%;
+    }
+    @media (max-width: $screen-xss-max){
+      width: 100%;
+    }
   }
 
   .month-container.current-month{

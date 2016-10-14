@@ -37,7 +37,7 @@
         vm.list_of_details = "";
         vm.selectedMonth ="";
         vm.expand = expand;
-
+        vm.show_detail = false;
         vm.list_programs = [];
         var listOfYears = [];
         vm.xsre = xsre;
@@ -169,8 +169,11 @@
         }
         vm.changeYear = changeYear;
         vm.checkDate = checkDate;
-        function updateData()
-        {
+        vm.display = display;
+        function display(item) {
+            return !item;
+        }
+        function updateData(){
             vm.show_update = false;
             var year = _.get(vm.student.selected_years,'id',listOfYears[0].id);
             StudentService.deleteXsre(id)
@@ -194,13 +197,19 @@
                 });
         }
         function expand(month,year,name) {
+
             vm.month_name = name;
             isFirstTime = false;
             selectedMonth = year+"-"+month;
             while(vm.selectedMonth.length>0){
                 vm.selectedMonth.pop();
             }
-            loadAttendance(data);
+            loadDetailMonth(data,month,name);
+            if(vm.selectedMonth.length>0){
+                vm.show_detail = true;
+            }else{
+                vm.show_detail = false;
+            }
         }
         function changeYear(){
             isFirstTime = true;
@@ -241,14 +250,70 @@
                 });
                 vm.listOfYears = listOfYears;
                 data = _.get(response,'data.info.data',[]);
-                loadAttendance(data);
-
+                generateMonth(data);
+                //loadAttendance(data);
             },function(error){
 
             });
 
         init();
         loadGeneral(id);
+        function loadDetailMonth(data,month,name) {
+            var i = 0;
+            _.forEach(data,function (value) {
+                _.forEach(value,function (v,k) {
+                    var date = v.weekDate.split('-');
+                    date = new Date(date[0].trim());
+                    if(month == date.getMonth() + 1){
+                        var temp = k.split('-');
+                        var from = temp[0].trim().split('/');
+                        var to = temp[1].trim().split('/');
+                        from = from[1];
+                        to = to[1];
+                        listOfSelectedMonth.push({
+                            weekName:"WEEK "+to+"-"+from+" | "+name
+                        });
+                        vm.selectedMonth = listOfSelectedMonth;
+
+                    }
+                })
+            })
+            vm.selectedMonth = listOfSelectedMonth;
+        }
+        function generateMonth(data){
+            var listMonths = [];
+            _.forEach(data,function (v,k) {
+                _.forEach(v,function (value,key) {
+                    var date = key.split('-')
+                    date = new Date(date[0].trim());
+                    listMonths.push({
+                        year:date.getFullYear(),
+                        month:date.getMonth()
+                    });
+                })
+            });
+            listMonths = _.uniqWith(listMonths,_.isEqual);
+            _.forEach(listMonths,function(v){
+                var clonedMoment = momentjs.clone();
+                var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
+                var month = moment.clone();
+
+                var start = moment.clone();
+
+                start.date(1);
+
+                _removeTime(start.day(0));
+                if(isFirstTime === true){
+                    vm.listOfCalendar.push(
+                        {
+                            'data':_buildMonth(start,month),
+                            'name':moment,
+                            'show':false
+                        });
+                }
+            });
+            vm.show_attendance = true;
+        }
         function loadGeneral(id){
             StudentService.getStudentById(id)
                 .then(function(response){
@@ -383,14 +448,19 @@
 
                 for(var v in values){
                     var isValid = false;
-                    var dateTime = v.split('-');
-                    var date = new Date(dateTime[0]);
+                    var dateTime;
+                    var date;
+                    var data = values[v];
+                    if(v.indexOf('-')>-1){
+                        dateTime = v.split('-');
+                        date = new Date(dateTime[0]);
+                    }
                     if(selectedMonth === date.getFullYear()+'-'+parseInt(date.getMonth()+1)){
                         isValid = true;
                     }
 
 
-                        var data = values[v];
+                        data = values[v];
                         for( var l in data.legend){
                             legend.push(l)
                         }
@@ -674,11 +744,12 @@
                         if(isValid === true)
                         {
                             listOfSelectedMonth.push(list_of_item);
-                            vm.selectedMonth = listOfSelectedMonth;
+
+                                vm.selectedMonth = listOfSelectedMonth;
                         }
 
                 }
-                console.log(vm.selectedMonth);
+
             });
 
             _.forEach(vm.list_of_details,function (value) {
@@ -714,7 +785,6 @@
         function _removeTime(date) {
             return date.day(0).hour(0).minute(0).second(0).millisecond(0);
         }
-
         function _buildMonth(start, month) {
             var weeks = [];
             var done = false, date = start.clone(), monthIndex = date.month(), count = 0;
@@ -730,7 +800,6 @@
             }
             return weeks;
         }
-
         function _buildWeek(date, month) {
             var days = [];
             for (var i = 0; i < 7; i++) {
