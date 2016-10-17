@@ -21,6 +21,7 @@
         vm.show_enrollment = false;
         vm.show_xsre = false;
         vm.listOfCalendar = [];
+        var list_of_item = "";
         var listOfEvents = [{}];
         var isFirstTime = true;
         var momentjs = moment();
@@ -320,13 +321,15 @@
                         to = to[1];
                         listOfSelectedMonth.push({
                             weekName:"WEEK "+to+"-"+from+" | "+name,
-                            showMonth:true
+                            showMonth:true,
+                            list_of_item:list_of_item
                         });
                         vm.selectedMonth = listOfSelectedMonth;
                     }
                 })
             })
             vm.selectedMonth = listOfSelectedMonth;
+
 
         }
         function generateMonth(data){
@@ -335,13 +338,9 @@
                 _.forEach(v,function (value,key) {
                     var date = key.split('-')
                     date = new Date(date[0].trim());
-                    /*****/
+
                     var data;
                     data = value;
-
-                    // for( var l in data.legend){
-                    //     legend.push(l)
-                    // }
                     var header = {
                         date: data.weekDate,
                         monday:data.summary.M,
@@ -582,6 +581,13 @@
                         year:date.getFullYear(),
                         month:date.getMonth()
                     });
+                    list_of_item = {
+                        header:header,
+                        header_detail:header_detail,
+                        // detail_columns:detail_columns,
+                        // periods:_.uniq(periods)
+                    }
+
                 })
             });
             listMonths = _.uniqWith(listMonths,_.isEqual);
@@ -600,7 +606,8 @@
                         {
                             'data':_buildMonth(start,month),
                             'name':moment,
-                            'show':true
+                            'show':true,
+
                         });
                 }
             });

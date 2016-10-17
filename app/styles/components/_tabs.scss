@@ -1,47 +1,6 @@
-.nav-tabs.nav-justified{
-  li{
-    a{
-      border-radius: 0;
-      font-weight: 700;
-      padding: 12px 5px;
-      background: linear-gradient(#fff, darken($white, 5%));
-      color: $grey;
-      border: none;
-      border-right: 1px solid $grey-light;
-      border-top: 1px solid $grey-light;
-      border-bottom: 1px solid $grey-light;
-
-      &:hover, &:focus{
-
-      }
-    }
-
-    &.active{
-      a{
-        border: 1px solid transparent;
-        border-left: 1px solid $grey-light;
-        border-right: 1px solid $grey-light;
-        border-top: 3px solid $cyan !important;
-        color: $black;
-        background: $white;
-        &:hover, &:focus{
-          border: none;
-        }
-      }
-    }
-
-    &:first-child{
-      a{
-        border-left: 1px solid $grey-light;
-      }
-    }
-  }
-}
-
-
-
 .tab-content{
   margin-top: 15px;
+  background: #eee;
   .attendance-header{
     height: 80px;
   }
@@ -50,16 +9,105 @@
     text-transform: uppercase;
     padding: 0 20px;
     font-weight: 700;
-
     @media (max-width: $screen-md-max){
       width: 20%;
+    }
+    &.content{
+      padding: 0;
+      .detail-item{
+        height: 50px;
+        line-height: 35px;
+        border-bottom: 1px solid $grey-light;
+        border-right: 1px solid $grey-light;
+        padding-left: 5px;
+
+        .number{
+          float: left;
+          font-weight: 100;
+        }
+        .detail-item-content{
+          padding-left: 15px;
+          line-height: 36px;
+          font-weight: 100;
+          @media (max-width: $screen-sm-max){
+            line-height: 15px;
+          }
+          @media (max-width: $screen-xss-max){
+            line-height: 11px;
+            font-size: 11px;
+          }
+          .italic{
+            line-height: 5px;
+            @media (max-width: $screen-sm-max){
+              line-height: 10px;
+            }
+          }
+
+        }
+        &.header{
+          border-right: none;
+          border-bottom: none;
+          background: #eee;
+        }
+      }
     }
   }
   .attendance-days{
     width:50%;
+    &.content{
+      padding: 0;
+      .detail-item{
+        &.value{
+          border-bottom: 1px solid $grey-light;
+          border-right: 1px solid $grey-light;
+          height: 50px;
+          margin: 0;
+          &.late-class{
+            border-bottom: none;
+          }
+          &.missed-class{
+            border-bottom: none;
+            background-color: $color-grey;
+          }
+          &.missed-day{
+            background-color: $color-purple;
+            border-radius: 0;
+            border-right: 1px solid $grey-light;
+            border-bottom: none;
+          }
+          &.incident{
+            background-color: $color-black;
+            border-radius: 0;
+            border-right: 1px solid $grey-light;
+            border-bottom: none;
+          }
+        }
+        &.header{
+          height: 50px;
+          border-right: none;
+          border-bottom: none;
+          background: #eee;
+          text-transform: uppercase;
+          padding: 15px 28px;
+          line-height: 15px;
+          font-weight: 700;
+          @media (max-width: $screen-sm-max){
+            padding: 15px 5px;
+          }
+          @media (max-width: $screen-xss-max){
+            padding: 15px 0px;
+          }
+          &.current-day{
+            background-color: $color-black;
+            color: $color-white;
+          }
+        }
+      }
+    }
   }
   .attendance-weekly-change{
     width: 20%;
+    justify-content: flex-end;
     @media (max-width: $screen-md-max){
       width: 30%;
     }
@@ -72,7 +120,7 @@
         border:1px solid #ddd!important;
         background-color: #eee;
         .panel-heading{
-          background: darken($white, 3%);
+          background: #eee;
           border: none;
           border-top:none ;
           font-weight: 700;
@@ -88,7 +136,6 @@
         .panel-body{
           text-transform: capitalize;
           font-weight: 600;
-          border-top: none;
           .legend{
             margin: 7px 0;
             .legend-item{
@@ -123,14 +170,11 @@
     padding-top: 5px;
   }
   #attendance_behavior{
-    background: darken($white, 3%);
-    border-top: 1px solid $grey-light;
     #accordion{
       margin: 0;
       .panel{
         border-radius: 0;
         border:none;
-        box-shadow: none;
         padding: 0 20px;
         @media (max-width: $screen-sm-max){
           padding:0;
@@ -210,34 +254,40 @@
   }
   .detail-info{
     padding:20px 40px;
+    @media (max-width: $screen-xss-max){
+      padding: 15px;
+    }
     &.category{
       font-weight: 100;
       padding: 0 5px;
     }
-    .circle {
-      width: 10px;
-      height: 10px;
-      border-radius: 25px;
-      display: inline-block;
-      margin: 0 10px;
+  }
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 25px;
+    display: inline-block;
+    margin: 0 10px;
 
-      &.late-class{
-        background-color: #ff9933;
-      }
-      &.missed-class{
-        background-color: #ff3399;
-      }
-      &.incident{
-        border: 2px solid #28353c;
-      }
-      &.missed-day{
-        border: 2px solid #7b27c9;
-      }
+    &.late-class{
+      background-color: $color-orange;
+    }
+    &.missed-class{
+      background-color: $color-pink;
+    }
+    &.incident{
+      border: 2px solid $color-black;
+    }
+    &.missed-day{
+      border: 2px solid $color-purple;
     }
   }
   .attendance-year{
     top: 72px;
     right: 55px;
+    @media (max-width: $screen-sm-max){
+      top: 88px;
+    }
     &.form-control{
       height: 25px;
       padding: 2px 10px;
@@ -259,7 +309,11 @@
     margin: 0 40px;
     background: white;
     padding: 20px;
-    box-shadow: 5px 10px 15px -5px rgba($gray-light, 0.2);
+    -webkit-box-shadow: 10px 10px 30px -5px #B3B3B3;
+    box-shadow: 10px 10px 30px -5px #B3B3B3;
+    @media (max-width: $screen-xs-max){
+      margin: 0 15px;
+    }
     .month-detail-name{
       font-weight: 700;
       padding-left: 5px;
@@ -285,8 +339,11 @@
         background-color: white;
         border-radius: 0;
         border: 1px solid #eee;
-        border-top: 3px solid #74d5d6;
+        border-top: 5px solid #74d5d6;
         font-family: $font-family-kreon;
+      }
+      .panel-body{
+
       }
       .attendance-weekly-change{
         .glyphicon{
@@ -295,8 +352,6 @@
       }
     }
   }
-
-
 
   .calendar{
     overflow: hidden!important;
@@ -344,7 +399,7 @@
     border-radius: 25px;
   }
   .calendar table.month tr td .day-content.missed-day{
-    border: 3px solid #7b27c9;
+    border: 3px solid $color-purple;
     border-radius: 25px;
   }
   .calendar table.month th.day-header{
@@ -374,7 +429,7 @@
   .calendar table.month tr td .day-content .circle-missed .missed-class{
     width: 9px;
     height: 9px;
-    background: #ff3399;
+    background: $color-pink;
     border-radius: 25px;
     margin: auto;
     transform: translateY(25%);
@@ -410,10 +465,13 @@
 
   .calendar-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 40px;
     width: 100%;
     flex-wrap: wrap;
+    @media (max-width: $screen-xss-max){
+      padding: 15px;
+    }
   }
 
   .month-container {
@@ -465,11 +523,9 @@
     font-weight: bold;
     width: 14.28%;
     text-align: center;
-  }
-
-  .days-header{
     margin-bottom: 3px;
   }
+
   .weeks-container {
     line-height: 28px;
     height: 43px;
@@ -480,12 +536,12 @@
   }
 
   .missed-day {
-    border: 2px solid #7b27c9;
+    border: 2px solid $color-purple;
     border-radius: 20px
   }
 
   .incident{
-    border: 2px solid black;
+    border: 2px solid $color-black;
     border-radius: 20px
   }
 
