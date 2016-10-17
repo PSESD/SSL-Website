@@ -1,27 +1,27 @@
 .nav-tabs.nav-justified{
   li{
+    border-right: 1px solid $grey-light;
+    border-top: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
     a{
       border-radius: 0;
+      font-family: $font-family-kreon;
       font-weight: 700;
       padding: 12px 5px;
       background: linear-gradient(#fff, darken($white, 5%));
       color: $grey;
       border: none;
-      border-right: 1px solid $grey-light;
-      border-top: 1px solid $grey-light;
-      border-bottom: 1px solid $grey-light;
-
+      transition: background 0.3s ease;
       &:hover, &:focus{
-
+        background: linear-gradient(#fff, darken($white, 7%));
       }
     }
 
     &.active{
-      a{
-        border: 1px solid transparent;
-        border-left: 1px solid $grey-light;
-        border-right: 1px solid $grey-light;
-        border-top: 3px solid $cyan !important;
+      border-top: 3px solid $cyan;
+      border-bottom: 1px solid transparent;
+       a{
+        border: none;
         color: $black;
         background: $white;
         &:hover, &:focus{
@@ -29,11 +29,8 @@
         }
       }
     }
-
     &:first-child{
-      a{
         border-left: 1px solid $grey-light;
-      }
     }
   }
 }
