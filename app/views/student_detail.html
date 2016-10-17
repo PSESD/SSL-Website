@@ -192,7 +192,7 @@
                                 <label class="category"><div class="circle incident"></div>Behavior Incident</label>
                             </div>
                             <select ng-change="vm.changeYear()" ng-model="vm.student.selected_years" class="attendance-year form-control" ng-options="option.name for option in vm.listOfYears">
-                                <option value="">Years </option>
+                                <option value="">Years</option>
                             </select>
                             <!-- <div class="display-flex align-items-center attendance-header">
                                  <div class="flex-grow-1 text-center attendance-date">Attendance Dates</div>
@@ -214,7 +214,7 @@
                             </div>
 
                             <div class="month-detail" ng-show="vm.show_detail">
-                                <div class="month-detail-name">{{vm.month_name}}<span class="pull-right glyphicon glyphicon-remove close-month-detail"></span> </div>
+                                <div class="month-detail-name">{{vm.month_name}}<span ng-click="vm.closeMonthDetail()" class="pull-right glyphicon glyphicon-remove close-month-detail"></span> </div>
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.selectedMonth">
                                     <div class="panel panel-default">
                                         <div ng-click="vm.changeStatus(student,$index)" class="panel-heading collapsed" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
@@ -337,9 +337,9 @@
                             </div>
 
                             <div class="calendar-container">
-                                <div ng-class="{'Current-month':day.isCurrentMonth}" class="month-container" ng-repeat="month in vm.listOfCalendar">
+                                <div  ng-show="month.show" ng-class="{'Current-month':day.isCurrentMonth}" class="month-container" ng-repeat="month in vm.listOfCalendar">
                                     <div class="header">
-                                        <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'))"></span></h4>
+                                        <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month)"></span></h4>
                                     </div>
                                     <div class="days-header-container">
                                         <h5 class="days-header">Sun</h5>

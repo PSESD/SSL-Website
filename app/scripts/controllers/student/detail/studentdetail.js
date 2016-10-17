@@ -9,7 +9,8 @@
     function StudentDetailCtrl($state,StudentService,$stateParams) {
 
         var vm = this;
-
+        var selectedObj;
+        var listSelectedObj = [];
         vm.attandance_show = false;
         vm.show_update = true;
         vm.show_general = false;
@@ -170,6 +171,17 @@
         vm.changeYear = changeYear;
         vm.checkDate = checkDate;
         vm.display = display;
+        vm.closeMonthDetail = closeMonthDetail;
+        
+        function closeMonthDetail() {
+            vm.show_detail = false;
+            if(listSelectedObj.length > 0)
+            {
+                _.forEach(listSelectedObj,function (v) {
+                    v.show = true;
+                })
+            }
+        }
         function display(item) {
             return !item;
         }
@@ -196,8 +208,16 @@
 
                 });
         }
-        function expand(month,year,name) {
+        function expand(month,year,name,obj) {
 
+            if(listSelectedObj.length > 0)
+            {
+                _.forEach(listSelectedObj,function (v) {
+                    v.show = true;
+                })
+            }
+            listSelectedObj.push(obj);
+            obj.show = !obj.show;
             vm.month_name = name;
             isFirstTime = false;
             selectedMonth = year+"-"+month;
@@ -272,7 +292,8 @@
                         from = from[1];
                         to = to[1];
                         listOfSelectedMonth.push({
-                            weekName:"WEEK "+to+"-"+from+" | "+name
+                            weekName:"WEEK "+to+"-"+from+" | "+name,
+                            showMonth:true
                         });
                         vm.selectedMonth = listOfSelectedMonth;
                     }
@@ -579,7 +600,7 @@
                         {
                             'data':_buildMonth(start,month),
                             'name':moment,
-                            'show':false
+                            'show':true
                         });
                 }
             });
