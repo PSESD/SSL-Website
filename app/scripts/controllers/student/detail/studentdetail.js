@@ -232,6 +232,8 @@
             }
         }
         function changeYear(){
+
+            vm.show_detail = false;
             isFirstTime = true;
             while(vm.selectedMonth.length > 0)
             {
@@ -245,12 +247,37 @@
                 listOfDateTime.pop();
             }
             vm.attandance_show = true;
-            StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
-                .then(function(response){
-                   data  = _.get(response,'data.info.data',[]);
-                    loadAttendance(data);
-                },function(error){
-                })
+            if(vm.student.selected_years === null){
+                StudentService.getAttendance(id)
+                    .then(function(response){
+
+                        var years = _.get(response,'data.info.source.years',"");
+                        _.forEach(years,function(value){
+                            listOfYears.push({
+                                id:_.replace(value,'/','-'),
+                                name:_.replace(value,'/','-')
+                            })
+                        });
+                        vm.listOfYears = listOfYears;
+                        data = _.get(response,'data.info.data',[]);
+                        generateMonth(data);
+                        vm.attandance_show = false;
+                        setInterval(set_inter,1000)
+
+                    },function(error){
+
+                    });
+            }else{
+                StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
+                    .then(function(response){
+                        data  = _.get(response,'data.info.data',[]);
+                        generateMonth(data);
+                        vm.attandance_show = false;
+                        setInterval(set_inter,1000)
+                    },function(error){
+                    })
+            }
+
         }
 
         if($stateParams.debug === "true"){
@@ -270,8 +297,8 @@
                 });
                 vm.listOfYears = listOfYears;
                 data = _.get(response,'data.info.data',[]);
+
                 generateMonth(data);
-                //loadAttendance(data);
             },function(error){
 
             });
@@ -551,33 +578,6 @@
                             }
                         }
                     });
-                    // var behaviors = {
-                    //     monday:data.behaviors.M,
-                    //     tuesday:data.behaviors.T,
-                    //     wednesday:data.behaviors.W,
-                    //     thursday:data.behaviors.TH,
-                    //     friday:data.behaviors.F,
-                    //     saturday:data.behaviors.SA,
-                    //     sunday:data.behaviors.S,
-                    // }
-                    //
-                    // for (var period in data.periods){
-                    //     if(data.periods[period].includes("Period")){
-                    //         periods.push(data.periods[period]);
-                    //     }
-                    // }
-                    //
-                    // var list_of_item = {
-                    //     header:header,
-                    //     header_detail:header_detail,
-                    //     detail_columns:detail_columns,
-                    //     periods:_.uniq(periods),
-                    //     behaviors:behaviors,
-                    //     status:false,
-                    //     events:listOfEvents,
-                    //     month:month_detail
-                    // }
-                    /***/
                     listMonths.push({
                         year:date.getFullYear(),
                         month:date.getMonth()
@@ -1210,8 +1210,6 @@
                     var date = _.get(v,'date',"");
                     if(date !== "")
                     {
-
-
                         if(v.event === "ClassSectionAttendance" && v.eventStatus === "Tardy"){
                             jQuery("#"+date+" .late-class").removeClass('hide');
                         }
