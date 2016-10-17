@@ -1,6 +1,46 @@
+.nav-tabs.nav-justified{
+  li{
+    a{
+      border-radius: 0;
+      font-weight: 700;
+      padding: 12px 5px;
+      background: linear-gradient(#fff, darken($white, 5%));
+      color: $grey;
+      border: none;
+      border-right: 1px solid $grey-light;
+      border-top: 1px solid $grey-light;
+      border-bottom: 1px solid $grey-light;
+
+      &:hover, &:focus{
+
+      }
+    }
+
+    &.active{
+      a{
+        border: 1px solid transparent;
+        border-left: 1px solid $grey-light;
+        border-right: 1px solid $grey-light;
+        border-top: 3px solid $cyan !important;
+        color: $black;
+        background: $white;
+        &:hover, &:focus{
+          border: none;
+        }
+      }
+    }
+
+    &:first-child{
+      a{
+        border-left: 1px solid $grey-light;
+      }
+    }
+  }
+}
+
+
 .tab-content{
   margin-top: 15px;
-  background: #eee;
   .attendance-header{
     height: 80px;
   }
@@ -120,7 +160,7 @@
         border:1px solid #ddd!important;
         background-color: #eee;
         .panel-heading{
-          background: #eee;
+          background: darken($white, 3%);
           border: none;
           border-top:none ;
           font-weight: 700;
@@ -128,7 +168,7 @@
           font-family: $font-family-open-sans;
         }
         .panel-heading:not(.collapsed){
-          background: #eee;
+          background: darken($white, 3%);
           border: none;
           border-top:none ;
           font-family: $font-family-open-sans;
@@ -136,6 +176,8 @@
         .panel-body{
           text-transform: capitalize;
           font-weight: 600;
+          border-top: none;
+
           .legend{
             margin: 7px 0;
             .legend-item{
@@ -170,12 +212,16 @@
     padding-top: 5px;
   }
   #attendance_behavior{
+    background: darken($white, 3%);
+    border-top: 1px solid $grey-light;
+
     #accordion{
       margin: 0;
       .panel{
         border-radius: 0;
         border:none;
         padding: 0 20px;
+        box-shadow: none;
         @media (max-width: $screen-sm-max){
           padding:0;
         }
@@ -309,8 +355,7 @@
     margin: 0 40px;
     background: white;
     padding: 20px;
-    -webkit-box-shadow: 10px 10px 30px -5px #B3B3B3;
-    box-shadow: 10px 10px 30px -5px #B3B3B3;
+    box-shadow: 5px 10px 15px -5px rgba($gray-light, 0.2);
     @media (max-width: $screen-xs-max){
       margin: 0 15px;
     }
@@ -339,7 +384,7 @@
         background-color: white;
         border-radius: 0;
         border: 1px solid #eee;
-        border-top: 5px solid #74d5d6;
+        border-top: 3px solid #74d5d6;
         font-family: $font-family-kreon;
       }
       .panel-body{
