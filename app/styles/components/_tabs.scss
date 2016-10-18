@@ -1,8 +1,16 @@
 .nav-tabs.nav-justified{
   li{
-    border-right: 1px solid $grey-light;
-    border-top: 1px solid $grey-light;
-    border-bottom: 1px solid $grey-light;
+
+    border: 1px solid $grey-light;
+
+
+    @include mq($screen-sm-min){
+      border:none;
+      border-right: 1px solid $grey-light;
+      border-top: 1px solid $grey-light;
+      border-bottom: 1px solid darken($grey-light, 10%);
+    }
+
     a{
       border-radius: 0;
       font-family: $font-family-kreon;
@@ -11,7 +19,15 @@
       background: linear-gradient(#fff, darken($white, 5%));
       color: $grey;
       border: none;
+      margin: 0;
       transition: background 0.3s ease;
+      font-size: 10px;
+
+      @media (min-width: $screen-lg-min){
+        font-size: 12px;
+      }
+
+
       &:hover, &:focus{
         background: linear-gradient(#fff, darken($white, 7%));
       }
@@ -20,10 +36,11 @@
     &.active{
       border-top: 3px solid $cyan;
       border-bottom: 1px solid transparent;
+      background: $white;
       a{
         border: none;
         color: $black;
-        background: $white;
+
         &:hover, &:focus{
           border: none;
         }
@@ -66,6 +83,7 @@
           padding-left: 15px;
           line-height: 36px;
           font-weight: 100;
+          text-align: left;
           @media (max-width: $screen-sm-max){
             line-height: 15px;
           }
@@ -84,7 +102,7 @@
         &.header{
           border-right: none;
           border-bottom: none;
-          background: #eee;
+          background: $grey-light2;
         }
       }
     }
@@ -121,19 +139,16 @@
         }
         &.header{
           height: 50px;
+          line-height: 1em;
+          padding: 15px 30%;
           border-right: none;
           border-bottom: none;
-          background: #eee;
+          background: $grey-light2;
           text-transform: uppercase;
-          padding: 15px 35px;
-          line-height: 15px;
+
+
           font-weight: 700;
-          @media (max-width: $screen-sm-max){
-            padding: 15px 5px;
-          }
-          @media (max-width: $screen-xss-max){
-            padding: 15px 0px;
-          }
+
           &.current-day{
             background-color: $color-black;
             color: $color-white;
@@ -154,9 +169,10 @@
     .panel{
       &.panel-default{
         width:100%;
-        border:1px solid #ddd!important;
-        background-color: #eee;
+
+        background-color: $grey-light2;
         .panel-heading{
+          padding: 15px 0 5px;
           background: darken($white, 3%);
           border: none;
           border-top:none ;
@@ -174,25 +190,30 @@
           text-transform: capitalize;
           font-weight: 600;
           border-top: none;
+          padding: 15px 0;
 
           .legend{
             margin: 7px 0;
+            font-weight: 400;
+            font-size: 12px;
+
             .legend-item{
-              padding: 5px 11px;
-              border-radius: 25px;
+              height: 25px;
+              width: 25px;
+              line-height: 25px;
+              text-align: center;
+              border-radius: 50%;
               color: white;
             }
             .excused{
-              color: #8adc66;
+              color: $alert-green;
               margin-right: 5px;
               background-color: transparent;
-              font-size: 15px;
             }
             .unexcused{
-              color: red;
+              color: $alert-red;
               margin-right: 5px;
               background-color: transparent;
-              font-size: 15px;
             }
           }
           .legend-excused{
@@ -209,6 +230,7 @@
     padding-top: 5px;
   }
   #attendance_behavior{
+    position: relative;
     background: darken($white, 3%);
     border-top: 1px solid $grey-light;
 
@@ -219,9 +241,13 @@
         border:none;
         padding: 0 20px;
         box-shadow: none;
-        @media (max-width: $screen-sm-max){
-          padding:0;
+        @media (max-width: $screen-xs-max){
+          padding:0 5px;
         }
+        .circle{
+          margin: 3px 6px;
+        }
+
       }
     }
   }
@@ -278,15 +304,22 @@
     justify-content: space-between;
   }
   .arrow{
-    margin-right:15px;
+    margin:1px 25px;
   }
 
   .attendance-year{
-    width: 15%;
-    position: absolute;
-    right: 15px;
-    margin-bottom: 2px;
-    top: 45px;
+
+    padding: 0 15px;
+    margin-bottom: 15px;
+
+    @media (min-width: $screen-sm-min){
+      padding: 0;
+      width: 20%;
+      position: absolute;
+      top: 20px;
+      right: 40px;
+    }
+
   }
   .calendar-header.panel.panel-default{
     display: none;
@@ -296,9 +329,14 @@
     border-top: 1px solid #d0d6d9;
   }
   .detail-info{
-    padding:20px 40px;
+    padding: 30px 3.5%;
     @media (max-width: $screen-xss-max){
       padding: 15px;
+    }
+    label{
+      @media (max-width: $screen-xs-max){
+        display: block;
+      }
     }
     &.category{
       font-weight: 100;
@@ -325,31 +363,10 @@
       border: 2px solid $color-purple;
     }
   }
-  .attendance-year{
-    top: 72px;
-    right: 55px;
-    @media (max-width: $screen-sm-max){
-      top: 88px;
-    }
-    &.form-control{
-      height: 25px;
-      padding: 2px 10px;
-      @extend input[type="text"];
-      background: url("../images/icon-select.png") no-repeat;
-      background-position: right center;
-      background-color: white;
-      transition:none;
-      &:focus{
-        background: url("../images/icon-select.png") no-repeat;
-        background-position: right center;
-        background-color: white;
-        transition:none;
-      }
-    }
-  }
+
 
   .month-detail{
-    margin: 0 40px;
+    margin: 0 3.5%;
     background: white;
     padding: 20px;
     box-shadow: 5px 10px 15px -5px rgba($gray-light, 0.2);
@@ -358,7 +375,7 @@
     }
     .month-detail-name{
       font-weight: 700;
-      padding-left: 5px;
+      padding: 0 20px;
       font-size: 17px;
       margin-bottom: 7px;
       .close-month-detail{
@@ -366,8 +383,16 @@
           cursor: pointer;
         }
       }
+      @media (max-width: $screen-xs-max){
+        padding: 0 5px;
+      }
     }
     .panel-default {
+      .panel-heading{
+        &:hover{
+          cursor: pointer;
+        }
+      }
       .panel-heading.collapsed{
         background: linear-gradient(#fff, #eee);
         margin: 10px 0;
@@ -507,26 +532,31 @@
 
   .calendar-container {
     display: flex;
+    flex-flow: row wrap;
     justify-content: flex-start;
-    padding: 40px;
+    padding: 1.5% 2%;
     width: 100%;
-    flex-wrap: wrap;
+
     @media (max-width: $screen-xss-max){
       padding: 15px;
     }
   }
 
   .month-container {
-    width: 31%;
-    padding: 20px;
-    background-color: #fff;
+    width: 30.333%;
+    padding: 2.5%;
+    margin: 1.5%;
+    background-color: $white;
     font-size: 12px;
-    margin-bottom: 40px;
+
+
     @media (max-width: $screen-sm-max){
-      width: 49%;
+      width: 47%;
+      margin: 1.5%;
     }
     @media (max-width: $screen-xss-max){
       width: 100%;
+      margin: 10px 0;
     }
   }
 
@@ -569,14 +599,14 @@
   }
   .week-line{
     &:hover{
-      background-color: $grey-light;
+      background-color: $grey-light2;
       border-radius: 25px;
       cursor: pointer;
       .weeks-container{
         vertical-align: middle;
         .issues-container{
           .missed-late-class-container{
-            background-color: $grey-light;
+            background-color: $grey-light2;
           }
         }
       }
@@ -584,7 +614,7 @@
   }
 
   .weeks-container {
-    line-height: 28px;
+    line-height: 25px;
     height: 35px;
     display: inline-block;
     text-align: center;
@@ -604,7 +634,7 @@
 
   .issues-container {
     position: relative;
-    bottom: 3px;
+    bottom: 4px;
     display: flex;
     justify-content: center
   }
