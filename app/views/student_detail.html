@@ -212,52 +212,17 @@
                                             <div class="panel-body display-flex no-padding">
                                                 <div class="flex-grow-1 text-center attendance-date content">
                                                     <div class="detail-item header"></div>
-                                                    <div class="detail-item">
-                                                        <div class="number">1</div>
+                                                    <div class="detail-item" ng-repeat="course in student.courses track by $index">
+                                                        <div class="number" >{{course.number}}</div>
                                                         <div class="detail-item-content">
-                                                            <div class="text-uppercase">ap calculus ab</div>
-                                                            <div class="italic text-capitalize">j. smith</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">2</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">a 2 intro to comp sci</div>
-                                                            <div class="italic text-capitalize">b. rimirez</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">3</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">3 compar lit comp</div>
-                                                            <div class="italic text-capitalize">s. thomas</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">4</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">nutrition wellness</div>
-                                                            <div class="italic text-capitalize">r. sherman</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">5</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">concert band</div>
-                                                            <div class="italic text-capitalize">k. kelly</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">6</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">ap calculus ab</div>
-                                                            <div class="italic text-capitalize">j. smith</div>
+                                                            <div class="text-uppercase">{{course.title}}</div>
+                                                            <div class="italic text-capitalize">{{course.teacher}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="display-flex flex-grow-2 text-center attendance-days content">
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">mon 22</div>
+                                                        <div class="detail-item header">mon {{student.dates.Monday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
@@ -266,7 +231,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">tue 23</div>
+                                                        <div class="detail-item header">tue {{student.dates.Tuesday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -275,7 +240,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">wed 24</div>
+                                                        <div class="detail-item header">wed {{student.dates.Wednesday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
@@ -284,7 +249,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value incident"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">thu 25</div>
+                                                        <div class="detail-item header">thu {{student.dates.Thursday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -293,7 +258,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header current-day">fri 26</div>
+                                                        <div class="detail-item header current-day">fri {{student.dates.Friday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -302,7 +267,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">sat 27</div>
+                                                        <div class="detail-item header">sat {{student.dates.Saturday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -311,7 +276,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">sun 28</div>
+                                                        <div class="detail-item header">sun {{student.dates.Sunday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -377,7 +342,7 @@
                                         <h5 class="days-header">Fri</h5>
                                         <h5 class="days-header">Sat</h5>
                                     </div>
-                                    <div ng-repeat="week in month.data">
+                                    <div class="week-line" ng-repeat="week in month.data">
                 <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.number}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
                     <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
                         {{day.number}}
@@ -465,49 +430,49 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="enrollment_history">
                             <div class="table-responsive">
-                              <table class="table">
-                                  <thead>
-                                  <tr>
-                                      <th class="text-center">
-                                          School Name
-                                      </th>
-                                      <th class="text-center">
-                                          School Year
-                                      </th>
-                                      <th class="text-center">
-                                          Entry Date
-                                      </th>
-                                      <th  class="text-center">
-                                          Exit Date
-                                      </th>
-                                      <th  class="text-center">
-                                          Grade Level
-                                      </th>
-                                      <th  class="text-center">
-                                          Status
-                                      </th>
-                                      <th  class="text-center">
-                                          Non Promotional Change
-                                      </th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
-                                      <td class="text-center">{{enrollement.schoolName}}</td>
-                                      <td class="text-center">{{enrollement.schoolYear}}</td>
-                                      <td class="text-center">{{enrollement.entryDate}}</td>
-                                      <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
-                                      <td class="text-center">{{enrollement.gradeLevel}}</td>
-                                      <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
-                                      <td class="text-center">
-                                          <div ng-if="enrollement.nonPromotionalChange === true">
-                                              <input type="checkbox"disabled checked>
-                                          </div>
-                                      </td>
-                                  </tr>
-                                  </tbody>
-                              </table>
-                          </div>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            School Name
+                                        </th>
+                                        <th class="text-center">
+                                            School Year
+                                        </th>
+                                        <th class="text-center">
+                                            Entry Date
+                                        </th>
+                                        <th  class="text-center">
+                                            Exit Date
+                                        </th>
+                                        <th  class="text-center">
+                                            Grade Level
+                                        </th>
+                                        <th  class="text-center">
+                                            Status
+                                        </th>
+                                        <th  class="text-center">
+                                            Non Promotional Change
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
+                                        <td class="text-center">{{enrollement.schoolName}}</td>
+                                        <td class="text-center">{{enrollement.schoolYear}}</td>
+                                        <td class="text-center">{{enrollement.entryDate}}</td>
+                                        <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
+                                        <td class="text-center">{{enrollement.gradeLevel}}</td>
+                                        <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
+                                        <td class="text-center">
+                                            <div ng-if="enrollement.nonPromotionalChange === true">
+                                                <input type="checkbox"disabled checked>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="assessment">
                             <div style="display: flex;justify-content: flex-start;">

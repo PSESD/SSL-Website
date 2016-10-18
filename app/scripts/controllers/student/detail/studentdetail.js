@@ -307,38 +307,89 @@
         init();
         loadGeneral(id);
         function loadDetailMonth(data,month,name) {
+            var detail;
 
             _.forEach(data,function (value) {
                 _.forEach(value,function (v,k) {
 
+                    var tempDate = v.weekDate.split('-');
+                    var tempDate1 = new Date(tempDate[0].trim());
+                    var tempDate2 = new Date(tempDate[1].trim());
+                    if(month == parseInt(tempDate1.getMonth()+1) && month == parseInt(tempDate2.getMonth()+1)){
+                        var Sunday = new Date(v.details[0].S);
+                        var Monday = new Date(v.details[0].M);
+                        var Tuesday = new Date(v.details[0].T);
+                        var Wednesday = new Date(v.details[0].W);
+                        var Thursday = new Date(v.details[0].TH);
+                        var Friday = new Date(v.details[0].F);
+                        var Saturday = new Date(v.details[0].SA);
+                        detail ={
+                            Sunday:Sunday.getDate(),
+                            Monday:Monday.getDate(),
+                            Tuesday:Tuesday.getDate(),
+                            Wednesday:Wednesday.getDate(),
+                            Thursday:Thursday.getDate(),
+                            Friday:Friday.getDate(),
+                            Saturday:Saturday.getDate(),
+                        }
+                    }
+
                     var date = v.weekDate.split('-');
-                    date = new Date(date[0].trim());
-                    if(month == date.getMonth() + 1){
+                    var date1;
+                    var date2;
+                    date1 = new Date(date[0].trim());
+                    date2 = new Date(date[1].trim());
+                    if(/*parseInt(month) == date1.getMonth()+1 && parseInt(month) == date2.getMonth() + 1 ||*/ parseInt(month - 1) == date2.getMonth()){
+                        var listCourses = [];
                         var temp = k.split('-');
                         var from = temp[0].trim().split('/');
                         var to = temp[1].trim().split('/');
                         from = from[1];
                         to = to[1];
+                        _.forIn(v.courses,function (v) {
+                            if(v !== null){
+                                if(v.length !== 0){
+                                    _.forEach(v,function (val) {
+                                        var teacherName;
+                                        if(val.teacherNames.length > 1){
+                                            teacherName = val.teacherNames[0]+','+val.teacherNames[1]
+                                        }else if(val.teacherNames.length === 1){
+                                            teacherName = val.teacherNames[0];
+                                        }
+                                        var course = {
+                                            title:val.courseTitle,
+                                            number:val.timeTablePeriod,
+                                            teacher:teacherName
+                                        }
+                                        listCourses.push(course);
+                                    })
+                                }else{
+                                    listCourses.push([]);
+                                }
+
+                            }
+
+                        })
                         listOfSelectedMonth.push({
                             weekName:"WEEK "+to+"-"+from+" | "+name,
                             showMonth:true,
-                            list_of_item:list_of_item
+                            dates:detail,
+                            courses:listCourses
                         });
                         vm.selectedMonth = listOfSelectedMonth;
                     }
-                })
-            })
+                });
+            });
             vm.selectedMonth = listOfSelectedMonth;
-
-
         }
+
         function generateMonth(data){
             var listMonths = [];
             _.forEach(data,function (v,k) {
+
                 _.forEach(v,function (value,key) {
                     var date = key.split('-')
                     date = new Date(date[0].trim());
-
                     var data;
                     data = value;
                     var header = {
@@ -581,13 +632,13 @@
                         year:date.getFullYear(),
                         month:date.getMonth()
                     });
-                    list_of_item = {
-                        header:header,
-                        header_detail:header_detail,
-                        // detail_columns:detail_columns,
-                        // periods:_.uniq(periods)
-                    }
-
+                    // list_of_item = {
+                    //     header:header,
+                    //     header_detail:header_detail,
+                    //     // detail_columns:detail_columns,
+                    //     // periods:_.uniq(periods)
+                    // }
+                    list_of_student_data.push(header_detail);
                 })
             });
             listMonths = _.uniqWith(listMonths,_.isEqual);
