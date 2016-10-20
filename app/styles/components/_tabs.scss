@@ -8,7 +8,7 @@
       border:none;
       border-right: 1px solid $grey-light;
       border-top: 1px solid $grey-light;
-      border-bottom: 1px solid darken($grey-light, 10%);
+      border-bottom: 1px solid darken($grey-light, 6%);
     }
 
     a{
@@ -233,6 +233,7 @@
     position: relative;
     background: darken($white, 3%);
     border-top: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
 
     #accordion{
       margin: 0;
@@ -369,6 +370,7 @@
     margin: 0 3.5%;
     background: white;
     padding: 20px;
+    border-radius: 5px;
     box-shadow: 5px 10px 15px -5px rgba($gray-light, 0.2);
     @media (max-width: $screen-xs-max){
       margin: 0 15px;
@@ -434,6 +436,7 @@
     box-shadow: 5px 5px 15px #d0d6d9;
     min-height: 330px;
     padding: 15px;
+
   }
   .calendar .months-container .month-container .month{
     width: 90%;
@@ -548,7 +551,7 @@
     margin: 1.5%;
     background-color: $white;
     font-size: 12px;
-
+    border-radius: 5px;
 
     @media (max-width: $screen-sm-max){
       width: 47%;
@@ -568,6 +571,7 @@
     font-weight: 700;
     padding-left: 5px;
     font-size: 17px;
+    margin-top: 0;
     margin-bottom: 7px;
     .open-month{
       &:hover{
