@@ -21,7 +21,7 @@
         vm.show_enrollment = false;
         vm.show_xsre = false;
         vm.listOfCalendar = [];
-        var list_of_item = "";
+        var listClassName = [];
         var listOfEvents = [{}];
         var isFirstTime = true;
         var momentjs = moment();
@@ -209,8 +209,7 @@
 
                 });
         }
-        function expand(month,year,name,obj) {
-
+        function expand(month,year,name,obj,className) {
             if(listSelectedObj.length > 0)
             {
                 _.forEach(listSelectedObj,function (v) {
@@ -225,7 +224,7 @@
             while(vm.selectedMonth.length>0){
                 vm.selectedMonth.pop();
             }
-            loadDetailMonth(data,month,name);
+            loadDetailMonth(data,month,name,className);
             if(vm.selectedMonth.length>0){
                 vm.show_detail = true;
             }else{
@@ -306,9 +305,9 @@
 
         init();
         loadGeneral(id);
-        function loadDetailMonth(data,month,name) {
+        function loadDetailMonth(data,month,name,className) {
+            console.log(className);
             var detail;
-
             _.forEach(data,function (value) {
                 _.forEach(value,function (v,k) {
 
@@ -374,13 +373,22 @@
                             weekName:"WEEK "+to+"-"+from+" | "+name,
                             showMonth:true,
                             dates:detail,
-                            courses:listCourses
+                            courses:listCourses,
+                            weekClass:"week_"+from+'_'+to
                         });
                         vm.selectedMonth = listOfSelectedMonth;
                     }
                 });
             });
             vm.selectedMonth = listOfSelectedMonth;
+            if(className !== ""){
+                var collps = setInterval(function () {
+                    jQuery('.'+className).collapse('show');
+                    clearInterval(collps);
+                },100);
+            }
+
+
         }
 
         function generateMonth(data){
@@ -632,12 +640,7 @@
                         year:date.getFullYear(),
                         month:date.getMonth()
                     });
-                    // list_of_item = {
-                    //     header:header,
-                    //     header_detail:header_detail,
-                    //     // detail_columns:detail_columns,
-                    //     // periods:_.uniq(periods)
-                    // }
+
                     list_of_student_data.push(header_detail);
                 })
             });
@@ -658,9 +661,21 @@
                             'data':_buildMonth(start,month),
                             'name':moment,
                             'show':true,
-
+                            'listClassName':''
                         });
                 }
+            });
+
+            _.forEach(vm.listOfCalendar,function (v,k) {
+                listClassName = [];
+
+                _.forEach(v.data,function (data) {
+                    var temp1 = data.days[0].date;
+                    var temp2 = data.days[6].date;
+                   var list = 'week_'+temp1.add(1,'d').format("DD") +'_'+ temp2.add(1,'d').format("DD");
+                   listClassName.push(list);
+                });
+                vm.listOfCalendar[k].listClassName = listClassName;
             });
             vm.show_attendance = true;
         }
