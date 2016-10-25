@@ -36,11 +36,11 @@
     &.active{
       border-top: 3px solid $cyan;
       border-bottom: 1px solid transparent;
-      background: $white;
+
       a{
         border: none;
         color: $black;
-
+        background: $white;
         &:hover, &:focus{
           border: none;
         }
@@ -69,8 +69,8 @@
     &.content{
       padding: 0;
       .detail-item{
-        height: 50px;
-        line-height: 35px;
+        height: 45px;
+        line-height: 30px;
         border-bottom: 1px solid $grey-light;
         border-right: 1px solid $grey-light;
         padding-left: 5px;
@@ -80,23 +80,10 @@
           font-weight: 100;
         }
         .detail-item-content{
-          padding-left: 15px;
-          line-height: 36px;
+          padding: 9px 15px;
+          line-height: 1em;
           font-weight: 100;
           text-align: left;
-          @media (max-width: $screen-sm-max){
-            line-height: 15px;
-          }
-          @media (max-width: $screen-xss-max){
-            line-height: 11px;
-            font-size: 11px;
-          }
-          .italic{
-            line-height: 5px;
-            @media (max-width: $screen-sm-max){
-              line-height: 10px;
-            }
-          }
 
         }
         &.header{
@@ -115,7 +102,7 @@
         &.value{
           border-bottom: 1px solid $grey-light;
           border-right: 1px solid $grey-light;
-          height: 50px;
+          height: 45px;
           margin: 0;
           &.late-class{
             border-bottom: none;
@@ -138,15 +125,13 @@
           }
         }
         &.header{
-          height: 50px;
+          height: 45px;
           line-height: 1em;
-          padding: 15px 30%;
+          padding: 12px 35%;
           border-right: none;
           border-bottom: none;
           background: $grey-light2;
           text-transform: uppercase;
-
-
           font-weight: 700;
 
           &.behavior{
@@ -172,12 +157,12 @@
 
         background-color: $grey-light2;
         .panel-heading{
-          padding: 15px 0 5px;
+          padding: 10px 0 5px;
           background: darken($white, 3%);
           border: none;
           border-top:none ;
           font-weight: 700;
-          font-size: 20px;
+          font-size: 16px;
           font-family: $font-family-open-sans;
         }
         .panel-heading:not(.collapsed){
@@ -193,9 +178,8 @@
           padding: 15px 0;
 
           .legend{
-            margin: 7px 0;
+            margin: 5px 0;
             font-weight: 400;
-            font-size: 12px;
 
             .legend-item{
               height: 25px;
@@ -209,11 +193,13 @@
               color: $alert-green;
               margin-right: 5px;
               background-color: transparent;
+              font-size: 14px;
             }
             .unexcused{
               color: $alert-red;
               margin-right: 5px;
               background-color: transparent;
+              font-size: 14px;
             }
           }
           .legend-excused{
@@ -339,9 +325,8 @@
         display: block;
       }
     }
-    &.category{
+    .category{
       font-weight: 100;
-      padding: 0 5px;
     }
   }
   .circle {
@@ -372,6 +357,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 5px 10px 15px -5px rgba($gray-light, 0.2);
+
     @media (max-width: $screen-xs-max){
       margin: 0 15px;
     }
@@ -391,13 +377,13 @@
     }
     .panel-default {
       .panel-heading{
+        margin: 10px 0 0;
         &:hover{
           cursor: pointer;
         }
       }
       .panel-heading.collapsed{
         background: linear-gradient(#fff, #eee);
-        margin: 10px 0;
         border: 1px solid #eee;
         border-top-right-radius: 0;
         border-top-left-radius: 0;
@@ -412,7 +398,7 @@
         font-family: $font-family-kreon;
       }
       .panel-body{
-
+        font-size: 11px;
       }
       .attendance-weekly-change{
         .glyphicon{
@@ -436,6 +422,7 @@
     box-shadow: 5px 5px 15px #d0d6d9;
     min-height: 330px;
     padding: 15px;
+
 
   }
   .calendar .months-container .month-container .month{
@@ -561,6 +548,8 @@
     font-size: 12px;
     border-radius: 5px;
 
+    transition: all 0.3s ease;
+
     @media (max-width: $screen-sm-max){
       width: 47%;
       margin: 1.5%;
@@ -571,7 +560,7 @@
     }
   }
 
-  .month-container.current-month{
+  .month-container.active{
     box-shadow: 5px 5px 15px #d0d6d9;
   }
 
