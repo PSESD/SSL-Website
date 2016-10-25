@@ -282,11 +282,11 @@
                                                     <div class="flex-grow-1 day">
                                                         <div class="detail-item header">tue 23</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div class="detail-item header">wed 24</div>
@@ -295,7 +295,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value incident"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div class="detail-item header">thu 25</div>
@@ -307,7 +307,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header current-day">fri 26</div>
+                                                        <div class="detail-item header behavior">fri 26</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -404,11 +404,11 @@
                                                         <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;">
                                                             <div class="legend">
                                                                 Late To Class
-                                                                <span class="pull-right bg-orange legend-item">1</span>
+                                                                <span class="pull-right bg-orange legend-item">3</span>
                                                             </div>
-                                                            <div class="legend legend-missed-class">
+                                                            <div class="legend">
                                                                 Missed Class
-                                                                <span class="pull-right bg-dark-grey-500 legend-item">0</span>
+                                                                <span class="pull-right missed-class legend-item">3</span>
                                                             </div>
                                                             <div class="legend">
                                                                 Days Missed
@@ -442,9 +442,9 @@
                             </div>
 
                             <div class="calendar-container">
-                                <div  ng-show="month.show" ng-class="{'Current-month':day.isCurrentMonth}" class="month-container" ng-repeat="month in vm.listOfCalendar">
+                                <div  ng-show="month.show" ng-class="{'Current-month':day.isCurrentMonth,'active':month.isActive}" class="month-container" ng-repeat="month in vm.listOfCalendar">
                                     <div class="header">
-                                        <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month,'')"></span></h4>
+                                        <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month,month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month,'')"></span></h4>
                                     </div>
                                     <div class="days-header-container">
                                         <h5 class="days-header">Sun</h5>
@@ -455,7 +455,7 @@
                                         <h5 class="days-header">Fri</h5>
                                         <h5 class="days-header">Sat</h5>
                                     </div>
-                                    <div ng-click="vm.expand(month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month,month.listClassName[$index])"  class="week-line" ng-repeat="week in month.data track by $index">
+                                    <div ng-click="vm.expand(month,month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month,month.listClassName[$index])"  class="week-line" ng-repeat="week in month.data track by $index">
                 <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.number}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
                     <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
                         {{day.number}}
@@ -466,6 +466,9 @@
                     </span>
                     <span class="missed-late-class-container">
                         <span class="dot missed-class hide"></span>
+                    </span>
+                         <span class="missed-late-class-container">
+                        <span class="dot missed-day hide"></span>
                     </span>
                     </span>
                 </span>

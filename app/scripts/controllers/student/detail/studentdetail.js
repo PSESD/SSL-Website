@@ -21,6 +21,7 @@
         vm.show_enrollment = false;
         vm.show_xsre = false;
         vm.listOfCalendar = [];
+        var activeMonth;
         var listClassName = [];
         var listOfEvents = [{}];
         var isFirstTime = true;
@@ -176,6 +177,7 @@
         
         function closeMonthDetail() {
             vm.show_detail = false;
+            activeMonth.isActive = false;
             if(listSelectedObj.length > 0)
             {
                 _.forEach(listSelectedObj,function (v) {
@@ -209,7 +211,15 @@
 
                 });
         }
-        function expand(month,year,name,obj,className) {
+        function expand(objMonth,month,year,name,obj,className) {
+            if(_.get(activeMonth,'isActive',"") !== ""){
+                activeMonth.isActive = false;
+                activeMonth = objMonth;
+                activeMonth.isActive = true;
+            }else{
+                activeMonth = objMonth;
+                activeMonth.isActive = true;
+            }
             if(listSelectedObj.length > 0)
             {
                 _.forEach(listSelectedObj,function (v) {
@@ -217,7 +227,7 @@
                 })
             }
             listSelectedObj.push(obj);
-            obj.show = !obj.show;
+            //obj.show = !obj.show;
             vm.month_name = name;
             isFirstTime = false;
             selectedMonth = year+"-"+month;
@@ -306,7 +316,6 @@
         init();
         loadGeneral(id);
         function loadDetailMonth(data,month,name,className) {
-            console.log(className);
             var detail;
             _.forEach(data,function (value) {
                 _.forEach(value,function (v,k) {
@@ -343,8 +352,9 @@
                         var temp = k.split('-');
                         var from = temp[0].trim().split('/');
                         var to = temp[1].trim().split('/');
-                        from = from[1];
-                        to = to[1];
+
+                        from = moment(temp[0]).format('MMM DD YYYY');
+                        to = moment(temp[1]).format('MMM DD YYYY');
                         _.forIn(v.courses,function (v) {
                             if(v !== null){
                                 if(v.length !== 0){
@@ -370,7 +380,7 @@
 
                         })
                         listOfSelectedMonth.push({
-                            weekName:"WEEK "+to+"-"+from+" | "+name,
+                            weekName:to+" - "+from,
                             showMonth:true,
                             dates:detail,
                             courses:listCourses,
@@ -661,7 +671,8 @@
                             'data':_buildMonth(start,month),
                             'name':moment,
                             'show':true,
-                            'listClassName':''
+                            'listClassName':'',
+                            'isActive':false
                         });
                 }
             });
@@ -1283,11 +1294,17 @@
                     var date = _.get(v,'date',"");
                     if(date !== "")
                     {
-                        if(v.event === "ClassSectionAttendance" && v.eventStatus === "Tardy"){
-                            jQuery("#"+date+" .late-class").removeClass('hide');
+
+                        if(v.event === "Daily Attendance" && (v.eventStatus === "ExcusedAbsence" || v.eventStatus === "UnexcusedAbsence"))
+                        {
+                            jQuery("#"+date+" .missed-day").removeClass('hide');
+                        }else{
+                            if(v.event === "ClassSectionAttendance" && v.eventStatus === "Tardy"){
+                                jQuery("#"+date+" .late-class").removeClass('hide');
+                            }
+                            if(v.event === "ClassSectionAttendance" && v.eventStatus === "Unexcused")
+                                jQuery("#"+date+" .missed-class").removeClass('hide');
                         }
-                        if(v.event === "ClassSectionAttendance" && v.eventStatus === "Unexcused")
-                        jQuery("#"+date+" .missed-class").removeClass('hide');
                     }
 
                 })

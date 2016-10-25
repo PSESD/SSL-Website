@@ -122,7 +122,7 @@
           }
           &.missed-class{
             border-bottom: none;
-            background-color: $color-grey;
+            background-color: deeppink;
           }
           &.missed-day{
             background-color: $color-purple;
@@ -149,7 +149,7 @@
 
           font-weight: 700;
 
-          &.current-day{
+          &.behavior{
             background-color: $color-black;
             color: $color-white;
           }
@@ -220,7 +220,7 @@
             margin-top: 40px;
           }
           .legend-missed-class{
-            color: $color-grey;
+            color: black;
           }
         }
       }
@@ -361,7 +361,7 @@
       border: 2px solid $color-black;
     }
     &.missed-day{
-      border: 2px solid $color-purple;
+      background-color: #8749AD;
     }
   }
 
@@ -504,6 +504,14 @@
     margin: auto;
     transform: translateY(25%);
   }
+  .calendar table.month tr td .day-content .circle-missed .missed-day{
+    width: 9px;
+    height: 9px;
+    background: #8749AD;
+    border-radius: 25px;
+    margin: auto;
+    transform: translateY(25%);
+  }
   .calendar table.month tr td .day-content .circle-late .late-class{
     width: 9px;
     height: 9px;
@@ -627,7 +635,7 @@
   }
 
   .missed-day {
-    border: 2px solid $color-purple;
+    background: $color-purple;
     border-radius: 20px
   }
 
