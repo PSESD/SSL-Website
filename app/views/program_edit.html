@@ -3,7 +3,7 @@
 
         <header class="header-background clearfix inverse">
           <div class="container">
-              <h1 class="page-title">Program Details:{{vm.program.name}}</h1>
+              <h1 class="page-title">{{"views.programs.program_details" | translate}}:{{vm.program.name}}</h1>
           </div>
         </header>
 
@@ -21,27 +21,27 @@
               <form class="form-horizontal">
 
                   <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">Name:</label>
+                      <label for="email" class="col-sm-2 control-label">{{"views.name"}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control" id="email" ng-model="vm.program.name">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">Created:</label>
+                      <label for="email" class="col-sm-2 control-label">{{ "views.created" | translate }}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control" id="created" ng-model="vm.program.created" readonly>
                       </div>
                   </div>
                   <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">Last Updated:</label>
+                      <label for="email" class="col-sm-2 control-label">{{"views.last_updated"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control" id="last_updated" ng-model="vm.program.last_updated" readonly>
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.program)">Save</button>
-                          <button ui-sref="dashboard.program">Back</button>
+                          <button ng-click="vm.submit(vm.program)">{{"views.save" | translate}}</button>
+                          <button ui-sref="dashboard.program">{{"views.back" | translate}}</button>
                       </div>
                   </div>
 

@@ -15,7 +15,9 @@
       'ui.multiselect',
       'fsm',
       'ui.codemirror',
-      'angularMoment'
+      'angularMoment',
+      'pascalprecht.translate',
+      'tmh.dynamicLocale',
 
     ])
     .factory('headerInjector', [function() {
@@ -30,10 +32,19 @@
     .config(configFunction)
     .run(runFunction);
 
-  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider'];
+  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider','$locationProvider','$translateProvider','tmhDynamicLocaleProvider'];
 
-  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider) {
-
+  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider) {
+      tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+      $translateProvider.useMissingTranslationHandlerLog();
+      $translateProvider.useStaticFilesLoader({
+          prefix: 'resources/locale-',
+          suffix: '.json'
+      });
+      $translateProvider.preferredLanguage('en_US');
+      $translateProvider.useLocalStorage();
+      $translateProvider.useMissingTranslationHandlerLog();
+      $locationProvider.hashPrefix('!');
     $urlRouterProvider.otherwise("/login");
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
@@ -76,7 +87,6 @@
   runFunction.$inject = ['$rootScope', '$state', 'RESOURCES','$cookies','Idle','PROTECTED_PATHS'];
 
   function runFunction($rootScope, $state, RESOURCES,$cookies,Idle,PROTECTED_PATHS) {
-
     // Idle.watch();
     $rootScope.$on('$stateChangeError',
       function(event, toState, toParams, fromState, fromParams, error) {

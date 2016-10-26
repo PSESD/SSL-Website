@@ -17,19 +17,19 @@
                 <ul class="nav navbar-nav">
                     <li ng-class="{ 'active': currentURL.indexOf('student') != -1 &&  currentURL.indexOf('program') === -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
-                        <a class="text-center text-uppercase" ui-sref="dashboard.student">Students</a>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.student">{{"views.dashboard.students" | translate}}</a>
                     </li>
                     <li ng-class="{ 'active': currentURL.indexOf('program') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
-                        <a class="text-center text-uppercase" ui-sref="dashboard.program">Programs</a>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.program">{{"views.dashboard.programs" | translate}}</a>
                     </li>
                     <li ng-class="{ 'active': currentURL.indexOf('report') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
-                        <a class="text-center text-uppercase" ui-sref="dashboard.report">Reports</a>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.report">{{"views.dashboard.reports" | translate}}</a>
                     </li>
                     <li ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
-                        <a class="text-center text-uppercase" ui-sref="dashboard.manage">Manage</a>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.manage">{{"views.dashboard.manage" | translate}}</a>
                     </li>
                 </ul>
                 <ul class="nav-profile">
@@ -38,14 +38,14 @@
                             <div class="circle-profile">
                                 <img gravatar-src="vm.email" gravatar-size="50">
                             </div>
-                            <div class="circle-profile-text">Logged in as <br/><strong>{{vm.full_name}}</strong></div>
+                            <div class="circle-profile-text">{{"views.dashboard.log_in_as" | translate}} <br/><strong>{{vm.full_name}}</strong></div>
                         </div>
                     </li>
                     <li class="logout-tab text-center">
                         <div class="user-data">
-                            <a ui-sref="dashboard.user_edit" class="edit-profile">Edit Profile</a>
+                            <a ui-sref="dashboard.user_edit" class="edit-profile">{{"views.dashboard.edit_profile" | translate}}</a>
                             <div class="btn-dark-container">
-                              <button class="btn btn-dark" ng-click="vm.logout()">Log out</button>
+                              <button class="btn btn-dark" ng-click="vm.logout()">{{"views.dashboard.log_out" | translate}}</button>
                             </div>
                         </div>
                     </li>
@@ -67,7 +67,7 @@
             <div class="col-sm-7">
                 <div class="row">
                     <div class="footer-widget footer-widget-1">
-                        <p>All student data in this system is protected by FERPA and your use of data is subject to your organization's data-sharing agreement with the school district. You may only use student information in this system in ways that are consistent with your program's agreement and in line with the parent consent you have received. Failure to use student data properly will result in revocation of access to data. In the event of a suspected data breach, immediately email <a href="">help@studentsuccesslink.org</a></p>
+                        <p>{{"views.dashboard.ferpa" | translate}} <a href="">{{"views.dashboard.student_success_link" | translate}}</a></p>
                     </div>
                 </div>
             </div>
@@ -75,10 +75,10 @@
                 <div class="row">
                     <div class="footer-widget footer-widget-2">
                         <ul>
-                            <li><a target="_blank" href="http://studentsuccesslink.org/">About Student Success Link</a></li><br/>
-                            <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/">Privacy Policy</a></li>
+                            <li><a target="_blank" href="http://studentsuccesslink.org/">{{"views.about_student_success_link" | translate}}</a></li><br/>
+                            <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/">{{"views.privacy_policy" | translate}}</a></li>
                         </ul>
-                        <div class="copyright"><a target="_blank" href="https://www.psesd.org">&copy;2016 PSESD</a></div>
+                        <div class="copyright"><a target="_blank" href="https://www.psesd.org">&copy;{{"views.dashboard.copyright" | translate}}</a></div>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="footer-widget footer-widget-3">
                         <div class="btn-dark-container">
-                          <a href="" class="btn btn-dark">HELP</a>
+                          <a href="" class="btn btn-dark">{{"views.dashboard.help" | translate}}</a>
                         </div>
                     </div>
                 </div>

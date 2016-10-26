@@ -4,7 +4,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="alert alert-info text-left message" ng-show=vm.message>
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <p><strong>Incorect email or password</strong>. Try entering your information again.</p>
+          <p><strong>{{"views.notification.incorrect_email" | translate}}</strong>. {{"views.login.try_again" | translate}}</p>
         </div>
       </div>
     </div>
@@ -22,15 +22,12 @@
     </header>
 
     <section class="login-container">
-
       <form class="login-form" ng-submit="vm.auth(vm.user)">
         <div class="blur-bg"></div>
-
         <div class="login-welcome-content text-center">
-          <h3 class="greating-message" ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
-          <h3 class="signin-message normal">Sign in to your Student Success Link account:</h3>
+          <h3 class="greating-message" ng-show="vm.login_greetings">{{"views.welcome_back" | translate}} {{vm.login_greetings}}!</h3>
+          <h3 class="signin-message normal">{{"views.login.header" | translate}}</h3>
         </div>
-
         <div class="content-form text-center">
           <div class="form-group">
             <label for="email"></label>
@@ -41,32 +38,31 @@
             <input type="password" class="form-control inverse" id="password" placeholder="Password" ng-model="vm.user.password" autocomplete="off">
           </div>
           <div class="form-actions">
-            <button type="submit" class="hvr-fade btn btn-login btn-full">Sign In</button>
+            <button type="submit" class="hvr-fade btn btn-login btn-full">{{"views.login.sign_in" | translate}}</button>
           </div>
           <div class="form-group login-checkbox">
             <div class="checkbox">
               <label class="remember normal" for="remember_me">
                 <input type="checkbox" id="remember_me" ng-model="vm.user.remember">
                 <span class="tick"><i class="glyphicon glyphicon-ok"></i></span>
-                 Remember Username
+                {{"views.login.remember_username" | translate}}
               </label>
             </div>
           </div>
           <div class="form-group">
-            <a class="bold capitalize" ui-sref="forgot">Forgot your password?</a>
+            <a class="bold capitalize" ui-sref="forgot">{{"views.login.forgot_password" | translate}}</a>
           </div>
         </div>
-         <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
+        <p class="announcement text-center">{{"views.login.announcement" | translate}} <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
       </form>
-
     </section>
   </div>
 </div>
 
 <footer>
   <ul class="text-center">
-    <li><a target="_blank" href="https://www.psesd.org" class="bold">About PSESD</a></li>
-    <li><a target="_blank" href="http://studentsuccesslink.org/" class="bold">About Student Success Link</a></li>
-    <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/" class="bold">Privacy Policy</a></li>
+    <li><a target="_blank" href="https://www.psesd.org" class="bold">{{"views.login.about_psesd" | translate}}</a></li>
+    <li><a target="_blank" href="http://studentsuccesslink.org/" class="bold">{{"views.about_student_success_link" | translate}}</a></li>
+    <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/" class="bold">{{"views.privacy_policy" | translate}}</a></li>
   </ul>
 </footer>

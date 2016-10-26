@@ -1,6 +1,6 @@
 <div ng-hide="vm.show_program" class="text-center" style="margin-top: 18%">
     <div class="icon-wrapper">
-        <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
+        <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
     </div>
 </div>
 <div ng-show="vm.show_program" class="container-fluid" ng-class="currentURL">
@@ -9,11 +9,11 @@
             <div class="container">
                 <div class="pull-left">
                     <h1 class="page-title">
-                Programs <div class="divider-vertical"></div>
+                        {{"views.programs" | translate}} <div class="divider-vertical"></div>
               </h1>
                 </div>
                 <div class="pull-right">
-                    <button class="btn btn-reverse invite-user" ui-sref="dashboard.program_add">Add Program</button>
+                    <button class="btn btn-reverse invite-user" ui-sref="dashboard.program_add">{{"views.programs.add_program" | translate}}</button>
                 </div>
             </div>
         </header>
@@ -62,9 +62,9 @@
                             <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                             </th>
-                            <th style="width: 5%;" class="table-space text-center">Assign Students</th>
-                            <th style="width: 5%;" class="text-center">Edit</th>
-                            <th style="width: 5%;" class="text-center">Delete</th>
+                            <th style="width: 5%;" class="table-space text-center">{{"views.programs.assign_students" | translate}}</th>
+                            <th style="width: 5%;" class="text-center">{{"views.edit" | translate}}</th>
+                            <th style="width: 5%;" class="text-center">{{"views.delete" | translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
