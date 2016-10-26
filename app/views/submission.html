@@ -16,17 +16,17 @@
 
         <header>
             <div class="header-logo">
-                <img src="images/ssl-logo-center.svg" alt="Logo">
+                <img src="images/logo-white.svg" alt="Logo">
             </div>
         </header>
 
         <section class="login-container">
-            <div class="login-welcome-content text-center">
-                <h3 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
-                <h3 class="normal">Sign in to your Student Success Link account:</h3>
-            </div>
             <form class="login-form forgot-form" ng-submit="vm.reset(vm.user)">
-                <div class="blur-bg"></div>
+               <div class="blur-bg"></div>
+               <div class="login-welcome-content text-center">
+                  <h3 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
+                  <h3 class="normal">Sign in to your Student Success Link account:</h3>
+                </div>
                 <div class="content-form text-center">
                     <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                     <div class="form-group">
@@ -39,8 +39,8 @@
                         <h5 class="normal">If you need help accessing Student Success Link email <a href=""><strong>help@studentsuccesslink.org</strong></a></h5>
                     </div>
                 </div>
+                <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
             </form>
-            <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
         </section>
 
     </div>

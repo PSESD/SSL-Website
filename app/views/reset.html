@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 text-center">
                 <div class="header-logo">
-                    <img src="images/ssl-logo-center.svg" alt="Logo">
+                    <img src="images/logo-white.svg" alt="Logo">
                 </div>
             </div>
         </div>
@@ -27,11 +27,12 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 text-center">
                 <div class="login-container">
-                    <h3 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
-                    <h3 class="normal">Sign in to your Student Success Link account:</h3>
-
                     <form class="login-form" ng-submit="vm.reset(vm.user)">
                         <div class="blur-bg"></div>
+                        <div class="login-welcome-content text-center">
+                            <h3 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
+                            <h3 class="normal">Sign in to your Student Success Link account:</h3>
+                        </div>
                         <div class="content-form">
                             <div class="form-group">
                                 <label for="password"></label>
@@ -45,9 +46,8 @@
                                 <button type="submit" class="hvr-fade btn btn-login btn-full">Submit</button>
                             </div>
                         </div>
+                         <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
                     </form>
-
-                    <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
                 </div>
 
             </div>
