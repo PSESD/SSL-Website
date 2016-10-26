@@ -24,8 +24,8 @@
     <section class="login-container">
 
       <div class="login-welcome-content text-center">
-        <h3 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
-        <h3 class="normal">Sign in to your Student Success Link account:</h3>
+        <h3 ng-show="vm.login_greetings">{{"views.welcome_back" | translate}} {{vm.login_greetings}}!</h3>
+        <h3 class="normal">{{"views.login.header" | translate}}</h3>
       </div>
 
       <form class="login-form forgot-form" ng-submit="vm.reset(vm.user)">
@@ -33,14 +33,14 @@
         <div class="content-form text-center">
           <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
           <div class="form-group">
-            <h3 class="normal">Enter the email associated with your Student Success Link Profile:</h3>
+            <h3 class="normal">{{"views.forgot_password.associate_email" | translate}}</h3>
           </div>
           <div class="form-group">
             <label for="email"></label>
             <input type="email" class="form-control inverse" id="email" placeholder="Email Address" ng-model="vm.user.email" autocomplete="off">
           </div>
           <div class="form-actions">
-            <button type="submit" class="hvr-fade btn btn-login btn-full">Submit</button>
+            <button type="submit" class="hvr-fade btn btn-login btn-full">{{"views.submit" | translate}}</button>
           </div>
         </div>
       </form>
@@ -53,8 +53,8 @@
 
 <footer>
   <ul class="text-center">
-    <li><a href="javascript:;" class="bold">About PSESD</a></li>
-    <li><a href="javascript:;" class="bold">About Student Success Link</a></li>
-    <li><a href="javascript:;" class="bold">Privacy Policy</a></li>
+      <li><a target="_blank" href="https://www.psesd.org" class="bold">{{"views.login.about_psesd" | translate}}</a></li>
+      <li><a target="_blank" href="http://studentsuccesslink.org/" class="bold">{{"views.about_student_success_link" | translate}}</a></li>
+      <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/" class="bold">{{"views.privacy_policy" | translate}}</a></li>
   </ul>
 </footer>
