@@ -3,7 +3,7 @@
 
        <header class="header-background clearfix inverse">
           <div class="container">
-            <h1 class="page-title">Add Student to {{vm.program.name}}</h1>
+            <h1 class="page-title">{{"views.programs.add_student" | translate}} {{vm.program.name}}</h1>
           </div>
         </header>
 
@@ -22,13 +22,13 @@
               <form class="form-horizontal">
                   <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.student)">Submit</button>
-                          <button ui-sref="dashboard.program">Back</button>
+                          <button ng-click="vm.submit(vm.student)">{{"views.submit"|translate}}</button>
+                          <button ui-sref="dashboard.program">{{"views.back"|translate}}</button>
                       </div>
                   </div>
 
                   <div class="form-group">
-                      <label  class="col-sm-2 control-label">Student:</label>
+                      <label  class="col-sm-2 control-label">{{"views.student"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <select class="form-control" ng-model="vm.student.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in vm.students"></select>
                       </div>
@@ -39,19 +39,19 @@
                               <label for="active">
                                   <input type="checkbox" ng-model="vm.student.active" id="active">
                                   <span class="tick"><i class="glyphicon glyphicon-ok"></i></span>
-                                  Status
+                                  {{"views.status"|translate}}
                               </label>
                           </div>
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Participation Start Date:</label>
+                      <label class="col-sm-2 control-label">{{"views.participant_start_date"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control datepicker" ng-model="vm.student.participation_start_date">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Participation End Date:</label>
+                      <label class="col-sm-2 control-label">{{"views.participant_end_date"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control datepicker" ng-model="vm.student.participation_end_date">
                       </div>
@@ -64,8 +64,8 @@
                   </div>
                   <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.student)">Submit</button>
-                          <button ui-sref="dashboard.student">Back</button>
+                          <button ng-click="vm.submit(vm.student)">{{"views.submit"|translate}}</button>
+                          <button ui-sref="dashboard.student">{{"views.back"|translate}}</button>
                       </div>
                   </div>
 

@@ -1,12 +1,10 @@
 <div ng-hide="vm.show_user" class="text-center" style="margin-top: 18%">
   <div class="icon-wrapper">
-    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
+    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
   </div>
 </div>
 <div ng-show="vm.show_user" class="container-fluid">
-
   <div class="row">
-
     <header class="header-background clearfix inverse">
       <div class="container">
         <div class="pull-left">
@@ -15,7 +13,7 @@
           </h1>
         </div>
         <div class="pull-right">
-          <button class="btn btn-reverse invite-user" ui-sref="dashboard.student_add">Add Student</button>
+          <button class="btn btn-reverse invite-user" ui-sref="dashboard.student_add">{{"views.add_student"|translate}}</button>
         </div>
       </div>
     </header>
@@ -105,8 +103,8 @@
                   <span ng-show="sortType == 'on_track_to_graduate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
-              <th style="width: 5%;" class="table-space text-center">Edit</th>
-              <th style="width: 5%;" class="text-center">Delete</th>
+              <th style="width: 5%;" class="table-space text-center">{{"views.edit" | translate}}</th>
+              <th style="width: 5%;" class="text-center">{{"views.delete" | translate}}</th>
             </tr>
           </thead>
           <tbody>

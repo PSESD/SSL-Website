@@ -3,7 +3,7 @@
         <header class="header-background clearfix inverse">
             <div class="container">
                 <div class="pull-left">
-                    <h1 class="page-title">Add Student</h1>
+                    <h1 class="page-title">{{"views.add_student"|translate}}</h1>
                 </div>
             </div>
         </header>
@@ -19,23 +19,23 @@
                 <form>
                     <fieldset>
                         <legend>
-                            <h3>Student Contact Information</h3>
+                            <h3>{{"views.students.student_contact_information" | translate}}</h3>
                         </legend>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label">First Name:</label>
+                                <label class="control-label">{{"views.first_name"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="first_name" ng-model="vm.student.first_name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Last Name:</label>
+                                <label class="control-label">{{"views.last_name"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="last_name" ng-model="vm.student.last_name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="school_district">District Name:</label>
+                                <label for="school_district">{{"views.district_name"|translate}}:</label>
                                 <div class="selectwrap">
                                     <select id="school_district" class="form-control" name="school_district" ng-model="vm.student.school_district">
                                         <option ng-repeat="option in vm.list_of_school_district" value="{{option.id}}">{{option.name}}</option>
@@ -43,41 +43,41 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">District Student ID:</label>
+                                <label class="control-label">{{"views.district_student_id"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="district" ng-model="vm.student.district_student_id">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class=" control-label">College Bound:</label>
+                                <label class=" control-label">{{"views.college_bound"|translate}}:</label>
                                 <div class="radio">
                                     <label>
-                                        <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio1" value="Yes" ><span class="tick"></span> Yes
+                                        <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio1" value="Yes" ><span class="tick"></span> {{"views.yes"|translate}}
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
                                         <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio2"  value="No" checked>
-                                        <span class="tick"></span> No
+                                        <span class="tick"></span> {{"views.no"|translate}}
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label">Phone:</label>
+                                <label class="control-label">{{"views.phone"|translate}}:</label>
                                 <div class="">
                                     <input class="form-control" type="text" ng-model="vm.student.phone" ui-mask="+9 (999) 999-9999" ui-mask-placeholder ui-mask-placeholder-char="" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="email">Email:</label>
+                                <label class="control-label" for="email">{{"views.email"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" ng-model="vm.student.email" id="email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="address">Address:</label>
+                                <label class="control-label" for="address">{{"views.address"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" ng-model="vm.student.address" id="address">
                                 </div>
@@ -86,18 +86,18 @@
                     </fieldset>
                     <fieldset>
                         <legend>
-                            <h3>Emergency Contact Information</h3>
+                            <h3>{{"views.emergency_contact_information"|translate}}</h3>
                         </legend>
                         <div class="col-sm-6">
                             <h5>Contact 1</h5>
                             <div class="form-group">
-                                <label class="control-label" for="name">Name:</label>
+                                <label class="control-label" for="name">{{"views.name"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" ng-model="vm.student.emergency1_name" id="name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="school_district">Relationship:</label>
+                                <label for="school_district">{{"views.relationship"|translate}}:</label>
                                 <div class="selectwrap">
                                     <select class="add-select-student form-control" name="repeatSelect" ng-model="vm.student.emergency1_relationship">
                                         <option ng-repeat="option in vm.list_of_relationships" value="{{option.id}}">{{option.name}}</option>
@@ -105,13 +105,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="email">Email:</label>
+                                <label class="control-label" for="email">{{"views.email"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" ng-model="vm.student.emergency1_email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Phone:</label>
+                                <label class="control-label">{{"views.phone"|translate}}:</label>
                                 <div class="">
                                     <input class="form-control" type="text" ng-model="vm.student.emergency1_phone" ui-mask="+9 (999) 999-9999" ui-mask-placeholder ui-mask-placeholder-char="" />
                                 </div>
@@ -120,13 +120,13 @@
                         <div class="col-sm-6">
                             <h5>Contact 2</h5>
                             <div class="form-group">
-                                <label class="control-label" for="name_emergency1">Name:</label>
+                                <label class="control-label" for="name_emergency1">{{"views.name"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" ng-model="vm.student.emergency2_name" id="name_emergency1">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="school_district">Relationship:</label>
+                                <label for="school_district">{{"views.relationship"|translate}}:</label>
                                 <div class="selectwrap">
                                     <select class="add-select-student form-control" name="repeatSelect" ng-model="vm.student.emergency2_relationship">
                                         <option ng-repeat="option in vm.list_of_relationships" value="{{option.id}}">{{option.name}}</option>
@@ -134,13 +134,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="email_emergency2">Email:</label>
+                                <label class="control-label" for="email_emergency2">{{"views.email"|translate}}:</label>
                                 <div class="">
                                     <input type="text" class="form-control" ng-model="vm.student.emergency2_email" id="email_emergency2">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">phone:</label>
+                                <label class="control-label">{{"views.phone"|translate}}:</label>
                                 <div class="">
                                     <input class="form-control" type="text" ng-model="vm.student.emergency2_phone" ui-mask="+9 (999) 999-9999" ui-mask-placeholder ui-mask-placeholder-char="" />
                                 </div>
@@ -149,8 +149,8 @@
                     </fieldset>
                     <div class="form-group">
                         <div class="">
-                            <button ng-click="vm.submit(vm.student)">Submit</button>
-                            <button ui-sref="dashboard.student">Back</button>
+                            <button ng-click="vm.submit(vm.student)">{{"views.submit"|translate}}</button>
+                            <button ui-sref="dashboard.student">{{"views.back"|translate}}</button>
                         </div>
                     </div>
                 </form>

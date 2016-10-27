@@ -3,7 +3,7 @@
 
        <header class="header-background clearfix inverse">
           <div class="container">
-            <h1 class="page-title">Edit {{vm.program.name}} Student {{vm.student.name}} </h1>
+            <h1 class="page-title">{{"views.edit"|translate}} {{vm.program.name}} {{"views.student"|translate}} {{vm.student.name}} </h1>
           </div>
         </header>
 
@@ -20,7 +20,7 @@
               <form class="form-horizontal">
 
                   <div class="form-group">
-                      <label  class="col-sm-2 control-label">Student:</label>
+                      <label  class="col-sm-2 control-label">{{"views.student"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <p>{{vm.student.name}}</p>
                       </div>
@@ -37,27 +37,27 @@
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Participation Start Date:</label>
+                      <label class="col-sm-2 control-label">{{"views.participant_start_date"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control datepicker" ng-model="vm.student.participation_start_date">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Participation End Date:</label>
+                      <label class="col-sm-2 control-label">{{"views.participant_end_date"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <input type="text" class="form-control datepicker" ng-model="vm.student.participation_end_date">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="col-sm-2 control-label">Cohort:</label>
+                      <label class="col-sm-2 control-label">{{"views.cohort"|translate}}:</label>
                       <div class="col-md-6 col-sm-10">
                           <tags-input ng-model="vm.student.cohort" placeholder="{{vm.placeholder}}"></tags-input>
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.student)">Submit</button>
-                          <button ui-sref="dashboard.program">Back</button>
+                          <button ng-click="vm.submit(vm.student)">{{"views.submit"|translate}}</button>
+                          <button ui-sref="dashboard.program">{{"views.back"|translate}}</button>
                       </div>
                   </div>
 

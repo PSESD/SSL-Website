@@ -20,7 +20,7 @@
                 <div ui-codemirror ui-codemirror-opts="vm.options" ui-refresh="vm.refresh" ng-model="vm.data"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{"views.close"|translate}}</button>
             </div>
         </div>
     </div>
@@ -33,14 +33,14 @@
                     {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
                     <div class="divider-vertical hidden-xs"></div>
                     <div class="header-title-student-detail">
-                        <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
-                        <div><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">CHECK FOR UPDATES</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
-                        <div>Last Updates: {{vm.student.last_update}}</div>
-                        <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">View xsre</a></div>
+                        <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
+                        <div><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
+                        <div>{{"views.last_updates"|translate}}: {{vm.student.last_update}}</div>
+                        <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">{{"views.view_xsre"|translate}}</a></div>
                     </div>
 
                     <div class="pull-right">
-                        <a class="btn btn-reverse" ui-sref="dashboard.student">View All Student</a>
+                        <a class="btn btn-reverse" ui-sref="dashboard.student">{{"views.view_all_student"|translate}}</a>
                         <a href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
                         <a href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
                     </div>
@@ -62,57 +62,57 @@
             <div ng-show="vm.show_general" class="row">
                 <div class="col-sm-6 col-md-3">
                     <fieldset>
-                        <legend>Personal Information</legend>
+                        <legend>{{"views.personal_information"|translate}}</legend>
                         <dl>
-                            <dt>Birthday</dt>
+                            <dt>{{"views.birthday"|translate}}</dt>
                             <dd>{{vm.student.personal.xsre.demographics.birth_date}}</dd>
-                            <dt>Grade Level</dt>
+                            <dt>{{"views.grade_level"|translate}}</dt>
                             <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
-                            <dt>District ID</dt>
+                            <dt>{{"views.district_id"|translate}}</dt>
                             <dd>{{vm.student.local_id}}</dd>
-                            <dt>Race/Ethnicity</dt>
+                            <dt>{{"views.race"|translate}}</dt>
                             <dd class="break-word">{{vm.student.personal.xsre.demographics.races}}</dd>
-                            <dt>Gender</dt>
+                            <dt>{{"views.gender"|translate}}</dt>
                             <dd>{{vm.student.personal.xsre.demographics.sex}}</dd>
-                            <dt>Dominate Language</dt>
+                            <dt>{{"views.dominate_language"|translate}}</dt>
                             <dd>{{vm.student.personal.xsre.languages[0].description}}</dd>
-                            <dt>Home Language</dt>
+                            <dt>{{"views.home_language"|translate}}</dt>
                             <dd>{{vm.student.personal.xsre.languages[1].description}}</dd>
-                            <dt>Phone</dt>
+                            <dt>{{"views.phone"|translate}}</dt>
                             <dd>{{vm.student.personal.phone}}</dd>
-                            <dt>Email</dt>
+                            <dt>{{"views.email"|translate}}</dt>
                             <dd>{{vm.student.personal.email}}</dd>
-                            <dt>Address</dt>
+                            <dt>{{"views.address"|translate}}</dt>
                             <dd>{{vm.student.personal.address}}</dd>
                         </dl>
                     </fieldset>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <fieldset ng-show="vm.student.personal.status">
-                        <legend>District Programs</legend>
+                        <legend>{{"views.district_programs"|translate}}</legend>
                         <dl>
-                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">IEP</dt>
+                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
                             <dd></dd>
-                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">504 Plan</dt>
+                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
                             <dd></dd>
-                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">Free or Reduced Lunch</dt>
+                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduces_lunch"|translate}}</dt>
                             <dd></dd>
                         </dl>
                     </fieldset>
                     <fieldset>
-                        <legend>District Metrics</legend>
+                        <legend>{{"views.district_metrics"|translate}}</legend>
                         <dl>
-                            <dt>Current GPA</dt>
+                            <dt>{{"views.current_gpa"|translate}}</dt>
                             <dd></dd>
-                            <dt>Cummulative GPA</dt>
+                            <dt>{{"views.cummulative_gpa"|translate}}</dt>
                             <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd>
-                            <dt>Attendance</dt>
+                            <dt>{{"views.attendance"|translate}}</dt>
                             <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
-                            <dt>Attendance Trend</dt>
+                            <dt>{{"views.attendance_trend"|translate}}</dt>
                             <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd>
-                            <dt>Behavior</dt>
+                            <dt>{{"views.behavior"|translate}}</dt>
                             <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
-                            <dt>On Track Graduate</dt>
+                            <dt>{{"views.on_track_graduate"|translate}}</dt>
                             <dd>
                                 <span ng-show="vm.on_track_to_graduate ===''?false:true" ng-class="vm.on_track_to_graduate === 'Yes' ? 'glyphicon glyphicon-ok-sign alert-success' : 'glyphicon glyphicon-remove-sign alert-danger'" aria-hidden="true"></span>
                             </dd>
@@ -121,14 +121,14 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <fieldset>
-                        <legend>School Information</legend>
+                        <legend>{{"views.school_information"|translate}}</legend>
                         <dl>
                             <dt>{{vm.student.personal.xsre.enrollment.school_name}}</dt>
                             <dd></dd>
                         </dl>
                     </fieldset>
                     <fieldset>
-                        <legend>Current Class Schedule</legend>
+                        <legend>{{"views.current_class_schedule"|translate}}</legend>
                         <span ng-repeat ="course in vm.student.transcript.source.transcript_term.courses | orderBy:'timeTablePeriod'">
                     {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
                 </span>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <fieldset>
-                        <legend>Primary Contacts</legend>
+                        <legend>{{"views.primary_contacts"|translate}}</legend>
                         <dl>
                             <dt>{{vm.student.personal.emergency1.name}}</dt>
                             <dd></dd>
@@ -149,7 +149,7 @@
                         </dl>
                     </fieldset>
                     <fieldset ng-show="vm.student.personal.additional_status">
-                        <legend>Additional Contacts</legend>
+                        <legend>{{"views.additional_contacts"|translate}}</legend>
                         <dl>
                             <dt>{{vm.student.personal.emergency2.name}}</dt>
                             <dd></dd>
@@ -162,9 +162,9 @@
                         </dl>
                     </fieldset>
                     <fieldset>
-                        <legend ng-show="vm.student.personal.college_bound">Misc.</legend>
+                        <legend ng-show="vm.student.personal.college_bound">{{"views.misc"|translate}}</legend>
                         <dl>
-                            <dt ng-show="vm.student.personal.college_bound">College Bound</dt>
+                            <dt ng-show="vm.student.personal.college_bound">{{"views.college_bound"|translate}}</dt>
                             <dd></dd>
                         </dl>
                     </fieldset>
@@ -185,23 +185,23 @@
                     <div class="tab-content">
                         <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
                             <div class="detail-info">
-                                <label>DETAILS</label>
-                                <label class="category"><div class="circle late-class"></div>Late To Class</label>
-                                <label class="category"><div class="circle missed-class"></div>Missed Class</label>
-                                <label class="category"><div class="circle missed-day"></div>Missed Day</label>
-                                <label class="category"><div class="circle incident"></div>Behavior Incident</label>
+                                <label>{{"views.details"|translate}}</label>
+                                <label class="category"><div class="circle late-class"></div>{{"views.late_to_class"|translate}}</label>
+                                <label class="category"><div class="circle missed-class"></div>{{"views.missed_class"|translate}}</label>
+                                <label class="category"><div class="circle missed-day"></div>{{"views.missed_day"|translate}}</label>
+                                <label class="category"><div class="circle incident"></div>{{"views.behavior_incident"|translate}}</label>
                             </div>
 
                             <div class="attendance-year selectwrap">
                               <select ng-change="vm.changeYear()" ng-model="vm.student.selected_years" class="form-control" ng-options="option.name for option in vm.listOfYears">
-                                  <option value="">Years</option>
+                                  <option value="">{{"views.years"|translate}}</option>
                               </select>
                             </div>
 
 
                             <div ng-show="vm.attandance_show" class="text-center" style="margin-top: 2%">
                                 <div class="icon-wrapper">
-                                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
+                                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading"|translate}}</h2>
                                 </div>
                             </div>
 
@@ -400,30 +400,30 @@
                                                 </div>
                                                 <div class="display-flex flex-grow-1 attendance-weekly-change">
                                                     <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
-                                                        <div class="panel-heading">Legend</div>
+                                                        <div class="panel-heading">{{"views.legend"|translate}}</div>
                                                         <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;">
                                                             <div class="legend">
-                                                                Late To Class
+                                                                {{"views.late_to_class"|translate}}
                                                                 <span class="pull-right bg-orange legend-item">3</span>
                                                             </div>
                                                             <div class="legend">
-                                                                Missed Class
+                                                                {{"views.missed_class"|translate}}
                                                                 <span class="pull-right missed-class legend-item">3</span>
                                                             </div>
                                                             <div class="legend">
-                                                                Days Missed
+                                                                {{"views.days_missed"|translate}}
                                                                 <span class="pull-right bg-purple legend-item">1</span>
                                                             </div>
                                                             <div class="legend">
-                                                                Behavior Incidents
+                                                                {{"views.behavior_incidents"|translate}}
                                                                 <span class="pull-right bg-black legend-item">1</span>
                                                             </div>
                                                             <div class="legend legend-excused">
-                                                                Excused
+                                                                {{"views.excused"|translate}}
                                                                 <span class="pull-right glyphicon glyphicon-ok-sign excused"></span>
                                                             </div>
                                                             <div class="legend">
-                                                                Unexcused
+                                                                {{"views.unexcused"|translate}}
                                                                 <span class="pull-right glyphicon glyphicon-ban-circle unexcused"></span>
                                                             </div>
                                                         </div>
@@ -447,13 +447,13 @@
                                         <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month,month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month,'')"></span></h4>
                                     </div>
                                     <div class="days-header-container">
-                                        <h5 class="days-header">Sun</h5>
-                                        <h5 class="days-header">Mon</h5>
-                                        <h5 class="days-header">Tue</h5>
-                                        <h5 class="days-header">Wed</h5>
-                                        <h5 class="days-header">Thu</h5>
-                                        <h5 class="days-header">Fri</h5>
-                                        <h5 class="days-header">Sat</h5>
+                                        <h5 class="days-header">{{"views.sun"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.mon"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.tue"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.wed"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.thu"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.fri"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.sat"|translate}}</h5>
                                     </div>
                                     <div ng-click="vm.expand(month,month.name.format('MM'),month.name.format('YYYY'),month.name.format('MMMM YYYY'),month,month.listClassName[$index])"  class="week-line" ng-repeat="week in month.data track by $index">
                 <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.number}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
@@ -480,11 +480,11 @@
                             <div class="display-flex">
                                 <div class="flex-grow-1" style="padding:10px;width:10%;">
                                     <dl>
-                                        <dt class="display-inline">Total Credits</dt>
+                                        <dt class="display-inline">{{"views.total_credits"|translate}}</dt>
                                         <dd class="display-inline">{{vm.transcript_header.credits}}</dd>
-                                        <dt class="display-inline">Cumulative GPA</dt>
+                                        <dt class="display-inline">{{"views.cumulative_gpa"|translate}}</dt>
                                         <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
-                                        <dt class="display-inline">Grade Level</dt>
+                                        <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
                                         <dd class="display-inline">{{vm.transcript_header.grade_level}}</dd>
                                     </dl>
                                 </div>
@@ -498,9 +498,9 @@
                                 <div style="flex-grow: 1;width:10%;padding: 15px 0 0 15px">
                                     {{high_school.school_year}} - {{high_school.session}}
                                     <dl>
-                                        <dt class="display-inline">Credit</dt>
+                                        <dt class="display-inline">{{"views.credit"|translate}}</dt>
                                         <dd class="display-inline">{{vm.transcript_header.credits}}</dd><br/>
-                                        <dt class="display-inline">Grade Level</dt>
+                                        <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
                                         <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
                                     </dl>
                                 </div>
@@ -512,11 +512,11 @@
                                             <dl>
                                                 <dt></dt>
                                                 <dd>{{details.leaCourseId}}</dd>
-                                                <dt class="display-inline">Grade</dt>
+                                                <dt class="display-inline">{{"views.grade"|translate}}</dt>
                                                 <dd class="display-inline">{{details.mark}}</dd><br/>
-                                                <dt class="display-inline">Grade Level</dt>
+                                                <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
                                                 <dd class="display-inline">{{details.gradeLevel}}</dd><br/>
-                                                <dt class="display-inline">Credits</dt>
+                                                <dt class="display-inline">{{"views.credits"|translate}}</dt>
                                                 <dd class="display-inline">{{details.creditsAttempted == details.creditsEarned ? details.creditsEarned : details.creditsEarned + '/' + details.creditsAttempted}}</dd>
                                             </dl>
                                         </div>
@@ -526,7 +526,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="program_participation">
                             <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
-                                This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program">Go to Program</a>
+                                {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a>
                             </div>
                             <div class="display-flex flex-direction-column">
                                 <div class="display-flex flex-direction-column align-items-baseline" ng-repeat="program in vm.list_program_participations | orderBy:'-years'">
@@ -550,25 +550,25 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">
-                                            School Name
+                                            {{"views.school_name"|translate}}
                                         </th>
                                         <th class="text-center">
-                                            School Year
+                                            {{"views.school_year"|translate}}
                                         </th>
                                         <th class="text-center">
-                                            Entry Date
+                                            {{"views.entry_date"|translate}}
                                         </th>
                                         <th  class="text-center">
-                                            Exit Date
+                                            {{"views.exit_date"|translate}}
                                         </th>
                                         <th  class="text-center">
-                                            Grade Level
+                                            {{"views.grade_level"|translate}}
                                         </th>
                                         <th  class="text-center">
-                                            Status
+                                            {{"views.status"|translate}}
                                         </th>
                                         <th  class="text-center">
-                                            Non Promotional Change
+                                            {{"views.non_promotional_change"|translate}}
                                         </th>
                                     </tr>
                                     </thead>
@@ -593,10 +593,10 @@
                         <div role="tabpanel" class="tab-pane" id="assessment">
                             <div style="display: flex;justify-content: flex-start;">
                                 <div class="map text-uppercase text-center">
-                                    Map
+                                    {{"views.map"|translate}}
                                 </div>
                                 <div class="state text-uppercase text-center">
-                                    State
+                                    {{"views.state"|translate}}
                                 </div>
                             </div>
                             <div style="display: flex;" ng-repeat="assessment in vm.assessment track by $index ">
@@ -606,11 +606,11 @@
                                     <div ng-repeat="map in assessment.maps" style="flex-grow: 1;width: 33.33%">
                                         <h4 class="map-font">{{map.subTestName}}</h4>
                                         <dl>
-                                            <dt>RIT Score</dt>
+                                            <dt>{{"views.rit_score"|translate}}</dt>
                                             <dd>{{map.RITScore}}</dd>
-                                            <dt>School Name</dt>
+                                            <dt>{{"views.school_name"|translate}}</dt>
                                             <dd>{{map.schoolName}}</dd><br/>
-                                            <dt class="display-inline">Student Grade Level</dt>
+                                            <dt class="display-inline">{{"views.student_grade_level"|translate}}</dt>
                                             <dd class="display-inline">{{assessment.studentGradeLevel}}</dd>
                                         </dl>
                                     </div>
@@ -620,15 +620,15 @@
                                     <div ng-repeat="state in assessment.states" style="flex-grow: 1;width: 33.33%">
                                         <h4 class="state-font">{{state.subTestName}}</h4>
                                         <dl>
-                                            <dt>Score</dt>
+                                            <dt>{{"views.score"|translate}}</dt>
                                             <dd></dd>
-                                            <dt>Attempt Code</dt>
+                                            <dt>{{"views.attempt_code"|translate}}</dt>
                                             <dd>{{student.attemptCode}}</dd>
-                                            <dt>Attempt Description</dt>
+                                            <dt>{{"views.attempt_description"|translate}}</dt>
                                             <dd>{{state.attemptCodeDescription}}</dd>
-                                            <dt>School Name</dt>
+                                            <dt>{{"views.school_name"|translate}}</dt>
                                             <dd>{{state.schoolName}}</dd><br/>
-                                            <dt class="display-inline">Grade Level</dt>
+                                            <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
                                             <dd class="display-inline">{{assessment.studentGradeLevel}}</dd>
                                         </dl>
                                     </div>
