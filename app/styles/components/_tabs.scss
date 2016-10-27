@@ -53,6 +53,20 @@
 }
 
 
+.tab-pane{
+    background: darken($white, 3%);
+    border-top: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
+
+    .table-responsive{
+      background: $white;
+      margin: 30px 40px;
+      padding: 30px;
+      border-radius: 5px;
+    }
+}
+
+
 .tab-content{
   margin-top: 15px;
   .attendance-header{
@@ -217,9 +231,6 @@
   }
   #attendance_behavior{
     position: relative;
-    background: darken($white, 3%);
-    border-top: 1px solid $grey-light;
-    border-bottom: 1px solid $grey-light;
 
     #accordion{
       margin: 0;
