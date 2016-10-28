@@ -17,19 +17,19 @@
 
     <header>
       <div class="header-logo">
-        <img src="images/ssl-logo-center.svg" alt="Logo">
+        <img src="images/logo-white.svg" alt="Logo">
       </div>
     </header>
 
     <section class="login-container">
-
-      <div class="login-welcome-content text-center">
-        <h3 ng-show="vm.login_greetings">{{"views.welcome_back" | translate}} {{vm.login_greetings}}!</h3>
-        <h3 class="normal">{{"views.login.header" | translate}}</h3>
-      </div>
-
       <form class="login-form forgot-form" ng-submit="vm.reset(vm.user)">
         <div class="blur-bg"></div>
+
+        <div class="login-welcome-content text-center">
+          <h3 ng-show="vm.login_greetings">{{"views.welcome_back" | translate}} {{vm.login_greetings}}!</h3>
+          <h3 class="normal">{{"views.login.header" | translate}}</h3>
+        </div>
+
         <div class="content-form text-center">
           <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
           <div class="form-group">
@@ -43,10 +43,8 @@
             <button type="submit" class="hvr-fade btn btn-login btn-full">{{"views.submit" | translate}}</button>
           </div>
         </div>
-      </form>
-
         <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
-
+      </form>
     </section>
   </div>
 </div>
