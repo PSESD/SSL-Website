@@ -19,37 +19,35 @@
                 <img src="images/ssl-logo-center.svg" alt="Logo">
             </div>
         </header>
-
         <section class="login-container">
             <div class="login-welcome-content text-center">
-                <h3 ng-show="vm.login_greetings">Welcome back {{vm.login_greetings}}!</h3>
-                <h3 class="normal">Sign in to your Student Success Link account:</h3>
+                <h3 ng-show="vm.login_greetings">{{"views.welcome_back"|translate}} {{vm.login_greetings}}!</h3>
+                <h3 class="normal">{{"views.login.header"|translate}}:</h3>
             </div>
             <form class="login-form forgot-form" ng-submit="vm.reset(vm.user)">
                 <div class="blur-bg"></div>
                 <div class="content-form text-center">
                     <a class="back_btn pull-right" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                     <div class="form-group">
-                        <h3 class="text-uppercase">Thank you.</h3>
+                        <h3 class="text-uppercase">{{"views.thank_you"|translate}}.</h3>
                     </div>
                     <div class="form-group">
-                        <h3 class="normal">If the email you submitted is not associated with an existing Student Success Link Profile, you will not be notified.</h3>
+                        <h3 class="normal">{{"views.notification"|translate}}.</h3>
                     </div>
                     <div class="form-group">
-                        <h5 class="normal">If you need help accessing Student Success Link email <a href=""><strong>help@studentsuccesslink.org</strong></a></h5>
+                        <h5 class="normal">{{"views.help"|translate}} <a href=""><strong>{{"views.dashboard.student_success_link"|translate}}</strong></a></h5>
                     </div>
                 </div>
             </form>
-            <p class="announcement text-center">Never share your password with anyone. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
+            <p class="announcement text-center">{{"views.login.announcement"|translate}}. <span class="circle-white hidden-xs" popover-placement="top" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</span></p>
         </section>
-
     </div>
 </div>
 
 <footer>
     <ul class="text-center">
-        <li><a href="javascript:;" class="bold">About PSESD</a></li>
-        <li><a href="javascript:;" class="bold">About Student Success Link</a></li>
-        <li><a href="javascript:;" class="bold">Privacy Policy</a></li>
+        <li><a target="_blank" href="https://www.psesd.org" class="bold">{{"views.login.about_psesd" | translate}}</a></li>
+        <li><a target="_blank" href="http://studentsuccesslink.org/" class="bold">{{"views.about_student_success_link" | translate}}</a></li>
+        <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/" class="bold">{{"views.privacy_policy" | translate}}</a></li>
     </ul>
 </footer>

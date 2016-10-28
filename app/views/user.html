@@ -1,6 +1,6 @@
 <div ng-hide="vm.show_user" class="text-center" style="margin-top: 18%">
   <div class="icon-wrapper">
-    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
+    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading"|translate}}</h2>
   </div>
 </div>
 <div ng-show="vm.show_user" class="container-fluid" ng-class="currentURL">
@@ -9,10 +9,10 @@
       <header class="header-background clearfix inverse">
         <div class="container">
           <div class="pull-left">
-            <h1 class="page-title">Manage Users<div class="divider-vertical"></div></h1>
+            <h1 class="page-title">{{"views.manage_users"|translate}}<div class="divider-vertical"></div></h1>
           </div>
           <div class="pull-right">
-            <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_invite">Invite User</button>
+            <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_invite">{{"views.invite_user"|translate}}</button>
           </div>
         </div>
       </header>
@@ -36,35 +36,35 @@
             <tr>
               <th style="width: 15%;">
                 <a href="" ng-click="sortType = 'full_name';sortReverse = !sortReverse">
-                  Name
+                  {{"views.name"|translate}}
                   <span ng-show="sortType == 'full_name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'full_name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 22%;">
                 <a href="" ng-click="sortType = 'email';sortReverse = !sortReverse">
-                  Email
+                  {{"views.email"|translate}}
                   <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 15%;">
                 <a href="" ng-click="sortType = 'role';sortReverse = !sortReverse">
-                  Role
+                  {{"views.role"|translate}}
                   <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 15%;"  class="text-center">
                 <a href="" ng-click="sortType = 'activate';sortReverse = !sortReverse">
-                  Active
+                  {{"views.active"|translate}}
                   <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 5%;">
                 <a href="" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
-                  Assigned Students
+                  {{"views.assigned_students"|translate}}
                   <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
@@ -90,7 +90,7 @@
               <td class="text-center">
                 {{user.activate ? 'Active' : 'Pending'}}
                 <span ng-if="!user.activate">
-                  <a class="reinvite" href="" ng-click="vm.reInvite(user)">Reinvite</a>
+                  <a class="reinvite" href="" ng-click="vm.reInvite(user)">{{"views.reinvite"|translate}}</a>
                 </span>
               </td>
               <td class="text-center">{{user.studentCount}}</td>
