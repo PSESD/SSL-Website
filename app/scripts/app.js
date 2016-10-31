@@ -37,6 +37,7 @@
   function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider) {
       tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
       $translateProvider.useMissingTranslationHandlerLog();
+      $translateProvider.useSanitizeValueStrategy('sanitize');
       $translateProvider.useStaticFilesLoader({
           prefix: 'resources/locale-',
           suffix: '.json'

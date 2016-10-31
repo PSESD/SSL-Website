@@ -95,7 +95,7 @@
                             <dd></dd>
                             <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
                             <dd></dd>
-                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduces_lunch"|translate}}</dt>
+                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduced_lunch"|translate}}</dt>
                             <dd></dd>
                         </dl>
                     </fieldset>
@@ -104,7 +104,7 @@
                         <dl>
                             <dt>{{"views.current_gpa"|translate}}</dt>
                             <dd></dd>
-                            <dt>{{"views.cummulative_gpa"|translate}}</dt>
+                            <dt>{{"views.cumulative_gpa"|translate}}</dt>
                             <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd>
                             <dt>{{"views.attendance"|translate}}</dt>
                             <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>

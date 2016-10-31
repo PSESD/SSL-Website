@@ -212,6 +212,7 @@
                 });
         }
         function expand(objMonth,month,year,name,obj,className) {
+
             if(_.get(activeMonth,'isActive',"") !== ""){
                 activeMonth.isActive = false;
                 activeMonth = objMonth;
@@ -316,6 +317,7 @@
         init();
         loadGeneral(id);
         function loadDetailMonth(data,month,name,className) {
+
             var detail;
             _.forEach(data,function (value) {
                 _.forEach(value,function (v,k) {
@@ -352,9 +354,12 @@
                         var temp = k.split('-');
                         var from = temp[0].trim().split('/');
                         var to = temp[1].trim().split('/');
-
+                        var tag1;
+                        var tag2;
                         from = moment(temp[0]).format('MMM DD YYYY');
                         to = moment(temp[1]).format('MMM DD YYYY');
+                        tag1 = moment(temp[0]).format('MMM-DD');
+                        tag2 = moment(temp[1]).format('MMM-DD');
                         _.forIn(v.courses,function (v) {
                             if(v !== null){
                                 if(v.length !== 0){
@@ -379,12 +384,14 @@
                             }
 
                         })
+                        var weekClass = tag1+"-"+tag2;
+                        weekClass = weekClass.replace(" ",'-').trim();
                         listOfSelectedMonth.push({
                             weekName:to+" - "+from,
                             showMonth:true,
                             dates:detail,
                             courses:listCourses,
-                            weekClass:"week_"+from+'_'+to
+                            weekClass:weekClass
                         });
                         vm.selectedMonth = listOfSelectedMonth;
                     }
@@ -683,7 +690,9 @@
                 _.forEach(v.data,function (data) {
                     var temp1 = data.days[0].date;
                     var temp2 = data.days[6].date;
-                   var list = 'week_'+temp1.add(1,'d').format("DD") +'_'+ temp2.add(1,'d').format("DD");
+                   //var list = 'week_'+temp1.add(1,'d').format("DD") +'_'+ temp2.add(1,'d').format("DD"); Nov 08 2015-Nov 02 2015
+                    var list = moment(temp1).add(1,'d').format('MMM-DD')+'-'+moment(temp2).add(1,'d').format('MMM-DD');
+                    list = list.replace(" ","-").trim();
                    listClassName.push(list);
                 });
                 vm.listOfCalendar[k].listClassName = listClassName;

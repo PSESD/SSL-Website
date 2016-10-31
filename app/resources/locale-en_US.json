@@ -155,5 +155,6 @@
     "views.school_district":"School District",
     "views.add_user_students_assignment":"Add User's Students Assignment",
     "views.new_student":"New Student",
-    "views.id":"Id"
+    "views.id":"Id",
+    "views.grade":"Grade"
 }
