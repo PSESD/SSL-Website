@@ -364,7 +364,11 @@
     }
   }
 
-
+  .arrow{
+    &.glyphicon{
+      color:#74d5d6;
+    }
+  }
   .month-detail{
     margin: 0 3.5%;
     background: white;
@@ -421,6 +425,14 @@
         }
       }
     }
+  }
+
+  .panel-heading:not(.collapsed){
+    background-color: white;
+    border-radius: 0;
+    border: 1px solid #eee;
+    border-top: 3px solid #74d5d6;
+    font-family: $font-family-kreon;
   }
 
   .calendar{

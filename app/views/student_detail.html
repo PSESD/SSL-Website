@@ -476,54 +476,71 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-show="vm.show_transcript && vm.show_general" role="tabpanel" class="tab-pane" id="transcript">
-                            <div class="display-flex">
-                                <div class="flex-grow-1" style="padding:10px;width:10%;">
-                                    <dl>
-                                        <dt class="display-inline">{{"views.total_credits"|translate}}</dt>
-                                        <dd class="display-inline">{{vm.transcript_header.credits}}</dd>
-                                        <dt class="display-inline">{{"views.cumulative_gpa"|translate}}</dt>
-                                        <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
-                                        <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
-                                        <dd class="display-inline">{{vm.transcript_header.grade_level}}</dd>
-                                    </dl>
-                                </div>
-                                <div style="flex-grow: 2;width:90%;display: flex;justify-content:flex-start;">
-                                    <div class="display-flex align-items-center justify-content-center ctype-{{$index + 1}}" ng-repeat="subject in vm.transcript_header.subject_values track by $index" style="width: 15%">
-                                        <h5 class="text-center text-uppercase" style="color: #fff;">{{subject.name}}<br/>{{subject.value}} {{subject.value == 1 ? 'Credit':'Credits'}}</h5>
+                        <div role="tabpanel" class="tab-pane" id="transcript">
+                            <div class="panel-group" id="accordion_transcript" role="tablist" aria-multiselectable="true">
+                                <div class="display-flex full-width">
+                                    <div class="flex-grow-1" style="width: 20%;margin-right: 10%">
+                                        <fieldset>
+                                            <legend>GPA PROGRESS</legend>
+                                            <div class="text-center"><h3>2.9</h3></div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="flex-grow-1" style="width: 60%">
+                                        <fieldset>
+                                            <legend>CREDITS BY SUBJECT AREA</legend>
+                                        </fieldset>
                                     </div>
                                 </div>
-                            </div>
-                            <div ng-class="$index % 2 === 0 ?'dark':'light-dark'" style="display: flex" ng-repeat="high_school in vm.list_high_schools">
-                                <div style="flex-grow: 1;width:10%;padding: 15px 0 0 15px">
-                                    {{high_school.school_year}} - {{high_school.session}}
-                                    <dl>
-                                        <dt class="display-inline">{{"views.credit"|translate}}</dt>
-                                        <dd class="display-inline">{{vm.transcript_header.credits}}</dd><br/>
-                                        <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
-                                        <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="display-flex" style="flex-grow: 2;width:90%;justify-content:flex-start;">
-                                    <div ng-repeat="transcript in high_school.transcripts" style="width: 15%;padding: 5px">
-                                        <div ng-repeat="details in transcript">
-                                            <h4 class="ctype-font-{{details.index + 1}}">{{details.courseTitle}}</h4>
-                                            <hr class="transcript">
-                                            <dl>
-                                                <dt></dt>
-                                                <dd>{{details.leaCourseId}}</dd>
-                                                <dt class="display-inline">{{"views.grade"|translate}}</dt>
-                                                <dd class="display-inline">{{details.mark}}</dd><br/>
-                                                <dt class="display-inline">{{"views.grade_level"|translate}}</dt>
-                                                <dd class="display-inline">{{details.gradeLevel}}</dd><br/>
-                                                <dt class="display-inline">{{"views.credits"|translate}}</dt>
-                                                <dd class="display-inline">{{details.creditsAttempted == details.creditsEarned ? details.creditsEarned : details.creditsEarned + '/' + details.creditsAttempted}}</dd>
-                                            </dl>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                        <div class="flex-grow-1">
+                                            ACADEMIC YEAR:2015/2016 | School:Roosevelt Grade Level: 11 Cumulative GPA:3.1
                                         </div>
+                                        <div class="flex-grow-1 display-flex justify-content-flex-end">
+                                            <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
+                                        </div>
+                                    </div>
+                                    <div id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                        <div class="display-flex full-width justify-content-space-between" style="height: 50px;line-height: 50px;padding: 0 30px;background-color: #1d272c">
+                                            <span style="color: white;">
+                                                SEMESTER 4
+                                            </span>
+                                            <span style="color: white;">
+                                                GPA: 3.0 Total Credits: 8.5
+                                            </span>
+                                        </div>
+                                        <div class="panel-body display-flex no-padding">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                <tr>
+                                                    <td>Period</td>
+                                                    <td>Course Name</td>
+                                                    <td>Course Teacher</td>
+                                                    <td>Course Code</td>
+                                                    <td>Grade</td>
+                                                    <td>Credits</td>
+                                                    <td>Course Category</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>AP Calculus</td>
+                                                        <td>J.Smith</td>
+                                                        <td>HLA2492</td>
+                                                        <td>B+</td>
+                                                        <td>1.0</td>
+                                                        <td>Mathematics</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div role="tabpanel" class="tab-pane" id="program_participation">
                             <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
                                 {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a>

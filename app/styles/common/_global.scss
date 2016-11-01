@@ -79,13 +79,18 @@ a{
 .flex-grow-2{
   flex-grow: 2;
 }
+.full-width{
+  width: 100%;
+}
 .no-padding{
   padding:0;
 }
 .justify-content-center{
   justify-content: center;
 }
-
+.justify-content-flex-end{
+  justify-content: flex-end;
+}
 .container-fluid .container{
   width: auto;
   margin-left: 10%;
