@@ -482,12 +482,22 @@
                                     <div class="flex-grow-1" style="width: 20%;margin-right: 10%">
                                         <fieldset>
                                             <legend>GPA PROGRESS</legend>
-                                            <div class="text-center"><h3>2.9</h3></div>
+                                            <div class="text-center"><h3>{{vm.transcript_header.current_gpa}}</h3></div>
                                         </fieldset>
                                     </div>
                                     <div class="flex-grow-1" style="width: 60%">
                                         <fieldset>
                                             <legend>CREDITS BY SUBJECT AREA</legend>
+                                            <div class="display-flex full-width" style="flex-wrap: wrap">
+                                                <div class="flex-grow-1" style="width: 25%" ng-repeat="subject in vm.transcript_header.subjects">
+                                                    <p>
+                                                        {{subject.name}}
+                                                    </p>
+                                                    <p>
+                                                        {{subject.value}}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </fieldset>
                                     </div>
                                 </div>

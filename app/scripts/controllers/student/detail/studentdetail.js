@@ -1216,41 +1216,21 @@
                     if(response.data.success === true){
                         var data = response.data.info.data;
                         var source = response.data.info.source;
-                        var list_high_schools = [];
-                        var list_transcripts = [];
-                        var high_school = {};
-                        var transcript_header = {};
-                        _.forEach(data,function(high_school_value,key){
-                            list_transcripts = [];
-                            _.forEach(high_school_value.transcripts,function(transcripts){
-                                if(_.isNull(transcripts)){
-                                    transcripts = [];
-                                }
-                                list_transcripts.push(transcripts);
-                            });
-                            high_school = {
-                                grade_level : _.get(high_school_value,'gradeLevel',""),
-                                school_name : _.get(high_school_value,'schoolName',""),
-                                school_year : _.get(high_school_value,'schoolYear',""),
-                                session : _.get(high_school_value,'session',""),
-                                start_date : _.get(high_school_value,'startDate',""),
-                                start_date_time : _.get(high_school_value,'startDateTime',""),
-                                transcripts:list_transcripts
-                            }
-                            list_high_schools.push(high_school);
-                        });
-
-                        transcript_header ={
-                            credits:_.get(source,'credits',""),
-                            grade_level:_.get(source,'gradeLevel',""),
-                            total_credits_earned:_.get(source,'totalCreditsEarned',""),
-                            total_credits_attempted:_.get(source,'totalCreditsAttempted',""),
-                            total_cumulative_gpa:_.get(source,'totalCumulativeGpa',""),
-                            subject_values:_.get(source,'subjectValues',"")
-
-                        }
-                        vm.list_high_schools = list_high_schools;
-                        vm.transcript_header = transcript_header;
+                        var listCourses;
+                        var listTranscript = [];
+                        _.forEach(data,function (v,k) {
+                            var courses = {};
+                            listCourses = [];
+                            _.forEach(v.transcripts,function (val,key) {
+                                courses ={
+                                    courses:val,
+                                    category:key
+                                };
+                                listCourses.push(courses);
+                            })
+                            listTranscript.push(listCourses);
+                        })
+                        console.log(listTranscript);
                         vm.show_transcript = true;
                     }else{
                         vm.show_transcript = false;
