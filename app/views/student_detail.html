@@ -482,14 +482,14 @@
                                     <div class="flex-grow-1" style="width: 20%;margin-right: 10%">
                                         <fieldset>
                                             <legend>GPA PROGRESS</legend>
-                                            <div class="text-center"><h3>{{vm.transcript_header.current_gpa}}</h3></div>
+                                            <div class="text-center"><h3>{{vm.transcripts.currentGpa}}</h3></div>
                                         </fieldset>
                                     </div>
                                     <div class="flex-grow-1" style="width: 60%">
                                         <fieldset>
                                             <legend>CREDITS BY SUBJECT AREA</legend>
                                             <div class="display-flex full-width" style="flex-wrap: wrap">
-                                                <div class="flex-grow-1" style="width: 25%" ng-repeat="subject in vm.transcript_header.subjects">
+                                                <div class="flex-grow-1" style="width: 25%" ng-repeat="subject in vm.transcripts.subjects">
                                                     <p>
                                                         {{subject.name}}
                                                     </p>
@@ -510,13 +510,14 @@
                                             <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
                                         </div>
                                     </div>
-                                    <div id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                    <div   id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                        <div ng-repeat="items in vm.listTranscript">
                                         <div class="display-flex full-width justify-content-space-between" style="height: 50px;line-height: 50px;padding: 0 30px;background-color: #1d272c">
                                             <span style="color: white;">
-                                                SEMESTER 4
+                                                {{items.semester}}
                                             </span>
                                             <span style="color: white;">
-                                                GPA: 3.0 Total Credits: 8.5
+
                                             </span>
                                         </div>
                                         <div class="panel-body display-flex no-padding">
@@ -533,19 +534,19 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>AP Calculus</td>
-                                                        <td>J.Smith</td>
-                                                        <td>HLA2492</td>
-                                                        <td>B+</td>
-                                                        <td>1.0</td>
-                                                        <td>Mathematics</td>
+                                                    <tr ng-repeat="item in items.listCourses">
+                                                        <td>{{item.courses.period}}</td>
+                                                        <td>{{item.courses.course_name}}</td>
+                                                        <td>{{item.courses.teacher}}</td>
+                                                        <td>{{item.courses.course_code}}</td>
+                                                        <td>{{item.courses.grade}}</td>
+                                                        <td>{{item.courses.credits}}</td>
+                                                        <td>{{item.course_category}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>

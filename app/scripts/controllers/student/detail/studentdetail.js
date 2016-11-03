@@ -1218,19 +1218,53 @@
                         var source = response.data.info.source;
                         var listCourses;
                         var listTranscript = [];
+                        var semester = {};
+                        var listSemester = [];
                         _.forEach(data,function (v,k) {
                             var courses = {};
                             listCourses = [];
+
                             _.forEach(v.transcripts,function (val,key) {
-                                courses ={
-                                    courses:val,
-                                    category:key
-                                };
-                                listCourses.push(courses);
+                                _.forEach(val,function (v) {
+                                    courses = {
+                                        period:_.get(v,'timeTablePeriod',""),
+                                        course_name:_.get(v,'courseTitle',""),
+                                        teacher:'',
+                                        course_code:_.get(v,'leaCourseId',""),
+                                        grade:_.get(v,'mark',""),
+                                        credits:''
+
+                                    }
+                                    listCourses.push({
+                                        course_category:key,
+                                        courses:courses
+                                    })
+                                })
+                                // courses ={
+                                //     courses:val,
+                                //     category:key
+                                // };
+                                // listCourses.push(courses);
                             })
-                            listTranscript.push(listCourses);
+                            listCourses = _.sortBy(listCourses,function (v) {
+                                return v.courses.period;
+                            })
+                            var header = {
+                                semester:v.session,
+                                listCourses:listCourses
+                            }
+                            listSemester.push(header);
+                            //listTranscript.push(listCourses);
+
                         })
-                        console.log(listTranscript);
+
+                        var currentGpa = _.get(source,"currentGPA","");
+                        var subjects = _.get(source,"subjectValues","");
+                        vm.transcripts = {
+                            currentGPA:currentGpa,
+                            subjects:subjects
+                        }
+                        vm.listTranscript = listSemester;
                         vm.show_transcript = true;
                     }else{
                         vm.show_transcript = false;
