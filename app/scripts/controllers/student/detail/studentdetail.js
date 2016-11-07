@@ -1220,10 +1220,11 @@
                         var listTranscript = [];
                         var semester = {};
                         var listSemester = [];
+                        var listSchoolYear =[];
+                        var firstTime = true;
                         _.forEach(data,function (v,k) {
                             var courses = {};
                             listCourses = [];
-
                             _.forEach(v.transcripts,function (val,key) {
                                 _.forEach(val,function (v) {
                                     courses = {
@@ -1240,31 +1241,42 @@
                                         courses:courses
                                     })
                                 })
-                                // courses ={
-                                //     courses:val,
-                                //     category:key
-                                // };
-                                // listCourses.push(courses);
                             })
                             listCourses = _.sortBy(listCourses,function (v) {
                                 return v.courses.period;
                             })
                             var header = {
                                 semester:v.session,
-                                listCourses:listCourses
+                                listCourses:listCourses,
+                                years:v.schoolYear
                             }
                             listSemester.push(header);
-                            //listTranscript.push(listCourses);
+                        });
+                        _.forEach(listSemester,function (v,k) {
 
+                            if(_.findIndex(listSchoolYear,['years',v.years]) == -1){
+                                listSchoolYear.push({
+                                    years:v.years,
+                                    listSemester:[{
+                                        semester:v.semester,
+                                        courses:v.listCourses
+                                    }]
+                                });
+                            }else{
+                                listSchoolYear[_.findIndex(listSchoolYear,['years',v.years])].listSemester.push({
+                                    semester:v.semester,
+                                    courses:v.listCourses
+                                });
+                            }
                         })
-
+                        console.log(listSchoolYear);
                         var currentGpa = _.get(source,"currentGPA","");
                         var subjects = _.get(source,"subjectValues","");
                         vm.transcripts = {
                             currentGPA:currentGpa,
                             subjects:subjects
                         }
-                        vm.listTranscript = listSemester;
+                        vm.listTranscript = listSchoolYear;
                         vm.show_transcript = true;
                     }else{
                         vm.show_transcript = false;

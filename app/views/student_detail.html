@@ -476,6 +476,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div role="tabpanel" class="tab-pane" id="transcript">
                             <div class="panel-group" id="accordion_transcript" role="tablist" aria-multiselectable="true">
                                 <div class="display-flex full-width">
@@ -502,16 +503,17 @@
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
+                                    <div ng-repeat="transcript in vm.listTranscript">
                                     <div class="panel-heading collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                         <div class="flex-grow-1">
-                                            ACADEMIC YEAR:2015/2016 | School:Roosevelt Grade Level: 11 Cumulative GPA:3.1
+                                            ACADEMIC YEAR:{{transcript.years}} | School:Roosevelt Grade Level: 11 Cumulative GPA:3.1
                                         </div>
                                         <div class="flex-grow-1 display-flex justify-content-flex-end">
                                             <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
                                         </div>
                                     </div>
                                     <div   id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
-                                        <div ng-repeat="items in vm.listTranscript">
+                                        <div ng-repeat="items in transcript.listSemester">
                                         <div class="display-flex full-width justify-content-space-between" style="height: 50px;line-height: 50px;padding: 0 30px;background-color: #1d272c">
                                             <span style="color: white;">
                                                 {{items.semester}}
@@ -534,7 +536,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="item in items.listCourses">
+                                                    <tr ng-repeat="item in items.courses">
                                                         <td>{{item.courses.period}}</td>
                                                         <td>{{item.courses.course_name}}</td>
                                                         <td>{{item.courses.teacher}}</td>
@@ -547,6 +549,7 @@
                                             </table>
                                         </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
