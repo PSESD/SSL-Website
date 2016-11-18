@@ -9,6 +9,7 @@
     function StudentDetailCtrl($state,StudentService,$stateParams) {
 
         var vm = this;
+        vm.show_loading = true;
         var selectedObj;
         var listSelectedObj = [];
         vm.attandance_show = false;
@@ -703,6 +704,7 @@
             StudentService.getStudentById(id)
                 .then(function(response){
                     if(response.data.success === true){
+                        vm.show_loading = false;
                         var list_program_years =[];
                         var list_program_participation = [];
                         var data = _.get(response,'data.info',"");
@@ -1269,7 +1271,6 @@
                                 });
                             }
                         })
-                        console.log(listSchoolYear);
                         var currentGpa = _.get(source,"currentGPA","");
                         var subjects = _.get(source,"subjectValues","");
                         vm.transcripts = {

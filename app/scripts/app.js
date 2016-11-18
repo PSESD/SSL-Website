@@ -119,6 +119,8 @@
           console.log(unfoundState);
         })
 
+
+
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
       var profile;
@@ -129,6 +131,25 @@
           }else{
             profile = $cookies.getObject(sessionStorage.getItem('id'));
           }
+              if(toState.name !== 'login' && toState.name !== 'forgot' && toState.name !== 'reset' && toState.name !=='submission'){
+                  localStorage.setItem('path',toState.name);
+              }
+
+              // for(var key in localStorage){
+              //     switch (key){
+              //         case "id":
+              //             localStorage.removeItem(key)
+              //             break;
+              //         case "student_id":
+              //             localStorage.removeItem(key)
+              //             break;
+              //     }
+              // }
+              if(typeof toParams === 'object'){
+                  _.forEach(toParams,function (v,k) {
+                      localStorage.setItem(k,v);
+                  })
+              }
 
         if(toState.name !== "dashboard" && toState.name !== "login" && toState.name !== "forgot"){
             $rootScope.currentURL = toState.name.replace('dashboard.','') + '-page';
@@ -139,6 +160,7 @@
           event.preventDefault();
           $state.go('login', {}, {reload: true});
         }
+
 
       });
 

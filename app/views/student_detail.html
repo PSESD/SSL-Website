@@ -51,6 +51,12 @@
 
         <section class="main-content container">
 
+            <div ng-show="vm.show_loading" class="text-center" style="margin-top: 15%">
+                <div class="icon-wrapper">
+                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
+                </div>
+            </div>
+
             <div class="">
                 <div class="row">
                     <div class="alert alert-info text-left message" ng-show=vm.message>
@@ -481,30 +487,44 @@
                             <div class="panel-group" id="accordion_transcript" role="tablist" aria-multiselectable="true">
                                 <div class="display-flex full-width">
                                     <div class="flex-grow-1" style="width: 20%;margin-right: 10%">
-                                        <fieldset>
+                                        <fieldset style="margin-left:20px;margin-top: 20px">
                                             <legend>GPA PROGRESS</legend>
                                             <div class="text-center"><h3>{{vm.transcripts.currentGpa}}</h3></div>
                                         </fieldset>
                                     </div>
                                     <div class="flex-grow-1" style="width: 60%">
-                                        <fieldset>
+                                        <fieldset style="margin-top: 20px;width: 90%">
                                             <legend>CREDITS BY SUBJECT AREA</legend>
-                                            <div class="display-flex full-width" style="flex-wrap: wrap">
-                                                <div class="flex-grow-1" style="width: 25%" ng-repeat="subject in vm.transcripts.subjects">
-                                                    <p>
-                                                        {{subject.name}}
-                                                    </p>
-                                                    <p>
+                                            <!--<div class="display-flex full-width" style="flex-wrap: wrap">-->
+                                                <!--<div class="flex-grow-1" style="width: 25%" ng-repeat="subject in vm.transcripts.subjects">-->
+                                                    <!--<p>-->
+                                                        <!--{{subject.name}}-->
+                                                    <!--</p>-->
+                                                    <!--<p>-->
+                                                        <!--{{subject.value}}-->
+                                                    <!--</p>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <ul style="padding: 0;margin-top: 20px">
+                                                <li style="list-style-type: none;width: 25%;float: left;" ng-repeat="subject in vm.transcripts.subjects">
+                                                    <p>{{subject.name}}</p>
+                                                    <p class="bold">
                                                         {{subject.value}}
+                                                        <span ng-if="subject.value == 1">
+                                                            Credit
+                                                        </span>
+                                                        <span ng-if="subject.value == 0 || subject.value > 1">
+                                                            Credits
+                                                        </span>
                                                     </p>
-                                                </div>
-                                            </div>
+                                                </li>
+                                            </ul>
                                         </fieldset>
                                     </div>
                                 </div>
-                                <div class="panel panel-default">
+                                <div class="panel panel-default transcript">
                                     <div ng-repeat="transcript in vm.listTranscript">
-                                    <div class="panel-heading collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                    <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                         <div class="flex-grow-1">
                                             ACADEMIC YEAR:{{transcript.years}} | School:Roosevelt Grade Level: 11 Cumulative GPA:3.1
                                         </div>

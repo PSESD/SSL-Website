@@ -693,3 +693,21 @@
     }
   }
 }
+
+.panel-heading{
+  &.transcript{
+    background: linear-gradient(#fff, #eee);
+    border: 1px solid #eee;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    color: #aab3b8;
+    font-family: "Kreon", serif;
+    margin: 10px 0;
+    padding: 10px!important;
+  }
+}
+.panel-default{
+  &.transcript{
+    border: none!important;
+  }
+}
