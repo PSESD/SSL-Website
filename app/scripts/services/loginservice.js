@@ -112,14 +112,7 @@
                   $cookies.put('refresh_token',profile.refresh_token);
                   $cookies.put('expire_time',profile.expire_time);
                   CookieService.set(profile);
-                  var path = JSON.stringify(localStorage);
                   $state.go('dashboard.student',{},{reload:true});
-                  console.log(path);
-                  // if(path === ""){
-                  //   $state.go('dashboard.student',{},{reload:true});
-                  // }else{
-                  //   $state.go(path,{},{reload:true});
-                  // }
                 }else{
 
                 }
