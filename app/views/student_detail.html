@@ -495,16 +495,6 @@
                                     <div class="flex-grow-1" style="width: 60%">
                                         <fieldset style="margin-top: 20px;width: 90%">
                                             <legend>CREDITS BY SUBJECT AREA</legend>
-                                            <!--<div class="display-flex full-width" style="flex-wrap: wrap">-->
-                                                <!--<div class="flex-grow-1" style="width: 25%" ng-repeat="subject in vm.transcripts.subjects">-->
-                                                    <!--<p>-->
-                                                        <!--{{subject.name}}-->
-                                                    <!--</p>-->
-                                                    <!--<p>-->
-                                                        <!--{{subject.value}}-->
-                                                    <!--</p>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
                                             <ul style="padding: 0;margin-top: 20px">
                                                 <li style="list-style-type: none;width: 25%;float: left;" ng-repeat="subject in vm.transcripts.subjects">
                                                     <p>{{subject.name}}</p>
@@ -522,6 +512,7 @@
                                         </fieldset>
                                     </div>
                                 </div>
+                                <div class="panel-container">
                                 <div class="panel panel-default transcript">
                                     <div ng-repeat="transcript in vm.listTranscript">
                                     <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
@@ -546,13 +537,13 @@
                                             <table class="table table-condensed">
                                                 <thead>
                                                 <tr>
-                                                    <td>Period</td>
-                                                    <td>Course Name</td>
-                                                    <td>Course Teacher</td>
-                                                    <td>Course Code</td>
-                                                    <td>Grade</td>
-                                                    <td>Credits</td>
-                                                    <td>Course Category</td>
+                                                    <td class="bold uppercase">Period</td>
+                                                    <td class="bold uppercase">Course Name</td>
+                                                    <td class="bold uppercase">Course Teacher</td>
+                                                    <td class="bold uppercase">Course Code</td>
+                                                    <td class="bold uppercase">Grade</td>
+                                                    <td class="bold uppercase">Credits</td>
+                                                    <td class="bold uppercase">Course Category</td>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -571,6 +562,7 @@
                                         </div>
                                     </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>

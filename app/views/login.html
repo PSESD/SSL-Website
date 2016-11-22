@@ -38,7 +38,10 @@
             <input type="password" class="form-control inverse" id="password" placeholder="Password" ng-model="vm.user.password" autocomplete="off">
           </div>
           <div class="form-actions">
-            <button type="submit" class="hvr-fade btn btn-login btn-full">{{"views.login.sign_in" | translate}}</button>
+            <button type="submit" class="hvr-fade btn btn-login btn-full">
+              <span ng-hide="vm.show_login_loading">{{"views.login.sign_in" | translate}}</span>
+              <span ng-show="vm.show_login_loading"><span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> {{"views.loading" | translate}}</span>
+            </button>
           </div>
           <div class="form-group login-checkbox">
             <div class="checkbox">

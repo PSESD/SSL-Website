@@ -10,7 +10,7 @@
         var vm = this;
         var email = localStorage.getItem("email") || "";
         vm.message = '';
-
+        vm.show_login_loading = false;
         vm.user = {
             email: '',
             password: '',

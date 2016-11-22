@@ -26,6 +26,7 @@
 
 
     function validate(user,vm){
+      vm.show_login_loading = true;
       var profile = {
         expire_time:'',
         is_authenticated: false,
@@ -54,6 +55,7 @@
 
       this.authenticate(credentials, key)
           .then(function(response) {
+            vm.show_login_loading = false;
             if ('access_token' in response.data) {
               var embedded = {
                 organization:_.get(response.data.embeded,'organization',""),
