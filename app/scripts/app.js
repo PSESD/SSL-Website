@@ -45,7 +45,6 @@
       $translateProvider.preferredLanguage('en_US');
       $translateProvider.useLocalStorage();
       $translateProvider.useMissingTranslationHandlerLog();
-      $locationProvider.hashPrefix('!');
     $urlRouterProvider.otherwise("/login");
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
@@ -54,7 +53,7 @@
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    $httpProvider.interceptors.push('headerInjector');
     $httpProvider.defaults.timeout = 15000;
     gravatarServiceProvider.defaults = {
       size     : 50,

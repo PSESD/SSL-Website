@@ -45,6 +45,7 @@
         status:''
       }
       var key = GeneralService.base64Encode(RESOURCES.CLIENT_ID + ':' + RESOURCES.CLIENT_SECRET);
+
       var grant_type = encodeURIComponent(RESOURCES.GRANT_TYPE);
       var credentials = {
         grant_type: grant_type,
