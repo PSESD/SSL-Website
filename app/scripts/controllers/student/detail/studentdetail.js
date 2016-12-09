@@ -1229,13 +1229,15 @@
                             listCourses = [];
                             _.forEach(v.transcripts,function (val,key) {
                                 _.forEach(val,function (v) {
+                                    console.log(v);
+                                    var teacherNames =_.replace(_.flatten(_.get(v,'teacherNames',"")),'"','');
                                     courses = {
                                         period:_.get(v,'timeTablePeriod',""),
                                         course_name:_.get(v,'courseTitle',""),
-                                        teacher:'',
+                                        teacher:teacherNames,
                                         course_code:_.get(v,'leaCourseId',""),
-                                        grade:_.get(v,'mark',""),
-                                        credits:''
+                                        grade:_.get(v,'mark',"-"),
+                                        credits:_.get(v,'creditsEarned',"-")
 
                                     }
                                     listCourses.push({
