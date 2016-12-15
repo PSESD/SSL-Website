@@ -75,6 +75,32 @@
   .attendance-header{
     height: 80px;
   }
+  .attendance-summary{
+    background: $white;
+    position: relative;
+    .selectwrap{
+      width: 250px;
+
+      @media (min-width: $screen-md-min){
+        position: absolute;
+        top: 0px;
+        right: 40px;
+      }
+    }
+
+    .row{
+      .col-attendance{
+        text-align: center;
+        @include make-xs-column(6);
+        @include make-sm-column(4);
+        @include make-lg-column(1.714);
+      }
+    }
+    .attendance-data{
+      font-size: 28px;
+      font-weight: 900;
+    }
+  }
   .attendance-date{
     width: 30%;
     text-transform: uppercase;
@@ -330,6 +356,7 @@
     border-top: 1px solid #d0d6d9;
   }
   .detail-info{
+    position: relative;
     padding: 30px 3.5%;
     @media (max-width: $screen-xss-max){
       padding: 15px;

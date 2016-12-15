@@ -190,6 +190,57 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
+
+                            <div class="attendance-summary">
+                                <header class="">
+                                  <strong>Summary</strong> May 2016 (15 of 20 school days so far)
+                                  <div class="selectwrap">
+                                    <select ng-change="" ng-model="" class="form-control" ng-options="">
+                                        <option value="">data here</option>
+                                    </select>
+                                  </div>
+                                </header>
+
+                                <div class="row">
+                                  <div class="col-attendance">
+                                    <p>Days Absent</p>
+                                    <div class="attendance-data">2</div>
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>Tardies</p>
+                                    <div class="attendance-data">1</div>
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>Behavior Incidents</p>
+                                    <div class="attendance-data">0</div>
+
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>Classes Missed</p>
+                                    <div class="attendance-data">3</div>
+
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>Attendance Rate</p>
+                                    <div class="attendance-data">90%</div>
+
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>From Last Month</p>
+                                    <div class="attendance-data">5%</div>
+
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>From Last Month</p>
+                                    <div class="attendance-data">2</div>
+
+                                  </div>
+                                </div>
+
+                            </div>
+
+
+
                             <div class="detail-info">
                                 <label>{{"views.details"|translate}}</label>
                                 <label class="category"><div class="circle late-class"></div>{{"views.late_to_class"|translate}}</label>
