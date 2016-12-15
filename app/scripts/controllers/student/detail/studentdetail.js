@@ -388,7 +388,7 @@
                         var weekClass = tag1+"-"+tag2;
                         weekClass = weekClass.replace(" ",'-').trim();
                         listOfSelectedMonth.push({
-                            weekName:to+" - "+from,
+                            weekName:from+" - "+to,
                             showMonth:true,
                             dates:detail,
                             courses:listCourses,
@@ -1216,6 +1216,7 @@
             StudentService.getTranscriptById(id)
                 .then(function(response){
                     if(response.data.success === true){
+                        var cumulativeGPA = [];
                         var data = response.data.info.data;
                         var source = response.data.info.source;
                         var listCourses;
@@ -1224,12 +1225,42 @@
                         var listSemester = [];
                         var listSchoolYear =[];
                         var firstTime = true;
+                        _.forEach(data,function(v){
+                            var creditEarned = 0;
+
+                            _.forEach(v.transcripts,function(val){
+
+                                if(val !== null){
+                                    _.forEach(val,function(value){
+                                        creditEarned += value.creditsEarned;
+                                    });
+                                }
+                            });
+                            var list = {
+                                years:v.schoolYear,
+                                creditEarned : creditEarned
+                            }
+                            cumulativeGPA.push(list);
+
+                        });
+                        var resultGPA = _.chain(cumulativeGPA)
+                            .flatten()
+                            .groupBy(function (value) {
+                                return value.years;
+                            })
+                            .map(function(value,key){
+                                var sum = _.reduce(value,function(memo,val){
+                                    return memo + val.creditEarned
+                                },0);
+                                return {years:key,creditEarned:sum};
+                            })
+                            .value();
+
                         _.forEach(data,function (v,k) {
                             var courses = {};
                             listCourses = [];
                             _.forEach(v.transcripts,function (val,key) {
                                 _.forEach(val,function (v) {
-                                    console.log(v);
                                     var teacherNames =_.replace(_.flatten(_.get(v,'teacherNames',"")),'"','');
                                     courses = {
                                         period:_.get(v,'timeTablePeriod',""),
@@ -1249,34 +1280,44 @@
                             listCourses = _.sortBy(listCourses,function (v) {
                                 return v.courses.period;
                             })
+
                             var header = {
                                 semester:v.session,
                                 listCourses:listCourses,
-                                years:v.schoolYear
+                                years:v.schoolYear,
+                                grade:v.gradeLevel
                             }
                             listSemester.push(header);
                         });
                         _.forEach(listSemester,function (v,k) {
+                            var GPA = _.find(resultGPA,['years',v.years]);
 
                             if(_.findIndex(listSchoolYear,['years',v.years]) == -1){
                                 listSchoolYear.push({
                                     years:v.years,
+                                    grade:v.grade,
                                     listSemester:[{
                                         semester:v.semester,
                                         courses:v.listCourses
-                                    }]
+                                    }],
+                                    creditEarned : GPA.creditEarned
                                 });
                             }else{
                                 listSchoolYear[_.findIndex(listSchoolYear,['years',v.years])].listSemester.push({
                                     semester:v.semester,
-                                    courses:v.listCourses
+                                    courses:v.listCourses,
+                                    grade:v.grade
                                 });
                             }
+
+
+
                         })
-                        var currentGpa = _.get(source,"currentGPA","");
+                        console.log(listSchoolYear);
+                        var currentGpa = _.get(source,"totalCreditsEarned","");
                         var subjects = _.get(source,"subjectValues","");
                         vm.transcripts = {
-                            currentGPA:currentGpa,
+                            currentGpa:currentGpa,
                             subjects:subjects
                         }
                         vm.listTranscript = listSchoolYear;
@@ -1304,6 +1345,7 @@
 
                 });
         }
+
         function changeStatus(student){
             student.status = !student.status;
         }
@@ -1324,6 +1366,7 @@
             }
             return false;
         }
+
         var object = null;
         function set_inter() {
             object = jQuery('.missed-late-class-container .late-class').html();

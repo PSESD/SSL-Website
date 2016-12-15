@@ -274,61 +274,18 @@
                                             <div class="panel-body display-flex no-padding">
                                                 <div class="flex-grow-1 text-center attendance-date content">
                                                     <div class="detail-item header"></div>
-                                                    <div class="detail-item">
-                                                        <div class="number">1</div>
+                                                    <div class="detail-item" ng-repeat="course in student.courses track by $index">
+                                                        <div class="number" >{{course.number}}</div>
                                                         <div class="detail-item-content">
-                                                            <div class="text-uppercase">ap calculus ab</div>
-                                                            <div class="italic text-capitalize">j. smith</div>
+                                                            <div class="text-uppercase">{{course.title}}</div>
+                                                            <div class="italic text-capitalize">{{course.teacher}}</div>
                                                         </div>
                                                     </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">2</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">a 2 intro to comp sci</div>
-                                                            <div class="italic text-capitalize">b. rimirez</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">3</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">3 compar lit comp</div>
-                                                            <div class="italic text-capitalize">s. thomas</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">4</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">nutrition wellness</div>
-                                                            <div class="italic text-capitalize">r. sherman</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">5</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">concert band</div>
-                                                            <div class="italic text-capitalize">k. kelly</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="detail-item">
-                                                        <div class="number">6</div>
-                                                        <div class="detail-item-content">
-                                                            <div class="text-uppercase">ap calculus ab</div>
-                                                            <div class="italic text-capitalize">j. smith</div>
-                                                        </div>
-                                                    </div>
-                                                    <!--<div class="detail-item header"></div>-->
-                                                    <!--<div class="detail-item" ng-repeat="course in student.courses track by $index">-->
-                                                        <!--<div class="number" >{{course.number}}</div>-->
-                                                        <!--<div class="detail-item-content">-->
-                                                            <!--<div class="text-uppercase">{{course.title}}</div>-->
-                                                            <!--<div class="italic text-capitalize">{{course.teacher}}</div>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
                                                 </div>
                                                 <div class="display-flex flex-grow-2 text-center attendance-days content">
 
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">mon 22</div>
+                                                        <div class="detail-item header">mon {{student.dates.Monday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
@@ -337,34 +294,25 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">tue 23</div>
+                                                        <div class="detail-item header">tue {{student.dates.Tuesday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">wed 24</div>
+                                                        <div class="detail-item header">wed {{student.dates.Wednesday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value incident"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">thu 25</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                    </div>
-                                                    <div class="flex-grow-1 day">
-                                                        <div class="detail-item header behavior">fri 26</div>
+                                                        <div class="detail-item header">thu {{student.dates.Thursday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -373,7 +321,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">sat 27</div>
+                                                        <div class="detail-item header current-day">fri {{student.dates.Friday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -382,7 +330,7 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">sun 28</div>
+                                                        <div class="detail-item header">sat {{student.dates.Saturday}}</div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
@@ -390,70 +338,15 @@
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                         <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
                                                     </div>
-
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header">mon {{student.dates.Monday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header">tue {{student.dates.Tuesday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header">wed {{student.dates.Wednesday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value incident"></div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header">thu {{student.dates.Thursday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header current-day">fri {{student.dates.Friday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header">sat {{student.dates.Saturday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="flex-grow-1 day">-->
-                                                        <!--<div class="detail-item header">sun {{student.dates.Sunday}}</div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
-                                                    <!--</div>-->
+                                                    <div class="flex-grow-1 day">
+                                                        <div class="detail-item header">sun {{student.dates.Sunday}}</div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                    </div>
                                                 </div>
                                                 <div class="display-flex flex-grow-1 attendance-weekly-change">
                                                     <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
@@ -540,7 +433,7 @@
                                     <div class="flex-grow-1" style="width: 20%;margin-right: 10%">
                                         <fieldset style="margin-left:20px;margin-top: 20px">
                                             <legend>GPA PROGRESS</legend>
-                                            <div class="text-center"><h3>{{vm.transcripts.currentGpa}}</h3></div>
+                                            <div class="text-center"><h3 style="font-size: 30px">{{vm.transcripts.currentGpa}}</h3></div>
                                         </fieldset>
                                     </div>
                                     <div class="flex-grow-1" style="width: 60%">
@@ -568,7 +461,7 @@
                                     <div ng-repeat="transcript in vm.listTranscript">
                                     <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                         <div class="flex-grow-1">
-                                            ACADEMIC YEAR:{{transcript.years}} | School:Roosevelt Grade Level: 11 Cumulative GPA:3.1
+                                            ACADEMIC YEAR: {{transcript.years - 1}}/{{transcript.years}} | Grade Level: {{transcript.grade}} Cumulative GPA: {{transcript.creditEarned}}
                                         </div>
                                         <div class="flex-grow-1 display-flex justify-content-flex-end">
                                             <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
