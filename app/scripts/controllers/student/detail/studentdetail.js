@@ -322,7 +322,6 @@
             var detail;
             _.forEach(data,function (value) {
                 _.forEach(value,function (v,k) {
-
                     var tempDate = v.weekDate.split('-');
                     var tempDate1 = new Date(tempDate[0].trim());
                     var tempDate2 = new Date(tempDate[1].trim());
@@ -361,30 +360,28 @@
                         to = moment(temp[1]).format('MMM DD YYYY');
                         tag1 = moment(temp[0]).format('MMM-DD');
                         tag2 = moment(temp[1]).format('MMM-DD');
-                        _.forIn(v.courses,function (v) {
-                            if(v !== null){
-                                if(v.length !== 0){
-                                    _.forEach(v,function (val) {
-                                        var teacherName;
-                                        if(val.teacherNames.length > 1){
-                                            teacherName = val.teacherNames[0]+','+val.teacherNames[1]
-                                        }else if(val.teacherNames.length === 1){
-                                            teacherName = val.teacherNames[0];
-                                        }
-                                        var course = {
-                                            title:val.courseTitle,
-                                            number:val.timeTablePeriod,
-                                            teacher:teacherName
-                                        }
-                                        listCourses.push(course);
-                                    })
-                                }else{
-                                    listCourses.push([]);
-                                }
-
-                            }
-
-                        })
+                        // _.forIn(v.listCourse,function (v) {
+                        //     // if(v !== null){
+                        //     //     if(v.length !== 0){
+                        //     //         _.forEach(v,function (val) {
+                        //     //             var teacherName;
+                        //     //             if(val.teacherNames.length > 1){
+                        //     //                 teacherName = val.teacherNames[0]+','+val.teacherNames[1]
+                        //     //             }else if(val.teacherNames.length === 1){
+                        //     //                 teacherName = val.teacherNames[0];
+                        //     //             }
+                        //     //             var course = {
+                        //     //                 title:val.courseTitle,
+                        //     //                 number:val.timeTablePeriod,
+                        //     //                 teacher:teacherName
+                        //     //             }
+                        //     //             listCourses.push(course);
+                        //     //         })
+                        //     //     }else{
+                        //     //         listCourses.push([]);
+                        //     //     }
+                        //     // }
+                        // });
                         var weekClass = tag1+"-"+tag2;
                         weekClass = weekClass.replace(" ",'-').trim();
                         listOfSelectedMonth.push({
@@ -827,6 +824,7 @@
                 });
         }
         function loadAttendance(data){
+
             var legend = [];
 
             vm.attandance_show = false;
@@ -1122,17 +1120,19 @@
                             vm.legend = _.uniq(legend);
                             vm.list_of_details = list_of_student_data;
 
-
                         if(list_of_student_data.length !== 0){
                             vm.show_attendance = true;
                         }else{
                             vm.show_attendance = false;
                         }
+                        console.log(isValid);
                         if(isValid === true)
                         {
                             listOfSelectedMonth.push(list_of_item);
 
-                                vm.selectedMonth = listOfSelectedMonth;
+                            vm.selectedMonth = listOfSelectedMonth;
+
+                            console.log(vm.selectedMonth);
                         }
 
                 }
@@ -1313,7 +1313,6 @@
 
 
                         })
-                        console.log(listSchoolYear);
                         var currentGpa = _.get(source,"totalCreditsEarned","");
                         var subjects = _.get(source,"subjectValues","");
                         vm.transcripts = {

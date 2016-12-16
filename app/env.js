@@ -29,6 +29,15 @@
     }, {
         id: 'tukwila',
         name: 'Tukwila'
+    },{
+        id: 'test',
+        name: 'test'
+    },{
+        id: 'Test',
+        name: 'Test'
+    },{
+        id: 'TEST',
+        name: 'TEST'
     }];
     window.__env.RELATIONSHIP = [{
         id: 'parent',
