@@ -730,7 +730,7 @@
     color: #aab3b8;
     font-family: "Kreon", serif;
     margin: 10px 0;
-    padding: 10px!important;
+    padding: 10px 25px!important;
   }
 }
 .panel-default{
@@ -744,4 +744,28 @@
   background: white;
   margin: 40px;
   box-shadow: 5px 10px 15px -5px rgba(119, 119, 119, 0.2);
+}
+
+#accordion_transcript .text-center {
+  text-align: left;
+  margin-left: 60px;
+}
+
+
+
+table{
+  &.table-assessment{
+    thead{
+      th{
+        border-bottom: 1px solid #adadad;
+      }
+    }
+    tbody{
+      tr{
+        td{
+          border-bottom: 1px solid #adadad;
+        }
+      }
+    }
+  }
 }
