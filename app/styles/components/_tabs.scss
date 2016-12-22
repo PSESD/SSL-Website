@@ -78,12 +78,18 @@
   .attendance-summary{
     background: $white;
     position: relative;
-    .selectwrap{
-      width: 250px;
+    padding: 30px 0;
 
-      @media (min-width: $screen-md-min){
+    header{
+      padding-bottom: 20px;
+    }
+
+    .selectwrap{
+      width: 200px;
+
+      @media (min-width: $screen-xs-min){
         position: absolute;
-        top: 0px;
+        top: 15px;
         right: 40px;
       }
     }
@@ -354,6 +360,9 @@
   .calendar-details{
     background: #f9f9f9;
     border-top: 1px solid #d0d6d9;
+  }
+  .attendace-wrap{
+    position: relative;
   }
   .detail-info{
     position: relative;
