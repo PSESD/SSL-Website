@@ -304,9 +304,14 @@
   .justify-content-space-between{
     justify-content: space-between;
   }
-  .arrow{
-    margin:1px 25px;
-  }
+  //.assessment{
+  //  .arrow{
+  //    margin: 0!important;
+  //  }
+  //}
+  //.arrow{
+  //  margin:1px 25px;
+  //}
 
   .attendance-year{
 
@@ -742,3 +747,10 @@ table{
     }
   }
 }
+
+.panel-heading{
+  &.assessment{
+    border-top:none !important;
+  }
+}
+

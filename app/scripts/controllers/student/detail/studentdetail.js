@@ -23,6 +23,7 @@
         vm.show_enrollment = false;
         vm.show_xsre = false;
         vm.listOfCalendar = [];
+        vm.listClasses = [];
         var activeMonth;
         var listClassName = [];
         var listOfEvents = [{}];
@@ -237,6 +238,7 @@
             while(vm.selectedMonth.length>0){
                 vm.selectedMonth.pop();
             }
+
             loadDetailMonth(data,month,name,className);
             if(vm.selectedMonth.length>0){
                 vm.show_detail = true;
@@ -263,7 +265,7 @@
             if(vm.student.selected_years === null){
                 StudentService.getAttendance(id)
                     .then(function(response){
-
+                        console.log(response);
                         var years = _.get(response,'data.info.source.years',"");
                         _.forEach(years,function(value){
                             listOfYears.push({
@@ -283,6 +285,7 @@
             }else{
                 StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
                     .then(function(response){
+
                         data  = _.get(response,'data.info.data',[]);
                         generateMonth(data);
                         vm.attandance_show = false;
@@ -300,7 +303,6 @@
         }
         StudentService.getAttendance(id)
             .then(function(response){
-
                 var years = _.get(response,'data.info.source.years',"");
                 _.forEach(years,function(value){
                     listOfYears.push({
@@ -310,7 +312,6 @@
                 });
                 vm.listOfYears = listOfYears;
                 data = _.get(response,'data.info.data',[]);
-
                 generateMonth(data);
             },function(error){
 
@@ -319,7 +320,6 @@
         init();
         loadGeneral(id);
         function loadDetailMonth(data,month,name,className) {
-
             var detail;
             _.forEach(data,function (value) {
                 _.forEach(value,function (v,k) {
@@ -361,27 +361,47 @@
                         to = moment(temp[1]).format('MMM DD YYYY');
                         tag1 = moment(temp[0]).format('MMM-DD');
                         tag2 = moment(temp[1]).format('MMM-DD');
+                        if('listCourse' in v){
+                            while(vm.listClasses.length > 0){
+                                vm.listClasses.pop();
+                            }
+                            v.listCourse.forEach(function (val) {
+                                val.courses.forEach(function (v) {
+                                    vm.listClasses.push({
+                                        courseTitle:v.courseTitle,
+                                        timeTablePeriod:v.timeTablePeriod,
+                                        teacherNames:v.teacherNames[1]+','+v.teacherNames[0]
+                                    });
+                                });
+                            });
+                            var classes = _.sortBy(vm.listClasses,[function (o) {
+                                return o.timeTablePeriod
+                            }]);
+                            vm.listClasses = _.uniqBy(classes,function (e) {
+                                return e.timeTablePeriod;
+                            });
+                        }
                         // _.forIn(v.listCourse,function (v) {
-                        //     // if(v !== null){
-                        //     //     if(v.length !== 0){
-                        //     //         _.forEach(v,function (val) {
-                        //     //             var teacherName;
-                        //     //             if(val.teacherNames.length > 1){
-                        //     //                 teacherName = val.teacherNames[0]+','+val.teacherNames[1]
-                        //     //             }else if(val.teacherNames.length === 1){
-                        //     //                 teacherName = val.teacherNames[0];
-                        //     //             }
-                        //     //             var course = {
-                        //     //                 title:val.courseTitle,
-                        //     //                 number:val.timeTablePeriod,
-                        //     //                 teacher:teacherName
-                        //     //             }
-                        //     //             listCourses.push(course);
-                        //     //         })
-                        //     //     }else{
-                        //     //         listCourses.push([]);
-                        //     //     }
-                        //     // }
+                        //     if(v !== null){
+                        //         if(v.length !== 0){
+                        //             _.forEach(v,function (val) {
+                        //                 var teacherName;
+                        //                 if(val.teacherNames.length > 1){
+                        //                     teacherName = val.teacherNames[0]+','+val.teacherNames[1]
+                        //                 }else if(val.teacherNames.length === 1){
+                        //                     teacherName = val.teacherNames[0];
+                        //                 }
+                        //                 var course = {
+                        //                     title:val.courseTitle,
+                        //                     number:val.timeTablePeriod,
+                        //                     teacher:teacherName
+                        //                 }
+                        //                 listCourses.push(course);
+                        //             })
+                        //         }else{
+                        //             listCourses.push([]);
+                        //         }
+                        //     }
                         // });
                         var weekClass = tag1+"-"+tag2;
                         weekClass = weekClass.replace(" ",'-').trim();
@@ -397,6 +417,7 @@
                 });
             });
             vm.selectedMonth = listOfSelectedMonth;
+
             if(className !== ""){
                 var collps = setInterval(function () {
                     jQuery('.'+className).collapse('show');
@@ -470,6 +491,7 @@
                         saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
                         sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
                     }
+
                     _.forEach(detail_columns.monday,function(value,key){
                         var event = _.get(value,'event',"");
                         if(event !== ""){
@@ -478,6 +500,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -488,7 +511,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -504,6 +528,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -514,7 +539,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -530,6 +556,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -540,7 +567,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -556,6 +584,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -566,7 +595,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -582,6 +612,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -592,7 +623,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -608,6 +640,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -618,7 +651,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -634,6 +668,7 @@
                             var description = _.get(value,'event.attendanceStatusTitle',"");
                             var attendanceEventType = _.get(event,'attendanceEventType',"");
                             var attendanceStatus = _.get(event,'attendanceStatus',"");
+                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
                             if(date!=="" && reason !== "" && description !== ""){
                                 var temp_template = template;
                                 temp_template = _.replace(temp_template,'{date}',date);
@@ -644,7 +679,8 @@
                                     listOfEvents.push({
                                         date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
                                         event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus
+                                        eventStatus:attendanceStatus,
+                                        timeTablePeriod:timeTablePeriod
                                     });
                                 }
                             }else{
@@ -659,6 +695,13 @@
 
                     list_of_student_data.push(header_detail);
                 })
+                _.reduce(listOfEvents,function (acc,val,key) {
+                    acc[val.date]={
+                        date:val.date,
+                        value:val
+                    };
+                    return acc;
+                },{});
             });
             listMonths = _.uniqWith(listMonths,_.isEqual);
             _.forEach(listMonths,function(v){
@@ -1127,12 +1170,14 @@
                         }else{
                             vm.show_attendance = false;
                         }
-                        console.log(isValid);
+
                         if(isValid === true)
                         {
                             listOfSelectedMonth.push(list_of_item);
 
                             vm.selectedMonth = listOfSelectedMonth;
+
+
 
                         }
 
@@ -1336,6 +1381,14 @@
                             var assessment = _.get(response,'data.info.data',"");
                             vm.assessment = assessment;
                             vm.show_assessment = true;
+                            vm.assessment.forEach(function (v,k) {
+                                v.states.forEach(function (val,k) {
+                                    if(val.attemptCode !== "TS"){
+                                        val.attemptCodeDescription = "<div class='panel panel-default'><div class='panel-heading assessment'><h3 class='panel-title'>Status</h3></div><div class='panel-body'>"+val.attemptCodeDescription+"</div></div>";
+                                    }
+                                })
+                            });
+
                             var en = $interval(function () {
                                 if(enrollment!==""){
                                     $interval.cancel(en);
@@ -1348,11 +1401,13 @@
                                     });
                                 }
                             },100);
+
                         }else{
                             vm.show_assessment = false;
                         }
                     }else{
                         vm.show_assessment = false;
+
                     }
                 },function(error){
 

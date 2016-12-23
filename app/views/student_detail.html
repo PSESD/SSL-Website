@@ -223,11 +223,11 @@
                                             <div class="panel-body display-flex no-padding">
                                                 <div class="flex-grow-1 text-center attendance-date content">
                                                     <div class="detail-item header"></div>
-                                                    <div class="detail-item" ng-repeat="course in student.courses track by $index">
-                                                        <div class="number" >{{course.number}}</div>
+                                                    <div class="detail-item" ng-repeat="course in vm.listClasses track by $index">
+                                                        <div class="number" >{{course.timeTablePeriod}}</div>
                                                         <div class="detail-item-content">
-                                                            <div class="text-uppercase">{{course.title}}</div>
-                                                            <div class="italic text-capitalize">{{course.teacher}}</div>
+                                                            <div class="text-uppercase">{{course.courseTitle}}</div>
+                                                            <div class="italic text-uppercase">{{course.teacherNames}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -607,14 +607,20 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Met standard?</td>
-                                                            <td>
-                                                                {{item.MetStandard}}
+                                                            <td style="color:red" ng-if="item.MetStandard === 'N'">
+                                                                No
+                                                            </td>
+                                                            <td ng-if="item.MetStandard === 'Y'">
+                                                                Yes
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Status:</td>
-                                                            <td>
+                                                            <td ng-if="item.attemptCode === 'TS'">
                                                                 {{item.attemptCodeDescription}}
+                                                            </td>
+                                                            <td ng-if="item.attemptCode !== 'TS'">
+                                                                <div class="assessment" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="item.attemptCodeDescription"><span style="color: red;" class="glyphicon glyphicon-alert"></span></div>
                                                             </td>
                                                         </tr>
                                                         <tr>

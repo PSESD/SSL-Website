@@ -44,7 +44,6 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap-multiselect/angular-bootstrap-multiselect.js',
       'bower_components/angular-ui-mask/dist/mask.js',
       'bower_components/fsm-sticky-header/src/fsm-sticky-header.js',
-      'bower_components/codemirror/lib/codemirror.js',
       'bower_components/angular-ui-codemirror/ui-codemirror.js',
       'bower_components/moment/moment.js',
       'bower_components/angular-moment/angular-moment.js',
