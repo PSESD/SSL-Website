@@ -275,78 +275,44 @@
                                             <div class="panel-body display-flex no-padding">
                                                 <div class="flex-grow-1 text-center attendance-date content">
                                                     <div class="detail-item header"></div>
-                                                    <div class="detail-item" ng-repeat="course in student.courses track by $index">
-                                                        <div class="number" >{{course.number}}</div>
+                                                    <div class="detail-item" ng-repeat="course in vm.listClasses track by $index">
+                                                        <div class="number" >{{course.timeTablePeriod}}</div>
                                                         <div class="detail-item-content">
-                                                            <div class="text-uppercase">{{course.title}}</div>
-                                                            <div class="italic text-capitalize">{{course.teacher}}</div>
+                                                            <div class="text-uppercase">{{course.courseTitle}}</div>
+                                                            <div class="italic text-uppercase">{{course.teacherNames}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="display-flex flex-grow-2 text-center attendance-days content">
 
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">mon {{student.dates.Monday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value late-class"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div class="detail-item header">mon {{student.dates.Monday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Monday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">tue {{student.dates.Tuesday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-day"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div class="detail-item header">tue {{student.dates.Tuesday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Tuesday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">wed {{student.dates.Wednesday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value missed-class"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value incident"></div>
+                                                        <div class="detail-item header">wed {{student.dates.Wednesday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Wednesday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">thu {{student.dates.Thursday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div class="detail-item header">thu {{student.dates.Thursday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Thursday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header current-day">fri {{student.dates.Friday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div class="detail-item header current-day">fri {{student.dates.Friday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Friday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">sat {{student.dates.Saturday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div class="detail-item header">sat {{student.dates.Saturday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Saturday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div class="detail-item header">sun {{student.dates.Sunday}}</div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
-                                                        <div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>
+                                                        <div class="detail-item header">sun {{student.dates.Sunday.date}}</div>
+                                                        <div ng-repeat="event in student.dates.Sunday.classEvents track by $index" ng-class="event.event === 'ClassSectionAttendance' ? 'detail-item value late-class':'detail-item value'"></div>
+                                                        <!--<div popover-placement="right" popover-trigger="'mouseenter'" class="detail-item value"></div>-->
                                                     </div>
                                                 </div>
                                                 <div class="display-flex flex-grow-1 attendance-weekly-change">
@@ -660,14 +626,20 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Met standard?</td>
-                                                            <td>
-                                                                {{item.MetStandard}}
+                                                            <td style="color:red" ng-if="item.MetStandard === 'N'">
+                                                                No
+                                                            </td>
+                                                            <td ng-if="item.MetStandard === 'Y'">
+                                                                Yes
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Status:</td>
-                                                            <td>
+                                                            <td ng-if="item.attemptCode === 'TS'">
                                                                 {{item.attemptCodeDescription}}
+                                                            </td>
+                                                            <td ng-if="item.attemptCode !== 'TS'">
+                                                                <div class="assessment" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="item.attemptCodeDescription"><span style="color: red;" class="glyphicon glyphicon-alert"></span></div>
                                                             </td>
                                                         </tr>
                                                         <tr>
