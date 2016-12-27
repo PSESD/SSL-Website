@@ -176,7 +176,7 @@
         vm.checkDate = checkDate;
         vm.display = display;
         vm.closeMonthDetail = closeMonthDetail;
-        
+
         function closeMonthDetail() {
             vm.show_detail = false;
             activeMonth.isActive = false;
