@@ -215,7 +215,6 @@
                 });
         }
         function expand(objMonth,month,year,name,obj,className) {
-
             if(_.get(activeMonth,'isActive',"") !== ""){
                 activeMonth.isActive = false;
                 activeMonth = objMonth;
@@ -303,6 +302,7 @@
         }
         StudentService.getAttendance(id)
             .then(function(response){
+
                 var years = _.get(response,'data.info.source.years',"");
                 _.forEach(years,function(value){
                     listOfYears.push({
@@ -335,13 +335,41 @@
                         var Friday = new Date(v.details[0].F);
                         var Saturday = new Date(v.details[0].SA);
                         detail ={
-                            Sunday:Sunday.getDate(),
-                            Monday:Monday.getDate(),
-                            Tuesday:Tuesday.getDate(),
-                            Wednesday:Wednesday.getDate(),
-                            Thursday:Thursday.getDate(),
-                            Friday:Friday.getDate(),
-                            Saturday:Saturday.getDate(),
+                            Sunday:{
+                                date:Sunday.getDate(),
+                                month:Sunday.getMonth(),
+                                years:Sunday.getFullYear(),
+                            },
+                            Monday:{
+                                date:Monday.getDate(),
+                                month:Monday.getMonth(),
+                                years:Monday.getFullYear()
+                            },
+                            Tuesday:{
+                                date:Tuesday.getDate(),
+                                month:Tuesday.getMonth(),
+                                years:Tuesday.getFullYear()
+                            },
+                            Wednesday:{
+                                date:Wednesday.getDate(),
+                                month:Wednesday.getMonth(),
+                                years:Wednesday.getFullYear()
+                            },
+                            Thursday:{
+                                date:Thursday.getDate(),
+                                month:Thursday.getMonth(),
+                                years:Thursday.getFullYear()
+                            },
+                            Friday:{
+                                date:Friday.getDate(),
+                                month:Friday.getMonth(),
+                                years:Friday.getFullYear()
+                            },
+                            Saturday:{
+                                date:Saturday.getDate(),
+                                month:Saturday.getMonth(),
+                                years:Saturday.getFullYear()
+                            },
                         }
                     }
 
@@ -381,28 +409,27 @@
                                 return e.timeTablePeriod;
                             });
                         }
-                        // _.forIn(v.listCourse,function (v) {
-                        //     if(v !== null){
-                        //         if(v.length !== 0){
-                        //             _.forEach(v,function (val) {
-                        //                 var teacherName;
-                        //                 if(val.teacherNames.length > 1){
-                        //                     teacherName = val.teacherNames[0]+','+val.teacherNames[1]
-                        //                 }else if(val.teacherNames.length === 1){
-                        //                     teacherName = val.teacherNames[0];
-                        //                 }
-                        //                 var course = {
-                        //                     title:val.courseTitle,
-                        //                     number:val.timeTablePeriod,
-                        //                     teacher:teacherName
-                        //                 }
-                        //                 listCourses.push(course);
-                        //             })
-                        //         }else{
-                        //             listCourses.push([]);
-                        //         }
-                        //     }
-                        // });
+                        var classEvents = [];
+                        _.forEach(detail,function (v,k) {
+                            while(classEvents.length > 0){
+                                classEvents.pop();
+                            }
+                           _.forEach(listOfEvents,function (val,key) {
+                               if(val.date === v.years+'-'+v.month+'-'+v.date)
+                               {
+                                   console.log(val.date === v.years+'-'+v.month+'-'+v.date);
+                                   classEvents[val.timeTablePeriod] = val;
+                               }
+                           });
+                            for(var i=0;i<vm.listClasses.length;i++){
+                                if(typeof classEvents[i]==='undefined'){
+                                    classEvents[i] = {};
+                                }
+                            }
+                            v.classEvents = classEvents;
+                            classEvents = [];
+                        });
+
                         var weekClass = tag1+"-"+tag2;
                         weekClass = weekClass.replace(" ",'-').trim();
                         listOfSelectedMonth.push({
@@ -413,11 +440,11 @@
                             weekClass:weekClass
                         });
                         vm.selectedMonth = listOfSelectedMonth;
+                        console.log(vm.selectedMonth);
                     }
                 });
             });
             vm.selectedMonth = listOfSelectedMonth;
-
             if(className !== ""){
                 var collps = setInterval(function () {
                     jQuery('.'+className).collapse('show');
@@ -695,7 +722,7 @@
 
                     list_of_student_data.push(header_detail);
                 })
-                _.reduce(listOfEvents,function (acc,val,key) {
+               _.reduce(listOfEvents,function (acc,val,key) {
                     acc[val.date]={
                         date:val.date,
                         value:val
@@ -732,7 +759,6 @@
                 _.forEach(v.data,function (data) {
                     var temp1 = data.days[0].date;
                     var temp2 = data.days[6].date;
-                   //var list = 'week_'+temp1.add(1,'d').format("DD") +'_'+ temp2.add(1,'d').format("DD"); Nov 08 2015-Nov 02 2015
                     var list = moment(temp1).add(1,'d').format('MMM-DD')+'-'+moment(temp2).add(1,'d').format('MMM-DD');
                     list = list.replace(" ","-").trim();
                    listClassName.push(list);
@@ -1176,8 +1202,6 @@
                             listOfSelectedMonth.push(list_of_item);
 
                             vm.selectedMonth = listOfSelectedMonth;
-
-
 
                         }
 
