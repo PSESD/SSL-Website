@@ -339,36 +339,43 @@
                                 date:Sunday.getDate(),
                                 month:Sunday.getMonth(),
                                 years:Sunday.getFullYear(),
+                                day:Sunday
                             },
                             Monday:{
                                 date:Monday.getDate(),
                                 month:Monday.getMonth(),
-                                years:Monday.getFullYear()
+                                years:Monday.getFullYear(),
+                                day:Monday
                             },
                             Tuesday:{
                                 date:Tuesday.getDate(),
                                 month:Tuesday.getMonth(),
-                                years:Tuesday.getFullYear()
+                                years:Tuesday.getFullYear(),
+                                day:Tuesday
                             },
                             Wednesday:{
                                 date:Wednesday.getDate(),
                                 month:Wednesday.getMonth(),
-                                years:Wednesday.getFullYear()
+                                years:Wednesday.getFullYear(),
+                                day:Wednesday
                             },
                             Thursday:{
                                 date:Thursday.getDate(),
                                 month:Thursday.getMonth(),
-                                years:Thursday.getFullYear()
+                                years:Thursday.getFullYear(),
+                                day:Thursday
                             },
                             Friday:{
                                 date:Friday.getDate(),
                                 month:Friday.getMonth(),
-                                years:Friday.getFullYear()
+                                years:Friday.getFullYear(),
+                                day:Friday
                             },
                             Saturday:{
                                 date:Saturday.getDate(),
                                 month:Saturday.getMonth(),
-                                years:Saturday.getFullYear()
+                                years:Saturday.getFullYear(),
+                                day:Saturday
                             },
                         }
                     }
@@ -410,16 +417,15 @@
                             });
                         }
                         var classEvents = [];
+
                         _.forEach(detail,function (v,k) {
-                            while(classEvents.length > 0){
-                                classEvents.pop();
-                            }
                            _.forEach(listOfEvents,function (val,key) {
-                               if(val.date === v.years+'-'+v.month+'-'+v.date)
+
+                               if(v.day,val.date,moment(v.day).isSame(moment(val.date)))
                                {
-                                   console.log(val.date === v.years+'-'+v.month+'-'+v.date);
-                                   classEvents[val.timeTablePeriod] = val;
+                                    classEvents[val.timeTablePeriod] = val;
                                }
+
                            });
                             for(var i=0;i<vm.listClasses.length;i++){
                                 if(typeof classEvents[i]==='undefined'){
@@ -440,7 +446,6 @@
                             weekClass:weekClass
                         });
                         vm.selectedMonth = listOfSelectedMonth;
-                        console.log(vm.selectedMonth);
                     }
                 });
             });
@@ -535,12 +540,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.monday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.monday[key].template = "";
@@ -563,12 +570,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.tuesday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.tuesday[key].template = "";
@@ -591,12 +600,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.wednesday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.wednesday[key].template = "";
@@ -619,12 +630,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.thursday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.thursday[key].template = "";
@@ -647,12 +660,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.friday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.friday[key].template = "";
@@ -675,12 +690,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.saturday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.saturday[key].template = "";
@@ -703,12 +720,14 @@
                                 temp_template = _.replace(temp_template,'{description}',description);
                                 detail_columns.sunday[key].template = temp_template;
                                 if(attendanceEventType !== ""){
-                                    listOfEvents.push({
-                                        date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                        event:event.attendanceEventType,
-                                        eventStatus:attendanceStatus,
-                                        timeTablePeriod:timeTablePeriod
-                                    });
+                                    if(attendanceStatus !== 'Present') {
+                                        listOfEvents.push({
+                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                            event: event.attendanceEventType,
+                                            eventStatus: attendanceStatus,
+                                            timeTablePeriod: timeTablePeriod
+                                        });
+                                    }
                                 }
                             }else{
                                 detail_columns.sunday[key].template = "";
@@ -989,11 +1008,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.monday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present'){
+                                            listOfEvents.push({
+                                                date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
+                                                event:event.attendanceEventType,
+                                                eventStatus:attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.monday[key].template = "";
@@ -1015,11 +1036,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.tuesday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present') {
+                                            listOfEvents.push({
+                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                                event: event.attendanceEventType,
+                                                eventStatus: attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.tuesday[key].template = "";
@@ -1041,11 +1064,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.wednesday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present') {
+                                            listOfEvents.push({
+                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                                event: event.attendanceEventType,
+                                                eventStatus: attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.wednesday[key].template = "";
@@ -1067,11 +1092,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.thursday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present') {
+                                            listOfEvents.push({
+                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                                event: event.attendanceEventType,
+                                                eventStatus: attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.thursday[key].template = "";
@@ -1093,11 +1120,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.friday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present') {
+                                            listOfEvents.push({
+                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                                event: event.attendanceEventType,
+                                                eventStatus: attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.friday[key].template = "";
@@ -1119,11 +1148,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.saturday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present') {
+                                            listOfEvents.push({
+                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                                event: event.attendanceEventType,
+                                                eventStatus: attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.saturday[key].template = "";
@@ -1145,11 +1176,13 @@
                                     temp_template = _.replace(temp_template,'{description}',description);
                                     detail_columns.sunday[key].template = temp_template;
                                     if(attendanceEventType !== ""){
-                                        listOfEvents.push({
-                                            date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                            event:event.attendanceEventType,
-                                            eventStatus:attendanceStatus
-                                        });
+                                        if(attendanceStatus !== 'Present') {
+                                            listOfEvents.push({
+                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
+                                                event: event.attendanceEventType,
+                                                eventStatus: attendanceStatus
+                                            });
+                                        }
                                     }
                                 }else{
                                     detail_columns.sunday[key].template = "";
