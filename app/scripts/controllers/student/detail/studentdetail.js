@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('StudentDetailCtrl', StudentDetailCtrl);
 
-    StudentDetailCtrl.$inject = ['$state','StudentService','$stateParams','$interval'];
+    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval'];
 
-    function StudentDetailCtrl($state,StudentService,$stateParams,$interval) {
+    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval) {
 
         var vm = this;
         vm.show_loading = true;
@@ -1308,6 +1308,7 @@
             }
             return days;
         }
+
         function init(){
 
             var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
@@ -1518,6 +1519,43 @@
             }
         }
         var inter = setInterval(set_inter,1000)
+
+        function buildChart(response){
+            $scope.percent = '';
+            $scope.options = {
+                animate:{
+                    duration:1000,
+                    enabled:true
+                },
+                easing: 'jswingv',
+                trackColor:'#d0d6d9',
+                barColor:'#fd963d',
+                scaleColor:false,
+                lineWidth:6,
+                trackWidth: 2,
+                lineCap:'round',
+                size: 100,
+                onStep: function(from,to,currentValue) {
+                  this.el.getElementsByTagName("span")[0].innerHTML = parseInt(currentValue, 10) + "%";
+                  //console.log(currentValue);
+                },
+                barColor: function(percent) {
+                    var ctx = this.renderer.getCtx();
+                    var canvas = this.renderer.getCanvas();
+                    var gradient = ctx.createLinearGradient(0,0,canvas.width,60);
+                    gradient.addColorStop(0, "#fa6268");
+                    gradient.addColorStop(0.5, "#fe9e37");
+                    gradient.addColorStop(1, "#fc834d");
+                    return gradient;
+                }
+            };
+        }
+
+        buildChart();
+
+
     }
+
+
 
 })(jQuery);

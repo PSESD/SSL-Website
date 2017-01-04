@@ -18,6 +18,7 @@
       'angularMoment',
       'pascalprecht.translate',
       'tmh.dynamicLocale',
+      'easypiechart',
 
     ])
     .factory('headerInjector', [function() {
@@ -113,8 +114,8 @@
     //     console.log("idle warn");
     // });
 
-      $rootScope.$on('$stateNotFound', 
-        function(event, unfoundState, fromState, fromParams){ 
+      $rootScope.$on('$stateNotFound',
+        function(event, unfoundState, fromState, fromParams){
           console.log(unfoundState);
         })
 

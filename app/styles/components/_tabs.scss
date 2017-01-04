@@ -103,10 +103,33 @@
       }
     }
     .attendance-data{
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
+      line-height: 100px;
     }
   }
+
+  .chart {
+      float: left;
+      margin: 0 10px;
+      position: relative;
+  }
+
+  .chart-percentage {
+      text-align: center;
+      line-height: 100px;
+      width: 100px;
+      font-size: 26px;
+      font-weight: 900;
+  }
+
+  .chart canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+  }
+
+
   .attendance-date{
     width: 30%;
     text-transform: uppercase;
