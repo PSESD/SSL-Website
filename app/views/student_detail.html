@@ -565,7 +565,7 @@
                                         </div>
                                         <div style="padding: 20px"  id="tabs-assessment-{{$index}}" class="panel-collapse collapse" role="tabpanel">
                                             <div class="display-flex">
-                                                <fieldset style="width: 20%;margin-right: 10%" class="flex-direction-column">
+                                                <fieldset style="width: 25%;margin-right: 5%" class="flex-direction-column">
                                                     <legend>MAP ASSESSMENTS</legend>
                                                     <table class="table-assessment" style="margin-top: 10px;margin-bottom: 40px;" ng-repeat="item in assessment.maps">
                                                         <thead>
@@ -575,34 +575,34 @@
                                                         </thead>
                                                         <tbody>
                                                         <tr>
-                                                            <td style="width: 45%">RIT Score:</td>
-                                                            <td style="width: 55%;vertical-align: bottom;padding-left:45px">
+                                                            <td style="width: 80%">RIT Score:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
                                                                 {{item.RITScore}}
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="width: 45%">Percentile Rank:</td>
-                                                            <td style="width: 55%;vertical-align: bottom;padding-left:45px">
+                                                            <td style="width: 80%">Percentile Rank:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
                                                                 {{item.PercentileRank}}
                                                             </td>
                                                         </tr>
 
                                                         <tr ng-hide="item.MetTypicalGrowth_LastFall2ThisFall === null ? true : false">
-                                                            <td style="width: 45%">Met Typical Growth Last Fall to This Fall:</td>
-                                                            <td style="width: 55%;vertical-align: bottom;padding-left:45px">
+                                                            <td style="width: 80%">Met Typical Growth Last Fall to This Fall:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
                                                                 {{item.MetTypicalGrowth_LastFall2ThisFall}}
                                                             </td>
                                                         </tr>
                                                         <tr ng-hide="item.MetTypicalGrowth_LastFall2ThisSpring === null ? true : false">
-                                                            <td style="width: 45%">Met Typical Growth Last Fall to This Spring:</td>
-                                                            <td style="width: 55%;vertical-align: bottom;padding-left:45px">
+                                                            <td style="width: 80%">Met Typical Growth Last Fall to This Spring:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
                                                                 {{item.MetTypicalGrowth_LastFall2ThisSpring}}
                                                             </td>
                                                         </tr>
 
                                                             <tr ng-hide="item.MetTypicalGrowth_LastSpring2ThisSpring === null ? true : false">
-                                                            <td style="width: 45%">Met Typical Growth Last Spring to This Spring:</td>
-                                                            <td style="width: 55%;vertical-align: bottom;padding-left:45px">
+                                                            <td style="width: 80%">Met Typical Growth Last Spring to This Spring:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
                                                                 {{item.MetTypicalGrowth_LastSpring2ThisSpring}}
                                                             </td>
                                                         </tr>
@@ -632,8 +632,8 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Met standard?</td>
-                                                            <td style="color:red" ng-if="item.MetStandard === 'N'">
-                                                                No
+                                                            <td style="color:#ce112d" ng-if="item.MetStandard === 'N'">
+                                                              <strong>No</strong>
                                                             </td>
                                                             <td ng-if="item.MetStandard === 'Y'">
                                                                 Yes
@@ -645,7 +645,7 @@
                                                                 {{item.attemptCodeDescription}}
                                                             </td>
                                                             <td ng-if="item.attemptCode !== 'TS'">
-                                                                <div class="assessment" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="item.attemptCodeDescription"><span style="color: red;" class="glyphicon glyphicon-alert"></span></div>
+                                                                <div class="assessment-status" popover-title="Status" popover-class="popover-assessment" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="item.attemptCodeDescription"><span style="color: #ce112d;" class="glyphicon glyphicon-alert"></span></div>
                                                             </td>
                                                         </tr>
                                                         <tr>

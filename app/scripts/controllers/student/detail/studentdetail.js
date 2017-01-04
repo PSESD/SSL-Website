@@ -1442,7 +1442,7 @@
                             vm.assessment.forEach(function (v,k) {
                                 v.states.forEach(function (val,k) {
                                     if(val.attemptCode !== "TS"){
-                                        val.attemptCodeDescription = "<div class='panel panel-default'><div class='panel-heading assessment'><h3 class='panel-title'>Status</h3></div><div class='panel-body'>"+val.attemptCodeDescription+"</div></div>";
+                                        val.attemptCodeDescription = val.attemptCodeDescription;
                                     }
                                 })
                             });

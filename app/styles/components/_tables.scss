@@ -95,6 +95,17 @@
   }
 }
 
+.table-assessment{
+
+  tbody{
+    td{
+      width: 50%;
+    }
+  }
+
+}
+
+
 
 /*----------  Alerts  ----------*/
 .alert-success, .alert-danger{
@@ -118,3 +129,4 @@ table.floatThead-table {
 .fsm-sticky-header{
   background: #fff;
 }
+

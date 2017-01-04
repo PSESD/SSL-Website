@@ -359,6 +359,7 @@
   .justify-content-space-between{
     justify-content: space-between;
   }
+
   //.assessment{
   //  .arrow{
   //    margin: 0!important;
@@ -792,19 +793,26 @@
 
 table{
   &.table-assessment{
+    table-layout: fixed;
+    width: 100%;
     thead{
       th{
-        border-bottom: 1px solid #adadad;
+        border-bottom: 1px solid $color-grey;
+        line-height: 1.4em;
       }
     }
     tbody{
       tr{
         td{
-          border-bottom: 1px solid #adadad;
+          border-bottom: 1px solid $color-grey;
         }
       }
     }
   }
+}
+
+.assessment-status{
+  width: 20px;
 }
 
 // .panel-heading{
