@@ -39,9 +39,11 @@
             }
 
             a{
+              color: $cyan;
+              font-weight: 700;
+              transition: color 0.15s ease;
               &:hover{
-                font-weight: 700;
-                color: $cyan;
+                color: darken($cyan, 20%);
               }
             }
         }
