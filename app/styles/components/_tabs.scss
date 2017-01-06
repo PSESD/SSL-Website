@@ -1,8 +1,8 @@
 .nav-tabs.nav-justified{
+  margin-top: 2em;
+
   li{
-
     border: 1px solid $grey-light;
-
 
     @include mq($screen-sm-min){
       border:none;
@@ -282,6 +282,10 @@
           }
         }
       }
+    }
+
+    .arrow{
+      margin: 0 25px 0 15px;
     }
   }
   .content{
@@ -789,6 +793,11 @@
   margin-left: 60px;
 }
 
+#transcript{
+  .full-width{
+    background: $white;
+  }
+}
 
 
 table{
