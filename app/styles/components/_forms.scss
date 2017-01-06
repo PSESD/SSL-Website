@@ -7,7 +7,7 @@ textarea.form-control,
 select.form-control,
 tags-input .tags {
     background: lighten($grey-light, 10%);
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1px solid $grey-light;
     box-shadow: none;
     color: $light-black;
@@ -83,7 +83,7 @@ textarea.form-control {
     color: $grey;
     padding-left: 15px;
   }
-  margin-bottom: 5px;
+  margin: 5px 0 10px;
 }
 
 
