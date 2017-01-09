@@ -52,15 +52,16 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">{{"views.college_bound"|translate}}:</label>
-                                <div class="">
-                                    <div class="radio">
-                                        <label>
-                                            <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio1" value="Yes" checked> {{"views.yes"|translate}}
-                                        </label>
-                                        <label>
-                                            <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio2" value="No"> {{"views.no"|translate}}
-                                        </label>
-                                    </div>
+                                <div class="radio">
+                                    <label>
+                                        <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio1" value="Yes" ><span class="tick"></span> {{"views.yes"|translate}}
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input ng-model="vm.student.college_bound" type="radio" name="radio" id="radio2"  value="No" checked>
+                                        <span class="tick"></span> {{"views.no"|translate}}
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +88,7 @@
                     </fieldset>
                     <fieldset>
                         <legend>
-                            <h3>Emergency Contact</h3>
+                            <h3>{{"views.emergency_contact"|translate}}</h3>
                         </legend>
                         <div class="col-sm-6">
                           <h5>{{"views.emergency_contact1"|translate}}</h5>

@@ -212,8 +212,11 @@ fieldset {
         .form-search-icon {
             position: absolute;
             right: 20px;
-            top: 2px;
+            top: 5px;
             color: $grey-light;
+            span{
+              top: 3px;
+            }
         }
     }
 }
