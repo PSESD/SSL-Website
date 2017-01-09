@@ -48,6 +48,14 @@
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
       ]
+    },
+    "jquery.easy-pie-chart":{
+      "main": [
+        "dist/angular.easypiechart.js"
+      ],
+      "dependencies": {
+        "jquery": ">=1.9.0"
+      }
     }
   }
 }
