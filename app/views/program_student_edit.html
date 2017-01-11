@@ -3,7 +3,7 @@
 
        <header class="header-background clearfix inverse">
           <div class="container">
-            <h1 class="page-title">{{"views.edit"|translate}} {{vm.program.name}} {{"views.student"|translate}} {{vm.student.name}} </h1>
+            <h1 class="page-title">{{"views.edit"|translate}} <span class="divider-vertical"></span> {{vm.program.name}}</h1>
           </div>
         </header>
 
@@ -23,15 +23,16 @@
                       <label  class="control-label">{{"views.student"|translate}}:</label>
                       <span>{{vm.student.name}}</span>
                   </div>
-                  <!-- <div class="form-group">
+                  <div class="form-group">
+                      <label  class="control-label">{{"views.programs.stataus.label"|translate}}</label>
                       <div class="checkbox">
                           <label for="active">
                               <input type="checkbox" ng-model="vm.student.active" id="active">
                               <span class="tick"><i class="glyphicon glyphicon-ok"></i></span>
-                              Status
+                              {{"views.status"|translate}}
                           </label>
                       </div>
-                  </div> -->
+                  </div>
                   <div class="form-group">
                       <label class="control-label">{{"views.participant_start_date"|translate}}:</label>
                       <div class="">

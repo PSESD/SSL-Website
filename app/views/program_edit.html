@@ -1,53 +1,46 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
-
         <header class="header-background clearfix inverse">
-          <div class="container">
-              <h1 class="page-title">{{"views.programs.program_details" | translate}}:{{vm.program.name}}</h1>
-          </div>
+            <div class="container">
+                <h1 class="page-title">{{"views.programs.program_details" | translate}}<span class="divider-vertical"></span>{{vm.program.name}}</h1>
+            </div>
         </header>
-
-         <section class="main-content container">
-
-          <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
-              <div class="row">
-                  <div class="alert alert-info text-left message" ng-show=vm.message>
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
-                  </div>
-              </div>
-          </div>
-
-          <div class="col-xs-12">
-              <form class="form-horizontal">
-
-                  <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">{{"views.name"}}:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <input type="text" class="form-control" id="email" ng-model="vm.program.name">
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">{{ "views.created" | translate }}:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <input type="text" class="form-control" id="created" ng-model="vm.program.created" readonly>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">{{"views.last_updated"|translate}}:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <input type="text" class="form-control" id="last_updated" ng-model="vm.program.last_updated" readonly>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.program)">{{"views.save" | translate}}</button>
-                          <button ui-sref="dashboard.program">{{"views.back" | translate}}</button>
-                      </div>
-                  </div>
-
-              </form>
-          </div>
-      </section>
-
+        <section class="main-content container">
+            <div class="">
+                <div class="row">
+                    <div class="alert alert-info text-left message" ng-show=vm.message>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="email" class="control-label">{{"views.name" | translate}}:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="email" ng-model="vm.program.name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label">{{ "views.created" | translate }}:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="created" ng-model="vm.program.created" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label">{{"views.last_updated"|translate}}:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="last_updated" ng-model="vm.program.last_updated" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            <button ng-click="vm.submit(vm.program)">{{"views.save" | translate}}</button>
+                            <button ui-sref="dashboard.program">{{"views.back" | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
     </div>
 </div>

@@ -121,6 +121,10 @@ textarea.form-control {
     }
 }
 
+.radio,.checkbox{
+  margin-left: 16px;
+}
+
 .radio,.radio-inline {
 
     input:checked + .tick {
@@ -155,6 +159,10 @@ textarea.form-control {
       padding-left: 20px;
       font-weight: 700;
   }
+  .radio,.checkbox{
+    margin-left: 0;
+  }
+
 }
 
 
