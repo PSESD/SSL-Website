@@ -24,7 +24,7 @@
     .factory('headerInjector', [function() {
       var headerInjector = {
         request: function(config) {
-          config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
+          config.headers['X-Cbo-Client-Url'] = 'http://demo.ssl.s360.is';
           return config;
         }
       };
@@ -54,7 +54,7 @@
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
-    $httpProvider.interceptors.push('headerInjector');
+    //$httpProvider.interceptors.push('headerInjector');
     $httpProvider.defaults.timeout = 15000;
     gravatarServiceProvider.defaults = {
       size     : 50,

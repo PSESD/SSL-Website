@@ -1310,7 +1310,10 @@
         }
 
         function init(){
-
+            StudentService.getAttendance2(id)
+                .then(function (res) {
+                   console.log(res);
+                });
             var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
             var current_index = _.findIndex(student_profile,{'id':id});
             vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
@@ -1529,7 +1532,7 @@
                 },
                 easing: 'jswingv',
                 trackColor:'#d0d6d9',
-                barColor:'#fd963d',
+                //barColor:'#fd963d',
                 scaleColor:false,
                 lineWidth:6,
                 trackWidth: 2,
