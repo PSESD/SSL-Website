@@ -4,13 +4,285 @@
     angular.module('sslv2App')
         .controller('StudentDetailCtrl', StudentDetailCtrl);
 
-    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval'];
+    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval','$timeout'];
 
-    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval) {
+    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval,$timeout) {
+
+
+        var mockup = {
+            list_years:[
+                {
+                    label:'2015-2016',
+                    value:'2015-2016'
+                },
+                {
+                    label:'2014-2015',
+                    value:'2014-2015'
+                },
+                {
+                    label:'2013-2014',
+                    value:'2013-2014'
+                }
+            ],
+            calendars:[{
+                years:'2015-2016',
+                list_months:[
+                        {
+                            year:'2015',
+                            month:'09',
+                            day:'01'
+                        },
+                        {
+                            year:'2015',
+                            month:'10',
+                            day:'01'
+                        },
+                        {
+                            year:'2015',
+                            month:'11',
+                            day:'01'
+                        },
+                        {
+                            year:'2016',
+                            month:'01',
+                            day:'01'
+                        },
+                    ],
+                    list_events:[{
+                        date:'2015-11-30',
+                        event:'Tardy'
+                    },{
+                        date:'2015-10-01',
+                        event:'Tardy'
+                    }]
+            },{
+                    years:'2014-2015',
+                    list_months:[
+                        {
+                            year:'2014',
+                            month:'09',
+                            day:'01'
+                        },
+                        {
+                            year:'2014',
+                            month:'10',
+                            day:'01'
+                        },
+                        {
+                            year:'2014',
+                            month:'11',
+                            day:'01'
+                        },
+                        {
+                            year:'2015',
+                            month:'06',
+                            day:'01'
+                        },
+                        {
+                            year:'2015',
+                            month:'07',
+                            day:'01'
+                        },
+                        {
+                            year:'2015',
+                            month:'08',
+                            day:'01'
+                        },
+                    ],
+                    list_events:[{
+                        date:'2014-10-30',
+                        event:'Tardy'
+                    },{
+                        date:'2015-07-01',
+                        event:'Tardy'
+                    }]
+                }],
+            list_weeks:[{
+                month:'2014-10',
+                total_tardy:1,
+                total_missed_class:5,
+                total_missed_day:3,
+                total_behavior_incidents:1,
+                detail:[{
+                    week_name:'Oct 20 2014 - Oct 26 2014',
+                    events:['tardy','missed-day'],
+                    courses:[{
+                        course_title:'Business Law 1',
+                        teacher_name:'Barbara,Lynch',
+                        table_period:1
+                    },{
+                        course_title:'Business Law 2',
+                        teacher_name:'Barbara,Lynch',
+                        table_period:2
+                    },{
+                        course_title:'Business Law 3',
+                        teacher_name:'Barbara,Lynch',
+                        table_period:3
+                    }],
+                    days:{
+                        monday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:20,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }],
+                        tuesday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:21,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }],
+                        wednesday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:22,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }],
+                        thursday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:23,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }],
+                        friday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:24,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }],
+                        saturday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:25,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }],
+                        sunday:[{
+                            missed_day:true,
+                            incidents:{
+                                status:true,
+                                details:{
+                                    title:'Title incidents',
+                                    description:'Description'
+                                }
+                            },
+                            date:26,
+                            events:[{
+                                title:'Lorem 1',
+                                type:'tardy',
+                                status:'unexcused',
+                                description:''
+                            },{
+                                title:'Lorem 2',
+                                type:'missed-class',
+                                status:'Excused',
+                                description:''
+                            }]
+                        }]
+                    }
+                }]
+            }]
+        };
 
         var vm = this;
         vm.show_loading = true;
         var selectedObj;
+        vm.data = "";
         var listSelectedObj = [];
         var enrollment = "";
         vm.attandance_show = false;
@@ -202,7 +474,7 @@
                             StudentService.getAttendanceByYear(id,year)
                                 .then(function(response){
                                     var data = _.get(response,'data.info.data',[]);
-                                    loadAttendance(data);
+                                    //loadAttendance(data);
                                     vm.show_update = true;
                                 },function(error){
                                 })
@@ -214,84 +486,90 @@
 
                 });
         }
-        function expand(objMonth,month,year,name,obj,className) {
-            if(_.get(activeMonth,'isActive',"") !== ""){
-                activeMonth.isActive = false;
-                activeMonth = objMonth;
-                activeMonth.isActive = true;
-            }else{
-                activeMonth = objMonth;
-                activeMonth.isActive = true;
-            }
-            if(listSelectedObj.length > 0)
-            {
-                _.forEach(listSelectedObj,function (v) {
-                    v.show = true;
-                })
-            }
-            listSelectedObj.push(obj);
-            //obj.show = !obj.show;
-            vm.month_name = name;
-            isFirstTime = false;
-            selectedMonth = year+"-"+month;
-            while(vm.selectedMonth.length>0){
-                vm.selectedMonth.pop();
-            }
+        function expand(filter) {
 
-            loadDetailMonth(data,month,name,className);
-            if(vm.selectedMonth.length>0){
-                vm.show_detail = true;
-            }else{
-                vm.show_detail = false;
-            }
+            var selected_month = _.filter(mockup.list_weeks,function (v) {
+                return v.month === filter;
+            });
+            vm.selectedMonth = selected_month;
+            console.log(vm.selectedMonth);
+            // if(_.get(activeMonth,'isActive',"") !== ""){
+            //     activeMonth.isActive = false;
+            //     activeMonth = objMonth;
+            //     activeMonth.isActive = true;
+            // }else{
+            //     activeMonth = objMonth;
+            //     activeMonth.isActive = true;
+            // }
+            // if(listSelectedObj.length > 0)
+            // {
+            //     _.forEach(listSelectedObj,function (v) {
+            //         v.show = true;
+            //     })
+            // }
+            // listSelectedObj.push(obj);
+            // //obj.show = !obj.show;
+            // vm.month_name = name;
+            // isFirstTime = false;
+            // selectedMonth = year+"-"+month;
+            // while(vm.selectedMonth.length>0){
+            //     vm.selectedMonth.pop();
+            // }
+            //
+            // loadDetailMonth(data,month,name,className);
+            // if(vm.selectedMonth.length>0){
+            //     vm.show_detail = true;
+            // }else{
+            //     vm.show_detail = false;
+            // }
+        }
+        function renderCalendar(data){
+            _.forEach(data,function(month){
+                _.forEach(month.list_months,function(v){
+                    var clonedMoment = momentjs.clone();
+                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
+                    var month = moment.clone();
+
+                    var start = moment.clone();
+
+                    start.date(1);
+
+                    _removeTime(start.day(0));
+                    if(isFirstTime === true){
+                        vm.listOfCalendar.push(
+                            {
+                                'data':_buildMonth(start,month),
+                                'name':moment,
+                                'show':true,
+                                'listClassName':'',
+                                'isActive':false
+                            });
+                    }
+                });
+                $timeout(function(){
+                    _.forEach(month.list_events,function(v){
+                        object = jQuery('.missed-late-class-container .late-class').html();
+                        if(object != undefined){
+                            if(v.event === 'Tardy'){
+                                jQuery("#"+v.date+" .late-class").removeClass('hide');
+                            }
+                        }
+                    });
+                },1000);
+            });
+
         }
         function changeYear(){
 
-            vm.show_detail = false;
-            isFirstTime = true;
-            while(vm.selectedMonth.length > 0)
-            {
-                vm.selectedMonth.pop();
-            }
-            vm.list_of_details = [];
-            while(vm.listOfCalendar.length > 0){
+
+            var current_months = _.filter(mockup.calendars,function (v) {
+                return v.years === vm.selected_years;
+            });
+            while(vm.listOfCalendar.length>0){
                 vm.listOfCalendar.pop();
             }
-            while (listOfDateTime.length > 0){
-                listOfDateTime.pop();
-            }
-            vm.attandance_show = true;
-            if(vm.student.selected_years === null){
-                StudentService.getAttendance(id)
-                    .then(function(response){
-                        console.log(response);
-                        var years = _.get(response,'data.info.source.years',"");
-                        _.forEach(years,function(value){
-                            listOfYears.push({
-                                id:_.replace(value,'/','-'),
-                                name:_.replace(value,'/','-')
-                            })
-                        });
-                        vm.listOfYears = listOfYears;
-                        data = _.get(response,'data.info.data',[]);
-                        generateMonth(data);
-                        vm.attandance_show = false;
-                        setInterval(set_inter,1000)
 
-                    },function(error){
-
-                    });
-            }else{
-                StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
-                    .then(function(response){
-
-                        data  = _.get(response,'data.info.data',[]);
-                        generateMonth(data);
-                        vm.attandance_show = false;
-                        setInterval(set_inter,1000)
-                    },function(error){
-                    })
-            }
+            renderCalendar(current_months);
 
         }
 
@@ -300,166 +578,167 @@
         }else if($stateParams.debug === undefined){
             vm.show_xsre = false;
         }
-        StudentService.getAttendance(id)
-            .then(function(response){
-
-                var years = _.get(response,'data.info.source.years',"");
-                _.forEach(years,function(value){
-                    listOfYears.push({
-                        id:_.replace(value,'/','-'),
-                        name:_.replace(value,'/','-')
-                    })
-                });
-                vm.listOfYears = listOfYears;
-                data = _.get(response,'data.info.data',[]);
-                generateMonth(data);
-            },function(error){
-
-            });
+        // StudentService.getAttendance(id)
+        //     .then(function(response){
+        //
+        //         var years = _.get(response,'data.info.source.years',"");
+        //         _.forEach(years,function(value){
+        //             listOfYears.push({
+        //                 id:_.replace(value,'/','-'),
+        //                 name:_.replace(value,'/','-')
+        //             })
+        //         });
+        //         vm.listOfYears = listOfYears;
+        //         data = _.get(response,'data.info.data',[]);
+        //         generateMonth(data);
+        //     },function(error){
+        //
+        //     });
 
         init();
         loadGeneral(id);
         function loadDetailMonth(data,month,name,className) {
-            var detail;
-            _.forEach(data,function (value) {
-                _.forEach(value,function (v,k) {
-                    var tempDate = v.weekDate.split('-');
-                    var tempDate1 = new Date(tempDate[0].trim());
-                    var tempDate2 = new Date(tempDate[1].trim());
-                    if(month == parseInt(tempDate1.getMonth()+1) && month == parseInt(tempDate2.getMonth()+1)){
-                        var Sunday = new Date(v.details[0].S);
-                        var Monday = new Date(v.details[0].M);
-                        var Tuesday = new Date(v.details[0].T);
-                        var Wednesday = new Date(v.details[0].W);
-                        var Thursday = new Date(v.details[0].TH);
-                        var Friday = new Date(v.details[0].F);
-                        var Saturday = new Date(v.details[0].SA);
-                        detail ={
-                            Sunday:{
-                                date:Sunday.getDate(),
-                                month:Sunday.getMonth(),
-                                years:Sunday.getFullYear(),
-                                day:Sunday
-                            },
-                            Monday:{
-                                date:Monday.getDate(),
-                                month:Monday.getMonth(),
-                                years:Monday.getFullYear(),
-                                day:Monday
-                            },
-                            Tuesday:{
-                                date:Tuesday.getDate(),
-                                month:Tuesday.getMonth(),
-                                years:Tuesday.getFullYear(),
-                                day:Tuesday
-                            },
-                            Wednesday:{
-                                date:Wednesday.getDate(),
-                                month:Wednesday.getMonth(),
-                                years:Wednesday.getFullYear(),
-                                day:Wednesday
-                            },
-                            Thursday:{
-                                date:Thursday.getDate(),
-                                month:Thursday.getMonth(),
-                                years:Thursday.getFullYear(),
-                                day:Thursday
-                            },
-                            Friday:{
-                                date:Friday.getDate(),
-                                month:Friday.getMonth(),
-                                years:Friday.getFullYear(),
-                                day:Friday
-                            },
-                            Saturday:{
-                                date:Saturday.getDate(),
-                                month:Saturday.getMonth(),
-                                years:Saturday.getFullYear(),
-                                day:Saturday
-                            },
-                        }
-                    }
 
-                    var date = v.weekDate.split('-');
-                    var date1;
-                    var date2;
-                    date1 = new Date(date[0].trim());
-                    date2 = new Date(date[1].trim());
-                    if(/*parseInt(month) == date1.getMonth()+1 && parseInt(month) == date2.getMonth() + 1 ||*/ parseInt(month - 1) == date2.getMonth()){
-                        var listCourses = [];
-                        var temp = k.split('-');
-                        var from = temp[0].trim().split('/');
-                        var to = temp[1].trim().split('/');
-                        var tag1;
-                        var tag2;
-                        from = moment(temp[0]).format('MMM DD YYYY');
-                        to = moment(temp[1]).format('MMM DD YYYY');
-                        tag1 = moment(temp[0]).format('MMM-DD');
-                        tag2 = moment(temp[1]).format('MMM-DD');
-                        if('listCourse' in v){
-                            while(vm.listClasses.length > 0){
-                                vm.listClasses.pop();
-                            }
-                            v.listCourse.forEach(function (val) {
-                                val.courses.forEach(function (v) {
-                                    vm.listClasses.push({
-                                        courseTitle:v.courseTitle,
-                                        timeTablePeriod:v.timeTablePeriod,
-                                        teacherNames:v.teacherNames[1]+','+v.teacherNames[0]
-                                    });
-                                });
-                            });
-                            var classes = _.sortBy(vm.listClasses,[function (o) {
-                                return o.timeTablePeriod
-                            }]);
-                            vm.listClasses = _.uniqBy(classes,function (e) {
-                                return e.timeTablePeriod;
-                            });
-                        }
-                        var classEvents = [];
-
-                        _.forEach(detail,function (v,k) {
-                           _.forEach(listOfEvents,function (val,key) {
-
-                               if(v.day,val.date,moment(v.day).isSame(moment(val.date)))
-                               {
-                                    classEvents[val.timeTablePeriod] = val;
-                               }
-
-                           });
-                            for(var i=0;i<vm.listClasses.length;i++){
-                                if(typeof classEvents[i]==='undefined'){
-                                    classEvents[i] = {};
-                                }
-                            }
-                            v.classEvents = classEvents;
-                            classEvents = [];
-                        });
-
-                        var weekClass = tag1+"-"+tag2;
-                        weekClass = weekClass.replace(" ",'-').trim();
-                        listOfSelectedMonth.push({
-                            weekName:from+" - "+to,
-                            showMonth:true,
-                            dates:detail,
-                            courses:listCourses,
-                            weekClass:weekClass
-                        });
-                        vm.selectedMonth = listOfSelectedMonth;
-                    }
-                });
-            });
-            vm.selectedMonth = listOfSelectedMonth;
-            if(className !== ""){
-                var collps = setInterval(function () {
-                    jQuery('.'+className).collapse('show');
-                    clearInterval(collps);
-                },100);
-            }
+            //var detail;
+            // _.forEach(data,function (value) {
+            //     _.forEach(value,function (v,k) {
+            //         var tempDate = v.weekDate.split('-');
+            //         var tempDate1 = new Date(tempDate[0].trim());
+            //         var tempDate2 = new Date(tempDate[1].trim());
+            //         if(month == parseInt(tempDate1.getMonth()+1) && month == parseInt(tempDate2.getMonth()+1)){
+            //             var Sunday = new Date(v.details[0].S);
+            //             var Monday = new Date(v.details[0].M);
+            //             var Tuesday = new Date(v.details[0].T);
+            //             var Wednesday = new Date(v.details[0].W);
+            //             var Thursday = new Date(v.details[0].TH);
+            //             var Friday = new Date(v.details[0].F);
+            //             var Saturday = new Date(v.details[0].SA);
+            //             detail ={
+            //                 Sunday:{
+            //                     date:Sunday.getDate(),
+            //                     month:Sunday.getMonth(),
+            //                     years:Sunday.getFullYear(),
+            //                     day:Sunday
+            //                 },
+            //                 Monday:{
+            //                     date:Monday.getDate(),
+            //                     month:Monday.getMonth(),
+            //                     years:Monday.getFullYear(),
+            //                     day:Monday
+            //                 },
+            //                 Tuesday:{
+            //                     date:Tuesday.getDate(),
+            //                     month:Tuesday.getMonth(),
+            //                     years:Tuesday.getFullYear(),
+            //                     day:Tuesday
+            //                 },
+            //                 Wednesday:{
+            //                     date:Wednesday.getDate(),
+            //                     month:Wednesday.getMonth(),
+            //                     years:Wednesday.getFullYear(),
+            //                     day:Wednesday
+            //                 },
+            //                 Thursday:{
+            //                     date:Thursday.getDate(),
+            //                     month:Thursday.getMonth(),
+            //                     years:Thursday.getFullYear(),
+            //                     day:Thursday
+            //                 },
+            //                 Friday:{
+            //                     date:Friday.getDate(),
+            //                     month:Friday.getMonth(),
+            //                     years:Friday.getFullYear(),
+            //                     day:Friday
+            //                 },
+            //                 Saturday:{
+            //                     date:Saturday.getDate(),
+            //                     month:Saturday.getMonth(),
+            //                     years:Saturday.getFullYear(),
+            //                     day:Saturday
+            //                 },
+            //             }
+            //         }
+            //
+            //         var date = v.weekDate.split('-');
+            //         var date1;
+            //         var date2;
+            //         date1 = new Date(date[0].trim());
+            //         date2 = new Date(date[1].trim());
+            //         if(/*parseInt(month) == date1.getMonth()+1 && parseInt(month) == date2.getMonth() + 1 ||*/ parseInt(month - 1) == date2.getMonth()){
+            //             var listCourses = [];
+            //             var temp = k.split('-');
+            //             var from = temp[0].trim().split('/');
+            //             var to = temp[1].trim().split('/');
+            //             var tag1;
+            //             var tag2;
+            //             from = moment(temp[0]).format('MMM DD YYYY');
+            //             to = moment(temp[1]).format('MMM DD YYYY');
+            //             tag1 = moment(temp[0]).format('MMM-DD');
+            //             tag2 = moment(temp[1]).format('MMM-DD');
+            //             if('listCourse' in v){
+            //                 while(vm.listClasses.length > 0){
+            //                     vm.listClasses.pop();
+            //                 }
+            //                 v.listCourse.forEach(function (val) {
+            //                     val.courses.forEach(function (v) {
+            //                         vm.listClasses.push({
+            //                             courseTitle:v.courseTitle,
+            //                             timeTablePeriod:v.timeTablePeriod,
+            //                             teacherNames:v.teacherNames[1]+','+v.teacherNames[0]
+            //                         });
+            //                     });
+            //                 });
+            //                 var classes = _.sortBy(vm.listClasses,[function (o) {
+            //                     return o.timeTablePeriod
+            //                 }]);
+            //                 vm.listClasses = _.uniqBy(classes,function (e) {
+            //                     return e.timeTablePeriod;
+            //                 });
+            //             }
+            //             var classEvents = [];
+            //
+            //             _.forEach(detail,function (v,k) {
+            //                _.forEach(listOfEvents,function (val,key) {
+            //
+            //                    if(v.day,val.date,moment(v.day).isSame(moment(val.date)))
+            //                    {
+            //                         classEvents[val.timeTablePeriod] = val;
+            //                    }
+            //
+            //                });
+            //                 for(var i=0;i<vm.listClasses.length;i++){
+            //                     if(typeof classEvents[i]==='undefined'){
+            //                         classEvents[i] = {};
+            //                     }
+            //                 }
+            //                 v.classEvents = classEvents;
+            //                 classEvents = [];
+            //             });
+            //
+            //             var weekClass = tag1+"-"+tag2;
+            //             weekClass = weekClass.replace(" ",'-').trim();
+            //             listOfSelectedMonth.push({
+            //                 weekName:from+" - "+to,
+            //                 showMonth:true,
+            //                 dates:detail,
+            //                 courses:listCourses,
+            //                 weekClass:weekClass
+            //             });
+            //             vm.selectedMonth = listOfSelectedMonth;
+            //         }
+            //     });
+            // });
+            // vm.selectedMonth = listOfSelectedMonth;
+            // if(className !== ""){
+            //     var collps = setInterval(function () {
+            //         jQuery('.'+className).collapse('show');
+            //         clearInterval(collps);
+            //     },100);
+            // }
 
 
         }
-
+        /*
         function generateMonth(data){
             var listMonths = [];
             _.forEach(data,function (v,k) {
@@ -786,6 +1065,7 @@
             });
             vm.show_attendance = true;
         }
+        */
         function loadGeneral(id){
             StudentService.getStudentById(id)
                 .then(function(response){
@@ -908,11 +1188,18 @@
                             }
                             vm.student = student;
                             vm.show_general = true;
+                    }else{
+                        vm.show_loading = false;
+                        vm.message = response.data.error;
+                        $timeout(function() {
+                            vm.message = false;
+                        }, 3000);
                     }
                 },function (error) {
 
                 });
         }
+        /*
         function loadAttendance(data){
 
             var legend = [];
@@ -1272,6 +1559,7 @@
             });
 
         }
+        */
         function _removeTime(date) {
             return date.day(0).hour(0).minute(0).second(0).millisecond(0);
         }
@@ -1296,6 +1584,7 @@
                 days.push({
                     name: date.format("dd").substring(0, 1),
                     number: date.date(),
+                    day:date.date().toString().length === 1 ?'0'+date.date().toString():date.date().toString(),
                     isCurrentMonth: date.month() === month.month(),
                     isToday: date.isSame(new Date(), "day"),
                     date: date,
@@ -1308,12 +1597,8 @@
             }
             return days;
         }
-
         function init(){
-            StudentService.getAttendance2(id)
-                .then(function (res) {
-                   console.log(res);
-                });
+
             var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
             var current_index = _.findIndex(student_profile,{'id':id});
             vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
@@ -1473,8 +1758,16 @@
                 },function(error){
 
                 });
-        }
 
+            var current_months = _.filter(mockup.calendars,function (v) {
+                return v.years === mockup.list_years[0].value;
+            });
+            renderCalendar(current_months);
+
+            vm.listOfYears = mockup.list_years;
+            vm.selected_years = vm.listOfYears[0].value;
+
+        }
         function changeStatus(student){
             student.status = !student.status;
         }
@@ -1495,7 +1788,6 @@
             }
             return false;
         }
-
         var object = null;
         function set_inter() {
             object = jQuery('.missed-late-class-container .late-class').html();
@@ -1522,7 +1814,6 @@
             }
         }
         var inter = setInterval(set_inter,1000)
-
         function buildChart(response){
             $scope.percent = '';
             $scope.options = {
@@ -1540,7 +1831,6 @@
                 size: 100,
                 onStep: function(from,to,currentValue) {
                   this.el.getElementsByTagName("span")[0].innerHTML = parseInt(currentValue, 10) + "%";
-                  //console.log(currentValue);
                 },
                 barColor: function(percent) {
                     var ctx = this.renderer.getCtx();
@@ -1553,10 +1843,7 @@
                 }
             };
         }
-
         buildChart();
-
-
     }
 
 
