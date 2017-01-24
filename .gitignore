@@ -5,4 +5,4 @@
 /bower_components
 /.history
 .idea
-env.js
+/env.js

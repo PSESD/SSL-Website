@@ -274,7 +274,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading collapsed header{{$index}}" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                             <div class="flex-grow-1 attendance-date">{{student.week_name}}</div>
-                                            <div class="attendance-weekly-change flex-grow-1 text-center display-flex"><div>&nbsp;</div><div ng-class="student.events.late_to_class ? 'circle late-class' : ''"></div><div ng-class="student.detail[$index].events.missed_class ? 'circle missed-class' : ''"></div><div ng-class="student.detail[$index].events.missed_day ? 'circle missed-day' : ''"></div><div ng-class="student.detail[$index].events.missed_day ? 'circle incident' : ''"></div><div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
+                                            <div class="attendance-weekly-change flex-grow-1 text-center display-flex"><div>&nbsp;</div><div ng-class="student.events.late_to_class ? 'circle late-class' : ''"></div><div ng-class="student.events.missed_class ? 'circle missed-class' : ''"></div><div ng-class="student.events.missed_day ? 'circle missed-day' : ''"></div><div ng-class="student.events.incident ? 'circle incident' : ''"></div><div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
                                         </div>
                                         <div id="tabs-{{$index}}" class="{{student.weekClass}} panel-collapse collapse" role="tabpanel">
                                             <div class="panel-body display-flex no-padding">
@@ -291,32 +291,32 @@
                                                 <div class="display-flex flex-grow-2 text-center attendance-days content">
 
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.monday.incident_status ? 'behavior-incident':''" class="detail-item header">mon {{student.days.monday.date}}</div>
-                                                        <div ng-repeat="event in student.days.monday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[0].incident_status ? 'behavior-incident':''" class="detail-item header">mon {{student.days[0].date}}</div>
+                                                        <div ng-repeat="event in student.days[0].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.tuesday.incident_status ? 'behavior-incident':''" class="detail-item header">tue {{student.days.tuesday.date}}</div>
-                                                        <div ng-repeat="event in student.days.tuesday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[1].incident_status ? 'behavior-incident':''" class="detail-item header">tue {{student.days[1].date}}</div>
+                                                        <div ng-repeat="event in student.days[1].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.wednesday.incident_status ? 'behavior-incident':''" class="detail-item header">wed {{student.days.wednesday.date}}</div>
-                                                        <div ng-repeat="event in student.days.wednesday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[2].incident_status ? 'behavior-incident':''" class="detail-item header">wed {{student.days[2].date}}</div>
+                                                        <div ng-repeat="event in student.days[2].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.thursday.incident_status ? 'behavior-incident':''" class="detail-item header">thu {{student.days.thursday.date}}</div>
-                                                        <div ng-repeat="event in student.days.thursday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[3].incident_status ? 'behavior-incident':''" class="detail-item header">thu {{student.days[3].date}}</div>
+                                                        <div ng-repeat="event in student.days[3].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.friday.incident_status ? 'behavior-incident':''" class="detail-item header">fri {{student.days.friday.date}}</div>
-                                                        <div ng-repeat="event in student.days.friday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[4].incident_status ? 'behavior-incident':''" class="detail-item header">fri {{student.days[4].date}}</div>
+                                                        <div ng-repeat="event in student.days[4].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.saturday.incident_status ? 'behavior-incident':''" class="detail-item header">sat {{student.days.saturday.date}}</div>
-                                                        <div ng-repeat="event in student.days.saturday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[5].incident_status ? 'behavior-incident':''" class="detail-item header">sat {{student.days[5].date}}</div>
+                                                        <div ng-repeat="event in student.days[5].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days.sunday.incident_status ? 'behavior-incident':''" class="detail-item header">sun {{student.days.sunday.date}}</div>
-                                                        <div ng-repeat="event in student.days.sunday.events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value late-class':event.type === 'missed_day'?'detail-item value missed-class':'detail-item value'"></div>
+                                                        <div ng-class="student.days[6].incident_status ? 'behavior-incident':''" class="detail-item header">sun {{student.days[6].date}}</div>
+                                                        <div ng-repeat="event in student.days[6].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
                                                     </div>
                                                 </div>
                                                 <div class="display-flex flex-grow-1 attendance-weekly-change">
@@ -325,7 +325,7 @@
                                                         <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;">
                                                             <div class="legend">
                                                                 {{"views.late_to_class"|translate}}
-                                                                <span class="pull-right bg-orange legend-item">{{student.total_tardy}}</span>
+                                                                <span class="pull-right bg-orange legend-item">{{student.total_late_to_class}}</span>
                                                             </div>
                                                             <div class="legend">
                                                                 {{"views.missed_class"|translate}}
@@ -337,7 +337,7 @@
                                                             </div>
                                                             <div class="legend">
                                                                 {{"views.behavior_incidents"|translate}}
-                                                                <span class="pull-right bg-black legend-item">{{student.total_behavior_incidents}}</span>
+                                                                <span class="pull-right bg-black legend-item">{{student.total_behaviour_incidents }}</span>
                                                             </div>
                                                             <div class="legend legend-excused">
                                                                 {{"views.excused"|translate}}

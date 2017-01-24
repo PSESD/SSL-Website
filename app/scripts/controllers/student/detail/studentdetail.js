@@ -8,484 +8,9 @@
 
     function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval,$timeout) {
 
-
-        var mockup = {
-            list_years:[
-                {
-                    label:'2015-2016',
-                    value:'2015-2016'
-                },
-                {
-                    label:'2014-2015',
-                    value:'2014-2015'
-                },
-                {
-                    label:'2013-2014',
-                    value:'2013-2014'
-                }
-            ],
-            calendars:[{
-                years:'2015-2016',
-                list_months:[
-                        {
-                            year:'2015',
-                            month:'09',
-                            day:'01'
-                        },
-                        {
-                            year:'2015',
-                            month:'10',
-                            day:'01'
-                        },
-                        {
-                            year:'2015',
-                            month:'11',
-                            day:'01'
-                        },
-                        {
-                            year:'2016',
-                            month:'01',
-                            day:'01'
-                        },
-                    ],
-                    list_events:[{
-                        date:'2015-11-30',
-                        event:'Tardy'
-                    },{
-                        date:'2015-10-01',
-                        event:'Tardy'
-                    }]
-            },{
-                    years:'2014-2015',
-                    list_months:[
-                        {
-                            year:'2014',
-                            month:'09',
-                            day:'01'
-                        },
-                        {
-                            year:'2014',
-                            month:'10',
-                            day:'01'
-                        },
-                        {
-                            year:'2014',
-                            month:'11',
-                            day:'01'
-                        },
-                        {
-                            year:'2015',
-                            month:'06',
-                            day:'01'
-                        },
-                        {
-                            year:'2015',
-                            month:'07',
-                            day:'01'
-                        },
-                        {
-                            year:'2015',
-                            month:'08',
-                            day:'01'
-                        },
-                    ],
-                    list_events:[{
-                        date:'2014-10-30',
-                        event:'Tardy'
-                    },{
-                        date:'2015-07-01',
-                        event:'Tardy'
-                    }]
-                }],
-            list_weeks:[{
-                name:'October 2014',
-                month:'2014-10',
-                detail:[{
-                    week_name:'Oct 20 2014 - Oct 26 2014',
-                    total_tardy:1,
-                    total_missed_class:5,
-                    total_missed_day:3,
-                    total_behavior_incidents:1,
-                    events:{
-                        late_to_class:true,
-                        missed_class:true,
-                        missed_day:true,
-                        incident:true
-                    },
-                    courses:[{
-                        course_title:'Business Law 1',
-                        teacher_name:'Barbara,Lynch',
-                        table_period:1
-                    },{
-                        course_title:'Business Law 2',
-                        teacher_name:'Barbara,Lynch',
-                        table_period:2
-                    },{
-                        course_title:'Business Law 3',
-                        teacher_name:'Barbara,Lynch',
-                        table_period:3
-                    }],
-                    days:{
-                        monday:{
-                            date:20,
-                            missed_day:true,
-                            incident_status:true,
-                            incident_detail:{
-                                title:'Title incidents',
-                                description:'Description'
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'late_to_class',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed_class',
-                                status:'Excused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed_day',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        tuesday:{
-                            date:21,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        wednesday:{
-                            date:22,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        thursday:{
-                            date:23,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        friday:{
-                            date:24,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        saturday:{
-                            date:25,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        sunday:{
-                            date:26,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        }
-                    }
-                },{
-                    week_name:'Oct 20 2014 - Oct 26 2014',
-                    total_tardy:1,
-                    total_missed_class:5,
-                    total_missed_day:3,
-                    total_behavior_incidents:1,
-                    events:{
-                        late_to_class:true,
-                        missed_class:true,
-                        missed_day:true,
-                        incident:true
-                    },
-                    courses:[{
-                        course_title:'Business Law 1',
-                        teacher_name:'Barbara,Lynch',
-                        table_period:1
-                    },{
-                        course_title:'Business Law 2',
-                        teacher_name:'Barbara,Lynch',
-                        table_period:2
-                    },{
-                        course_title:'Business Law 3',
-                        teacher_name:'Barbara,Lynch',
-                        table_period:3
-                    }],
-                    days:{
-                        monday:{
-                            date:20,
-                            missed_day:true,
-                            incident_status:true,
-                            incident_detail:{
-                                title:'Title incidents',
-                                description:'Description'
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'late_to_class',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed_class',
-                                status:'Excused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed_day',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        tuesday:{
-                            date:21,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        wednesday:{
-                            date:22,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        thursday:{
-                            date:23,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        friday:{
-                            date:24,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        saturday:{
-                            date:25,
-                            missed_day:true,
-                            incident_status:true,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        },
-                        sunday:{
-                            date:26,
-                            missed_day:true,
-                            incident_status:false,
-                            incidents:{
-                                status:true,
-                                details:{
-                                    title:'Title incidents',
-                                    description:'Description'
-                                }
-                            },
-                            events:[{
-                                title:'Lorem 1',
-                                type:'tardy',
-                                status:'unexcused',
-                                description:''
-                            },{
-                                title:'Lorem 2',
-                                type:'missed-class',
-                                status:'Excused',
-                                description:''
-                            }]
-                        }
-                    }
-                }]
-            }]
-        };
-
         var vm = this;
         vm.show_loading = true;
+        var list_attendances = {};
         var selectedObj;
         vm.data = "";
         var listSelectedObj = [];
@@ -657,7 +182,7 @@
         vm.expandWeek = expandWeek;
 
         function expandWeek(filter,idx) {
-            var selected_month = _.filter(mockup.list_weeks,function (v) {
+            var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
             var header = ".header"+idx;
@@ -704,7 +229,7 @@
         }
         function expand(filter) {
 
-            var selected_month = _.filter(mockup.list_weeks,function (v) {
+            var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
             vm.selectedMonth = selected_month[0];
@@ -739,9 +264,18 @@
                     _.forEach(month.list_events,function(v){
                         object = jQuery('.missed-late-class-container .late-class').html();
                         if(object != undefined){
-                            if(v.event === 'Tardy'){
-                                jQuery("#"+v.date+" .late-class").removeClass('hide');
-                            }
+                            _.forEach(v.event,function(value){
+                                if(value === 'missed_day'){
+                                    jQuery("#"+v.date+" .missed-day").removeClass('hide');
+                                }else{
+                                    if(value === 'late_to_class'){
+                                        jQuery("#"+v.date+" .late-class").removeClass('hide');
+                                    }
+                                    if(value === 'missed_class'){
+                                        jQuery("#"+v.date+" .missed-class").removeClass('hide');
+                                    }
+                                }
+                            });
                         }
                     });
                 },1000);
@@ -751,7 +285,7 @@
         function changeYear(){
 
 
-            var current_months = _.filter(mockup.calendars,function (v) {
+            var current_months = _.filter(list_attendances.calendars,function (v) {
                 return v.years === vm.selected_years;
             });
             while(vm.listOfCalendar.length>0){
@@ -1776,6 +1310,19 @@
             return days;
         }
         function init(){
+            var current_months = "";
+            StudentService.getAttendance2(id)
+                .then(function (response) {
+                    list_attendances = _.get(response.data,'info.source',{});
+                    current_months = _.filter(list_attendances.calendars,function (v) {
+                        return v.years === list_attendances.list_years[0].value;
+                    });
+                    renderCalendar(current_months);
+                    vm.listOfYears = list_attendances.list_years;
+                    vm.selected_years = vm.listOfYears[0].value;
+                },function(error){
+                    console.log(error);
+                });
 
             var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
             var current_index = _.findIndex(student_profile,{'id':id});
@@ -1936,15 +1483,6 @@
                 },function(error){
 
                 });
-
-            var current_months = _.filter(mockup.calendars,function (v) {
-                return v.years === mockup.list_years[0].value;
-            });
-            renderCalendar(current_months);
-
-            vm.listOfYears = mockup.list_years;
-            vm.selected_years = vm.listOfYears[0].value;
-
         }
         function changeStatus(student){
             student.status = !student.status;
