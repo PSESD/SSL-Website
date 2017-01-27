@@ -69,7 +69,7 @@
               if(embedded.organization !== "")
               {
                 profile.access = true;
-                profile.organization_id = _.get(embedded.organization,"_id","");
+                profile.organization_id = _.get(embedded.organization,"id","");
                 profile.redirect_url = _.get(embedded.organization,"url","");
                 profile.organization_name = _.get(embedded.organization,"name","");
                 if(profile.organization_name !== ""){
