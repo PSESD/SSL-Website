@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-class="currentURL">
+<div class="container-fluid" ng-class="currentURL ==='ma'?class:c">
     <div class="row">
 
         <header class="header-background clearfix inverse">
@@ -23,6 +23,12 @@
             <h2 class="text-center text-uppercase">{{"views.filter"|translate}}</h2>
         </div>
         <div class="clearfix"></div>
+          <ng-if=curenturl.indexOf('ma")>
+          <button ui-state="currenUrl==a? ma.step1:"></button>
+          </ng-if>
+          <ng-if=curenturl.indexOf('ma")>
+          <button ui-sref="org"></button>
+          </ng-if>
         <div class="col-xs-12 text-center filter-container">
             <multiselect class="filter-select" change="vm.changePrograms()" enable-filter="true" header="Programs" ng-model="vm.selected_programs" options="c.name for c in vm.programs" data-multiple="true"></multiselect>
             <multiselect class="filter-select" enable-filter="true" header="Districts" ng-model="vm.selected_districts" options="c.name for c in vm.districts" data-multiple="true"></multiselect>
