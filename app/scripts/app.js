@@ -25,7 +25,6 @@
     .factory('headerInjector', [function() {
       var headerInjector = {
         request: function(config) {
-          //config.headers['X-Cbo-Client-Url'] = 'http://demo.ssl.s360.is';
           config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
           return config;
         }
