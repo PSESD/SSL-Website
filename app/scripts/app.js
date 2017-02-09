@@ -21,21 +21,25 @@
       'easypiechart',
 
     ])
-    .factory('headerInjector', [function() {
-      var headerInjector = {
-        request: function(config) {
-          config.headers['X-Cbo-Client-Url'] = 'http://demo.ssl.s360.is';
-          return config;
-        }
-      };
-      return headerInjector;
-    }])
+    .factory('headerInjector', headerInjector)
     .config(configFunction)
     .run(runFunction);
 
-  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider','$locationProvider','$translateProvider','tmhDynamicLocaleProvider'];
+  headerInjector.$inject = ['RESOURCES'];
 
-  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider) {
+  function headerInjector(RESOURCES) {
+      var headerInjector = {
+          request: function(config) {
+              config.headers['X-Cbo-Client-Url'] = RESOURCES.LOCAL;
+              return config;
+          }
+      };
+      return headerInjector;
+  }
+
+  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider','$locationProvider','$translateProvider','tmhDynamicLocaleProvider','RESOURCES'];
+
+  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider,RESOURCES) {
       tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
       $translateProvider.useMissingTranslationHandlerLog();
       $translateProvider.useSanitizeValueStrategy('sanitize');
@@ -54,7 +58,9 @@
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    if(RESOURCES.LOCAL !== ""){
+        $httpProvider.interceptors.push('headerInjector');
+    }
     $httpProvider.defaults.timeout = 15000;
     gravatarServiceProvider.defaults = {
       size     : 50,
