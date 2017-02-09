@@ -4,13 +4,15 @@
     angular.module('sslv2App')
         .controller('StudentDetailCtrl', StudentDetailCtrl);
 
-    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval'];
+    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval','$timeout'];
 
-    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval) {
+    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval,$timeout) {
 
         var vm = this;
         vm.show_loading = true;
+        var list_attendances = {};
         var selectedObj;
+        vm.data = "";
         var listSelectedObj = [];
         var enrollment = "";
         vm.attandance_show = false;
@@ -24,18 +26,10 @@
         vm.show_xsre = false;
         vm.listOfCalendar = [];
         vm.listClasses = [];
-        var activeMonth;
-        var listClassName = [];
-        var listOfEvents = [{}];
         var isFirstTime = true;
         var momentjs = moment();
-        var listOfDateTime = [];
         var id = $stateParams.id;
         var student = "";
-        var list_of_student_data = [];
-        var listOfSelectedMonth = [];
-        var periods = [];
-        var selectedMonth = "";
         var data ="";
         var template = "<div class='attendance-modal'><dl><dt>{date}</dt><dd></dd><dt>Reason:</dt><dd>{reason}</dd><dt>Description:</dt><dd>{description}</dd></dl></div>";
         vm.changeStatus = changeStatus;
@@ -177,16 +171,27 @@
         vm.checkDate = checkDate;
         vm.display = display;
         vm.closeMonthDetail = closeMonthDetail;
+        vm.expandWeek = expandWeek;
+
+        function expandWeek(filter,idx) {
+            var selected_month = _.filter(list_attendances.list_weeks,function (v) {
+                return v.month === filter;
+            });
+            var header = ".header"+idx;
+            var detail = "#tabs-"+idx;
+            vm.selectedMonth = selected_month[0];
+            vm.month_name = selected_month[0].name;
+            vm.show_detail = true
+            $timeout(function () {
+                if(jQuery(header).hasClass('collapsed') === true){
+                    jQuery(header).removeClass('collapsed');
+                    jQuery(detail).addClass('in');
+                }
+            },100);
+        }
 
         function closeMonthDetail() {
             vm.show_detail = false;
-            activeMonth.isActive = false;
-            if(listSelectedObj.length > 0)
-            {
-                _.forEach(listSelectedObj,function (v) {
-                    v.show = true;
-                })
-            }
         }
         function display(item) {
             return !item;
@@ -202,7 +207,7 @@
                             StudentService.getAttendanceByYear(id,year)
                                 .then(function(response){
                                     var data = _.get(response,'data.info.data',[]);
-                                    loadAttendance(data);
+                                    //loadAttendance(data);
                                     vm.show_update = true;
                                 },function(error){
                                 })
@@ -214,84 +219,74 @@
 
                 });
         }
-        function expand(objMonth,month,year,name,obj,className) {
-            if(_.get(activeMonth,'isActive',"") !== ""){
-                activeMonth.isActive = false;
-                activeMonth = objMonth;
-                activeMonth.isActive = true;
-            }else{
-                activeMonth = objMonth;
-                activeMonth.isActive = true;
-            }
-            if(listSelectedObj.length > 0)
-            {
-                _.forEach(listSelectedObj,function (v) {
-                    v.show = true;
-                })
-            }
-            listSelectedObj.push(obj);
-            //obj.show = !obj.show;
-            vm.month_name = name;
-            isFirstTime = false;
-            selectedMonth = year+"-"+month;
-            while(vm.selectedMonth.length>0){
-                vm.selectedMonth.pop();
-            }
+        function expand(filter) {
 
-            loadDetailMonth(data,month,name,className);
-            if(vm.selectedMonth.length>0){
-                vm.show_detail = true;
-            }else{
-                vm.show_detail = false;
-            }
+            var selected_month = _.filter(list_attendances.list_weeks,function (v) {
+                return v.month === filter;
+            });
+            vm.selectedMonth = selected_month[0];
+            vm.month_name = selected_month[0].name;
+            vm.show_detail = true
+        }
+        function renderCalendar(data){
+            _.forEach(data,function(month){
+                _.forEach(month.list_months.reverse(),function(v){
+                    var clonedMoment = momentjs.clone();
+                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
+                    var month = moment.clone();
+                    var start = moment.clone();
+                    start.date(1);
+                    _removeTime(start.day(0));
+                    if(isFirstTime === true){
+                        vm.listOfCalendar.push(
+                            {
+                                'data':_buildMonth(start,month),
+                                'name':moment,
+                                'show':true,
+                                'listClassName':'',
+                                'isActive':false
+                            });
+                    }
+                });
+                $timeout(function(){
+                    var object = null;
+                    _.forEach(month.list_events,function(v){
+                        object = jQuery('.missed-late-class-container .late-class').html();
+                        if(object != undefined){
+                            _.forEach(v.event,function(value){
+                                if(value === 'missed_day'){
+                                    jQuery("#"+v.date+" .missed-day").removeClass('hide');
+                                }else{
+                                    if(value === 'late_to_class'){
+                                        jQuery("#"+v.date+" .late-class").removeClass('hide');
+                                    }
+                                    if(value === 'missed_class'){
+                                        jQuery("#"+v.date+" .missed-class").removeClass('hide');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                },1000);
+            });
+
         }
         function changeYear(){
 
-            vm.show_detail = false;
-            isFirstTime = true;
-            while(vm.selectedMonth.length > 0)
-            {
-                vm.selectedMonth.pop();
-            }
-            vm.list_of_details = [];
-            while(vm.listOfCalendar.length > 0){
+
+            var current_months = _.filter(list_attendances.calendars,function (v) {
+                return v.years === vm.selected_years;
+            });
+            while(vm.listOfCalendar.length>0){
                 vm.listOfCalendar.pop();
             }
-            while (listOfDateTime.length > 0){
-                listOfDateTime.pop();
-            }
-            vm.attandance_show = true;
-            if(vm.student.selected_years === null){
-                StudentService.getAttendance(id)
-                    .then(function(response){
-                        console.log(response);
-                        var years = _.get(response,'data.info.source.years',"");
-                        _.forEach(years,function(value){
-                            listOfYears.push({
-                                id:_.replace(value,'/','-'),
-                                name:_.replace(value,'/','-')
-                            })
-                        });
-                        vm.listOfYears = listOfYears;
-                        data = _.get(response,'data.info.data',[]);
-                        generateMonth(data);
-                        vm.attandance_show = false;
-                        setInterval(set_inter,1000)
 
-                    },function(error){
+            renderCalendar(current_months);
 
-                    });
-            }else{
-                StudentService.getAttendanceByYear(id,vm.student.selected_years.id)
-                    .then(function(response){
+            vm.show_detail = false;
 
-                        data  = _.get(response,'data.info.data',[]);
-                        generateMonth(data);
-                        vm.attandance_show = false;
-                        setInterval(set_inter,1000)
-                    },function(error){
-                    })
-            }
+            jQuery('.month-detail > .panel-group > .panel-default > div.panel-heading').each(function(i, item) { jQuery(item).hasClass('collapsed') == false ? jQuery(item).addClass('collapsed') : null; });
+            jQuery('.month-detail > .panel-group > .panel-default > div.panel-collapse.collapse.in').removeClass('in');
 
         }
 
@@ -300,492 +295,10 @@
         }else if($stateParams.debug === undefined){
             vm.show_xsre = false;
         }
-        StudentService.getAttendance(id)
-            .then(function(response){
-
-                var years = _.get(response,'data.info.source.years',"");
-                _.forEach(years,function(value){
-                    listOfYears.push({
-                        id:_.replace(value,'/','-'),
-                        name:_.replace(value,'/','-')
-                    })
-                });
-                vm.listOfYears = listOfYears;
-                data = _.get(response,'data.info.data',[]);
-                generateMonth(data);
-            },function(error){
-
-            });
 
         init();
         loadGeneral(id);
-        function loadDetailMonth(data,month,name,className) {
-            var detail;
-            _.forEach(data,function (value) {
-                _.forEach(value,function (v,k) {
-                    var tempDate = v.weekDate.split('-');
-                    var tempDate1 = new Date(tempDate[0].trim());
-                    var tempDate2 = new Date(tempDate[1].trim());
-                    if(month == parseInt(tempDate1.getMonth()+1) && month == parseInt(tempDate2.getMonth()+1)){
-                        var Sunday = new Date(v.details[0].S);
-                        var Monday = new Date(v.details[0].M);
-                        var Tuesday = new Date(v.details[0].T);
-                        var Wednesday = new Date(v.details[0].W);
-                        var Thursday = new Date(v.details[0].TH);
-                        var Friday = new Date(v.details[0].F);
-                        var Saturday = new Date(v.details[0].SA);
-                        detail ={
-                            Sunday:{
-                                date:Sunday.getDate(),
-                                month:Sunday.getMonth(),
-                                years:Sunday.getFullYear(),
-                                day:Sunday
-                            },
-                            Monday:{
-                                date:Monday.getDate(),
-                                month:Monday.getMonth(),
-                                years:Monday.getFullYear(),
-                                day:Monday
-                            },
-                            Tuesday:{
-                                date:Tuesday.getDate(),
-                                month:Tuesday.getMonth(),
-                                years:Tuesday.getFullYear(),
-                                day:Tuesday
-                            },
-                            Wednesday:{
-                                date:Wednesday.getDate(),
-                                month:Wednesday.getMonth(),
-                                years:Wednesday.getFullYear(),
-                                day:Wednesday
-                            },
-                            Thursday:{
-                                date:Thursday.getDate(),
-                                month:Thursday.getMonth(),
-                                years:Thursday.getFullYear(),
-                                day:Thursday
-                            },
-                            Friday:{
-                                date:Friday.getDate(),
-                                month:Friday.getMonth(),
-                                years:Friday.getFullYear(),
-                                day:Friday
-                            },
-                            Saturday:{
-                                date:Saturday.getDate(),
-                                month:Saturday.getMonth(),
-                                years:Saturday.getFullYear(),
-                                day:Saturday
-                            },
-                        }
-                    }
 
-                    var date = v.weekDate.split('-');
-                    var date1;
-                    var date2;
-                    date1 = new Date(date[0].trim());
-                    date2 = new Date(date[1].trim());
-                    if(/*parseInt(month) == date1.getMonth()+1 && parseInt(month) == date2.getMonth() + 1 ||*/ parseInt(month - 1) == date2.getMonth()){
-                        var listCourses = [];
-                        var temp = k.split('-');
-                        var from = temp[0].trim().split('/');
-                        var to = temp[1].trim().split('/');
-                        var tag1;
-                        var tag2;
-                        from = moment(temp[0]).format('MMM DD YYYY');
-                        to = moment(temp[1]).format('MMM DD YYYY');
-                        tag1 = moment(temp[0]).format('MMM-DD');
-                        tag2 = moment(temp[1]).format('MMM-DD');
-                        if('listCourse' in v){
-                            while(vm.listClasses.length > 0){
-                                vm.listClasses.pop();
-                            }
-                            v.listCourse.forEach(function (val) {
-                                val.courses.forEach(function (v) {
-                                    vm.listClasses.push({
-                                        courseTitle:v.courseTitle,
-                                        timeTablePeriod:v.timeTablePeriod,
-                                        teacherNames:v.teacherNames[1]+','+v.teacherNames[0]
-                                    });
-                                });
-                            });
-                            var classes = _.sortBy(vm.listClasses,[function (o) {
-                                return o.timeTablePeriod
-                            }]);
-                            vm.listClasses = _.uniqBy(classes,function (e) {
-                                return e.timeTablePeriod;
-                            });
-                        }
-                        var classEvents = [];
-
-                        _.forEach(detail,function (v,k) {
-                           _.forEach(listOfEvents,function (val,key) {
-
-                               if(v.day,val.date,moment(v.day).isSame(moment(val.date)))
-                               {
-                                    classEvents[val.timeTablePeriod] = val;
-                               }
-
-                           });
-                            for(var i=0;i<vm.listClasses.length;i++){
-                                if(typeof classEvents[i]==='undefined'){
-                                    classEvents[i] = {};
-                                }
-                            }
-                            v.classEvents = classEvents;
-                            classEvents = [];
-                        });
-
-                        var weekClass = tag1+"-"+tag2;
-                        weekClass = weekClass.replace(" ",'-').trim();
-                        listOfSelectedMonth.push({
-                            weekName:from+" - "+to,
-                            showMonth:true,
-                            dates:detail,
-                            courses:listCourses,
-                            weekClass:weekClass
-                        });
-                        vm.selectedMonth = listOfSelectedMonth;
-                    }
-                });
-            });
-            vm.selectedMonth = listOfSelectedMonth;
-            if(className !== ""){
-                var collps = setInterval(function () {
-                    jQuery('.'+className).collapse('show');
-                    clearInterval(collps);
-                },100);
-            }
-
-
-        }
-
-        function generateMonth(data){
-            var listMonths = [];
-            _.forEach(data,function (v,k) {
-
-                _.forEach(v,function (value,key) {
-                    var date = key.split('-')
-                    date = new Date(date[0].trim());
-                    var data;
-                    data = value;
-                    var header = {
-                        date: data.weekDate,
-                        monday:data.summary.M,
-                        tuesday:data.summary.T,
-                        wednesday:data.summary.W,
-                        thursday:data.summary.TH,
-                        friday:data.summary.F,
-                        saturday:data.summary.SA,
-                        sunday:data.summary.S,
-                        weekly_change:data.weeklyChange
-                    }
-
-                    var header_detail ={
-                        date:data.details[0].title,
-                        day:{
-                            monday:{
-                                date:data.details[0].M,
-                                value:data.summary.M
-                            },
-                            tuesday:{
-                                date:data.details[0].T,
-                                value:data.summary.T
-                            },
-                            wednesday: {
-                                date: data.details[0].W,
-                                value: data.summary.W
-                            },
-                            thursday:{
-                                date: data.details[0].TH,
-                                value: data.summary.TH
-                            },
-                            friday:{
-                                date: data.details[0].F,
-                                value: data.summary.F
-                            },
-                            saturday:{
-                                date: data.details[0].SA,
-                                value: data.summary.SA
-                            },
-                            sunday:{
-                                date: data.details[0].S,
-                                value: data.summary.S
-                            }
-                        }
-                    }
-                    var detail_columns = {
-                        monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
-                        tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
-                        wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
-                        thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
-                        friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
-                        saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
-                        sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
-                    }
-
-                    _.forEach(detail_columns.monday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.monday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.monday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.tuesday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.tuesday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.tuesday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.wednesday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.wednesday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.wednesday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.thursday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.thursday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.thursday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.friday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.friday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.friday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.saturday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !== ""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.saturday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.saturday[key].template = "";
-                            }
-                        }
-                    });
-                    _.forEach(detail_columns.sunday,function(value,key){
-                        var event = _.get(value,'event',"");
-                        if(event !==""){
-                            var date = _.get(value,'event.calendarEventDate',"");
-                            var reason = _.get(value,'event.absentReasonDescription',"");
-                            var description = _.get(value,'event.attendanceStatusTitle',"");
-                            var attendanceEventType = _.get(event,'attendanceEventType',"");
-                            var attendanceStatus = _.get(event,'attendanceStatus',"");
-                            var timeTablePeriod = _.get(event,'timeTablePeriod',"");
-                            if(date!=="" && reason !== "" && description !== ""){
-                                var temp_template = template;
-                                temp_template = _.replace(temp_template,'{date}',date);
-                                temp_template = _.replace(temp_template,'{reason}',reason);
-                                temp_template = _.replace(temp_template,'{description}',description);
-                                detail_columns.sunday[key].template = temp_template;
-                                if(attendanceEventType !== ""){
-                                    if(attendanceStatus !== 'Present') {
-                                        listOfEvents.push({
-                                            date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                            event: event.attendanceEventType,
-                                            eventStatus: attendanceStatus,
-                                            timeTablePeriod: timeTablePeriod
-                                        });
-                                    }
-                                }
-                            }else{
-                                detail_columns.sunday[key].template = "";
-                            }
-                        }
-                    });
-                    listMonths.push({
-                        year:date.getFullYear(),
-                        month:date.getMonth()
-                    });
-
-                    list_of_student_data.push(header_detail);
-                })
-               _.reduce(listOfEvents,function (acc,val,key) {
-                    acc[val.date]={
-                        date:val.date,
-                        value:val
-                    };
-                    return acc;
-                },{});
-            });
-            listMonths = _.uniqWith(listMonths,_.isEqual);
-            _.forEach(listMonths,function(v){
-                var clonedMoment = momentjs.clone();
-                var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
-                var month = moment.clone();
-
-                var start = moment.clone();
-
-                start.date(1);
-
-                _removeTime(start.day(0));
-                if(isFirstTime === true){
-                    vm.listOfCalendar.push(
-                        {
-                            'data':_buildMonth(start,month),
-                            'name':moment,
-                            'show':true,
-                            'listClassName':'',
-                            'isActive':false
-                        });
-                }
-            });
-
-            _.forEach(vm.listOfCalendar,function (v,k) {
-                listClassName = [];
-
-                _.forEach(v.data,function (data) {
-                    var temp1 = data.days[0].date;
-                    var temp2 = data.days[6].date;
-                    var list = moment(temp1).add(1,'d').format('MMM-DD')+'-'+moment(temp2).add(1,'d').format('MMM-DD');
-                    list = list.replace(" ","-").trim();
-                   listClassName.push(list);
-                });
-                vm.listOfCalendar[k].listClassName = listClassName;
-            });
-            vm.show_attendance = true;
-        }
         function loadGeneral(id){
             StudentService.getStudentById(id)
                 .then(function(response){
@@ -908,370 +421,18 @@
                             }
                             vm.student = student;
                             vm.show_general = true;
+                    }else{
+                        vm.show_loading = false;
+                        vm.message = response.data.error;
+                        $timeout(function() {
+                            vm.message = false;
+                        }, 3000);
                     }
                 },function (error) {
 
                 });
         }
-        function loadAttendance(data){
 
-            var legend = [];
-
-            vm.attandance_show = false;
-            list_of_student_data = [];
-            _.forEach(data,function(values){
-
-                for(var v in values){
-                    var isValid = false;
-                    var dateTime;
-                    var date;
-                    var data = values[v];
-                    if(v.indexOf('-')>-1){
-                        dateTime = v.split('-');
-                        date = new Date(dateTime[0]);
-                    }
-                    if(selectedMonth === date.getFullYear()+'-'+parseInt(date.getMonth()+1)){
-                        isValid = true;
-                    }
-
-
-                        data = values[v];
-                        for( var l in data.legend){
-                            legend.push(l)
-                        }
-                        var header = {
-                            date: data.weekDate,
-                            monday:data.summary.M,
-                            tuesday:data.summary.T,
-                            wednesday:data.summary.W,
-                            thursday:data.summary.TH,
-                            friday:data.summary.F,
-                            saturday:data.summary.SA,
-                            sunday:data.summary.S,
-                            weekly_change:data.weeklyChange
-                        }
-
-                        var header_detail ={
-                            date:data.details[0].title,
-                            day:{
-                                monday:{
-                                    date:data.details[0].M,
-                                    value:data.summary.M
-                                },
-                                tuesday:{
-                                    date:data.details[0].T,
-                                    value:data.summary.T
-                                },
-                                wednesday: {
-                                    date: data.details[0].W,
-                                    value: data.summary.W
-                                },
-                                thursday:{
-                                    date: data.details[0].TH,
-                                    value: data.summary.TH
-                                },
-                                friday:{
-                                    date: data.details[0].F,
-                                    value: data.summary.F
-                                },
-                                saturday:{
-                                    date: data.details[0].SA,
-                                    value: data.summary.SA
-                                },
-                                sunday:{
-                                    date: data.details[0].S,
-                                    value: data.summary.S
-                                }
-                            }
-                        }
-                        var detail_columns = {
-                            monday: _.remove(data.detailColumns.M,function(val,index){return index!==0}),
-                            tuesday:_.remove(data.detailColumns.T,function(val,index){return index!==0}),
-                            wednesday:_.remove(data.detailColumns.W,function(val,index){return index!==0}),
-                            thursday:_.remove(data.detailColumns.TH,function(val,index){return index!==0}),
-                            friday:_.remove(data.detailColumns.F,function(val,index){return index!==0}),
-                            saturday:_.remove(data.detailColumns.SA,function(val,index){return index!==0}),
-                            sunday:_.remove(data.detailColumns.S,function(val,index){return index!==0}),
-                        }
-                        _.forEach(detail_columns.monday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.monday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present'){
-                                            listOfEvents.push({
-                                                date:new Date(date).getFullYear()+'-'+parseInt(new Date(date).getMonth()+1)+'-'+new Date(date).getDate(),
-                                                event:event.attendanceEventType,
-                                                eventStatus:attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.monday[key].template = "";
-                                }
-                            }
-                        });
-                        _.forEach(detail_columns.tuesday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.tuesday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present') {
-                                            listOfEvents.push({
-                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                                event: event.attendanceEventType,
-                                                eventStatus: attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.tuesday[key].template = "";
-                                }
-                            }
-                        });
-                        _.forEach(detail_columns.wednesday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.wednesday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present') {
-                                            listOfEvents.push({
-                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                                event: event.attendanceEventType,
-                                                eventStatus: attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.wednesday[key].template = "";
-                                }
-                            }
-                        });
-                        _.forEach(detail_columns.thursday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.thursday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present') {
-                                            listOfEvents.push({
-                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                                event: event.attendanceEventType,
-                                                eventStatus: attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.thursday[key].template = "";
-                                }
-                            }
-                        });
-                        _.forEach(detail_columns.friday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.friday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present') {
-                                            listOfEvents.push({
-                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                                event: event.attendanceEventType,
-                                                eventStatus: attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.friday[key].template = "";
-                                }
-                            }
-                        });
-                        _.forEach(detail_columns.saturday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !== ""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.saturday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present') {
-                                            listOfEvents.push({
-                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                                event: event.attendanceEventType,
-                                                eventStatus: attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.saturday[key].template = "";
-                                }
-                            }
-                        });
-                        _.forEach(detail_columns.sunday,function(value,key){
-                            var event = _.get(value,'event',"");
-                            if(event !==""){
-                                var date = _.get(value,'event.calendarEventDate',"");
-                                var reason = _.get(value,'event.absentReasonDescription',"");
-                                var description = _.get(value,'event.attendanceStatusTitle',"");
-                                var attendanceEventType = _.get(event,'attendanceEventType',"");
-                                var attendanceStatus = _.get(event,'attendanceStatus',"");
-                                if(date!=="" && reason !== "" && description !== ""){
-                                    var temp_template = template;
-                                    temp_template = _.replace(temp_template,'{date}',date);
-                                    temp_template = _.replace(temp_template,'{reason}',reason);
-                                    temp_template = _.replace(temp_template,'{description}',description);
-                                    detail_columns.sunday[key].template = temp_template;
-                                    if(attendanceEventType !== ""){
-                                        if(attendanceStatus !== 'Present') {
-                                            listOfEvents.push({
-                                                date: new Date(date).getFullYear() + '-' + parseInt(new Date(date).getMonth() + 1) + '-' + new Date(date).getDate(),
-                                                event: event.attendanceEventType,
-                                                eventStatus: attendanceStatus
-                                            });
-                                        }
-                                    }
-                                }else{
-                                    detail_columns.sunday[key].template = "";
-                                }
-                            }
-                        });
-                        var behaviors = {
-                            monday:data.behaviors.M,
-                            tuesday:data.behaviors.T,
-                            wednesday:data.behaviors.W,
-                            thursday:data.behaviors.TH,
-                            friday:data.behaviors.F,
-                            saturday:data.behaviors.SA,
-                            sunday:data.behaviors.S,
-                        }
-
-                        for (var period in data.periods){
-                            if(data.periods[period].includes("Period")){
-                                periods.push(data.periods[period]);
-                            }
-                        }
-                        var arrMonth = header_detail.date.split('-');
-                        var date = new Date(arrMonth[0].trim());
-                        var month_detail = {
-                            month:date.getMonth() +1,
-                            year:date.getFullYear()
-                        }
-                        var list_of_item = {
-                            header:header,
-                            header_detail:header_detail,
-                            detail_columns:detail_columns,
-                            periods:_.uniq(periods),
-                            behaviors:behaviors,
-                            status:false,
-                            events:listOfEvents,
-                            month:month_detail
-                        }
-                            list_of_student_data.push(list_of_item);
-                            vm.legend = _.uniq(legend);
-                            vm.list_of_details = list_of_student_data;
-
-                        if(list_of_student_data.length !== 0){
-                            vm.show_attendance = true;
-                        }else{
-                            vm.show_attendance = false;
-                        }
-
-                        if(isValid === true)
-                        {
-                            listOfSelectedMonth.push(list_of_item);
-
-                            vm.selectedMonth = listOfSelectedMonth;
-
-                        }
-
-                }
-
-            });
-
-            _.forEach(vm.list_of_details,function (value) {
-                var datetime = value.header_detail.date.split('-');
-                datetime = new Date(datetime[0].trim());
-                listOfDateTime.push({
-                    "year":datetime.getFullYear(),
-                    "month":datetime.getMonth(),
-                    "date":datetime.getDay()
-                });
-                listOfDateTime = _.uniqWith(listOfDateTime,_.isEqual);
-            });
-            _.forEach(listOfDateTime,function(v){
-                var clonedMoment = momentjs.clone();
-                var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
-                var month = moment.clone();
-
-                var start = moment.clone();
-
-                start.date(1);
-
-                _removeTime(start.day(0));
-                if(isFirstTime === true){
-                    vm.listOfCalendar.push(
-                        {
-                            'data':_buildMonth(start,month),
-                            'name':moment
-                        });
-                }
-            });
-
-        }
         function _removeTime(date) {
             return date.day(0).hour(0).minute(0).second(0).millisecond(0);
         }
@@ -1296,6 +457,7 @@
                 days.push({
                     name: date.format("dd").substring(0, 1),
                     number: date.date(),
+                    day:date.date().toString().length === 1 ?'0'+date.date().toString():date.date().toString(),
                     isCurrentMonth: date.month() === month.month(),
                     isToday: date.isSame(new Date(), "day"),
                     date: date,
@@ -1308,12 +470,24 @@
             }
             return days;
         }
-
         function init(){
+            var current_months = "";
             StudentService.getAttendance2(id)
-                .then(function (res) {
-                   console.log(res);
+                .then(function (response) {
+                    vm.listOfYears = [];
+                    list_attendances = _.get(response.data,'info.source',{});
+                    current_months = _.filter(list_attendances.calendars,function (v) {
+                        return v.years === list_attendances.list_years[0].value;
+                    });
+                    renderCalendar(current_months);
+                    vm.listOfYears = list_attendances.list_years;
+                    if(vm.listOfYears !== undefined){
+                        vm.selected_years = vm.listOfYears[0].value;
+                    }
+                },function(error){
+                    console.log(error);
                 });
+
             var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
             var current_index = _.findIndex(student_profile,{'id':id});
             vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
@@ -1474,7 +648,6 @@
 
                 });
         }
-
         function changeStatus(student){
             student.status = !student.status;
         }
@@ -1496,33 +669,6 @@
             return false;
         }
 
-        var object = null;
-        function set_inter() {
-            object = jQuery('.missed-late-class-container .late-class').html();
-            if(object != undefined){
-                _.forEach(listOfEvents,function (v) {
-                    var date = _.get(v,'date',"");
-                    if(date !== "")
-                    {
-
-                        if(v.event === "Daily Attendance" && (v.eventStatus === "ExcusedAbsence" || v.eventStatus === "UnexcusedAbsence"))
-                        {
-                            jQuery("#"+date+" .missed-day").removeClass('hide');
-                        }else{
-                            if(v.event === "ClassSectionAttendance" && v.eventStatus === "Tardy"){
-                                jQuery("#"+date+" .late-class").removeClass('hide');
-                            }
-                            if(v.event === "ClassSectionAttendance" && v.eventStatus === "Unexcused")
-                                jQuery("#"+date+" .missed-class").removeClass('hide');
-                        }
-                    }
-
-                })
-                clearInterval(inter);
-            }
-        }
-        var inter = setInterval(set_inter,1000)
-
         function buildChart(response){
             $scope.percent = '';
             $scope.options = {
@@ -1540,7 +686,6 @@
                 size: 100,
                 onStep: function(from,to,currentValue) {
                   this.el.getElementsByTagName("span")[0].innerHTML = parseInt(currentValue, 10) + "%";
-                  //console.log(currentValue);
                 },
                 barColor: function(percent) {
                     var ctx = this.renderer.getCtx();
@@ -1553,10 +698,7 @@
                 }
             };
         }
-
         buildChart();
-
-
     }
 
 
