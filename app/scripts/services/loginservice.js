@@ -56,7 +56,6 @@
 
       this.authenticate(credentials, key)
           .then(function(response) {
-            console.log(response);
             vm.show_login_loading = false;
             if ('access_token' in response.data) {
               var embedded = {
