@@ -1,23 +1,44 @@
+.modal-content {
+    text-align: center;
+    border-radius: 10px 10px 5px 5px;
+}
 
-.modal-content{
-text-align: center;
-border-radius: 5px;
+.modal-header {
+    border: none;
+    padding: 40px;
+    font-size: rem(30);
+    background: $color-dark-grey;
+    color: $white;
+    border-radius: 5px 5px 0px 0px;
 }
-.modal-header{
-  border: none;
-  padding: 40px;
-  font-size: rem(30);
-  background: $color-dark-grey;
-  color: $white;
+
+.modal-title{
+  font-size: rem(26);
 }
-.modal-body{
-  font-size: rem(16);
+
+.modal-body {
+    font-size: rem(16);
 }
-.modal-footer{
-  border: none;
-  .btn{
-    &:hover{
-      color: $color-dark-grey;
+
+.modal-footer {
+    border: none;
+    .btn {
+        color: $white;
+        padding: 2px 15px;
     }
-  }
+    .btn-default {
+        background: $color-grey;
+        &:hover{
+          background: darken($color-grey, 15%);
+        }
+    }
+    .btn-primary {
+        background: white;
+        border: 1px solid $alert-red;
+        color: $alert-red;
+        &:hover{
+          background: $alert-red;
+          color: $white;
+        }
+    }
 }

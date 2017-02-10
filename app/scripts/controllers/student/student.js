@@ -84,7 +84,11 @@
             }
         }
         function deleteStudent(id,index){
-            $confirm({text:'Are you sure you want to delete this record?'})
+            $confirm({
+              title: 'Delete Student Record',
+              text:'Are you sure you want to delete this record?',
+              ok: 'Delete',
+            })
                 .then(function(){
                     StudentService.deleteStudent(id)
                         .then(function(response){
