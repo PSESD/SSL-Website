@@ -474,6 +474,7 @@
             var current_months = "";
             StudentService.getAttendance2(id)
                 .then(function (response) {
+                    vm.show_attendance = true;
                     vm.listOfYears = [];
                     list_attendances = _.get(response.data,'info.source',{});
                     current_months = _.filter(list_attendances.calendars,function (v) {
