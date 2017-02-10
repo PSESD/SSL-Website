@@ -229,10 +229,11 @@
             vm.show_detail = true
         }
         function renderCalendar(data){
+            console.log(data);
             _.forEach(data,function(month){
                 _.forEach(month.list_months.reverse(),function(v){
                     var clonedMoment = momentjs.clone();
-                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':v.month }));
+                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':parseInt(v.month)-1 }));
                     var month = moment.clone();
                     var start = moment.clone();
                     start.date(1);
