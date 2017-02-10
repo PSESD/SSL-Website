@@ -229,7 +229,6 @@
             vm.show_detail = true
         }
         function renderCalendar(data){
-            console.log(data);
             _.forEach(data,function(month){
                 _.forEach(month.list_months.reverse(),function(v){
                     var clonedMoment = momentjs.clone();
@@ -483,7 +482,7 @@
                     });
                     renderCalendar(current_months);
                     vm.listOfYears = list_attendances.list_years;
-                    if(vm.listOfYears !== undefined){
+                    if(vm.listOfYears !== undefined && _.size(vm.listOfYears)!==0){
                         vm.selected_years = vm.listOfYears[0].value;
                     }
                 },function(error){
