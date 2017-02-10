@@ -35,7 +35,8 @@
                     <div class="header-title-student-detail">
                         <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
                         <div><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
-                        <div>{{"views.last_updates"|translate}}: {{vm.student.last_update}}</div>
+                        <div>Last Refresh: {{vm.student.last_update}}</div>
+                        <div ng-show="vm.show_xsre">{{"views.last_updates"|translate}}: {{vm.student.report_date}}</div>
                         <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">{{"views.view_xsre"|translate}}</a></div>
                     </div>
 
@@ -292,52 +293,73 @@
 
                                                     <div class="flex-grow-1 day">
                                                         <div ng-class="student.days[0].incident_status ? 'behavior-incident':''" class="detail-item header">mon {{student.days[0].date}}</div>
-                                                        <div ng-repeat="event in student.days[0].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center " ng-repeat="event in student.days[0].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
-                                                    <div class="flex-grow-1 day">
+                                                    <div class="flex-grow-1 day ">
                                                         <div ng-class="student.days[1].incident_status ? 'behavior-incident':''" class="detail-item header">tue {{student.days[1].date}}</div>
-                                                        <div ng-repeat="event in student.days[1].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[1].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div ng-class="student.days[2].incident_status ? 'behavior-incident':''" class="detail-item header">wed {{student.days[2].date}}</div>
-                                                        <div ng-repeat="event in student.days[2].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[2].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div ng-class="student.days[3].incident_status ? 'behavior-incident':''" class="detail-item header">thu {{student.days[3].date}}</div>
-                                                        <div ng-repeat="event in student.days[3].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[3].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div ng-class="student.days[4].incident_status ? 'behavior-incident':''" class="detail-item header">fri {{student.days[4].date}}</div>
-                                                        <div ng-repeat="event in student.days[4].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[4].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div ng-class="student.days[5].incident_status ? 'behavior-incident':''" class="detail-item header">sat {{student.days[5].date}}</div>
-                                                        <div ng-repeat="event in student.days[5].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[5].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
                                                         <div ng-class="student.days[6].incident_status ? 'behavior-incident':''" class="detail-item header">sun {{student.days[6].date}}</div>
-                                                        <div ng-repeat="event in student.days[6].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'"></div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[6].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="display-flex flex-grow-1 attendance-weekly-change">
                                                     <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
                                                         <div class="panel-heading">{{"views.legend"|translate}}</div>
                                                         <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;">
-                                                            <div class="legend">
+                                                            <div class="legend" ng-class="{'grey-font':student.total_late_to_class === 0}">
                                                                 {{"views.late_to_class"|translate}}
-                                                                <span class="pull-right bg-orange legend-item">{{student.total_late_to_class}}</span>
+                                                                <span ng-class="{'grey-circle':student.total_late_to_class === 0}" class="pull-right bg-orange legend-item">{{student.total_late_to_class}}</span>
                                                             </div>
-                                                            <div class="legend">
+                                                            <div class="legend"ng-class="{'grey-font':student.total_missed_class === 0}">
                                                                 {{"views.missed_class"|translate}}
-                                                                <span class="pull-right missed-class legend-item">{{student.total_missed_class}}</span>
+                                                                <span ng-class="{'grey-circle':student.total_missed_class === 0}" class="pull-right missed-class legend-item">{{student.total_missed_class}}</span>
                                                             </div>
-                                                            <div class="legend">
+                                                            <div class="legend"ng-class="{'grey-font':student.total_missed_day === 0}">
                                                                 {{"views.days_missed"|translate}}
-                                                                <span class="pull-right bg-purple legend-item">{{student.total_missed_day}}</span>
+                                                                <span ng-class="{'grey-circle':student.total_missed_day === 0}" class="pull-right bg-purple legend-item">{{student.total_missed_day}}</span>
                                                             </div>
-                                                            <div class="legend">
+                                                            <div class="legend"ng-class="{'grey-font':student.total_behaviour_incidents === 0}">
                                                                 {{"views.behavior_incidents"|translate}}
-                                                                <span class="pull-right bg-black legend-item">{{student.total_behaviour_incidents }}</span>
+                                                                <span ng-class="{'grey-circle':student.total_behaviour_incidents === 0}" class="pull-right bg-black legend-item">{{student.total_behaviour_incidents }}</span>
                                                             </div>
                                                             <div class="legend legend-excused">
                                                                 {{"views.excused"|translate}}
