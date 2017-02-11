@@ -24,8 +24,7 @@
             getXsre:getXsre,
             getAttendanceByYear:getAttendanceByYear,
             deleteXsre:deleteXsre,
-            deleteAttendance:deleteAttendance,
-            getAttendance2:getAttendance2
+            deleteAttendance:deleteAttendance
 
         };
 
@@ -111,16 +110,9 @@
                 }
             })
         }
+
         function getAttendance(id){
             return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/attendance', {
-                headers: {
-                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
-                }
-            })
-        }
-
-        function getAttendance2(id){
-            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/attendanceV2', {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }

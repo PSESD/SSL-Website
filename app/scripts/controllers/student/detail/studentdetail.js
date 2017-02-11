@@ -472,7 +472,7 @@
         }
         function init(){
             var current_months = "";
-            StudentService.getAttendance2(id)
+            StudentService.getAttendance(id)
                 .then(function (response) {
                     vm.show_attendance = true;
                     vm.listOfYears = [];
