@@ -30,7 +30,7 @@
                     </li> -->
                     <li ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
-                        <a class="text-center text-uppercase">{{"views.dashboard.manage" | translate}}</a>
+                        <a class="text-center text-uppercase" ui-sref="dashboard.manage">{{"views.dashboard.manage" | translate}}</a>
                     </li>
                 </ul>
                 <ul class="nav-profile">
