@@ -138,17 +138,17 @@
                 </span>
                 {{student.xsre.school_name}}
               </td>
-              <td>
+              <td class="text-center">
                 <span ng-if="student.xsre.attendance.academic.count === ''">
                 </span>
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.attendance.template" class='label label-{{student.xsre.attendance.academic.flag}}'>{{student.xsre.attendance.academic.count}}</div>
               </td>
-              <td>
+              <td class="text-center">
                 <span ng-if="student.xsre.behavior.month.count === ''">
                 </span>
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.behavior.template" class="label label-{{student.xsre.behavior.academic.flag}}">{{student.xsre.behavior.academic.count}}</div>
               </td>
-              <td>
+              <td class="text-center">
                 <span ng-if="student.xsre.attendance_risk.trend === '' || student.xsre.attendance_risk.trend === undefined">
                     <span class="glyphicon glyphicon-minus"></span>
                 </span>
@@ -156,7 +156,7 @@
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.attendance_risk.template" class='glyphicon glyphicon-arrow-right {{student.xsre.attendance_risk.trend}}'></div>
                 </span>
               </td>
-              <td>
+              <td class="text-center">
                 <span ng-if="student.xsre.on_track_to_graduate === '' || student.xsre.on_track_to_graduate === null">
                   <span class="glyphicon glyphicon-minus"></span>
                 </span>
