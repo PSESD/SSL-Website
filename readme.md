@@ -3,9 +3,17 @@
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
 
-## Build & development
+## Devlopment Dependencies
+* Ruby
+* NodeJS + NPM
 
-Run `grunt build` for building and `grunt serve` for preview.
+## Development Setup
+* run `npm install`
+* run `bower install`
+* run `grunt serve` for preview
+
+## Build 
+* run `grunt build` for building 
 
 ## License
 
