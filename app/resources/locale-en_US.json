@@ -64,7 +64,7 @@
     "views.relationship": "Relationship",
     "views.close": "Close",
     "views.check_for_updates": "CHECK FOR UPDATES",
-    "views.last_updates": "Last Updates",
+    "views.last_updated": "Last Updated",
     "views.view_xsre": "View xsre",
     "views.view_all_student": "View All Students",
     "views.personal_information": "Personal Information",
