@@ -89,20 +89,20 @@
                   <span ng-show="sortType == 'student.xsre.behavior.academic.count' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
-              <th style="width: 5%;">
+             <!--  <th style="width: 5%;">
                 <a href="" ng-click="sortType = 'trend';sortReverse = !sortReverse">
                   Trend
                   <span ng-show="sortType == 'trend' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'trend' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
-              </th>
-              <th style="width: 10%;">
+              </th> -->
+             <!--  <th style="width: 10%;">
                 <a href="" ng-click="sortType = 'on_track_to_graduate';sortReverse = !sortReverse">
                   On Track to Graduate
                   <span ng-show="sortType == 'on_track_to_graduate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                   <span ng-show="sortType == 'on_track_to_graduate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
-              </th>
+              </th> -->
               <th style="width: 5%;" class="table-space text-center">{{"views.edit" | translate}}</th>
               <th style="width: 5%;" class="text-center">{{"views.delete" | translate}}</th>
             </tr>
@@ -148,15 +148,15 @@
                 </span>
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.behavior.template" class="label label-student label-{{student.xsre.behavior.academic.flag}}">{{student.xsre.behavior.academic.count}}</div>
               </td>
-              <td class="text-center">
+              <!-- <td class="text-center">
                 <span ng-if="student.xsre.attendance_risk.trend === '' || student.xsre.attendance_risk.trend === undefined">
                     <span class="glyphicon glyphicon-minus"></span>
                 </span>
                 <span ng-if="student.xsre.attendance_risk.trend !== '' && student.xsre.attendance_risk.trend !== undefined">
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.attendance_risk.template" class='glyphicon glyphicon-arrow-right {{student.xsre.attendance_risk.trend}}'></div>
                 </span>
-              </td>
-              <td class="text-center">
+              </td> -->
+              <!-- <td class="text-center">
                 <span ng-if="student.xsre.on_track_to_graduate === '' || student.xsre.on_track_to_graduate === null">
                   <span class="glyphicon glyphicon-minus"></span>
                 </span>
@@ -166,7 +166,7 @@
                 <div ng-if="student.xsre.on_track_to_graduate === 'No' ">
                   <span class="glyphicon glyphicon-remove-circle alert-danger" aria-hidden="true"></span>
                 </div>
-              </td>
+              </td> -->
               <td class="table-space text-center">
                 <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.student_edit({id:student.id})"></a>
               </td>
