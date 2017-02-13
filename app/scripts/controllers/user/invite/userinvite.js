@@ -9,15 +9,13 @@
     function UserInviteCtrl($state, UserService, $timeout, RESOURCES, $location) {
 
         var vm = this;
-        var port = $location.port();
-        port =  port > 0 ? ':'+port : '';
         var url = $location.host();
         vm.message = "";
         vm.user = {
             email: '',
             role: '',
             caseWorkerRestricted: true,
-            redirect_url: url + port
+            redirect_url: url
         }
         vm.submit = submit;
 
