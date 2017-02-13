@@ -226,6 +226,7 @@
                         }
                         if(value.type === "lastMonth"){
                             var incident="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.behavior.month.count = value.count;
                             student.xsre.behavior.month.flag = value.flag.toLowerCase();
                             student.xsre.behavior.month.type = value.type;
@@ -243,6 +244,7 @@
                             }else{
                                 incident = "incidents";
                             }
+                            if(value.count === 0){value.count = '';}
                             student.xsre.behavior.academic.count = value.count;
                             student.xsre.behavior.academic.flag = value.flag.toLowerCase();
                             student.xsre.behavior.academic.type = value.type;
@@ -259,6 +261,7 @@
                         }
                         if(value.type === "lastMonth"){
                             var day="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.attendance.month.count = value.count;
                             student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
@@ -272,6 +275,7 @@
 
                         }else if(value.type === "currentAcademicYear"){
                             var day="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.attendance.academic.count = value.count;
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;

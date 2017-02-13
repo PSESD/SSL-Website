@@ -91,6 +91,10 @@
   background-color: $color-cyan;
 }
 
+.label-student{
+  background-color: $color-cyan !important;
+}
+
 .glyphicon-minus{
   &:before{
     content: "-";
