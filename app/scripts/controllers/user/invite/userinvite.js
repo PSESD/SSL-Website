@@ -4,17 +4,18 @@
     angular.module('sslv2App')
         .controller('UserInviteCtrl', UserInviteCtrl);
 
-    UserInviteCtrl.$inject = ['$state', 'UserService', '$timeout', 'RESOURCES'];
+    UserInviteCtrl.$inject = ['$state', 'UserService', '$timeout', 'RESOURCES', '$location'];
 
-    function UserInviteCtrl($state, UserService, $timeout, RESOURCES) {
+    function UserInviteCtrl($state, UserService, $timeout, RESOURCES, $location) {
 
         var vm = this;
+        var url = $location.host();
         vm.message = "";
         vm.user = {
             email: '',
             role: '',
             caseWorkerRestricted: true,
-            redirect_url: RESOURCES.REDIRECT_URL
+            redirect_url: url
         }
         vm.submit = submit;
 
