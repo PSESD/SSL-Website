@@ -99,7 +99,7 @@
         text-align: center;
         @include make-xs-column(6);
         @include make-sm-column(4);
-        @include make-lg-column(1.714);
+        @include make-lg-column(2);
       }
     }
     .attendance-data{
