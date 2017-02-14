@@ -27,7 +27,7 @@
             emergency2_name:'',
             emergency2_relationship:'',
             emergency2_email:'',
-            emergency2_phone:'',
+            emergency2_phone:''
 
         }
         vm.list_of_school_district = RESOURCES.DISTRICT;

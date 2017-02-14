@@ -59,6 +59,7 @@
                     profile.phone = response.data.phone;
                     profile.programs = response.data.programs;
                     profile.school_district = response.data.school_district;
+                    profile.district_student_id = response.data.district_student_id;
                     vm.student = profile;
 
                 },function(error){
