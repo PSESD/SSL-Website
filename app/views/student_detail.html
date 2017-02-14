@@ -136,9 +136,9 @@
                     </fieldset>
                     <fieldset>
                         <legend>{{"views.current_class_schedule"|translate}}</legend>
-                        <span ng-repeat ="course in vm.student.transcript.source.transcript_term.courses | orderBy:'timeTablePeriod'">
-                    {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
-                </span>
+                        <span ng-repeat ="course in vm.trans | orderBy:'timeTablePeriod'">
+                            {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
+                        </span>
                     </fieldset>
                 </div>
                 <div class="col-sm-6 col-md-3">
@@ -383,22 +383,22 @@
                                         <h5 class="days-header">{{"views.sat"|translate}}</h5>
                                     </div>
                                     <div ng-click="vm.expandWeek(month.name.format('YYYY-MM'),$index)"  class="week-line" ng-repeat="week in month.data track by $index">
-                <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.day}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
-                    <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
-                        {{day.number}}
-                    </span>
-                    <span class="issues-container">
-                    <span class="missed-late-class-container">
-                        <span class="dot late-class hide"></span>
-                    </span>
-                    <span class="missed-late-class-container">
-                        <span class="dot missed-class hide"></span>
-                    </span>
-                         <span class="missed-late-class-container">
-                        <span class="dot missed-day hide"></span>
-                    </span>
-                    </span>
-                </span>
+                                    <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.day}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
+                                        <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
+                                            {{day.number}}
+                                        </span>
+                                        <span class="issues-container">
+                                        <span class="missed-late-class-container">
+                                            <span class="dot late-class hide"></span>
+                                        </span>
+                                        <span class="missed-late-class-container">
+                                            <span class="dot missed-class hide"></span>
+                                        </span>
+                                             <span class="missed-late-class-container">
+                                            <span class="dot missed-day hide"></span>
+                                        </span>
+                                        </span>
+                                    </span>
                                     </div>
                                 </div>
                             </div>

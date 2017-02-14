@@ -44,6 +44,7 @@
             clearVariables();
             StudentService.getAllStudent()
                 .then(function(response){
+                    console.log(response);
                     $timeout(getAll(response),500);
                 },function(error){
 

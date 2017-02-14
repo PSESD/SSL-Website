@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('StudentDetailCtrl', StudentDetailCtrl);
 
-    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval','$timeout'];
+    StudentDetailCtrl.$inject = ['$state','$scope','StudentService','$stateParams','$interval','$timeout','RESOURCES'];
 
-    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval,$timeout) {
+    function StudentDetailCtrl($state,$scope,StudentService,$stateParams,$interval,$timeout,RESOURCES) {
 
         var vm = this;
         vm.show_loading = true;
@@ -181,7 +181,7 @@
             var detail = "#tabs-"+idx;
             vm.selectedMonth = selected_month[0];
             vm.month_name = selected_month[0].name;
-            vm.show_detail = true
+            vm.show_detail = true;
             $timeout(function () {
                 if(jQuery(header).hasClass('collapsed') === true){
                     jQuery(header).removeClass('collapsed');
@@ -231,8 +231,9 @@
         function renderCalendar(data){
             _.forEach(data,function(month){
                 _.forEach(month.list_months.reverse(),function(v){
+                    var month = parseInt(v.month)-1;
                     var clonedMoment = momentjs.clone();
-                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':parseInt(v.month)-1 }));
+                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':month}));
                     var month = moment.clone();
                     var start = moment.clone();
                     start.date(1);
@@ -251,23 +252,26 @@
                 $timeout(function(){
                     var object = null;
                     _.forEach(month.list_events,function(v){
+
                         object = jQuery('.missed-late-class-container .late-class').html();
                         if(object != undefined){
                             _.forEach(v.event,function(value){
-                                if(value === 'missed_day'){
-                                    jQuery("#"+v.date+" .missed-day").removeClass('hide');
+                                var set_date = new Date(v.date);
+                                console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
+                                if(value == 'missed_day'){
+                                    jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
                                 }else{
-                                    if(value === 'late_to_class'){
-                                        jQuery("#"+v.date+" .late-class").removeClass('hide');
+                                    if(value == 'late_to_class'){
+                                        jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
                                     }
-                                    if(value === 'missed_class'){
-                                        jQuery("#"+v.date+" .missed-class").removeClass('hide');
+                                    if(value == 'missed_class'){
+                                        jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
                                     }
                                 }
                             });
                         }
                     });
-                },1000);
+                },2000);
             });
 
         }
@@ -373,6 +377,14 @@
                             enrollment = _.get(data,'personal.xSre.otherEnrollments',"");
                             student.personal.xsre.other_phone_numbers = _.get(data,'personal.xSre.otherPhoneNumbers',"");
                             student.personal.xsre.phone_number = _.get(data,'personal.xSre.phoneNumber',"");
+
+
+
+                            var race = _.find(RESOURCES.RACE,function(v){
+                                return v.id === student.personal.xsre.demographics.races;
+                            });
+
+                            student.personal.xsre.demographics.races = _.size(race) !==0 ? race.name : student.personal.xsre.demographics.races;
 
                             _.forEach(student.embedded.programs,function(value){
                                 list_program_years.push(new Date(value.participation_start_date).getFullYear());
@@ -501,6 +513,7 @@
                         var cumulativeGPA = [];
                         var data = response.data.info.data;
                         var source = response.data.info.source;
+                        vm.trans = response.data.info.source.transcriptTerm.courses;
                         var listCourses;
                         var listTranscript = [];
                         var semester = {};
@@ -595,6 +608,7 @@
 
 
                         })
+
                         var currentGpa = _.get(source,"totalCreditsEarned","");
                         var subjects = _.get(source,"subjectValues","");
                         vm.transcripts = {
