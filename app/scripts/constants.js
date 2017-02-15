@@ -21,4 +21,15 @@
         '/user/add/student',
         '/user/view'
     ])
+
+    //referenced in code but not defined anywhere I can find. 
+    .constant('RESOURCES', {
+        DISTRICT: {
+
+        },
+        LOCAL: "",
+        RELATIONSHIP: {
+
+        }
+    })
 })();
