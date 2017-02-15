@@ -3,9 +3,8 @@ machine:
     version: 0.10.45
 
 test:
-  pre:
-    - npm install -g karma
-    - npm install -g bower
+  override:
+    - echo "true"
 
 deployment:
   development:
