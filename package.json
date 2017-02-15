@@ -41,5 +41,8 @@
   },
   "scripts": {
     "test": "karma start test\\karma.conf.js"
+  },
+  "dependencies": {
+    "grunt-ng-constant": "^2.0.1"
   }
 }

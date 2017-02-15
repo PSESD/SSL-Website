@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .controller('UserInviteCtrl', UserInviteCtrl);
 
-    UserInviteCtrl.$inject = ['$state', 'UserService', '$timeout', 'RESOURCES', '$location'];
+    UserInviteCtrl.$inject = ['$state', 'UserService', '$timeout', 'ENV', '$location'];
 
-    function UserInviteCtrl($state, UserService, $timeout, RESOURCES, $location) {
+    function UserInviteCtrl($state, UserService, $timeout, ENV, $location) {
 
         var vm = this;
         var url = $location.host();

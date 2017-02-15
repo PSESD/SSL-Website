@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .service('LoginService', LoginService)
 
-  LoginService.$inject = ['$http', 'RESOURCES','GeneralService','CookieService','$timeout','$state','$cookies']
+  LoginService.$inject = ['$http', 'ENV','GeneralService','CookieService','$timeout','$state','$cookies']
 
-  function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state,$cookies) {
+  function LoginService ($http, ENV,GeneralService,CookieService,$timeout,$state,$cookies) {
     var service = {
       authenticate: authenticate,
       validate:validate
@@ -15,7 +15,7 @@
     return service
 
     function authenticate (credentials, key) {
-      return $http.post(RESOURCES.AUTH_URL + 'oauth2/token', $.param(credentials), {
+      return $http.post(ENV.AUTH_URL + 'oauth2/token', $.param(credentials), {
         headers: {
           'Authorization': 'Basic ' + key
         }
@@ -44,9 +44,10 @@
         organization_id: '',
         status:''
       }
-      var key = GeneralService.base64Encode(RESOURCES.CLIENT_ID + ':' + RESOURCES.CLIENT_SECRET);
 
-      var grant_type = encodeURIComponent(RESOURCES.GRANT_TYPE);
+      var key = GeneralService.base64Encode(ENV.CLIENT_ID + ':' + ENV.CLIENT_SECRET);
+      var grant_type = encodeURIComponent(ENV.GRANT_TYPE);
+
       var credentials = {
         grant_type: grant_type,
         username: user.email,

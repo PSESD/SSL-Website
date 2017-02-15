@@ -18,8 +18,7 @@
       'angularMoment',
       'pascalprecht.translate',
       'tmh.dynamicLocale',
-      'easypiechart',
-
+      'easypiechart'
     ])
     .factory('headerInjector', headerInjector)
     .config(configFunction)

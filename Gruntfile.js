@@ -25,6 +25,9 @@ module.exports = function(grunt) {
     dist: 'dist'
   };
 
+  grunt.loadNpmTasks('grunt-ng-constant');
+
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -47,6 +50,19 @@ module.exports = function(grunt) {
         files: {
           'app/index.html': 'app/index.html'
         }
+      }
+    },
+    ngconstant: {
+      options: {
+        constants: {
+          ENV: grunt.file.exists('local.json') ? grunt.file.readJSON('local.json') : process.env
+        },
+        deps: false,
+        dest: '<%= yeoman.app %>/scripts/env.js',
+        name: 'sslv2App',
+        wrap: true
+      },
+      build: {
       }
     },
 
@@ -527,6 +543,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:build',
     'wiredep:app',
     'useminPrepare',
     'concurrent:dist',

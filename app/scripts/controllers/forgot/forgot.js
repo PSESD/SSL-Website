@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .controller('ForgotCtrl', ForgotCtrl);
 
-  ForgotCtrl.$inject = ['$state','ForgotService','RESOURCES'];
+  ForgotCtrl.$inject = ['$state','ForgotService','ENV'];
 
-  function ForgotCtrl($state,ForgotService,RESOURCES) {
+  function ForgotCtrl($state,ForgotService,ENV) {
 
     var vm = this;
     vm.login_greetings = localStorage.getItem("first_name") || "";
@@ -32,15 +32,16 @@
       var redirect_url = "";
       var callback_url = "";
       if(subdomain !== "cbo"){
-          callback_url = protocol+"//"+subdomain+'.'+RESOURCES.CALLBACK_URL;
-          redirect_url = protocol+"//"+subdomain+'.'+RESOURCES.ENV;
+          callback_url = protocol+"//"+subdomain+'.'+ ENV.CALLBACK_URL;
+          redirect_url = protocol+"//"+subdomain+'.'+ ENV.ENV;
       }else{
-          callback_url = protocol+"//"+RESOURCES.CALLBACK_URL;
-          redirect_url = protocol+"//"+subdomain+'.'+RESOURCES.ENV
+          callback_url = protocol+"//"+ ENV.CALLBACK_URL;
+          redirect_url = protocol+"//"+subdomain+'.'+ENV.ENV
       }
 
       user.redirect_url = redirect_url;
       user.callback_url = callback_url;
+
       ForgotService.resetPassword(user)
       .then(function(response){
         $state.go('submission');
