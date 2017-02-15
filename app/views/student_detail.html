@@ -181,11 +181,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul ng-show="vm.show_general" class="nav nav-tabs nav-justified" role="tablist">
-                        <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance &amp; Behavior</a></li>
-                        <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
-                        <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
-                        <li  ng-show="vm.show_enrollment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
-                        <li  ng-show="vm.show_assessment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
+                        <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.attendance_behavior"|translate}}</a></li>
+                        <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.transcript"|translate}}</a></li>
+                        <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.program_participation"|translate}}</a></li>
+                        <li  ng-show="vm.show_enrollment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.enrollment_history"|translate}}</a></li>
+                        <li  ng-show="vm.show_assessment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.assessment"|translate}}</a></li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -493,22 +493,43 @@
                             <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
                                 {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a>
                             </div>
-                            <div class="display-flex flex-direction-column">
-                                <div class="display-flex flex-direction-column align-items-baseline" ng-repeat="program in vm.list_program_participations | orderBy:'-years'">
-                                    <h5>{{program.years}}</h5>
-                                    <div class="display-flex">
-                                        <div class="flex-grow-1 program-participation" ng-repeat="item in program.programs">
-                                            <p>{{item.name}}</p>
-                                            <p>{{item.start_date | date : 'MM/dd/yyyy' : timezone}} - {{item.end_date | date : 'MM/dd/yyyy' : timezone}}</p>
-                                            <p>{{item.active}}</p>
-                                            <div class="display-flex flex-direction-column" ng-repeat="cohort in item.cohorts">
-                                                {{cohort}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                      <th style="width:25%">
+                                        <a href="" ng-click="sortType = 'start_date'; sortReverse = !sortReverse">Participation Dates
+                                         <span ng-show="sortType == 'start_date' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                         <span ng-show="sortType == 'start_date' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                        </a>
+                                      </th>
+                                      <th style="width:25%">
+                                        <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Program Name
+                                        <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                         <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                        </a>
+                                      </th>
+                                      <th style="width:25%">
+                                        <a href="" ng-click="sortType = 'active'; sortReverse = !sortReverse">Status
+                                          <span ng-show="sortType == 'active' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                         <span ng-show="sortType == 'active' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                        </a>
+                                      </th>
+                                      <th style="width:25%">Cohorts</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr ng-repeat="program in vm.list_program_participations | orderBy:sortType:sortReverse">
+                                      <td>{{program.start_date | date : 'MM/dd/yyyy' : timezone}} - {{program.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
+                                      <td>{{program.name}}</td>
+                                      <td>{{program.active}}</td>
+                                      <td><span ng-repeat="cohort in program.cohorts">{{cohort}}{{$last ? '' : ', '}}</span></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
                         </div>
+
                         <div role="tabpanel" class="tab-pane" id="enrollment_history">
                             <div class="table-responsive">
                                 <table class="table">

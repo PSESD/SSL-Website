@@ -257,7 +257,7 @@
                         if(object != undefined){
                             _.forEach(v.event,function(value){
                                 var set_date = new Date(v.date);
-                                console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
+                                //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
                                 if(value == 'missed_day'){
                                     jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
                                 }else{
@@ -379,7 +379,6 @@
                             student.personal.xsre.phone_number = _.get(data,'personal.xSre.phoneNumber',"");
 
 
-
                             var race = _.find(RESOURCES.RACE,function(v){
                                 return v.id === student.personal.xsre.demographics.races;
                             });
@@ -387,19 +386,6 @@
                             student.personal.xsre.demographics.races = _.size(race) !==0 ? race.name : student.personal.xsre.demographics.races;
 
                             _.forEach(student.embedded.programs,function(value){
-                                list_program_years.push(new Date(value.participation_start_date).getFullYear());
-                            });
-                            list_program_years = _.uniq(list_program_years);
-                            _.forEach(list_program_years,function(value){
-                                var programs = {
-                                    years:value,
-                                    programs:[]
-                                }
-                                list_program_participation.push(programs);
-                            });
-                            _.forEach(student.embedded.programs,function(value){
-                                var years = new Date(value.participation_start_date).getFullYear();
-                                var idx = _.findIndex(list_program_participation,{'years':years});
                                 var program = {
                                     "name":value.program_name,
                                     "start_date":_.get(value,"participation_start_date",""),
@@ -407,8 +393,11 @@
                                     "active": value.active ? "Active" : "Inactive",
                                     "cohorts": value.cohort
                                 }
-                                list_program_participation[idx].programs.push(program);
+
+                                list_program_participation.push(program);
+
                             });
+
                             if(student.personal.xsre.other_enrollments.length !== 0){
                                 vm.show_enrollment = true;
                             }else{
@@ -417,6 +406,9 @@
                             if(list_program_participation.length !== 0){
                                 vm.list_program_participations = list_program_participation;
                                 vm.show_program_participation = true;
+
+                                $scope.sortType = 'start_date';
+                                $scope.sortReverse = 'true';
                             }else{
                                 vm.show_program_participation = false;
                             }
