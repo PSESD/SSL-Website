@@ -6,10 +6,10 @@ test:
   pre:
     - npm install -g karma
     - npm install -g bower
-    - bower install --config.cwd=./test --config.directory=./bower_components
+    - bower install --config.cwd=./angular --config.directory=./app/bower_components
   override:
     - bundle exec rspec spec
-    - karma start ./test/karma.conf.js --single-run
+    - karma start ./angular/karma.conf.js --single-run
 
 deployment:
   development:
