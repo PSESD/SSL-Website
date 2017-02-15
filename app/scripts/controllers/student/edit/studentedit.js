@@ -10,12 +10,12 @@
 
         var vm = this;
         var id = $stateParams.id;
-        var profile="";
+
         vm.student="";
         vm.submit = submit;
         vm.list_of_school_district = RESOURCES.DISTRICT;
         vm.list_of_relationships = RESOURCES.RELATIONSHIP;
-        profile = {
+        var profile = {
             first_name:'',
             last_name:'',
             addresses:[],
@@ -42,16 +42,26 @@
                     profile.college_bound = response.data.college_bound;
                     profile.created = $filter('date')(_.get(response,"data.created",""), "yyyy/MM/dd");
                     profile.creator = response.data.creator;
-                    profile.district_student_id = response.data.district_student_id;
+                    profile.email = response.data.email;
+                    profile.address = response.data.address;
+                    profile.emergency1_email = response.data.emergency1_email;
+                    profile.emergency1_email = response.data.emergency1_email;
+                    profile.emergency1_name = response.data.emergency1_name;
                     profile.emergency1_phone = response.data.emergency1_phone;
+                    profile.emergency1_relationship = response.data.emergency1_relationship;
+                    profile.emergency2_email = response.data.emergency2_email;
+                    profile.emergency2_name = response.data.emergency2_name;
                     profile.emergency2_phone = response.data.emergency2_phone;
+                    profile.emergency2_relationship = response.data.emergency2_relationship;
                     profile.last_updated = $filter('date')(_.get(response,"data.last_updated",""), "yyyy/MM/dd");
                     profile.last_updated_by = response.data.last_updated_by;
                     profile.organization = response.data.organization;
                     profile.phone = response.data.phone;
                     profile.programs = response.data.programs;
                     profile.school_district = response.data.school_district;
+                    profile.district_student_id = response.data.district_student_id;
                     vm.student = profile;
+
                 },function(error){
 
                 })

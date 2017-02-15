@@ -44,6 +44,7 @@
             clearVariables();
             StudentService.getAllStudent()
                 .then(function(response){
+                    console.log(response);
                     $timeout(getAll(response),500);
                 },function(error){
 
@@ -84,7 +85,11 @@
             }
         }
         function deleteStudent(id,index){
-            $confirm({text:'Are you sure you want to delete this record?'})
+            $confirm({
+              title: 'Delete Student Record',
+              text:'Are you sure you want to delete this record?',
+              ok: 'Delete',
+            })
                 .then(function(){
                     StudentService.deleteStudent(id)
                         .then(function(response){
@@ -128,12 +133,12 @@
                 xsre:{
                     attendance:{
                         month:{
-                            count:'',
+                            attendance_month_count:'',
                             flag:'',
                             type:''
                         },
                         academic:{
-                            count:'',
+                            attendance_academic_count:'',
                             flag:'',
                             type:''
                         },
@@ -146,12 +151,12 @@
                     },
                     behavior:{
                         month:{
-                            count:'',
+                            behavior_month_count:'',
                             flag:'',
                             type:''
                         },
                         academic:{
-                            count:'',
+                            behavior_month_count:'',
                             flag:'',
                             type:''
                         }
@@ -222,7 +227,9 @@
                         }
                         if(value.type === "lastMonth"){
                             var incident="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.behavior.month.count = value.count;
+                            student.xsre.behavior.month.behavior_month_count = value.count;
                             student.xsre.behavior.month.flag = value.flag.toLowerCase();
                             student.xsre.behavior.month.type = value.type;
                             if(value.count === 1){
@@ -239,7 +246,9 @@
                             }else{
                                 incident = "incidents";
                             }
+                            if(value.count === 0){value.count = '';}
                             student.xsre.behavior.academic.count = value.count;
+                            student.xsre.behavior.academic.behavior_academic_count = value.count;
                             student.xsre.behavior.academic.flag = value.flag.toLowerCase();
                             student.xsre.behavior.academic.type = value.type;
                             temp_template_behavior = _.replace(temp_template_behavior,'{behavior_academic}',value.count);
@@ -255,7 +264,9 @@
                         }
                         if(value.type === "lastMonth"){
                             var day="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.attendance.month.count = value.count;
+                            student.xsre.attendance.month.attendance_month_count = value.count;
                             student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
                             if(value.count === 1){
@@ -268,7 +279,9 @@
 
                         }else if(value.type === "currentAcademicYear"){
                             var day="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.attendance.academic.count = value.count;
+                            student.xsre.attendance.academic.attendance_academic_count = value.count;
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
                             if(value.count === 1){

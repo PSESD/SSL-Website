@@ -7,7 +7,7 @@ textarea.form-control,
 select.form-control,
 tags-input .tags {
     background: lighten($grey-light, 10%);
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1px solid $grey-light;
     box-shadow: none;
     color: $light-black;
@@ -83,7 +83,7 @@ textarea.form-control {
     color: $grey;
     padding-left: 15px;
   }
-  margin-bottom: 25px;
+  margin: 5px 0 10px;
 }
 
 
@@ -121,6 +121,10 @@ textarea.form-control {
     }
 }
 
+.radio,.checkbox{
+  margin-left: 16px;
+}
+
 .radio,.radio-inline {
 
     input:checked + .tick {
@@ -155,6 +159,10 @@ textarea.form-control {
       padding-left: 20px;
       font-weight: 700;
   }
+  .radio,.checkbox{
+    margin-left: 0;
+  }
+
 }
 
 
@@ -212,8 +220,11 @@ fieldset {
         .form-search-icon {
             position: absolute;
             right: 20px;
-            top: 2px;
+            top: 5px;
             color: $grey-light;
+            span{
+              top: 3px;
+            }
         }
     }
 }

@@ -1,10 +1,10 @@
-<div class="container-fluid" ng-class="currentURL">
+<div class="container-fluid" ng-class="currentURL ==='ma'?class:c">
     <div class="row">
 
         <header class="header-background clearfix inverse">
             <div class="container">
                 <div class="pull-left">
-                   <h1 class="page-title">Reports</h1>
+                   <h1 class="page-title">{{"views.reports"|translate}}</h1>
                 </div>
             </div>
         </header>
@@ -20,9 +20,15 @@
         </div>
 
         <div class="col-xs-12">
-            <h2 class="text-center text-uppercase">Filter</h2>
+            <h2 class="text-center text-uppercase">{{"views.filter"|translate}}</h2>
         </div>
         <div class="clearfix"></div>
+          <ng-if=curenturl.indexOf('ma")>
+          <button ui-state="currenUrl==a? ma.step1:"></button>
+          </ng-if>
+          <ng-if=curenturl.indexOf('ma")>
+          <button ui-sref="org"></button>
+          </ng-if>
         <div class="col-xs-12 text-center filter-container">
             <multiselect class="filter-select" change="vm.changePrograms()" enable-filter="true" header="Programs" ng-model="vm.selected_programs" options="c.name for c in vm.programs" data-multiple="true"></multiselect>
             <multiselect class="filter-select" enable-filter="true" header="Districts" ng-model="vm.selected_districts" options="c.name for c in vm.districts" data-multiple="true"></multiselect>
@@ -32,15 +38,15 @@
         <div class="clearfix"></div>
         <div class="col-md-4 text-center">
             <h2>{{vm.report.total_student}}</h2>
-            <h3>Student</h3>
+            <h3>{{"views.student"|translate}}</h3>
         </div>
         <div class="col-md-4 text-center">
             <h2>{{vm.report.total_district}}</h2>
-            <h3>District</h3>
+            <h3>{{"views.district"|translate}}</h3>
         </div>
         <div class="col-md-4 text-center">
             <h2>{{vm.report.total_school}}</h2>
-            <h3>School</h3>
+            <h3>{{"views.school"|translate}}</h3>
         </div>
 
       </section>

@@ -25,7 +25,16 @@
     "angular-bootstrap-multiselect": "^0.4.0",
     "angular-ui-mask": "^1.8.7",
     "fsm-sticky-header": "*",
-    "angular-ui-codemirror": "^0.3.0"
+    "angular-ui-codemirror": "^0.3.0",
+    "bootstrap-year-calendar": "^1.1.0",
+    "angular-moment": "^1.0.0",
+    "angular-translate": "^2.12.1",
+    "angular-dynamic-locale": "^0.1.32",
+    "angular-i18n": "^1.5.8",
+    "angular-translate-loader-static-files": "^2.12.1",
+    "angular-translate-storage-local": "^2.12.1",
+    "angular-translate-handler-log": "^2.12.1",
+    "jquery.easy-pie-chart": "^2.1.6"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -39,6 +48,14 @@
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
       ]
+    },
+    "jquery.easy-pie-chart":{
+      "main": [
+        "dist/angular.easypiechart.js"
+      ],
+      "dependencies": {
+        "jquery": ">=1.9.0"
+      }
     }
   }
 }

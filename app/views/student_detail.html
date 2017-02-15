@@ -20,7 +20,7 @@
                 <div ui-codemirror ui-codemirror-opts="vm.options" ui-refresh="vm.refresh" ng-model="vm.data"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-close" data-dismiss="modal">{{"views.close"|translate}}</button>
             </div>
         </div>
     </div>
@@ -28,454 +28,655 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
         <header class="header-background clearfix inverse">
-          <div class="container">
-            <h1 class="page-title">
-              {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
-              <div class="divider-vertical hidden-xs"></div>
-              <div class="header-title-student-detail">
-                <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">Edit <span class="glyphicon glyphicon-edit"></span></a></div>
-                <div><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">CHECK FOR UPDATES</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
-                <div>Last Updates: {{vm.student.last_update}}</div>
-                <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">View xsre</a></div>
-              </div>
+            <div class="container">
+                <h1 class="page-title">
+                    {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
+                    <div class="divider-vertical hidden-xs"></div>
+                    <div class="header-title-student-detail">
+                        <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
+                        <div ng-show="vm.show_xsre"><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
+                        <div ng-show="vm.show_xsre">Last Refresh Date:: {{vm.student.last_update}}</div>
+                        <div>{{"views.last_updated"|translate}}: {{ vm.student.report_date | date : MM-dd-yyy }}</div>
+                        <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">{{"views.view_xsre"|translate}}</a></div>
+                    </div>
 
-              <div class="pull-right">
-                <a class="btn btn-reverse" ui-sref="dashboard.student">View All Student</a>
-                <a href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
-                <a href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
-              </div>
+                    <div class="pull-right">
+                        <a class="btn btn-reverse" ui-sref="dashboard.student">{{"views.view_all_student"|translate}}</a>
+                        <a href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
+                        <a href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
+                    </div>
 
-            </h1>
-          </div>
-          </header>
+                </h1>
+            </div>
+        </header>
 
-       <section class="main-content container">
+        <section class="main-content container">
 
-        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
-            <div class="row">
-                <div class="alert alert-info text-left message" ng-show=vm.message>
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+            <div ng-show="vm.show_loading" class="text-center" style="margin-top: 15%">
+                <div class="icon-wrapper">
+                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
                 </div>
             </div>
-        </div>
 
-    <div ng-show="vm.show_general" class="row">
-        <div class="col-md-3">
-            <fieldset>
-                <legend>Personal Information</legend>
-                <dl>
-                    <dt>Birthday</dt>
-                    <dd>{{vm.student.personal.xsre.demographics.birth_date}}</dd>
-                    <dt>Grade Level</dt>
-                    <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
-                    <dt>District ID</dt>
-                    <dd>{{vm.student.local_id}}</dd>
-                    <dt>Race/Ethnicity</dt>
-                    <dd class="break-word">{{vm.student.personal.xsre.demographics.races}}</dd>
-                    <dt>Gender</dt>
-                    <dd>{{vm.student.personal.xsre.demographics.sex}}</dd>
-                    <dt>Dominate Language</dt>
-                    <dd>{{vm.student.personal.xsre.languages[0].description}}</dd>
-                    <dt>Home Language</dt>
-                    <dd>{{vm.student.personal.xsre.languages[1].description}}</dd>
-                    <dt>Phone</dt>
-                    <dd>{{vm.student.personal.phone}}</dd>
-                    <dt>Email</dt>
-                    <dd>{{vm.student.personal.email}}</dd>
-                    <dt>Address</dt>
-                    <dd>{{vm.student.personal.address}}</dd>
-                </dl>
-            </fieldset>
-        </div>
-        <div class="col-md-3">
-            <fieldset ng-show="vm.student.personal.status">
-                <legend>District Programs</legend>
-                <dl>
-                    <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">IEP</dt>
-                    <dd></dd>
-                    <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">504 Plan</dt>
-                    <dd></dd>
-                    <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">Free or Reduced Lunch</dt>
-                    <dd></dd>
-                </dl>
-            </fieldset>
-            <fieldset>
-                <legend>District Metrics</legend>
-                <dl>
-                    <dt>Current GPA</dt>
-                    <dd></dd>
-                    <dt>Cummulative GPA</dt>
-                    <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd>
-                    <dt>Attendance</dt>
-                    <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
-                    <dt>Attendance Trend</dt>
-                    <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd>
-                    <dt>Behavior</dt>
-                    <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
-                    <dt>On Track Graduate</dt>
-                    <dd>
-                        <span ng-show="vm.on_track_to_graduate ===''?false:true" ng-class="vm.on_track_to_graduate === 'Yes' ? 'glyphicon glyphicon-ok-sign alert-success' : 'glyphicon glyphicon-remove-sign alert-danger'" aria-hidden="true"></span>
-                    </dd>
-                </dl>
-            </fieldset>
-        </div>
-        <div class="col-md-3">
-            <fieldset>
-                <legend>School Information</legend>
-                <dl>
-                    <dt>{{vm.student.personal.xsre.enrollment.school_name}}</dt>
-                    <dd></dd>
-                </dl>
-            </fieldset>
-            <fieldset>
-                <legend>Current Class Schedule</legend>
-                <span ng-repeat ="course in vm.student.transcript.source.transcript_term.courses | orderBy:'timeTablePeriod'">
-                    {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
-                </span>
-            </fieldset>
-        </div>
-        <div class="col-md-3">
-            <fieldset>
-                <legend>Primary Contacts</legend>
-                <dl>
-                    <dt>{{vm.student.personal.emergency1.name}}</dt>
-                    <dd></dd>
-                    <dt>{{vm.student.personal.emergency1.relationship}}</dt>
-                    <dd></dd>
-                    <dt>{{vm.student.personal.emergency1.phone}}</dt>
-                    <dd></dd>
-                    <dt>{{vm.student.personal.emergency1.email}}</dt>
-                    <dd></dd>
-                </dl>
-                </fieldset>
-            <fieldset ng-show="vm.student.personal.additional_status">
-                <legend>Additional Contacts</legend>
-                <dl>
-                    <dt>{{vm.student.personal.emergency2.name}}</dt>
-                    <dd></dd>
-                    <dt>{{vm.student.personal.emergency2.relationship}}</dt>
-                    <dd></dd>
-                    <dt>{{vm.student.personal.emergency2.phone}}</dt>
-                    <dd></dd>
-                    <dt>{{vm.student.personal.emergency2.email}}</dt>
-                    <dd></dd>
-                </dl>
-            </fieldset>
-            <fieldset>
-                <legend ng-show="vm.student.personal.college_bound">Misc.</legend>
-                <dl>
-                    <dt ng-show="vm.student.personal.college_bound">College Bound</dt>
-                    <dd></dd>
-                </dl>
-            </fieldset>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <ul ng-show="vm.show_general" class="nav nav-tabs nav-justified" role="tablist">
-                <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance & Behavior</a></li>
-                <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
-                <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
-                <li  ng-show="vm.show_enrollment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
-                <li  ng-show="vm.show_assessment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
-                    <select ng-change="vm.changeYear()" ng-model="vm.student.selected_years" class="attendance-year form-control" ng-options="option.name for option in vm.listOfYears">
-                        <option value="">Years</option>
-                    </select>
-                    <div class="display-flex align-items-center attendance-header">
-                        <div class="flex-grow-1 text-center attendance-date">Attendance Dates</div>
-                        <div class="flex-grow-2  text-center attendance-days display-flex">
-                            <div class="flex-grow-1">M</div>
-                            <div class="flex-grow-1">T</div>
-                            <div class="flex-grow-1">W</div>
-                            <div class="flex-grow-1">TH</div>
-                            <div class="flex-grow-1">F</div>
-                            <div class="flex-grow-1">SA</div>
-                            <div class="flex-grow-1">S</div>
-                        </div>
-                        <div class="attendance-weekly-change flex-grow-1 text-center">Weekly Change</div>
+            <div class="">
+                <div class="row">
+                    <div class="alert alert-info text-left message" ng-show=vm.message>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
                     </div>
-                    <div ng-show="vm.attandance_show" class="text-center" style="margin-top: 2%">
-                        <div class="icon-wrapper">
-                            <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
-                        </div>
-                    </div>
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.list_of_details">
-                        <div class="panel panel-default">
-                            <div ng-click="vm.changeStatus(student,$index)" class="panel-heading" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
-                                <div class="flex-grow-1 text-center attendance-date">{{student.header.date}}</div>
-                                <div class="flex-grow-2  text-center attendance-days display-flex">
-                                    <div class="flex-grow-1 day general border-left-2" ng-hide="student.status">{{student.header.monday}}</div>
-                                    <div class="flex-grow-1 day border-left-2" ng-show="student.status">{{student.header_detail.day.monday.date}}<br/>{{student.header_detail.day.monday.value}}</div>
-                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.tuesday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.tuesday.date}}<br/>{{student.header_detail.day.tuesday.value}}</div>
-                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.wednesday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.wednesday.date}}<br/>{{student.header_detail.day.wednesday.value}}</div>
-                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.thursday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.thursday.date}}<br/>{{student.header_detail.day.thursday.value}}</div>
-                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.friday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.friday.date}}<br/>{{student.header_detail.day.friday.value}}</div>
-                                    <div class="flex-grow-1 day general" ng-hide="student.status">{{student.header.saturday}}</div>
-                                    <div class="flex-grow-1 day" ng-show="student.status">{{student.header_detail.day.saturday.date}}<br/>{{student.header_detail.day.saturday.value}}</div>
-                                    <div class="flex-grow-1 day general border-right-2" ng-hide="student.status">{{student.header.sunday}}</div>
-                                    <div class="flex-grow-1 day border-right-2" ng-show="student.status">{{student.header_detail.day.sunday.date}}<br/>{{student.header_detail.day.sunday.value}}</div>
-                                </div>
-                                <div class="attendance-weekly-change flex-grow-1 text-center display-flex justify-content-space-between"><div>&nbsp;</div><div>{{student.header.weekly_change}}</div> <div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
+                </div>
+            </div>
+
+            <div ng-show="vm.show_general" class="row">
+                <div class="col-sm-6 col-md-3">
+                    <fieldset>
+                        <legend>{{"views.personal_information"|translate}}</legend>
+                        <dl>
+                            <dt>{{"views.birthday"|translate}}</dt>
+                            <dd>{{vm.student.personal.xsre.demographics.birth_date}}</dd>
+                            <dt>{{"views.grade_level"|translate}}</dt>
+                            <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
+                            <dt>{{"views.district_id"|translate}}</dt>
+                            <dd>{{vm.student.local_id}}</dd>
+                            <dt>{{"views.race"|translate}}</dt>
+                            <dd class="break-word">{{vm.student.personal.xsre.demographics.races}}</dd>
+                            <dt>{{"views.gender"|translate}}</dt>
+                            <dd>{{vm.student.personal.xsre.demographics.sex}}</dd>
+                            <dt>{{"views.dominate_language"|translate}}</dt>
+                            <dd>{{vm.student.personal.xsre.languages[0].description}}</dd>
+                            <dt>{{"views.home_language"|translate}}</dt>
+                            <dd>{{vm.student.personal.xsre.languages[1].description}}</dd>
+                            <dt>{{"views.phone"|translate}}</dt>
+                            <dd>{{vm.student.personal.phone}}</dd>
+                            <dt>{{"views.email"|translate}}</dt>
+                            <dd>{{vm.student.personal.email}}</dd>
+                            <dt>{{"views.address"|translate}}</dt>
+                            <dd>{{vm.student.personal.address}}</dd>
+                        </dl>
+                    </fieldset>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <fieldset ng-show="vm.student.personal.status">
+                        <legend>{{"views.district_programs"|translate}}</legend>
+                        <dl>
+                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduced_lunch"|translate}}</dt>
+                            <dd></dd>
+                        </dl>
+                    </fieldset>
+                    <fieldset>
+                        <legend>{{"views.district_metrics"|translate}}</legend>
+                        <dl>
+                            <dt>{{"views.current_gpa"|translate}}</dt>
+                            <dd></dd>
+                            <dt>{{"views.cumulative_gpa"|translate}}</dt>
+                            <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd>
+                            <dt>{{"views.attendance"|translate}}</dt>
+                            <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
+                            <dt>{{"views.attendance_trend"|translate}}</dt>
+                            <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd>
+                            <dt>{{"views.behavior"|translate}}</dt>
+                            <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
+                            <dt>{{"views.on_track_graduate"|translate}}</dt>
+                            <dd>
+                                <span ng-show="vm.on_track_to_graduate ===''?false:true" ng-class="vm.on_track_to_graduate === 'Yes' ? 'glyphicon glyphicon-ok-sign alert-success' : 'glyphicon glyphicon-remove-sign alert-danger'" aria-hidden="true"></span>
+                            </dd>
+                        </dl>
+                    </fieldset>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <fieldset>
+                        <legend>{{"views.school_information"|translate}}</legend>
+                        <dl>
+                            <dt>{{vm.student.personal.xsre.enrollment.school_name}}</dt>
+                            <dd></dd>
+                        </dl>
+                    </fieldset>
+                    <fieldset>
+                        <legend>{{"views.current_class_schedule"|translate}}</legend>
+                        <span ng-repeat ="course in vm.trans | orderBy:'timeTablePeriod'">
+                            {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
+                        </span>
+                    </fieldset>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <fieldset>
+                        <legend>{{"views.primary_contacts"|translate}}</legend>
+                        <dl>
+                            <dt>{{vm.student.personal.emergency1.name}}</dt>
+                            <dd></dd>
+                            <dt>{{vm.student.personal.emergency1.relationship}}</dt>
+                            <dd></dd>
+                            <dt>{{vm.student.personal.emergency1.phone}}</dt>
+                            <dd></dd>
+                            <dt>{{vm.student.personal.emergency1.email}}</dt>
+                            <dd></dd>
+                        </dl>
+                    </fieldset>
+                    <fieldset ng-show="vm.student.personal.additional_status">
+                        <legend>{{"views.additional_contacts"|translate}}</legend>
+                        <dl>
+                            <dt>{{vm.student.personal.emergency2.name}}</dt>
+                            <dd></dd>
+                            <dt>{{vm.student.personal.emergency2.relationship}}</dt>
+                            <dd></dd>
+                            <dt>{{vm.student.personal.emergency2.phone}}</dt>
+                            <dd></dd>
+                            <dt>{{vm.student.personal.emergency2.email}}</dt>
+                            <dd></dd>
+                        </dl>
+                    </fieldset>
+                    <fieldset>
+                        <legend ng-show="vm.student.personal.college_bound">{{"views.misc"|translate}}</legend>
+                        <dl>
+                            <dt ng-show="vm.student.personal.college_bound">{{"views.college_bound"|translate}}</dt>
+                            <dd></dd>
+                        </dl>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul ng-show="vm.show_general" class="nav nav-tabs nav-justified" role="tablist">
+                        <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">Attendance &amp; Behavior</a></li>
+                        <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">Transcript</a></li>
+                        <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">Program Participation</a></li>
+                        <li  ng-show="vm.show_enrollment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">Enrollment History</a></li>
+                        <li  ng-show="vm.show_assessment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">Assessment</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!--<div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">-->
+                        <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
+
+
+                            <div class="attendance-summary">
+                                <header class="">
+                                  <p><strong>Summary</strong> May 2016 (15 of 20 school days so far)</p>
+                                </header>
+
+                                <div class="row">
+                                  <div class="col-attendance">
+                                    <p>{{"views.late_to_class"|translate}}</p>
+                                    <div class="attendance-data">1</div>
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>{{"views.missed_day"|translate}}</p>
+                                    <div class="attendance-data">2</div>
+                                  </div>
+                                   <div class="col-attendance">
+                                    <p>{{"views.missed_class"|translate}}</p>
+                                    <div class="attendance-data">3</div>
+
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>{{"views.behavior_incident"|translate}}</p>
+                                    <div class="attendance-data">0</div>
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>{{"views.attendance_rate"|translate}}</p>
+                                    <div class="attendance-rate">
+                                      <div class="chart">
+                                          <div class="chart-percentage" easypiechart options="options" percent="50"><span></span></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-attendance">
+                                    <p>{{"views.attendance_rate_last_month"|translate}}</p>
+                                    <div class="attendance-last-month">
+                                      <div class="chart">
+                                          <div class="chart-percentage" easypiechart options="options" percent="-20"><span></span></div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                              </div>
+
                             </div>
-                            <div id="tabs-{{$index}}" class="panel-collapse collapse" role="tabpanel">
-                                <div class="panel-body display-flex no-padding">
-                                    <div class="flex-grow-1 text-center attendance-date content">
-                                        <div class="text-uppercase detail-item" ng-repeat="period in student.periods track by $index">{{period}}</div>
-                                        <div class="detail-item"></div>
-                                        <div class="text-uppercase detail-item">Behavior</div>
-                                    </div>
-                                    <div class="display-flex flex-grow-2 text-center attendance-days content">
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.monday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.monday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
+
+                            <div class="attendance-wrap">
+
+                            <div class="detail-info">
+                                <label>{{"views.details"|translate}}</label>
+                                <label class="category"><div class="circle late-class"></div>{{"views.late_to_class"|translate}}</label>
+                                <label class="category"><div class="circle missed-class"></div>{{"views.missed_class"|translate}}</label>
+                                <label class="category"><div class="circle missed-day"></div>{{"views.missed_day"|translate}}</label>
+                                <label class="category"><div class="circle incident"></div>{{"views.behavior_incident"|translate}}</label>
+                            </div>
+
+                            <div class="attendance-year selectwrap">
+                              <select ng-change="vm.changeYear()" ng-model="vm.selected_years" class="form-control" ng-options="item.label as item.value for item in vm.listOfYears">
+                              </select>
+                            </div>
+
+                            <div ng-show="vm.attandance_show" class="text-center" style="margin-top: 2%">
+                                <div class="icon-wrapper">
+                                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading"|translate}}</h2>
+                                </div>
+                            </div>
+
+                            <div class="month-detail" ng-show="vm.show_detail">
+                                <div class="month-detail-name">{{vm.month_name}}<span ng-click="vm.closeMonthDetail()" class="pull-right glyphicon glyphicon-remove close-month-detail"></span> </div>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.selectedMonth.detail track by $index">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading collapsed header{{$index}}" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                            <div class="flex-grow-1 attendance-date">{{student.week_name}}</div>
+                                            <div class="attendance-weekly-change flex-grow-1 text-center display-flex"><div>&nbsp;</div><div ng-class="student.events.late_to_class ? 'circle late-class' : ''"></div><div ng-class="student.events.missed_class ? 'circle missed-class' : ''"></div><div ng-class="student.events.missed_day ? 'circle missed-day' : ''"></div><div ng-class="student.events.incident ? 'circle incident' : ''"></div><div ng-class="student.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div></div>
                                         </div>
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.tuesday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.tuesday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.wednesday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.wednesday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.thursday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.thursday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.friday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.friday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.saturday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.saturday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 day">
-                                            <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="detail.template" class="detail-item value" ng-class="detail.value === 'N/A' ? 'n_a':detail.value" ng-repeat="detail in student.detail_columns.sunday"></div>
-                                            <div style="padding: 0 2px">
-                                                <div class="detail-item "></div>
-                                            </div>
-                                            <div style="padding: 0 2px" ng-repeat="behavior in student.behaviors.sunday">
-                                                <div class="detail-item n_a"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="align-items-center display-flex flex-grow-1 text-center attendance-weekly-change justify-content-center">
-                                        <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
-                                            <div class="panel-heading">Legend</div>
-                                            <div class="panel-body no-padding" style="display: flex; flex-direction: column;height: 88%;">
-                                                <div ng-repeat="legend in vm.legend">
-                                                    <span class="legend-item {{legend}}">
-                                                    {{legend}}
-                                                    </span>
+                                        <div id="tabs-{{$index}}" class="{{student.weekClass}} panel-collapse collapse" role="tabpanel">
+                                            <div class="panel-body display-flex no-padding">
+                                                <div class="flex-grow-1 text-center attendance-date content">
+                                                    <div class="detail-item header"></div>
+                                                    <div class="detail-item" ng-repeat="course in student.courses track by $index">
+                                                        <div class="number" >{{course.table_period}}</div>
+                                                        <div class="detail-item-content">
+                                                            <div class="text-uppercase">{{course.course_title}}</div>
+                                                            <div class="italic text-uppercase">{{course.teacher_name}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="display-flex flex-grow-2 text-center attendance-days content">
+
+                                                    <div class="flex-grow-1 day">
+                                                        <div ng-class="student.days[0].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[0].incident_detail[0].description">mon {{student.days[0].date}}</div>
+                                                        <div class="display-flex justify-content-center " ng-repeat="event in student.days[0].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 day ">
+                                                        <div ng-class="student.days[1].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[1].incident_detail[0].description">tue {{student.days[1].date}}</div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[1].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 day">
+                                                        <div ng-class="student.days[2].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[2].incident_detail[0].description">wed {{student.days[2].date}}</div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[2].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 day">
+                                                        <div ng-class="student.days[3].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[3].incident_detail[0].description">thu {{student.days[3].date}}</div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[3].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 day">
+                                                        <div ng-class="student.days[4].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[4].incident_detail[0].description">fri {{student.days[4].date}}</div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[4].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 day">
+                                                        <div ng-class="student.days[5].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[5].incident_detail[0].description">sat {{student.days[5].date}}</div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[5].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 day">
+                                                        <div ng-class="student.days[6].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[6].incident_detail[0].description">sun {{student.days[6].date}}</div>
+                                                        <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[6].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
+                                                            <span ng-if="event.status ==='UnexcusedAbsence'" style="color: red;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            <span ng-if="event.status ==='ExcusedAbsence'" style="color: #8adc66;background: transparent;border-radius: 15px;font-size: 17px;" class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="display-flex flex-grow-1 attendance-weekly-change">
+                                                    <div ng-show="vm.legend !== null ? true : false" class="panel panel-default">
+                                                        <div class="panel-heading">{{"views.legend"|translate}}</div>
+                                                        <div class="panel-body" style="display: flex; flex-direction: column;height: 88%;">
+                                                            <div class="legend" ng-class="{'grey-font':student.total_late_to_class === 0}">
+                                                                {{"views.late_to_class"|translate}}
+                                                                <span ng-class="{'grey-circle':student.total_late_to_class === 0}" class="pull-right bg-orange legend-item">{{student.total_late_to_class}}</span>
+                                                            </div>
+                                                            <div class="legend"ng-class="{'grey-font':student.total_missed_class === 0}">
+                                                                {{"views.missed_class"|translate}}
+                                                                <span ng-class="{'grey-circle':student.total_missed_class === 0}" class="pull-right missed-class legend-item">{{student.total_missed_class}}</span>
+                                                            </div>
+                                                            <div class="legend"ng-class="{'grey-font':student.total_missed_day === 0}">
+                                                                {{"views.days_missed"|translate}}
+                                                                <span ng-class="{'grey-circle':student.total_missed_day === 0}" class="pull-right bg-purple legend-item">{{student.total_missed_day}}</span>
+                                                            </div>
+                                                            <div class="legend"ng-class="{'grey-font':student.total_behaviour_incidents === 0}">
+                                                                {{"views.behavior_incidents"|translate}}
+                                                                <span ng-class="{'grey-circle':student.total_behaviour_incidents === 0}" class="pull-right bg-black legend-item">{{student.total_behaviour_incidents }}</span>
+                                                            </div>
+                                                            <div class="legend legend-excused">
+                                                                {{"views.excused"|translate}}
+                                                                <span class="pull-right glyphicon glyphicon-ok-sign excused"></span>
+                                                            </div>
+                                                            <div class="legend">
+                                                                {{"views.unexcused"|translate}}
+                                                                <span class="pull-right glyphicon glyphicon-ban-circle unexcused"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div ng-show="vm.show_transcript && vm.show_general" role="tabpanel" class="tab-pane" id="transcript">
-                    <div class="display-flex">
-                        <div class="flex-grow-1" style="padding:10px;width:10%;">
-                            <dl>
-                                <dt class="display-inline">Total Credits</dt>
-                                <dd class="display-inline">{{vm.transcript_header.credits}}</dd>
-                                <dt class="display-inline">Cumulative GPA</dt>
-                                <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
-                                <dt class="display-inline">Grade Level</dt>
-                                <dd class="display-inline">{{vm.transcript_header.grade_level}}</dd>
-                            </dl>
-                        </div>
-                        <div style="flex-grow: 2;width:90%;display: flex;justify-content:flex-start;">
-                            <div class="display-flex align-items-center justify-content-center ctype-{{$index + 1}}" ng-repeat="subject in vm.transcript_header.subject_values track by $index" style="width: 15%">
-                                <h5 class="text-center text-uppercase" style="color: #fff;">{{subject.name}}<br/>{{subject.value}} {{subject.value == 1 ? 'Credit':'Credits'}}</h5>
+
+                            <div class="calendar-container">
+                                <div  ng-show="month.show" ng-class="{'Current-month':day.isCurrentMonth,'active':month.isActive}" class="month-container" ng-repeat="month in vm.listOfCalendar">
+                                    <div class="header">
+                                        <h4>{{month.name.format("MMMM YYYY")}} <span class="pull-right glyphicon glyphicon-plus open-month" ng-click="vm.expand(month.name.format('YYYY-MM'))"></span></h4>
+                                    </div>
+                                    <div class="days-header-container">
+                                        <h5 class="days-header">{{"views.sun"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.mon"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.tue"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.wed"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.thu"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.fri"|translate}}</h5>
+                                        <h5 class="days-header">{{"views.sat"|translate}}</h5>
+                                    </div>
+                                    <div ng-click="vm.expandWeek(month.name.format('YYYY-MM'),$index)"  class="week-line" ng-repeat="week in month.data track by $index">
+                                    <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.day}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
+                                        <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
+                                            {{day.number}}
+                                        </span>
+                                        <span class="issues-container">
+                                        <span class="missed-late-class-container">
+                                            <span class="dot late-class hide"></span>
+                                        </span>
+                                        <span class="missed-late-class-container">
+                                            <span class="dot missed-class hide"></span>
+                                        </span>
+                                             <span class="missed-late-class-container">
+                                            <span class="dot missed-day hide"></span>
+                                        </span>
+                                        </span>
+                                    </span>
+                                    </div>
+                                </div>
                             </div>
+                          </div>
                         </div>
-                    </div>
-                    <div ng-class="$index % 2 === 0 ?'dark':'light-dark'" style="display: flex" ng-repeat="high_school in vm.list_high_schools">
-                        <div style="flex-grow: 1;width:10%;padding: 15px 0 0 15px">
-                            {{high_school.school_year}} - {{high_school.session}}
-                            <dl>
-                                <dt class="display-inline">Credit</dt>
-                                <dd class="display-inline">{{vm.transcript_header.credits}}</dd><br/>
-                                <dt class="display-inline">Grade Level</dt>
-                                <dd class="display-inline">{{vm.transcript_header.total_cumulative_gpa}}</dd>
-                            </dl>
-                        </div>
-                        <div class="display-flex" style="flex-grow: 2;width:90%;justify-content:flex-start;">
-                            <div ng-repeat="transcript in high_school.transcripts" style="width: 15%;padding: 5px">
-                                <div ng-repeat="details in transcript">
-                                    <h4 class="ctype-font-{{details.index + 1}}">{{details.courseTitle}}</h4>
-                                    <hr class="transcript">
-                                    <dl>
-                                        <dt></dt>
-                                        <dd>{{details.leaCourseId}}</dd>
-                                        <dt class="display-inline">Grade</dt>
-                                        <dd class="display-inline">{{details.mark}}</dd><br/>
-                                        <dt class="display-inline">Grade Level</dt>
-                                        <dd class="display-inline">{{details.gradeLevel}}</dd><br/>
-                                        <dt class="display-inline">Credits</dt>
-                                        <dd class="display-inline">{{details.creditsAttempted == details.creditsEarned ? details.creditsEarned : details.creditsEarned + '/' + details.creditsAttempted}}</dd>
-                                    </dl>
+
+                        <div role="tabpanel" class="tab-pane" id="transcript">
+                            <div class="panel-group" id="accordion_transcript" role="tablist" aria-multiselectable="true">
+                                <div class="display-flex full-width">
+                                    <div class="flex-grow-1" style="width: 20%;margin-right: 10%">
+                                        <fieldset style="margin-left:20px;margin-top: 20px">
+                                            <legend>GPA PROGRESS</legend>
+                                            <div class="text-center"><h3 style="font-size: 30px">{{vm.transcripts.currentGpa}}</h3></div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="flex-grow-1" style="width: 60%">
+                                        <fieldset style="margin-top: 20px;width: 90%">
+                                            <legend>CREDITS BY SUBJECT AREA</legend>
+                                            <ul style="padding: 0;margin-top: 20px">
+                                                <li style="list-style-type: none;width: 25%;float: left;" ng-repeat="subject in vm.transcripts.subjects">
+                                                    <p>{{subject.name}}</p>
+                                                    <p class="bold">
+                                                        {{subject.value}}
+                                                        <span ng-if="subject.value == 1">
+                                                            Credit
+                                                        </span>
+                                                        <span ng-if="subject.value == 0 || subject.value > 1">
+                                                            Credits
+                                                        </span>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="panel-container">
+                                <div class="panel panel-default transcript">
+                                    <div ng-repeat="transcript in vm.listTranscript">
+                                    <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                        <div class="flex-grow-1">
+                                            ACADEMIC YEAR: {{transcript.years - 1}}/{{transcript.years}} | Grade Level: {{transcript.grade}} Cumulative GPA: {{transcript.creditEarned}}
+                                        </div>
+                                        <div class="flex-grow-1 display-flex justify-content-flex-end">
+                                            <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
+                                        </div>
+                                    </div>
+                                    <div   id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                        <div ng-repeat="items in transcript.listSemester">
+                                        <div class="display-flex full-width justify-content-space-between" style="height: 50px;line-height: 50px;padding: 0 30px;background-color: #1d272c">
+                                            <span style="color: white;">
+                                                {{items.semester}}
+                                            </span>
+                                            <span style="color: white;">
+
+                                            </span>
+                                        </div>
+                                        <div class="panel-body display-flex no-padding">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                <tr>
+                                                    <td class="bold uppercase">Period</td>
+                                                    <td class="bold uppercase">Course Name</td>
+                                                    <td class="bold uppercase">Course Teacher</td>
+                                                    <td class="bold uppercase">Course Code</td>
+                                                    <td class="bold uppercase">Grade</td>
+                                                    <td class="bold uppercase">Credits</td>
+                                                    <td class="bold uppercase">Course Category</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="item in items.courses">
+                                                        <td>{{item.courses.period}}</td>
+                                                        <td>{{item.courses.course_name}}</td>
+                                                        <td>{{item.courses.teacher}}</td>
+                                                        <td>{{item.courses.course_code}}</td>
+                                                        <td>{{item.courses.grade}}</td>
+                                                        <td>{{item.courses.credits}}</td>
+                                                        <td>{{item.course_category}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="program_participation">
-                    <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
-                        This student has not been enrolled to any program yet. <a href="javascript:void(0);" ui-sref="dashboard.program">Go to Program</a>
-                    </div>
-                    <div class="display-flex flex-direction-column">
-                        <div class="display-flex flex-direction-column align-items-baseline" ng-repeat="program in vm.list_program_participations | orderBy:'-years'">
-                            <h5>{{program.years}}</h5>
-                            <div class="display-flex">
-                                <div class="flex-grow-1 program-participation" ng-repeat="item in program.programs">
-                                    <p>{{item.name}}</p>
-                                    <p>{{item.start_date | date : 'MM/dd/yyyy' : timezone}} - {{item.end_date | date : 'MM/dd/yyyy' : timezone}}</p>
-                                    <p>{{item.active}}</p>
-                                    <div class="display-flex flex-direction-column" ng-repeat="cohort in item.cohorts">
-                                        {{cohort}}
+
+                        <div role="tabpanel" class="tab-pane" id="program_participation">
+                            <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
+                                {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a>
+                            </div>
+                            <div class="display-flex flex-direction-column">
+                                <div class="display-flex flex-direction-column align-items-baseline" ng-repeat="program in vm.list_program_participations | orderBy:'-years'">
+                                    <h5>{{program.years}}</h5>
+                                    <div class="display-flex">
+                                        <div class="flex-grow-1 program-participation" ng-repeat="item in program.programs">
+                                            <p>{{item.name}}</p>
+                                            <p>{{item.start_date | date : 'MM/dd/yyyy' : timezone}} - {{item.end_date | date : 'MM/dd/yyyy' : timezone}}</p>
+                                            <p>{{item.active}}</p>
+                                            <div class="display-flex flex-direction-column" ng-repeat="cohort in item.cohorts">
+                                                {{cohort}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="enrollment_history">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            {{"views.school_name"|translate}}
+                                        </th>
+                                        <th class="text-center">
+                                            {{"views.school_year"|translate}}
+                                        </th>
+                                        <th class="text-center">
+                                            {{"views.entry_date"|translate}}
+                                        </th>
+                                        <th  class="text-center">
+                                            {{"views.exit_date"|translate}}
+                                        </th>
+                                        <th  class="text-center">
+                                            {{"views.grade_level"|translate}}
+                                        </th>
+                                        <th  class="text-center">
+                                            {{"views.status"|translate}}
+                                        </th>
+                                        <th  class="text-center">
+                                            {{"views.non_promotional_change"|translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
+                                        <td class="text-center">{{enrollement.schoolName}}</td>
+                                        <td class="text-center">{{enrollement.schoolYear}}</td>
+                                        <td class="text-center">{{enrollement.entryDate}}</td>
+                                        <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
+                                        <td class="text-center">{{enrollement.gradeLevel}}</td>
+                                        <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
+                                        <td class="text-center">
+                                            <div ng-if="enrollement.nonPromotionalChange === true">
+                                                <input type="checkbox"disabled checked>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="assessment">
+                            <div class="panel-container">
+                                <div class="panel panel-default transcript">
+                                    <div ng-repeat="assessment in vm.assessment">
+                                        <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-assessment-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                            <div class="flex-grow-1">
+                                                ACADEMIC YEAR: {{assessment.year - 1}}/{{assessment.year}} | Grade Level: {{assessment.studentGradeLevel}}
+                                            </div>
+                                            <div class="flex-grow-1 display-flex justify-content-flex-end">
+                                                <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 20px"  id="tabs-assessment-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                            <div class="display-flex">
+                                                <fieldset style="width: 25%;margin-right: 5%" class="flex-direction-column">
+                                                    <legend>MAP ASSESSMENTS</legend>
+                                                    <table class="table-assessment" style="margin-top: 10px;margin-bottom: 40px;" ng-repeat="item in assessment.maps">
+                                                        <thead>
+                                                            <th colspan="2">
+                                                                {{item.subTestName}}
+                                                            </th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="width: 80%">RIT Score:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
+                                                                {{item.RITScore}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 80%">Percentile Rank:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
+                                                                {{item.PercentileRank}}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr ng-hide="item.MetTypicalGrowth_LastFall2ThisFall === null ? true : false">
+                                                            <td style="width: 80%">Met Typical Growth Last Fall to This Fall:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
+                                                                {{item.MetTypicalGrowth_LastFall2ThisFall}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-hide="item.MetTypicalGrowth_LastFall2ThisSpring === null ? true : false">
+                                                            <td style="width: 80%">Met Typical Growth Last Fall to This Spring:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
+                                                                {{item.MetTypicalGrowth_LastFall2ThisSpring}}
+                                                            </td>
+                                                        </tr>
+
+                                                            <tr ng-hide="item.MetTypicalGrowth_LastSpring2ThisSpring === null ? true : false">
+                                                            <td style="width: 80%">Met Typical Growth Last Spring to This Spring:</td>
+                                                            <td style="width: 20%;vertical-align: bottom; padding-left: 20px;">
+                                                                {{item.MetTypicalGrowth_LastSpring2ThisSpring}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </fieldset>
+                                                <fieldset style="flex-direction: row;width: 65%;margin-left: 5%;">
+                                                    <legend>WASHINGTON STATE ASSESSMENTS</legend>
+                                                    <table class="flex-grow-1 table-assessment" style="width: 40%;margin-right: 10%;margin-top: 10px;margin-bottom: 40px;float:left" ng-repeat="item in assessment.states">
+                                                        <thead>
+                                                        <th colspan="2">
+                                                            {{item.subTestName}}
+                                                        </th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Score:</td>
+                                                            <td>
+                                                                {{item.Score}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Level code:</td>
+                                                            <td>
+                                                                {{item.LevelCode}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Met standard?</td>
+                                                            <td style="color:#ce112d" ng-if="item.MetStandard === 'N'">
+                                                              <strong>No</strong>
+                                                            </td>
+                                                            <td ng-if="item.MetStandard === 'Y'">
+                                                                Yes
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Status:</td>
+                                                            <td ng-if="item.attemptCode === 'TS'">
+                                                                {{item.attemptCodeDescription}}
+                                                            </td>
+                                                            <td ng-if="item.attemptCode !== 'TS'">
+                                                                <div class="assessment-status" popover-title="Status" popover-class="popover-assessment" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="item.attemptCodeDescription"><span style="color: #ce112d;" class="glyphicon glyphicon-alert"></span></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Location</td>
+                                                            <td>
+                                                                {{item.schoolName}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Subject Area:</td>
+                                                            <td>
+                                                                {{item.subTestSubjectArea}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </fieldset>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="enrollment_history">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th class="text-center">
-                                School Name
-                            </th>
-                            <th class="text-center">
-                                School Year
-                            </th>
-                            <th class="text-center">
-                                Entry Date
-                            </th>
-                            <th  class="text-center">
-                                Exit Date
-                            </th>
-                            <th  class="text-center">
-                                Grade Level
-                            </th>
-                            <th  class="text-center">
-                                Status
-                            </th>
-                            <th  class="text-center">
-                                Non Promotional Change
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
-                            <td class="text-center">{{enrollement.schoolName}}</td>
-                            <td class="text-center">{{enrollement.schoolYear}}</td>
-                            <td class="text-center">{{enrollement.entryDate}}</td>
-                            <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
-                            <td class="text-center">{{enrollement.gradeLevel}}</td>
-                            <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
-                            <td class="text-center">
-                                <div ng-if="enrollement.nonPromotionalChange === true">
-                                    <input type="checkbox"disabled checked>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="assessment">
-                <div style="display: flex;justify-content: flex-start;">
-                    <div class="map text-uppercase text-center">
-                        Map
-                    </div>
-                    <div class="state text-uppercase text-center">
-                        State
-                    </div>
-                </div>
-                    <div style="display: flex;" ng-repeat="assessment in vm.assessment track by $index ">
 
-                        <div class="text-uppercase" style="display:flex;flex-grow: 1;width: 50%;flex-wrap: wrap;">
-                            <div style="width: 100%;height: 18px">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
-                            <div ng-repeat="map in assessment.maps" style="flex-grow: 1;width: 33.33%">
-                                <h4 class="map-font">{{map.subTestName}}</h4>
-                                <dl>
-                                    <dt>RIT Score</dt>
-                                    <dd>{{map.RITScore}}</dd>
-                                    <dt>School Name</dt>
-                                    <dd>{{map.schoolName}}</dd><br/>
-                                    <dt class="display-inline">Student Grade Level</dt>
-                                    <dd class="display-inline">{{assessment.studentGradeLevel}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="text-uppercase" style="display: flex;flex-grow: 1;width: 50%;flex-wrap: wrap;">
-                            <div style="width: 100%;height: 18px">{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</div>
-                            <div ng-repeat="state in assessment.states" style="flex-grow: 1;width: 33.33%">
-                                <h4 class="state-font">{{state.subTestName}}</h4>
-                                <dl>
-                                    <dt>Score</dt>
-                                    <dd></dd>
-                                    <dt>Attempt Code</dt>
-                                    <dd>{{student.attemptCode}}</dd>
-                                    <dt>Attempt Description</dt>
-                                    <dd>{{state.attemptCodeDescription}}</dd>
-                                    <dt>School Name</dt>
-                                    <dd>{{state.schoolName}}</dd><br/>
-                                    <dt class="display-inline">Grade Level</dt>
-                                    <dd class="display-inline">{{assessment.studentGradeLevel}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-          </div></div>
-      </section>
+                </div></div>
+        </section>
     </div>
 </div>

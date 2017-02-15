@@ -3,9 +3,8 @@
       <header class="header-background clearfix inverse">
         <div class="container">
           <div class="pull-left">
-           <h1 class="page-title" ng-show="vm.user.full_name">Edit {{vm.user.full_name}} permission</h1>
+           <h1 class="page-title" ng-show="vm.user.full_name">{{"views.edit"|translate}} {{vm.user.full_name}} {{"views.permission"|translate}}</h1>
          </div>
-
        </div>
      </header>
 
@@ -24,29 +23,28 @@
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button ng-click="vm.update(vm.user)">Submit</button>
-              <button ui-sref="dashboard.manage">Back</button>
+              <button ng-click="vm.update(vm.user)">{{"views.submit"|translate}}</button>
+              <button ui-sref="dashboard.manage">{{"views.back"|translate}}</button>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="role" class="col-sm-2 control-label">Role:</label>
+            <label for="role" class="col-sm-2 control-label">{{"views.role"|translate}}:</label>
             <div class=" col-md-6 col-sm-10">
               <select class="form-control" ng-model="vm.user.role" id="role">
-                <option value="admin">Admin</option>
-                <option value="case-worker-restricted">Assigned Users Restricted</option>
-                <option value="case-worker-unrestricted">Assigned Users Unrestricted</option>
+                <option value="admin">{{"views.admin"|translate}}</option>
+                <option value="case-worker-restricted">{{"views.assigned_users_restricted"|translate}}</option>
+                <option value="case-worker-unrestricted">{{"views.assigned_users_unrestricted"|translate}}</option>
               </select>
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button ng-click="vm.update(vm.user)">Submit</button>
-              <button ui-sref="dashboard.manage">Back</button>
+              <button ng-click="vm.update(vm.user)">{{"views.submit"|translate}}</button>
+              <button ui-sref="dashboard.manage">{{"views.back"|translate}}</button>
             </div>
           </div>
-
         </form>
       </div>
     </section>

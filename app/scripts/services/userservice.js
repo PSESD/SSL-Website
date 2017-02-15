@@ -75,7 +75,7 @@
         }
 
         function invite(data) {
-            return $http.post(RESOURCES.AUTH_URL + '/user/invite', $.param(data), {
+            return $http.post(RESOURCES.AUTH_URL + 'user/invite', $.param(data), {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }

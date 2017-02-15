@@ -1,6 +1,6 @@
 <div ng-hide="vm.show_program_student" class="text-center" style="margin-top: 18%">
     <div class="icon-wrapper">
-        <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">Loading</h2>
+        <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
     </div>
 </div>
 <div ng-show="vm.show_program_student" class="container-fluid" ng-class="currentURL">
@@ -12,7 +12,7 @@
             <h1 class="page-title">{{vm.program.name}} Student <div class="divider-vertical hidden-xs"></div></h1>
           </div>
           <div class="pull-right">
-            <button class="btn btn-reverse invite-user" ui-sref="dashboard.program_student_add({id:vm.id})">Add Student to {{vm.program.name}}</button>
+            <button class="btn btn-reverse invite-user" ui-sref="dashboard.program_student_add({id:vm.id})">{{"views.programs.add_student" | translate}} {{vm.program.name}}</button>
           </div>
         </div>
       </header>
@@ -79,8 +79,8 @@
                             <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
                         </a>
                     </th>
-                    <th class="text-center">Edit</th>
-                    <th class="text-center">Delete</th>
+                    <th class="text-center">{{"views.edit" | translate}}</th>
+                    <th class="text-center">{{"views.delete" | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>

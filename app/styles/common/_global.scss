@@ -79,13 +79,18 @@ a{
 .flex-grow-2{
   flex-grow: 2;
 }
+.full-width{
+  width: 100%;
+}
 .no-padding{
   padding:0;
 }
 .justify-content-center{
   justify-content: center;
 }
-
+.justify-content-flex-end{
+  justify-content: flex-end;
+}
 .container-fluid .container{
   width: auto;
   margin-left: 10%;
@@ -110,7 +115,7 @@ h2{
 span{
   &.glyphicon-refresh{
     &.loading{
-      font-size: 25px;
+      font-size: 18px;
       -webkit-animation:spin 1s linear infinite;
       -moz-animation:spin 1s linear infinite;
       animation:spin 1s linear infinite;

@@ -14,25 +14,42 @@
       'ngTagsInput',
       'ui.multiselect',
       'fsm',
-      'ui.codemirror'
+      'ui.codemirror',
+      'angularMoment',
+      'pascalprecht.translate',
+      'tmh.dynamicLocale',
+      'easypiechart',
 
     ])
-    .factory('headerInjector', [function() {
-      var headerInjector = {
-        request: function(config) {
-          config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
-          return config;
-        }
-      };
-      return headerInjector;
-    }])
+    .factory('headerInjector', headerInjector)
     .config(configFunction)
     .run(runFunction);
 
-  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider'];
+  headerInjector.$inject = ['RESOURCES'];
 
-  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider) {
+  function headerInjector(RESOURCES) {
+      var headerInjector = {
+          request: function(config) {
+              config.headers['X-Cbo-Client-Url'] = RESOURCES.LOCAL;
+              return config;
+          }
+      };
+      return headerInjector;
+  }
 
+  configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider','$locationProvider','$translateProvider','tmhDynamicLocaleProvider','RESOURCES'];
+
+  function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider,RESOURCES) {
+      tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+      $translateProvider.useMissingTranslationHandlerLog();
+      $translateProvider.useSanitizeValueStrategy('sanitize');
+      $translateProvider.useStaticFilesLoader({
+          prefix: 'resources/locale-',
+          suffix: '.json'
+      });
+      $translateProvider.preferredLanguage('en_US');
+      $translateProvider.useLocalStorage();
+      $translateProvider.useMissingTranslationHandlerLog();
     $urlRouterProvider.otherwise("/login");
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
@@ -41,7 +58,9 @@
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
-   // $httpProvider.interceptors.push('headerInjector');
+    if(RESOURCES.LOCAL !== ""){
+        $httpProvider.interceptors.push('headerInjector');
+    }
     $httpProvider.defaults.timeout = 15000;
     gravatarServiceProvider.defaults = {
       size     : 50,
@@ -75,7 +94,6 @@
   runFunction.$inject = ['$rootScope', '$state', 'RESOURCES','$cookies','Idle','PROTECTED_PATHS'];
 
   function runFunction($rootScope, $state, RESOURCES,$cookies,Idle,PROTECTED_PATHS) {
-
     // Idle.watch();
     $rootScope.$on('$stateChangeError',
       function(event, toState, toParams, fromState, fromParams, error) {
@@ -102,10 +120,12 @@
     //     console.log("idle warn");
     // });
 
-      $rootScope.$on('$stateNotFound', 
-        function(event, unfoundState, fromState, fromParams){ 
+      $rootScope.$on('$stateNotFound',
+        function(event, unfoundState, fromState, fromParams){
           console.log(unfoundState);
         })
+
+
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
@@ -117,6 +137,25 @@
           }else{
             profile = $cookies.getObject(sessionStorage.getItem('id'));
           }
+              if(toState.name !== 'login' && toState.name !== 'forgot' && toState.name !== 'reset' && toState.name !=='submission'){
+                  localStorage.setItem('path',toState.name);
+              }
+
+              // for(var key in localStorage){
+              //     switch (key){
+              //         case "id":
+              //             localStorage.removeItem(key)
+              //             break;
+              //         case "student_id":
+              //             localStorage.removeItem(key)
+              //             break;
+              //     }
+              // }
+              if(typeof toParams === 'object'){
+                  _.forEach(toParams,function (v,k) {
+                      localStorage.setItem(k,v);
+                  })
+              }
 
         if(toState.name !== "dashboard" && toState.name !== "login" && toState.name !== "forgot"){
             $rootScope.currentURL = toState.name.replace('dashboard.','') + '-page';
@@ -127,6 +166,7 @@
           event.preventDefault();
           $state.go('login', {}, {reload: true});
         }
+
 
       });
 

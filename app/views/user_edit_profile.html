@@ -4,7 +4,7 @@
       <header class="header-background clearfix inverse">
         <div class="container">
           <div class="pull-left">
-              <h1 class="page-title">Edit Profile {{vm.user.full_name}}</h1>
+              <h1 class="page-title">{{"views.edit_profile"|translate}} {{vm.user.full_name}}</h1>
           </div>
         </div>
       </header>
@@ -24,43 +24,43 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button ng-click="vm.save(vm.user)">Save</button>
+                        <button ng-click="vm.save(vm.user)">{{"views.save"|translate}}</button>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">Email:</label>
+                    <label for="email" class="col-sm-2 control-label">{{"views.email"|translate}}:</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" ng-model="vm.user.email" class="form-control" id="email" placeholder="" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label">First Name:</label>
+                    <label for="first_name" class="col-sm-2 control-label">{{"views.first_name"|translate}}:</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" ng-model="vm.user.first_name" class="form-control" id="first_name" placeholder="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="middle_name" class="col-sm-2 control-label">Middle Name:</label>
+                    <label for="middle_name" class="col-sm-2 control-label">{{"views.middle_name"|translate}}:</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" ng-model="vm.user.middle_name" class="form-control" id="middle_name" placeholder="" >
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="last_name" class="col-sm-2 control-label">Last Name:</label>
+                    <label for="last_name" class="col-sm-2 control-label">{{"views.last_name"|translate}}:</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" ng-model="vm.user.last_name" class="form-control" id="last_name" placeholder="" >
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">Password:</label>
+                    <label for="password" class="col-sm-2 control-label">{{"views.password"|translate}}:</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="password" ng-model="vm.user.password" class="form-control" id="password" placeholder="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password_conf" class="col-sm-2 control-label">Retype Password:</label>
+                    <label for="password_conf" class="col-sm-2 control-label">{{"views.retype_password"|translate}}:</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="password" ng-model="vm.user.confirm_password" class="form-control" id="password_conf" placeholder="">
                     </div>
@@ -68,7 +68,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                    <button ng-click="vm.save(vm.user)">Save</button>
+                    <button ng-click="vm.save(vm.user)">{{"views.save"|translate}}</button>
                     </div>
                 </div>
 

@@ -110,6 +110,7 @@
                 }
             })
         }
+
         function getAttendance(id){
             return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/attendance', {
                 headers: {
