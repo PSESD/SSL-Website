@@ -1,0 +1,26 @@
+machine:
+  node:
+    version: 0.10.45
+
+test:
+  pre:
+    - npm install -g karma
+    - npm install -g bower
+    - bower install --config.cwd=./test --config.directory=./bower_components
+  override:
+    - bundle exec rspec spec
+    - karma start ./test/karma.conf.js --single-run
+
+deployment:
+  development:
+    branch: development
+    heroku:
+      appname: srx-apps-ssl-dev
+  test:
+    branch: test
+    heroku:
+      appname: srx-apps-ssl-test
+  production:
+    branch: production
+    heroku:
+      appname: srx-apps-ssl
