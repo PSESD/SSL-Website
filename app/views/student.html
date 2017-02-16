@@ -43,74 +43,61 @@
           <thead fsm-sticky-header scroll-body="#student" scroll-stop="80">
             <tr >
               <th style="width: 20%;">
-                <a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">
+                <!--<a href="" ng-click="sortType = 'name';sortReverse = !sortReverse">-->
+                <a href="" ng-click="vm.sort(vm.sort_name,'name')">
                   Name
-                  <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_name_selected" ng-hide="vm.sort_name" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_name_selected" ng-show="vm.sort_name" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 5%;">
-                <a href="" ng-click="sortType = 'district_student_id';sortReverse = !sortReverse">
+                <a href="" ng-click="vm.sort(vm.sort_school_district_id,'district_id')">
                   District Student ID
-                  <span ng-show="sortType == 'district_student_id' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'district_student_id' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_district_id_selected" ng-hide="vm.sort_school_district_id" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_district_id_selected" ng-show="vm.sort_school_district_id" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 5%;">
-                <a href="" ng-click="sortType = 'school_district';sortReverse = !sortReverse">
+                <a href="" ng-click="vm.sort(vm.sort_school_district,'school_district')">
                   School District
-                  <span ng-show="sortType == 'school_district' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'school_district' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_school_district" ng-hide="vm.sort_school_district" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_school_district" ng-show="vm.sort_school_district" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 5%;">
-                <a href="" ng-click="sortType = 'grade_level';sortReverse = !sortReverse">
+                <a href="" ng-click="vm.sort(vm.sort_grade_level,'grade_level')">
                   Grade Level
-                  <span ng-show="sortType == 'grade_level' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'grade_level' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_grade_level_selected" ng-hide="vm.sort_grade_level" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_grade_level_selected" ng-show="vm.sort_grade_level" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 20%;">
-                <a href="" ng-click="sortType = 'school_district';sortReverse = !sortReverse">
+                <a href="" ng-click="vm.sort(vm.sort_current_school,'current_school')">
                   Current School
-                  <span ng-show="sortType == 'school_district' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'school_district' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_current_school_selected" ng-hide="vm.sort_current_school" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_current_school_selected" ng-show="vm.sort_current_school" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 5%;">
-                <a href="" ng-click="sortType = 'attendance_academic_count';sortReverse = !sortReverse">
+                <a href="" ng-click="vm.sort(vm.sort_attendance,'attendance')">
                   Attendance
-                  <span ng-show="sortType == 'attendance_academic_count' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'attendance_academic_count' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_attendance_selected" ng-hide="vm.sort_attendance" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_attendance_selected" ng-show="vm.sort_attendance" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
               <th style="width: 5%;">
-                <a href="" ng-click="sortType = 'behavior_academic_count';sortReverse = !sortReverse">
+                <a href="" ng-click="vm.sort(vm.sort_behavior,'behavior')">
                   Behavior
-                  <span ng-show="sortType == 'behavior_academic_count' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'behavior_academic_count' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-if="vm.header_behavior_selected" ng-hide="vm.sort_behavior" class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-if="vm.header_behavior_selected" ng-show="vm.sort_behavior" class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </th>
-             <!--  <th style="width: 5%;">
-                <a href="" ng-click="sortType = 'trend';sortReverse = !sortReverse">
-                  Trend
-                  <span ng-show="sortType == 'trend' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'trend' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
-                </a>
-              </th> -->
-             <!--  <th style="width: 10%;">
-                <a href="" ng-click="sortType = 'on_track_to_graduate';sortReverse = !sortReverse">
-                  On Track to Graduate
-                  <span ng-show="sortType == 'on_track_to_graduate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                  <span ng-show="sortType == 'on_track_to_graduate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
-                </a>
-              </th> -->
               <th style="width: 5%;" class="table-space text-center">{{"views.edit" | translate}}</th>
               <th style="width: 5%;" class="text-center">{{"views.delete" | translate}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="student in vm.students |filter:search|filter:vm.district_selected()|filter:vm.school_selected()|orderBy:sortType:sortReverse">
+            <tr ng-repeat="student in vm.students |filter:search|filter:vm.district_selected()|filter:vm.school_selected()">
               <td>
                 <a href="javascript:void(0)" ui-sref="dashboard.student_detail({id:student.id})">
                   {{student.first_name}} {{student.last_name}}
@@ -150,25 +137,6 @@
                 </span>
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.behavior.template" class="label label-student label-{{student.xsre.behavior.academic.flag}}">{{student.xsre.behavior.academic.count}}</div>
               </td>
-              <!-- <td class="text-center">
-                <span ng-if="student.xsre.attendance_risk.trend === '' || student.xsre.attendance_risk.trend === undefined">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </span>
-                <span ng-if="student.xsre.attendance_risk.trend !== '' && student.xsre.attendance_risk.trend !== undefined">
-                <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.attendance_risk.template" class='glyphicon glyphicon-arrow-right {{student.xsre.attendance_risk.trend}}'></div>
-                </span>
-              </td> -->
-              <!-- <td class="text-center">
-                <span ng-if="student.xsre.on_track_to_graduate === '' || student.xsre.on_track_to_graduate === null">
-                  <span class="glyphicon glyphicon-minus"></span>
-                </span>
-                <div ng-if="student.xsre.on_track_to_graduate === 'Yes' ">
-                  <span class="glyphicon glyphicon-ok-circle alert-success" aria-hidden="true"></span>
-                </div>
-                <div ng-if="student.xsre.on_track_to_graduate === 'No' ">
-                  <span class="glyphicon glyphicon-remove-circle alert-danger" aria-hidden="true"></span>
-                </div>
-              </td> -->
               <td class="table-space text-center">
                 <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.student_edit({id:student.id})"></a>
               </td>
