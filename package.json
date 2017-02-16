@@ -36,11 +36,11 @@
     "time-grunt": "^1.0.0"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=7.5.0"
   },
   "scripts": {
     "test": "karma start test/karma.conf.js",
-    "start": "grunt server",
+    "start": "grunt serve",
     "postinstall": "bash ./post_install.sh"
   },
   "dependencies": {
