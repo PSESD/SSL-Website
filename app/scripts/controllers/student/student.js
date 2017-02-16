@@ -13,7 +13,7 @@
         var vm = this;
         vm.show_user = false;
 
-        vm.header_name_selected = false;
+        vm.header_name_selected = true;
         vm.header_district_id_selected = false;
         vm.header_grade_level_selected = false;
         vm.header_school_district = false;
@@ -21,7 +21,7 @@
         vm.header_attendance_selected = false;
         vm.header_behavior_selected = false;
 
-        vm.sort_name = false;
+        vm.sort_name = true;
         vm.sort_school_district_id = false;
         vm.sort_grade_level = false;
         vm.sort_school_district = false;
@@ -164,6 +164,7 @@
                     break;
 
             }
+
         }
         init();
 
@@ -443,7 +444,7 @@
                 });
 
                 vm.students = list_of_students;
-                console.log(vm.students);
+                //console.log(vm.students);
                 list_of_district_options = _.uniqBy(list_of_district_options,function(value){
                     return value;
                 });
