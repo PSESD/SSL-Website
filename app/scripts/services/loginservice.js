@@ -9,7 +9,7 @@
   function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state,$cookies) {
     var service = {
       authenticate: authenticate,
-      validate:validate
+      validate: validate
     }
 
     return service

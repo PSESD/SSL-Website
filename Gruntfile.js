@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
-
+    grunt.loadNpmTasks('grunt-contrib-compass');
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
@@ -24,6 +24,9 @@ module.exports = function(grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
+
+  grunt.loadNpmTasks('grunt-ng-constant');
+
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -49,6 +52,19 @@ module.exports = function(grunt) {
         }
       }
     },
+    ngconstant: {
+      options: {
+        constants: {
+          ENV: grunt.file.exists('local.json') ? grunt.file.readJSON('local.json') : process.env
+        },
+        deps: false,
+        dest: '<%= yeoman.app %>/scripts/env.js',
+        name: 'sslv2App',
+        wrap: true
+      },
+      build: {
+      }
+    },
 
     // Project settings
     yeoman: appConfig,
@@ -61,7 +77,7 @@ module.exports = function(grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/**/**/*.js'],
         tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -527,6 +543,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:build',
     'wiredep:app',
     'useminPrepare',
     'concurrent:dist',
