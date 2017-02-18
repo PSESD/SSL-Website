@@ -319,15 +319,38 @@
     font-weight: 400;
     color:black;
   }*/
+
+
   .value{
     margin: 0 2px;
   }
   .day{
     width: 14.28%;
+    position: relative;
     &.general{
       height: 36px;
       line-height: 36px;
     }
+
+    span[class^="icon"] {
+      background: $white;
+      border-radius: 50%;
+      padding: 4px;
+      font-size: 16px;
+      line-height: 17px;
+      position: absolute;
+      top: 55%;
+      transform: translateY(-50%);
+    }
+
+    .icon-excused {
+      color: $alert-green;
+    }
+
+    .icon-unexcused {
+      color: $alert-red;
+    }
+
   }
   .border-right-2{
     border-right: 2px solid #ddd;
