@@ -174,6 +174,9 @@
         vm.expandWeek = expandWeek;
 
         function expandWeek(filter,idx) {
+            document.querySelector('#attendance').scrollIntoView({
+              behavior: 'smooth'
+            });
             var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
@@ -188,6 +191,8 @@
                     jQuery(detail).addClass('in');
                 }
             },100);
+
+
         }
 
         function closeMonthDetail() {
@@ -221,12 +226,15 @@
         }
         function expand(filter) {
 
+            document.querySelector('#attendance').scrollIntoView({
+              behavior: 'smooth'
+            });
             var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
             vm.selectedMonth = selected_month[0];
             vm.month_name = selected_month[0].name;
-            vm.show_detail = true
+            vm.show_detail = true;
         }
         function renderCalendar(data){
             _.forEach(data,function(month){

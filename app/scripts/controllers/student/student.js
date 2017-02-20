@@ -12,6 +12,23 @@
 
         var vm = this;
         vm.show_user = false;
+
+        vm.header_name_selected = true;
+        vm.header_district_id_selected = false;
+        vm.header_grade_level_selected = false;
+        vm.header_school_district = false;
+        vm.header_current_school_selected = false;
+        vm.header_attendance_selected = false;
+        vm.header_behavior_selected = false;
+
+        vm.sort_name = true;
+        vm.sort_school_district_id = false;
+        vm.sort_grade_level = false;
+        vm.sort_school_district = false;
+        vm.sort_current_school = false;
+        vm.sort_attendance = false;
+        vm.sort_behavior = false;
+
         var data ="";
         var success = "";
         var student ={};
@@ -28,6 +45,127 @@
         vm.deleteStudent = deleteStudent;
         vm.school_selected = school_selected;
         vm.district_selected = district_selected;
+        vm.sort = sort;
+
+        function sort(status,col) {
+            switch (col){
+
+                case 'name':
+                    vm.header_name_selected = true;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.first_name; }]);
+                        vm.sort_name = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_name = !status;
+                    }
+                    break;
+                case 'district_id':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = true;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.district_student_id; }]);
+                        vm.sort_school_district_id = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_school_district_id = !status;
+                    }
+                    break;
+                case 'school_district':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = true;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.school_district; }]);
+                        vm.sort_school_district = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_school_district = !status;
+                    }
+                    break;
+                case 'grade_level':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = true;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.grade_level; }]);
+                        vm.sort_grade_level = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_grade_level = !status;
+                    }
+                    break;
+                case 'current_school':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = true;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.school_name; }]);
+                        vm.sort_current_school = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_current_school = !status;
+                    }
+                    break;
+                case 'attendance':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = true;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.attendance.academic.count; }]);
+                        vm.sort_attendance = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_attendance = !status;
+                    }
+                    break;
+                case 'behavior':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = true;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.behavior.academic.behavior_academic_count; }]);
+                        vm.sort_behavior = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_behavior = !status;
+                    }
+                    break;
+
+            }
+
+        }
         init();
 
         function init(){
@@ -44,7 +182,7 @@
             clearVariables();
             StudentService.getAllStudent()
                 .then(function(response){
-                    console.log(response);
+
                     $timeout(getAll(response),500);
                 },function(error){
 
@@ -222,6 +360,7 @@
                     });
 
                     _.forEach(_.get(data,"xsre.behaviorCount",[]),function(value,key){
+
                         if(key === 0){
                             temp_template_behavior = behavior_template;
                         }
@@ -291,6 +430,9 @@
                             }
                             temp_template_attendance = _.replace(temp_template_attendance,'{current_academic}',value.count);
                             temp_template_attendance = _.replace(temp_template_attendance,'{current_academic_day}',day);
+                        }else{
+                            console.log(true);
+                            student.xsre.attendance.academic.attendance_academic_count = "";
                         }
                         if(key === 1){
                             student.xsre.attendance.template = temp_template_attendance;
@@ -302,6 +444,7 @@
                 });
 
                 vm.students = list_of_students;
+                //console.log(vm.students);
                 list_of_district_options = _.uniqBy(list_of_district_options,function(value){
                     return value;
                 });
