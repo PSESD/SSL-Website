@@ -173,6 +173,12 @@
                         <dl>
                             <dt ng-show="vm.student.personal.college_bound">{{"views.college_bound"|translate}}</dt>
                             <dd></dd>
+                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduced_lunch"|translate}}</dt>
+                            <dd></dd>
                         </dl>
                     </fieldset>
                 </div>
@@ -261,7 +267,7 @@
 
                             <div class="month-detail" ng-show="vm.show_detail">
                                 <div class="month-detail-name">{{vm.month_name}}<span ng-click="vm.closeMonthDetail()" class="pull-right glyphicon glyphicon-remove close-month-detail"></span> </div>
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.selectedMonth.detail track by $index">
+                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="student in vm.selectedMonth.detail track by $index" ng-init="rowIndex = $index">
                                     <div class="panel panel-default">
                                         <div class="panel-heading collapsed header{{$index}}" role="tab" data-toggle="collapse" data-target="#tabs-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
                                             <div class="flex-grow-1 attendance-date">{{student.week_name}}</div>
@@ -281,49 +287,49 @@
                                                 </div>
                                                 <div class="display-flex flex-grow-2 text-center attendance-days content">
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days[0].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[0].incident_detail[0].description">mon {{student.days[0].date}}</div>
+                                                        <div ng-class="student.days[0].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[0].incident_detail[0].description">sun {{student.days[0].date}}</div>
                                                         <div class="display-flex justify-content-center " ng-repeat="event in student.days[0].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 day ">
-                                                        <div ng-class="student.days[1].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[1].incident_detail[0].description">tue {{student.days[1].date}}</div>
+                                                        <div ng-class="student.days[1].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[1].incident_detail[0].description">mon {{student.days[1].date}}</div>
                                                         <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[1].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days[2].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[2].incident_detail[0].description">wed {{student.days[2].date}}</div>
+                                                        <div ng-class="student.days[2].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[2].incident_detail[0].description">tue {{student.days[2].date}}</div>
                                                         <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[2].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days[3].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[3].incident_detail[0].description">thu {{student.days[3].date}}</div>
+                                                        <div ng-class="student.days[3].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[3].incident_detail[0].description">wed {{student.days[3].date}}</div>
                                                         <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[3].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days[4].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[4].incident_detail[0].description">fri {{student.days[4].date}}</div>
+                                                        <div ng-class="student.days[4].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[4].incident_detail[0].description">thu {{student.days[4].date}}</div>
                                                         <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[4].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days[5].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[5].incident_detail[0].description">sat {{student.days[5].date}}</div>
+                                                        <div ng-class="student.days[5].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[5].incident_detail[0].description">fri {{student.days[5].date}}</div>
                                                         <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[5].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 day">
-                                                        <div ng-class="student.days[6].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[6].incident_detail[0].description">sun {{student.days[6].date}}</div>
+                                                        <div ng-class="student.days[6].incident_status ? 'behavior-incident':''" class="detail-item header" popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.days[6].incident_detail[0].description">sat {{student.days[6].date}}</div>
                                                         <div class="display-flex justify-content-center align-items-center" ng-repeat="event in student.days[6].events track by $index" ng-class="event.type === 'late_to_class' ? 'detail-item value late-class': event.type === 'missed_class'?'detail-item value missed-class':event.type === 'missed_day'?'detail-item value missed-day':'detail-item value'">
                                                             <span ng-if="event.status ==='UnexcusedAbsence' && $first" class="icon-unexcused glyphicon glyphicon glyphicon-ban-circle unexcused"></span>
                                                             <span ng-if="event.status ==='ExcusedAbsence && $first'" class="icon-excused glyphicon glyphicon-ok-sign excused"></span>
@@ -382,22 +388,26 @@
                                         <h5 class="days-header">{{"views.sat"|translate}}</h5>
                                     </div>
                                     <div ng-click="vm.expandWeek(month.name.format('YYYY-MM'),$index)"  class="week-line" ng-repeat="week in month.data track by $index">
-                                    <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.day}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
-                                        <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
-                                            {{day.number}}
-                                        </span>
-                                        <span class="issues-container">
-                                        <span class="missed-late-class-container">
-                                            <span class="dot late-class hide"></span>
-                                        </span>
-                                        <span class="missed-late-class-container">
-                                            <span class="dot missed-class hide"></span>
-                                        </span>
-                                             <span class="missed-late-class-container">
-                                            <span class="dot missed-day hide"></span>
-                                        </span>
-                                        </span>
-                                    </span>
+                                      <span class="weeks-container" id="{{day.year}}-{{day.month + 1}}-{{day.day}}" ng-class="{today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-repeat="day in week.days">
+                                          <span ng-class="vm.checkDate(day.number) ? 'padding-6':'padding-8-10'">
+                                              {{day.number}}
+                                          </span>
+                                          <span class="issues-container">
+                                            <div class="day-content incident hide">
+                                              <span class="dot late-class hide"></span>
+                                              <span class="missed-late-class-container"></span>
+                                              <span class="dot late-class hide"></span>
+                                              <span class="missed-late-class-container"></span>
+                                              <span class="dot missed-class hide"></span>
+                                              <span class="missed-late-class-container"></span>
+                                              <span class="dot missed-class hide"></span>
+                                              <span class="missed-late-class-container"><span>
+                                              <span class="dot missed-day hide"></span>
+                                              <span class="missed-late-class-container"></span>
+                                              <span class="dot missed-day hide"></span>
+                                            </div>
+                                          </span>
+                                      </span>
                                     </div>
                                 </div>
                             </div>

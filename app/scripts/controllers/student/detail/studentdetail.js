@@ -266,7 +266,10 @@
                             _.forEach(v.event,function(value){
                                 var set_date = new Date(v.date);
                                 //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
-                                if(value == 'missed_day'){
+                                 if(value == 'behavior_incident'){
+                                     jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .incident").removeClass('hide');
+                                 }else if(value == 'missed_day'){
+
                                     jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
                                 }else{
                                     if(value == 'late_to_class'){
