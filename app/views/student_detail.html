@@ -36,7 +36,7 @@
                         <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
                         <div ng-show="vm.show_xsre"><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
                         <div ng-show="vm.show_xsre">Last Refresh Date:: {{vm.student.last_update}}</div>
-                        <div>{{"views.last_updated"|translate}}: {{ vm.student.report_date | date : MM-dd-yyy }}</div>
+                        <div>{{"views.last_updated"|translate}}: {{ vm.student.report_date | date : MM-dd-yyyy }}</div>
                         <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">{{"views.view_xsre"|translate}}</a></div>
                     </div>
 
@@ -72,7 +72,7 @@
                         <legend>{{"views.personal_information"|translate}}</legend>
                         <dl>
                             <dt>{{"views.birthday"|translate}}</dt>
-                            <dd>{{vm.student.personal.xsre.demographics.birth_date}}</dd>
+                            <dd>{{vm.student.personal.xsre.demographics.birth_date | date : 'longDate'}}</dd>
                             <dt>{{"views.grade_level"|translate}}</dt>
                             <dd>{{vm.student.personal.xsre.enrollment.grade_level}}</dd>
                             <dt>{{"views.district_id"|translate}}</dt>
@@ -109,20 +109,20 @@
                     <fieldset>
                         <legend>{{"views.district_metrics"|translate}}</legend>
                         <dl>
-                            <dt>{{"views.current_gpa"|translate}}</dt>
-                            <dd></dd>
-                            <dt>{{"views.cumulative_gpa"|translate}}</dt>
-                            <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd>
+                            <!-- <dt>{{"views.current_gpa"|translate}}</dt>
+                            <dd></dd> -->
+                            <!-- <dt>{{"views.cumulative_gpa"|translate}}</dt>
+                            <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd> -->
                             <dt>{{"views.attendance"|translate}}</dt>
                             <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
-                            <dt>{{"views.attendance_trend"|translate}}</dt>
-                            <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd>
+                            <!-- <dt>{{"views.attendance_trend"|translate}}</dt>
+                            <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd> -->
                             <dt>{{"views.behavior"|translate}}</dt>
                             <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
-                            <dt>{{"views.on_track_graduate"|translate}}</dt>
+                            <!-- <dt>{{"views.on_track_graduate"|translate}}</dt>
                             <dd>
                                 <span ng-show="vm.on_track_to_graduate ===''?false:true" ng-class="vm.on_track_to_graduate === 'Yes' ? 'glyphicon glyphicon-ok-sign alert-success' : 'glyphicon glyphicon-remove-sign alert-danger'" aria-hidden="true"></span>
-                            </dd>
+                            </dd> -->
                         </dl>
                     </fieldset>
                 </div>
@@ -130,8 +130,8 @@
                     <fieldset>
                         <legend>{{"views.school_information"|translate}}</legend>
                         <dl>
-                            <dt>{{vm.student.personal.xsre.enrollment.school_name}}</dt>
-                            <dd></dd>
+                            <dt>School Name</dt>
+                            <dd>{{vm.student.personal.xsre.enrollment.school_name}}</dd>
                         </dl>
                     </fieldset>
                     <fieldset>
@@ -143,29 +143,29 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <fieldset>
-                        <legend>{{"views.primary_contacts"|translate}}</legend>
+                        <legend>{{"views.emergency_contact1"|translate}}</legend>
                         <dl>
-                            <dt>{{vm.student.personal.emergency1.name}}</dt>
-                            <dd></dd>
-                            <dt>{{vm.student.personal.emergency1.relationship}}</dt>
-                            <dd></dd>
-                            <dt>{{vm.student.personal.emergency1.phone}}</dt>
-                            <dd></dd>
-                            <dt>{{vm.student.personal.emergency1.email}}</dt>
-                            <dd></dd>
+                            <dt>Name</dt>
+                            <dd>{{vm.student.personal.emergency1.name}}</dd>
+                            <dt>Relationship</dt>
+                            <dd>{{vm.student.personal.emergency1.relationship}}</dd>
+                            <dt>Phone</dt>
+                            <dd>{{vm.student.personal.emergency1.phone}}</dd>
+                            <dt>Email</dt>
+                            <dd>{{vm.student.personal.emergency1.email}}</dd>
                         </dl>
                     </fieldset>
                     <fieldset ng-show="vm.student.personal.additional_status">
-                        <legend>{{"views.additional_contacts"|translate}}</legend>
-                        <dl>
-                            <dt>{{vm.student.personal.emergency2.name}}</dt>
-                            <dd></dd>
-                            <dt>{{vm.student.personal.emergency2.relationship}}</dt>
-                            <dd></dd>
-                            <dt>{{vm.student.personal.emergency2.phone}}</dt>
-                            <dd></dd>
-                            <dt>{{vm.student.personal.emergency2.email}}</dt>
-                            <dd></dd>
+                        <legend>{{"views.emergency_contact2"|translate}}</legend>
+                         <dl>
+                            <dt>Name</dt>
+                            <dd>{{vm.student.personal.emergency2.name}}</dd>
+                            <dt>Relationship</dt>
+                            <dd>{{vm.student.personal.emergency2.relationship}}</dd>
+                            <dt>Phone</dt>
+                            <dd>{{vm.student.personal.emergency2.phone}}</dd>
+                            <dt>Email</dt>
+                            <dd>{{vm.student.personal.emergency2.email}}</dd>
                         </dl>
                     </fieldset>
                     <fieldset>

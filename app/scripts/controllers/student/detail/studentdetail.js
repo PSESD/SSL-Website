@@ -335,11 +335,11 @@
                             student.personal.emergency1.name = _.get(data,'personal.emergency1.name',"");
                             student.personal.emergency1.phone = _.get(data,'personal.emergency1.phone',"");
                             student.personal.emergency1.relationship = _.get(data,'personal.emergency1.relationship',"");
-                            student.personal.emergency2.email = _.get(data,'personal.emergency1.email',"");
-                            student.personal.emergency2.mentor = _.get(data,'personal.emergency1.mentor',"");
-                            student.personal.emergency2.name = _.get(data,'personal.emergency1.name',"");
-                            student.personal.emergency2.phone = _.get(data,'personal.emergency1.phone',"");
-                            student.personal.emergency2.relationship = _.get(data,'personal.emergency1.relationship',"");
+                            student.personal.emergency2.email = _.get(data,'personal.emergency2.email',"");
+                            student.personal.emergency2.mentor = _.get(data,'personal.emergency2.mentor',"");
+                            student.personal.emergency2.name = _.get(data,'personal.emergency2.name',"");
+                            student.personal.emergency2.phone = _.get(data,'personal.emergency2.phone',"");
+                            student.personal.emergency2.relationship = _.get(data,'personal.emergency2.relationship',"");
                             student.personal.enrollment_status = _.get(data,'personal.enrollmentStatus',"");
                             student.personal.first_name = _.get(data,'personal.firstName',"");
                             student.personal.last_name = _.get(data,'personal.lastName',"");
@@ -429,7 +429,7 @@
                             {
                                 student.personal.additional_status = false;
                             }else{
-                                student.personal.additional_status = false;
+                                student.personal.additional_status = true;
                             }
                             vm.student = student;
                             vm.show_general = true;
