@@ -88,7 +88,7 @@
                             <dt>{{"views.phone"|translate}}</dt>
                             <dd>{{vm.student.personal.phone}}</dd>
                             <dt>{{"views.email"|translate}}</dt>
-                            <dd>{{vm.student.personal.email}}</dd>
+                            <dd><a ng-href="mailto:{{vm.student.personal.email}}">{{vm.student.personal.email}}</a></dd>
                             <dt>{{"views.address"|translate}}</dt>
                             <dd>{{vm.student.personal.address}}</dd>
                         </dl>
@@ -152,7 +152,7 @@
                             <dt>Phone</dt>
                             <dd>{{vm.student.personal.emergency1.phone}}</dd>
                             <dt>Email</dt>
-                            <dd>{{vm.student.personal.emergency1.email}}</dd>
+                            <dd><a ng-href="mailto:{{vm.student.personal.emergency1.email}}">{{vm.student.personal.emergency1.email}}</a></dd>
                         </dl>
                     </fieldset>
                     <fieldset ng-show="vm.student.personal.additional_status">
@@ -165,7 +165,7 @@
                             <dt>Phone</dt>
                             <dd>{{vm.student.personal.emergency2.phone}}</dd>
                             <dt>Email</dt>
-                            <dd>{{vm.student.personal.emergency2.email}}</dd>
+                            <dd><a ng-href="mailto:{{vm.student.personal.emergency2.email}}">{{vm.student.personal.emergency2.email}}</a></dd>
                         </dl>
                     </fieldset>
                     <fieldset>
