@@ -302,6 +302,12 @@
 
         }
 
+        function formatPhoneNumber(s) {
+          var s2 = (""+s).replace(/\D/g, '');
+          var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+          return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+        }
+
         if($stateParams.debug === "true"){
             vm.show_xsre = true;
         }else if($stateParams.debug === undefined){
@@ -333,19 +339,19 @@
                             student.personal.emergency1.email = _.get(data,'personal.emergency1.email',"");
                             student.personal.emergency1.mentor = _.get(data,'personal.emergency1.mentor',"");
                             student.personal.emergency1.name = _.get(data,'personal.emergency1.name',"");
-                            student.personal.emergency1.phone = _.get(data,'personal.emergency1.phone',"");
+                            student.personal.emergency1.phone = formatPhoneNumber(_.get(data,'personal.emergency1.phone',""));
                             student.personal.emergency1.relationship = _.get(data,'personal.emergency1.relationship',"");
                             student.personal.emergency2.email = _.get(data,'personal.emergency2.email',"");
                             student.personal.emergency2.mentor = _.get(data,'personal.emergency2.mentor',"");
                             student.personal.emergency2.name = _.get(data,'personal.emergency2.name',"");
-                            student.personal.emergency2.phone = _.get(data,'personal.emergency2.phone',"");
+                            student.personal.emergency2.phone = formatPhoneNumber(_.get(data,'personal.emergency2.phone',""));
                             student.personal.emergency2.relationship = _.get(data,'personal.emergency2.relationship',"");
                             student.personal.enrollment_status = _.get(data,'personal.enrollmentStatus',"");
                             student.personal.first_name = _.get(data,'personal.firstName',"");
                             student.personal.last_name = _.get(data,'personal.lastName',"");
                             student.personal.idea_indicator = _.get(data,'personal.ideaIndicator',"");
                             student.personal.middle_name = _.get(data,'personal.middleName',"");
-                            student.personal.phone = _.get(data,'personal.phone',"");
+                            student.personal.phone = formatPhoneNumber(_.get(data,'personal.phone',""));
                             student.personal.school_district = _.get(data,'personal.schoolDistrict',"");
                             student.personal.school_year = _.get(data,'personal.schoolYear',"");
                             student.personal.section_504_status = _.get(data,'personal.section504Status',"");
