@@ -8,3 +8,5 @@
 env.js
 local.json
 *debug.log
+npm-debug*
+.vscode/*
