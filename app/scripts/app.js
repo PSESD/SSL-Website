@@ -29,7 +29,7 @@
   function headerInjector(RESOURCES, ENV) {
       var headerInjector = {
           request: function(config) {
-              config.headers['X-Cbo-Client-Url'] = ENV.CALLBACK_URL;
+              config.headers['X-Cbo-Client-Url'] = ENV.LOCAL;
               return config;
           }
       };
@@ -57,7 +57,7 @@
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
-    if(ENV.CALLBACK_URL !== ""){
+    if(ENV.LOCAL !== ""){
         $httpProvider.interceptors.push('headerInjector');
     }
     $httpProvider.defaults.timeout = 15000;

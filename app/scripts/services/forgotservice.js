@@ -14,7 +14,7 @@
     return service
 
     function resetPassword (user) {
-      return $http.post(ENV.AUTH_URL + '/user/send/forgotpassword', $.param(user),{
+      return $http.post(ENV.AUTH_URL + 'user/send/forgotpassword', $.param(user),{
         headers:{
           'Authorization': 'Bearer' + null
         }
