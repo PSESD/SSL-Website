@@ -142,7 +142,7 @@
                     </fieldset>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                    <fieldset>
+                    <fieldset ng-show="vm.student.personal.additional_status1">
                         <legend>{{"views.emergency_contact1"|translate}}</legend>
                         <dl>
                             <dt>Name</dt>
@@ -155,7 +155,7 @@
                             <dd><a ng-href="mailto:{{vm.student.personal.emergency1.email}}">{{vm.student.personal.emergency1.email}}</a></dd>
                         </dl>
                     </fieldset>
-                    <fieldset ng-show="vm.student.personal.additional_status">
+                    <fieldset ng-show="vm.student.personal.additional_status2">
                         <legend>{{"views.emergency_contact2"|translate}}</legend>
                          <dl>
                             <dt>Name</dt>

@@ -174,24 +174,28 @@
         vm.expandWeek = expandWeek;
 
         function expandWeek(filter,idx) {
-            document.querySelector('#attendance').scrollIntoView({
-              behavior: 'smooth'
-            });
             var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
             var header = ".header"+idx;
             var detail = "#tabs-"+idx;
+
+            document.querySelector('#attendance').scrollIntoView({
+              behavior: 'smooth'
+            });
+
             vm.selectedMonth = selected_month[0];
             vm.month_name = selected_month[0].name;
             vm.show_detail = true;
+
             $timeout(function () {
                 if(jQuery(header).hasClass('collapsed') === true){
-                    jQuery(header).removeClass('collapsed');
-                    jQuery(detail).addClass('in');
+                     jQuery(header).removeClass('collapsed');
+                    jQuery(detail).collapse('show');
                 }
-            },100);
 
+
+            },0);
 
         }
 
@@ -434,11 +438,17 @@
                             }else{
                                 student.personal.status = true;
                             }
+                            if(student.personal.emergency1.name === "" || student.personal.emergency1.relationship === "" || student.personal.emergency1.phone === "" || student.personal.emergency1.email === "")
+                            {
+                                student.personal.additional_status1 = false;
+                            }else{
+                                student.personal.additional_status1 = true;
+                            }
                             if(student.personal.emergency2.name === "" || student.personal.emergency2.relationship === "" || student.personal.emergency2.phone === "" || student.personal.emergency2.email === "")
                             {
-                                student.personal.additional_status = false;
+                                student.personal.additional_status2 = false;
                             }else{
-                                student.personal.additional_status = true;
+                                student.personal.additional_status2 = true;
                             }
                             vm.student = student;
                             vm.show_general = true;
