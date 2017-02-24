@@ -73,7 +73,7 @@
     "views.district_id": "District ID",
     "views.race": "Race/Ethnicity",
     "views.gender": "Gender",
-    "views.dominate_language": "Dominate Language",
+    "views.dominate_language": "Dominant Language",
     "views.home_language": "Home Language",
     "views.district_programs": "District Programs",
     "views.iep": "IEP",
