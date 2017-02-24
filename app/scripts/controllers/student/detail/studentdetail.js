@@ -174,24 +174,26 @@
         vm.expandWeek = expandWeek;
 
         function expandWeek(filter,idx) {
-            document.querySelector('#attendance').scrollIntoView({
-              behavior: 'smooth'
-            });
             var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
             var header = ".header"+idx;
             var detail = "#tabs-"+idx;
+
+            document.querySelector('#attendance').scrollIntoView({
+              behavior: 'smooth'
+            });
+
             vm.selectedMonth = selected_month[0];
             vm.month_name = selected_month[0].name;
             vm.show_detail = true;
+
             $timeout(function () {
                 if(jQuery(header).hasClass('collapsed') === true){
                     jQuery(header).removeClass('collapsed');
-                    jQuery(detail).addClass('in');
+                    jQuery(detail).collapse('show');
                 }
-            },100);
-
+            },0);
 
         }
 
@@ -266,14 +268,19 @@
                             _.forEach(v.event,function(value){
                                 var set_date = new Date(v.date);
                                 //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
+
+                                 if(value == 'behavior_incident'){
+                                     jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")).addClass('incident');
+                                 }
+
                                 if(value == 'missed_day'){
-                                    jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
+                                    jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
                                 }else{
                                     if(value == 'late_to_class'){
-                                        jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
+                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
                                     }
                                     if(value == 'missed_class'){
-                                        jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
+                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
                                     }
                                 }
                             });
@@ -431,11 +438,17 @@
                             }else{
                                 student.personal.status = true;
                             }
+                            if(student.personal.emergency1.name === "" || student.personal.emergency1.relationship === "" || student.personal.emergency1.phone === "" || student.personal.emergency1.email === "")
+                            {
+                                student.personal.additional_status1 = false;
+                            }else{
+                                student.personal.additional_status1 = true;
+                            }
                             if(student.personal.emergency2.name === "" || student.personal.emergency2.relationship === "" || student.personal.emergency2.phone === "" || student.personal.emergency2.email === "")
                             {
-                                student.personal.additional_status = false;
+                                student.personal.additional_status2 = false;
                             }else{
-                                student.personal.additional_status = true;
+                                student.personal.additional_status2 = true;
                             }
                             vm.student = student;
                             vm.show_general = true;
