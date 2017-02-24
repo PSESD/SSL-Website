@@ -190,11 +190,9 @@
 
             $timeout(function () {
                 if(jQuery(header).hasClass('collapsed') === true){
-                     jQuery(header).removeClass('collapsed');
+                    jQuery(header).removeClass('collapsed');
                     jQuery(detail).collapse('show');
                 }
-
-
             },0);
 
         }
@@ -270,17 +268,19 @@
                             _.forEach(v.event,function(value){
                                 var set_date = new Date(v.date);
                                 //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
-                                 if(value == 'behavior_incident'){
-                                     jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .incident").removeClass('hide');
-                                 }else if(value == 'missed_day'){
 
-                                    jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
+                                 if(value == 'behavior_incident'){
+                                     jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")).addClass('incident');
+                                 }
+
+                                if(value == 'missed_day'){
+                                    jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
                                 }else{
                                     if(value == 'late_to_class'){
-                                        jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
+                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
                                     }
                                     if(value == 'missed_class'){
-                                        jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
+                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
                                     }
                                 }
                             });

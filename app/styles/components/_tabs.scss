@@ -756,8 +756,10 @@
   }
 
   .incident{
-    border: 2px solid $color-black;
-    border-radius: 20px
+    .cal-day{
+      border: 2px solid $color-black;
+      border-radius: 50%;
+    }
   }
 
   .issues-container {
