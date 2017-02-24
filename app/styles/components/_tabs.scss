@@ -746,11 +746,6 @@
       cursor: pointer;
       .weeks-container{
         vertical-align: middle;
-        .issues-container{
-          .missed-late-class-container{
-            background-color: $grey-light2;
-          }
-        }
       }
     }
   }
@@ -778,7 +773,7 @@
 
   .issues-container {
     position: relative;
-    bottom: 4px;
+    bottom: 0px;
     display: flex;
     justify-content: center
   }
@@ -786,12 +781,13 @@
   .dot {
     border-radius: 5px;
     display: block;
-    height: 8px;
-    width: 8px
+    height: 10px;
+    width: 10px;
+    border: 1px solid $white;
   }
 
   .missed-late-class-container {
-    padding: 1px;
+
   }
 
 
