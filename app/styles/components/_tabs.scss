@@ -641,6 +641,12 @@
 
   .different-month {
     color: #aaa;
+    &.incident .cal-day {
+      border: none !important;
+    }
+    .issues-container{
+      display: none !important;
+    }
   }
 
   .late-class {
