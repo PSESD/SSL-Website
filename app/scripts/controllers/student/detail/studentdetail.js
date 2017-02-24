@@ -239,9 +239,18 @@
             vm.show_detail = true;
         }
         function renderCalendar(data){
+              var today = new Date(),
+                  todayMonth = today.getMonth()+1,
+                  todayYear = today.getFullYear();
+
             _.forEach(data,function(month){
                 _.forEach(month.list_months.reverse(),function(v){
                     var month = parseInt(v.month)-1;
+                    if (new Date(v.year, v.month) > new Date(todayYear, todayMonth)){
+                      var showMonth = false;
+                    }else{
+                      var showMonth = true;
+                    }
                     var clonedMoment = momentjs.clone();
                     var moment = _removeTime(clonedMoment.set({'year':v.year,'month':month}));
                     var month = moment.clone();
@@ -253,7 +262,7 @@
                             {
                                 'data':_buildMonth(start,month),
                                 'name':moment,
-                                'show':true,
+                                'show':showMonth,
                                 'listClassName':'',
                                 'isActive':false
                             });
