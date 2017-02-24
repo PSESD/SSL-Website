@@ -335,10 +335,10 @@
     span[class^="icon"] {
         background: $white;
         border-radius: 50%;
-        font-size: 18px;
-        width: 26px;
-        height: 26px;
-        line-height: 26px;
+        font-size: 14px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
     }
 
     .icon-excused {
@@ -349,10 +349,18 @@
       color: $alert-red;
     }
 
-    .missed-day span[class^="icon"]{
+    .missed-day{
+      span[class^="icon"]{
         position: absolute;
         top: 55%;
         transform: translateY(-50%);
+        display: none;
+      }
+      &:nth-child(2){
+          span[class^="icon"]{
+            display: block;
+          }
+      }
     }
 
   }
