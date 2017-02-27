@@ -33,6 +33,31 @@
         LOCAL: "",
         RELATIONSHIP: {
 
-        }
+        },
+        RACE: [
+            {
+                "id": "AmericanIndianOrAlaskaNative",
+                "name": "American Indian Or Alaska Native"
+            }, 
+            {
+                "id" : "BlackOrAfricanAmerican",
+                "name" : "Black"
+            },
+            {
+                "id": "Asian",
+                "name": "Asian"
+            },
+            {
+                "id": "NativeHawaiianOrOtherPacificIslander",
+                "name": "Native Hawaiian Or Pacific Islander"
+            },
+            {
+                "id": "White",
+                "name": "White"
+            },
+            {
+                "id" :"DemographicRaceTwoOrMoreRaces",
+                "name":"Multiracial"
+            }]
     })
 })();

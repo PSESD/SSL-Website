@@ -409,11 +409,16 @@
                             student.personal.xsre.phone_number = _.get(data,'personal.xSre.phoneNumber',"");
 
 
-                            var race = _.find(RESOURCES.RACE,function(v){
-                                return v.id === student.personal.xsre.demographics.races;
-                            });
+                            if (student.personal.xsre.demographics.hispanic_latino_ethnicity == "true") {
+                                student.personal.xsre.demographics.races = "Hispanic";
+                            } else {
 
-                            student.personal.xsre.demographics.races = _.size(race) !==0 ? race.name : student.personal.xsre.demographics.races;
+                                var race = _.find(RESOURCES.RACE,function(v){
+                                    return v.id === student.personal.xsre.demographics.races;
+                                });
+
+                                student.personal.xsre.demographics.races = _.size(race) !==0 ? race.name : student.personal.xsre.demographics.races;
+                            }
 
                             _.forEach(student.embedded.programs,function(value){
                                 var program = {
