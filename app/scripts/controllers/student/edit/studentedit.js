@@ -73,6 +73,8 @@
                     if(response.data.success === true){
                         vm.message = response.data.message;
                         closeMessage();
+                    }else{
+                      vm.message = response.data.error;
                     }
                 },function(error){
 
@@ -83,7 +85,7 @@
             $timeout(function(){
                 vm.message = "";
                 $state.go('dashboard.student',{},{reload:true});
-            },2000)
+            },4000)
         }
 
     }
