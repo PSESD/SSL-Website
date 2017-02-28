@@ -32,6 +32,7 @@
         var student = "";
         var data ="";
         var template = "<div class='attendance-modal'><dl><dt>{date}</dt><dd></dd><dt>Reason:</dt><dd>{reason}</dd><dt>Description:</dt><dd>{description}</dd></dl></div>";
+        var sorted_months = [];
         vm.changeStatus = changeStatus;
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
@@ -238,13 +239,23 @@
             vm.month_name = selected_month[0].name;
             vm.show_detail = true;
         }
+      //Render Calendar
         function renderCalendar(data){
               var today = new Date(),
                   todayMonth = today.getMonth()+1,
                   todayYear = today.getFullYear();
+              _.forEach(data,function(month){
 
-            _.forEach(data,function(month){
-                _.forEach(month.list_months.reverse(),function(v){
+                var months = month.list_months;
+
+                if ( sorted_months.indexOf(month.years) === -1 ) {
+                     months = month.list_months.reverse();
+                    sorted_months.push(month.years);
+                }
+
+                //console.log(sorted_months.indexOf(month.years));
+
+                _.forEach(month.list_months,function(v){
                     var month = parseInt(v.month)-1;
                     if (new Date(v.year, v.month) > new Date(todayYear, todayMonth)){
                       var showMonth = false;
@@ -299,12 +310,12 @@
             });
 
         }
+
         function changeYear(){
-
-
             var current_months = _.filter(list_attendances.calendars,function (v) {
                 return v.years === vm.selected_years;
             });
+
             while(vm.listOfCalendar.length>0){
                 vm.listOfCalendar.pop();
             }
