@@ -14,19 +14,19 @@ NB: All dev work is being done in the *development* branch, not in master.
 Create a file in the root directory (where Gruntfile.js lives) called local.json for your local environment variables:
 
 ```{
-   "API_URL": "http://url-of-srx-services-ssl",
-   "AUTH_URL": "http://url-of-srx-services-ssl-auth/api/",
-   "BASE_URL": "/",
-   "CALLBACK_URL": "http://url-of-srx-apps-ssl",
-   "CLIENT_ID": "client-id",
-   "CLIENT_SECRET": "client-secret",
-   "ENABLE_DEBUG" : true,
-   "ENV": "local",
-   "LOCAL": "url-of-srex-apps-ssl-dev.com" //see note below
-   "GRANT_TYPE": "password",
-   "REDIRECT_URL" : "http://url-of-srx-apps-ssl,//ie, http://localhost:9000
-   "HOSTNAME" : "localhost",
-   "PORT" : "9000"
+   "API_URL": "http://url-of-srx-services-ssl",\n
+   "AUTH_URL": "http://url-of-srx-services-ssl-auth/api/",\n
+   "BASE_URL": "/",\n
+   "CALLBACK_URL": "http://url-of-srx-apps-ssl",\n
+   "CLIENT_ID": "client-id",\n
+   "CLIENT_SECRET": "client-secret",\n
+   "ENABLE_DEBUG" : true,\n
+   "ENV": "local",\n
+   "LOCAL": "url-of-srex-apps-ssl-dev.com" //see note below\n
+   "GRANT_TYPE": "password",\n
+   "REDIRECT_URL" : "http://url-of-srx-apps-ssl,//ie, http://localhost:9000\n
+   "HOSTNAME" : "localhost",\n
+   "PORT" : "9000"\n
 }```
 
 * run `npm install`
