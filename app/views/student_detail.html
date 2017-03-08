@@ -33,7 +33,7 @@
                     {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
                     <div class="divider-vertical hidden-xs"></div>
                     <div class="header-title-student-detail">
-                        <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
+                        <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id, student: vm.student.personal})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
                         <div ng-show="vm.show_xsre"><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
                         <div ng-show="vm.show_xsre">Last Refresh Date:: {{vm.student.last_update}}</div>
                         <div>{{"views.last_updated"|translate}}: {{ vm.student.report_date | date : MM-dd-yyyy }}</div>

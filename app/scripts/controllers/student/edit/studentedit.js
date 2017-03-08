@@ -36,8 +36,8 @@
         function init(){
             StudentService.getById(id)
                 .then(function(response){
-                    profile.first_name = response.data.first_name;
-                    profile.last_name = response.data.last_name;
+                    profile.first_name = response.data.first_name || $stateParams.student.first_name;
+                    profile.last_name = response.data.last_name || $stateParams.student.last_name;
                     profile.addresses = response.data.addresses;
                     profile.college_bound = response.data.college_bound;
                     profile.created = $filter('date')(_.get(response,"data.created",""), "yyyy/MM/dd");

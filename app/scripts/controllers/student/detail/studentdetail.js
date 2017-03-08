@@ -363,8 +363,8 @@
                             student.personal.emergency2.phone = formatPhoneNumber(_.get(data,'personal.emergency2.phone',""));
                             student.personal.emergency2.relationship = _.get(data,'personal.emergency2.relationship',"");
                             student.personal.enrollment_status = _.get(data,'personal.enrollmentStatus',"");
-                            student.personal.first_name = _.get(data,'personal.firstName',"");
-                            student.personal.last_name = _.get(data,'personal.lastName',"");
+                            student.personal.first_name = data && data.personal ? data.personal.firstName || data.personal.xSre && data.personal.xSre.name ? data.personal.xSre.name.givenName : "" : "";
+                            student.personal.last_name = data && data.personal ? data.personal.firstName || data.personal.xSre && data.personal.xSre.name ? data.personal.xSre.name.familyName : "" : "";
                             student.personal.idea_indicator = _.get(data,'personal.ideaIndicator',"");
                             student.personal.middle_name = _.get(data,'personal.middleName',"");
                             student.personal.phone = formatPhoneNumber(_.get(data,'personal.phone',""));
