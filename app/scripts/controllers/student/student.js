@@ -333,8 +333,8 @@
                     student.emergency2_name = _.get(data,"emergency2_name","");
                     student.emergency2_phone = _.get(data,"emergency2_phone","");
                     student.emergency2_relationship = _.get(data,"emergency2_relationship","");
-                    student.first_name = _.get(data,"first_name","");
-                    student.last_name = _.get(data,"last_name","");
+                    student.first_name = _.get(data,"first_name", data.xsre.lastName || "");
+                    student.last_name = _.get(data,"last_name", data.xsre.firstName || "");
                     student.last_updated = $filter('date')(_.get(data,"last_updated",""), "yyyy/MM/dd");
                     student.organization = _.get(data,"organization","");
                     student.phone = _.get(data,"phone","");
