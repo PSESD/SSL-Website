@@ -10,7 +10,7 @@
     "angular-bootstrap-multiselect": "^0.4.0",
     "angular-messages": "^1.4.0",
     "angular-dynamic-locale": "^0.1.32",
-    "angular-i18n": "1.6.2",
+    "angular-i18n": "^1.5.8",
     "angular-mocks": "^1.4.0",
     "angular-gravatar": "^0.4.2",
     "angular-moment": "^1.0.0",
@@ -59,6 +59,6 @@
     }
   },
   "resolutions": {
-    "angular": "1.6.2"
+    "angular": "~1.6.2"
   }
 }
