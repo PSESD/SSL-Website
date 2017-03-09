@@ -348,7 +348,7 @@
                     student.xsre.school_year = _.get(data,"xsre.schoolYear","");
                     single_profile = {
                         id:student.id,
-                        value:"#/student/"+student.id+"/detail",
+                        value:"#!/student/"+student.id+"/detail",
                         on_track_graduate : _.get(data,"xsre.onTrackToGraduate","")
                     }
                     student_profiles.push(single_profile);
