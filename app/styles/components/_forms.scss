@@ -276,3 +276,17 @@ tags-input{
 }
 
 
+/*----------  Form Validation  ----------*/
+
+.help-block{
+  padding-left: 15px;
+}
+
+.has-error .control-label, .has-error .help-block{
+  color: $alert-red;
+}
+.has-error .form-control, .has-error .form-control:focus{
+  box-shadow: none;
+  border-color: rgba($alert-red, 0.5);
+  background: rgba($alert-red, 0.2);
+}
