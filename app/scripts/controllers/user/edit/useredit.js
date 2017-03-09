@@ -7,7 +7,7 @@
   UserEditCtrl.$inject = ['$state','UserService','$cookies','$timeout'];
 
   function UserEditCtrl($state,UserService,$cookies,$timeout) {
-    var profile = $cookies.getObject(sessionStorage.getItem('id'));
+    var profile = $cookies.getObject($cookies.get('id'));
     var vm = this;
     vm.save = save;
     vm.user = {
@@ -20,7 +20,7 @@
     }
     UserService.getById(profile.id)
     .then(function(response){
-        vm.user.first_name = _.get(response,'data.first_name',"");  
+        vm.user.first_name = _.get(response,'data.first_name',"");
         vm.user.last_name = _.get(response,'data.last_name',"");
         vm.user.middle_name = _.get(response,'data.middle_name',"");
         vm.user.email = _.get(response,'data.email',"");
@@ -48,7 +48,7 @@
                 if(full_name.length > 10){
                     full_name = full_name.substr(0,7) + "...";
                 }
-                sessionStorage.setItem("full_name",full_name);
+                localStorage.setItem("full_name",full_name);
                 vm.message = response.data.message;
                 closeMessage();
             }
@@ -68,7 +68,7 @@
                 $state.go("dashboard.student",{},{reload:true});
             },2000);
         }
-        
+
     }
   }
 

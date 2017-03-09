@@ -13,14 +13,10 @@
          },
          'preferredLocale': 'en_US'
      })
-    .constant('PROTECTED_PATHS',[
-        '/',
-        '/manage',
-        '/user/edit/profile',
-        '/user/group/',
-        '/user/invite',
-        '/user/edit/permission',
-        '/user/add/student',
-        '/user/view'
+    .constant('UNPROTECTED_PATHS',[
+        '/login',
+        '/forgot',
+        '/reset',
+        '/submission'
     ]);
 })();

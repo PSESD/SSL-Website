@@ -483,10 +483,11 @@
                         })
                     }
                 });
-                if(sessionStorage.getItem("student_profiles")!== null){
-                    sessionStorage.removeItem("student_profiles");
+                if(localStorage.getItem("student_profiles")!== null){
+                    localStorage.removeItem("student_profiles");
                 }
-                sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                //sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                localStorage.setItem("student_profiles",JSON.stringify(student_profiles));
                 vm.show_user = true;
 
             }else{

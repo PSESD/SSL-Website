@@ -8,7 +8,7 @@
 
     function ProgramStudentService ($http,RESOURCES,ProfileService,$cookies) {
 
-        var profile = $cookies.getObject(sessionStorage.getItem('id'));
+        var profile = $cookies.getObject($cookies.get('id'));
         var service = {
             addProgram:addProgram,
             getById:getById,

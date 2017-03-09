@@ -6,7 +6,7 @@
     ReportService.$inject = ['$http', 'RESOURCES','$cookies','ProfileService'];
 
     function ReportService($http, RESOURCES, $cookies,ProfileService) {
-        var profile = $cookies.getObject(sessionStorage.getItem('id'));
+        var profile = $cookies.getObject($cookies.get('id'));
         var service = {
             getStudentFilters:getStudentFilters
         };

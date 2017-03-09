@@ -9,7 +9,7 @@
   function UserCtrl($state,UserService,$confirm,$timeout) {
 
     var vm = this;
-    var userID = sessionStorage.getItem('id');
+    var userID = localStorage.getItem('id');
     vm.show_user = false;
     vm.reInvite = reInvite;
     vm.deleteUser = deleteUser;
