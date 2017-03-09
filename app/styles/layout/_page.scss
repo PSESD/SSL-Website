@@ -1,141 +1,134 @@
-section.main-section
-{
-  margin-top: 80px;
-  margin-bottom: 20px;
-  //min-height: 400px;
-  min-height: calc(100vh - 225px);
-
-  @media (max-width: $screen-xs-max) {
-    margin-top: 75px;
-    margin-bottom: 0;
-  }
-
-  .filter-container
-  {
-    .filter-select
-    {
-      @media (max-width: $screen-xs-max) {
-        width: 100%;
-        display: block;
-      }
+section.main-section {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    //min-height: 400px;
+    min-height: calc(100vh - 225px);
+    @media (max-width: $screen-xs-max) {
+        margin-top: 75px;
+        margin-bottom: 0;
     }
-  }
-
+    .filter-container {
+        .filter-select {
+            @media (max-width: $screen-xs-max) {
+                width: 100%;
+                display: block;
+            }
+        }
+    }
 }
 
-.main-content{
-  padding-top: 3em;
+.main-content {
+    padding-top: 3em;
 }
 
-.header-background
-{
-  background: url('../../images/bg-list-banner.jpg') no-repeat center center;
-  background-size: cover;
-  padding-top: 30px;
-  padding-bottom: 15px;
+.header-background {
+    background: url('../../images/bg-list-banner.jpg') no-repeat center center;
+    background-size: cover;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    min-height: 140px;
 }
 
-.divider-vertical
-{
-  display: inline-block;
-  width: 1px;
-  background-color: white;
-  height: 55px;
-  position: relative;
-  bottom: -16px;
-  margin: auto 15px;
+.page-title {
+    display: inline-block;
 }
 
+.divider-vertical {
+    display: inline-block;
+    width: 1px;
+    background-color: white;
+    height: 55px;
+    position: relative;
+    bottom: -16px;
+    margin: auto 15px;
+}
 
-  .invite-user
-  {
-
+.invite-user {
     position: relative;
     margin-top: 30px;
+}
 
-  }
-
-.header-title-student-detail
-{
-  display: inline-block;
-  @include font($font-family-open-sans, 0.3em, 1.5, 400);
-  position: relative;
-  top: 2px;
-
-  @media (max-width: $screen-xs-max) {
-    display: block;
-  }
-
-  .student-detail-edit
-  {
-    @include font-size(1.2em, 1.5);
-  }
-
-  a {
-    color: $color-white;
-
-    &:focus,
-    &:hover {
-      color: $color-white;
+.header-title-student-detail {
+    display: inline-block;
+    @include font($font-family-open-sans,
+    0.8em,
+    1.5,
+    400);
+    position: relative;
+    top: 2px;
+    @media (max-width: $screen-xs-max) {
+        display: block;
     }
+    .student-detail-edit {
+        @include font-size(1.2em,
+        1.5);
+    }
+    a {
+        color: $color-white;
+        &:focus,
+        &:hover {
+            color: $color-white;
+        }
+    }
+}
+
+.student-detail-navi{
+  margin: 1.6em 0;
+  @media (min-width: $screen-md-min){
+    float: right;
   }
 }
 
 .circle-profile {
-  border-radius: 50px;
-  display: inline-block;
-  border: 3px transparent solid;
-  -webkit-appearance: inherit;
-  cursor: pointer;
-  position: relative;
-
-  &:before {
-    position: absolute;
-    content: '';
-    top: -3px;
-    bottom: -3px;
-    left: -3px;
-    right: -3px;
-    background: linear-gradient(to right, $color-cyan, $color-purple);
-    z-index: -1;
     border-radius: 50px;
-  }
-
-  img {
-    border-radius: 50px;
-    width: 47px;
-    z-index: -2;
-    border: 3px $color-black solid;
-  }
-
+    display: inline-block;
+    border: 3px transparent solid;
+    -webkit-appearance: inherit;
+    cursor: pointer;
+    position: relative;
+    &:before {
+        position: absolute;
+        content: '';
+        top: -3px;
+        bottom: -3px;
+        left: -3px;
+        right: -3px;
+        background: linear-gradient(to right, $color-cyan, $color-purple);
+        z-index: -1;
+        border-radius: 50px;
+    }
+    img {
+        border-radius: 50px;
+        width: 47px;
+        z-index: -2;
+        border: 3px $color-black solid;
+    }
 }
+
 .circle-white {
-  border: 1px $color-white solid;
-  border-radius: 25px;
-  min-width: 20px;
-  display: inline-block;
+    border: 1px $color-white solid;
+    border-radius: 25px;
+    min-width: 20px;
+    display: inline-block;
 }
 
-.space20
-{
-  padding-bottom: 20px;
+.space20 {
+    padding-bottom: 20px;
 }
 
 .data-filters {
-  margin-bottom: 2em;
-
-  @media (min-width: $screen-xs-max) {
-
-    .form-search {
-      float: left;
+    margin-bottom: 2em;
+    @media (min-width: $screen-xs-max) {
+        .form-search {
+            float: left;
+        }
+        .input-filters {
+            float: right;
+        }
     }
-    .input-filters{
-     float: right;
-    }
-  }
 }
 
-.reinvite{
-  display: block;
-  font-size: rem(10);
+.reinvite {
+    display: block;
+    font-size: rem(10);
 }
