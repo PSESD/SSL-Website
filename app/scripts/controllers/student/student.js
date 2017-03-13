@@ -39,7 +39,7 @@
         vm.students = "";
         var temp_template_attendance ="";
         var temp_template_behavior ="";
-        var attendance_template = "<div class='list-modal'><dl><dt></dt><dd>Student has missed {latest_month} {latest_month_day} in the latest month of which we have data.</dd><dt></dt><dd>Student has missed {current_academic} {current_academic_day} in the current academic year.</dd></dl></div>";
+        var attendance_template = "<div class='list-modal'><dl><dt></dt><dd>{days_missed_in_month} {days_missed_in_year}</dd></dl></div>";
         var trend_template = "<div class='list-modal'>{trend}</div>";
         var behavior_template = "<div class='list-modal'><dl><dt></dt><dd>Student has {behavior_month} {incident_month} in the latest term of which we have data.</dd><dt></dt><dd>Student has {behavior_academic} {incident_academic} in the current academic year.</dd></dl></div>";
         vm.deleteStudent = deleteStudent;
@@ -348,7 +348,7 @@
                     student.xsre.school_year = _.get(data,"xsre.schoolYear","");
                     single_profile = {
                         id:student.id,
-                        value:"#/student/"+student.id+"/detail",
+                        value:"#!/student/"+student.id+"/detail",
                         on_track_graduate : _.get(data,"xsre.onTrackToGraduate","")
                     }
                     student_profiles.push(single_profile);
@@ -403,33 +403,51 @@
                         }
                         if(value.type === "lastMonth"){
                             var day="";
-                            if(value.count === 0){value.count = '';}
                             student.xsre.attendance.month.count = value.count;
                             student.xsre.attendance.month.attendance_month_count = value.count;
                             student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
+
                             if(value.count === 1){
-                                day = "day";
+                                day = " day";
                             }else{
-                                day = "days";
+                                day = " days";
                             }
-                            temp_template_attendance = _.replace(temp_template_attendance,'{latest_month}',value.count);
-                            temp_template_attendance = _.replace(temp_template_attendance,'{latest_month_day}',day);
+
+
+                            if(value.count === 0){
+                              var days_missed_in_month = '';
+                            }else{
+                              var days_missed_in_month = 'Missed '.concat(value.count,day, ' this month.');
+                            }
+
+                            temp_template_attendance = _.replace(temp_template_attendance,'{days_missed_in_month}',days_missed_in_month);
+
 
                         }else if(value.type === "currentAcademicYear"){
                             var day="";
-                            if(value.count === 0){value.count = '';}
                             student.xsre.attendance.academic.count = value.count;
                             student.xsre.attendance.academic.attendance_academic_count = value.count;
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
                             if(value.count === 1){
-                                day = "day";
+                                day = " day";
                             }else{
-                                day = "days";
+                                day = " days";
                             }
-                            temp_template_attendance = _.replace(temp_template_attendance,'{current_academic}',value.count);
-                            temp_template_attendance = _.replace(temp_template_attendance,'{current_academic_day}',day);
+
+                            //temp_template_attendance = _.replace(temp_template_attendance,'{current_academic}',value.count);
+
+
+                            if(value.count === 0){
+                              var days_missed_in_year = '';
+                            }else{
+                              var days_missed_in_year = ' '.concat(value.count, day, ' missed this year.');
+                            }
+
+                            temp_template_attendance = _.replace(temp_template_attendance,'{days_missed_in_year}',days_missed_in_year);
+
+
                         }else{
                             console.log(true);
                             student.xsre.attendance.academic.attendance_academic_count = "";
@@ -465,10 +483,11 @@
                         })
                     }
                 });
-                if(sessionStorage.getItem("student_profiles")!== null){
-                    sessionStorage.removeItem("student_profiles");
+                if(localStorage.getItem("student_profiles")!== null){
+                    localStorage.removeItem("student_profiles");
                 }
-                sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                //sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                localStorage.setItem("student_profiles",JSON.stringify(student_profiles));
                 vm.show_user = true;
 
             }else{

@@ -10,18 +10,7 @@
          },
          'preferredLocale': 'en_US'
      })
-
-    .constant('PROTECTED_PATHS',[
-        '/',
-        '/manage',
-        '/user/edit/profile',
-        '/user/group/',
-        '/user/invite',
-        '/user/edit/permission',
-        '/user/add/student',
-        '/user/view'
-    ])
-
+    
     //referenced in code but not defined anywhere I can find. 
     .constant('RESOURCES', {
         DISTRICT: [
@@ -60,4 +49,12 @@
                 "name":"Multiracial"
             }]
     })
+
+    .constant('UNPROTECTED_PATHS',[
+        '/login',
+        '/forgot',
+        '/reset',
+        '/submission'
+    ]);
 })();
+

@@ -20,9 +20,9 @@
       'tmh.dynamicLocale',
       'easypiechart'
     ])
-    .factory('headerInjector', headerInjector)
-    .config(configFunction)
-    .run(runFunction);
+  .factory('headerInjector', headerInjector)
+  .config(configFunction)
+  .run(runFunction);
 
   headerInjector.$inject = ['RESOURCES','ENV'];
 
@@ -65,34 +65,36 @@
       size     : 50,
       "default": 'mm'
     };
-      $httpProvider.interceptors.push(function ($q,ProfileService,$location) {
-          return {
-              'response': function (response) {
-                  if (response.status === 401) {
-                      sessionStorage.clear();
-                      ProfileService.clear();
-                      $location.path('/login');
-                  }
-                  return response || $q.when(response);
-              },
-              'responseError': function (rejection) {
-                  if (rejection.status === 401) {
-                      sessionStorage.clear();
-                      ProfileService.clear();
-                      $location.path('/login');
-                  }
-                  return $q.reject(rejection);
-              }
-          };
-      });
+    $httpProvider.interceptors.push(function ($q,ProfileService,$location) {
+      return {
+        'response': function (response) {
+          if (response.status === 401) {
+            sessionStorage.clear();
+            localStorage.clear();
+            ProfileService.clear();
+            $location.path('/login');
+          }
+          return response || $q.when(response);
+        },
+        'responseError': function (rejection) {
+          if (rejection.status === 401) {
+            sessionStorage.clear();
+            localStorage.clear();
+            ProfileService.clear();
+            $location.path('/login');
+          }
+          return $q.reject(rejection);
+        }
+      };
+    });
     // IdleProvider.idle(5); // in seconds
     // IdleProvider.timeout(10); // in seconds
     // KeepaliveProvider.interval(1); // in seconds
   }
 
-  runFunction.$inject = ['$rootScope', '$state', 'RESOURCES','$cookies','Idle','PROTECTED_PATHS'];
+  runFunction.$inject = ['$rootScope', '$state', 'RESOURCES','$cookies','Idle','UNPROTECTED_PATHS'];
 
-  function runFunction($rootScope, $state, RESOURCES,$cookies,Idle,PROTECTED_PATHS) {
+  function runFunction($rootScope, $state, RESOURCES,$cookies,Idle,UNPROTECTED_PATHS) {
     // Idle.watch();
     $rootScope.$on('$stateChangeError',
       function(event, toState, toParams, fromState, fromParams, error) {
@@ -119,61 +121,63 @@
     //     console.log("idle warn");
     // });
 
-      $rootScope.$on('$stateNotFound',
-        function(event, unfoundState, fromState, fromParams){
-          console.log(unfoundState);
-        })
+    $rootScope.$on('$stateNotFound',
+      function(event, unfoundState, fromState, fromParams){
+        console.log(unfoundState);
+      })
 
 
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
-      var profile;
-          if(sessionStorage.getItem('id') === null){
-            profile = {
-              is_authenticated:false
-            }
-          }else{
-            profile = $cookies.getObject(sessionStorage.getItem('id'));
+        var profile;
+        if (localStorage.getItem('id') === null) {
+          profile = {
+            is_authenticated: false
           }
-              if(toState.name !== 'login' && toState.name !== 'forgot' && toState.name !== 'reset' && toState.name !=='submission'){
-                  localStorage.setItem('path',toState.name);
-              }
-
-              // for(var key in localStorage){
-              //     switch (key){
-              //         case "id":
-              //             localStorage.removeItem(key)
-              //             break;
-              //         case "student_id":
-              //             localStorage.removeItem(key)
-              //             break;
-              //     }
-              // }
-              if(typeof toParams === 'object'){
-                  _.forEach(toParams,function (v,k) {
-                      localStorage.setItem(k,v);
-                  })
-              }
-
-        if(toState.name !== "dashboard" && toState.name !== "login" && toState.name !== "forgot"){
-            $rootScope.currentURL = toState.name.replace('dashboard.','') + '-page';
-        }else{
-            $rootScope.currentURL = toState.name.replace('/','') + '-page';
+        } else {
+          profile = { is_authenticated: true };
         }
-        if (!profile.is_authenticated && pathIsProtected(toState.url)) {
+        if (!profile.is_authenticated && !pathIsUnprotected(toState.url)) {
           event.preventDefault();
-          $state.go('login', {}, {reload: true});
+          window.location.assign("/#!/login");
+        }
+        else if (profile.is_authenticated && toState.url === '/login') {
+          event.preventDefault();
+          window.location.assign("/#!/student");
+        }
+
+        if (toState.name !== 'login' && toState.name !== 'forgot' && toState.name !== 'reset' && toState.name !== 'submission') {
+          localStorage.setItem('path', toState.name);
+        }
+
+
+        if (typeof toParams === 'object') {
+          _.forEach(toParams, function(v, k) {
+            localStorage.setItem(k, v);
+          })
+        }
+
+
+        if (toState.name !== "dashboard" && toState.name !== "login" && toState.name !== "forgot") {
+          $rootScope.currentURL = toState.name.replace('dashboard.', '') + '-page';
+        } else {
+          $rootScope.currentURL = toState.name.replace('/', '') + '-page';
+        }
+
+        //redirect dashboard to student page
+        if(toState.name == "dashboard"){
+          window.location.assign("/#!/student");
         }
 
 
       });
 
-    function pathIsProtected(path) {
-      return PROTECTED_PATHS.indexOf(path) !== -1;
+    function pathIsUnprotected(path) {
+      return UNPROTECTED_PATHS.indexOf(path) !== -1;
     }
-
   }
+
 
 
 

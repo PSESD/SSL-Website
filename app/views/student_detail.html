@@ -28,25 +28,22 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
         <header class="header-background clearfix inverse">
-            <div class="container">
-                <h1 class="page-title">
-                    {{vm.student.personal.first_name}} {{vm.student.personal.last_name}}
-                    <div class="divider-vertical hidden-xs"></div>
-                    <div class="header-title-student-detail">
-                        <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id, student: vm.student.personal})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
-                        <div ng-show="vm.show_xsre"><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
-                        <div ng-show="vm.show_xsre">Last Refresh Date:: {{vm.student.last_update}}</div>
-                        <div>{{"views.last_updated"|translate}}: {{ vm.student.report_date | date : MM-dd-yyyy }}</div>
-                        <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">{{"views.view_xsre"|translate}}</a></div>
-                    </div>
+            <div ng-show="vm.student.personal.first_name" class="container">
+                <h1  class="page-title">{{vm.student.personal.first_name}} {{vm.student.personal.last_name}}</h1>
+                <div class="divider-vertical hidden-xs"></div>
+                <div class="header-title-student-detail">
+                    <div class="student-detail-edit"><a href="javascript:void(0)" ui-sref="dashboard.student_edit({id:vm.student_id})" class="uppercase bold">{{"views.edit"|translate}} <span class="glyphicon glyphicon-edit"></span></a></div>
+                    <div ng-show="vm.show_xsre"><a ng-show="vm.show_update" href="javascript:void(0)" ng-click="vm.updateData()" class="uppercase">{{"views.check_for_updates"|translate}}</a><span ng-hide="vm.show_update" class="glyphicon glyphicon-refresh loading update"></span></div>
+                    <div ng-show="vm.show_xsre">Last Refresh Date:: {{vm.student.last_update}}</div>
+                    <div>{{"views.last_updated"|translate}}: {{ vm.student.report_date | date : MM-dd-yyyy }}</div>
+                    <div ng-show="vm.show_xsre"><a href="javascript:void(0)" ng-click="vm.xsre()">{{"views.view_xsre"|translate}}</a></div>
+                </div>
 
-                    <div class="pull-right">
-                        <a class="btn btn-reverse" ui-sref="dashboard.student">{{"views.view_all_student"|translate}}</a>
-                        <!-- <a ng-href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
-                        <a ng-href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a> -->
-                    </div>
-
-                </h1>
+                <div class="student-detail-navi">
+                    <a class="btn btn-reverse" ui-sref="dashboard.student">{{"views.view_all_student"|translate}}</a>
+                    <a ng-href="{{vm.prev_link}}" ng-show="vm.prev_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-left"></span></a>
+                    <a ng-href="{{vm.next_link}}" ng-show="vm.next_link" class="btn btn-reverse btn-circle"><span class="glyphicon glyphicon-menu-right"></span></a>
+                </div>
             </div>
         </header>
 

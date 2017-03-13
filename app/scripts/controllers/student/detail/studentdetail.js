@@ -32,6 +32,7 @@
         var student = "";
         var data ="";
         var template = "<div class='attendance-modal'><dl><dt>{date}</dt><dd></dd><dt>Reason:</dt><dd>{reason}</dd><dt>Description:</dt><dd>{description}</dd></dl></div>";
+        var sorted_months = [];
         vm.changeStatus = changeStatus;
         vm.student_id = $stateParams.id;
         vm.list_of_details = "";
@@ -45,6 +46,7 @@
         vm.options = {
             //lineWrapping : true,
             height: '500px',
+            tabSize: 6,
             tabSize: 6,
             lineNumbers: true,
             //readOnly: 'nocursor',
@@ -231,31 +233,51 @@
             document.querySelector('#attendance').scrollIntoView({
               behavior: 'smooth'
             });
+
             var selected_month = _.filter(list_attendances.list_weeks,function (v) {
                 return v.month === filter;
             });
+
+
+
             vm.selectedMonth = selected_month[0];
             vm.month_name = selected_month[0].name;
             vm.show_detail = true;
+
+
         }
+      //Render Calendar
         function renderCalendar(data){
               var today = new Date(),
                   todayMonth = today.getMonth()+1,
                   todayYear = today.getFullYear();
+              _.forEach(data,function(month){
 
-            _.forEach(data,function(month){
-                _.forEach(month.list_months.reverse(),function(v){
-                    var month = parseInt(v.month)-1;
+                var months = month.list_months;
+
+                if ( sorted_months.indexOf(month.years) === -1 ) {
+                     months = month.list_months.reverse();
+                     sorted_months.push(month.years);
+                }
+
+                //console.log(sorted_months.indexOf(month.years));
+                //console.log(month.list_months);
+
+                _.forEach(month.list_months,function(v){
                     if (new Date(v.year, v.month) > new Date(todayYear, todayMonth)){
                       var showMonth = false;
                     }else{
                       var showMonth = true;
                     }
                     var clonedMoment = momentjs.clone();
-                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':month}));
+                    var moment = clonedMoment.set({'year':v.year,'month':v.month});
                     var month = moment.clone();
                     var start = moment.clone();
-                    start.date(1);
+                    if (moment.date() === 1) {
+                      moment.month(v.month - 1);
+                      month.month(v.month - 1);
+                      start.month(v.month - 1);
+                    };
                     _removeTime(start.day(0));
                     if(isFirstTime === true){
                         vm.listOfCalendar.push(
@@ -268,6 +290,7 @@
                             });
                     }
                 });
+
                 $timeout(function(){
                     var object = null;
                     _.forEach(month.list_events,function(v){
@@ -299,12 +322,12 @@
             });
 
         }
+
         function changeYear(){
-
-
             var current_months = _.filter(list_attendances.calendars,function (v) {
                 return v.years === vm.selected_years;
             });
+
             while(vm.listOfCalendar.length>0){
                 vm.listOfCalendar.pop();
             }
@@ -534,11 +557,12 @@
                     console.log(error);
                 });
 
-            var student_profile = JSON.parse(sessionStorage.getItem("student_profiles"));
+            var student_profile = JSON.parse(localStorage.getItem("student_profiles"));
             var current_index = _.findIndex(student_profile,{'id':id});
             vm.prev_link = _.get(student_profile[current_index - 1],'value',"");
             vm.next_link = _.get(student_profile[current_index + 1],'value',"");
             var student = student_profile[current_index];
+
             vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
             StudentService.getTranscriptById(id)
                 .then(function(response){
