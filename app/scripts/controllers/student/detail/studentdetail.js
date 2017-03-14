@@ -257,27 +257,23 @@
 
                 if ( sorted_months.indexOf(month.years) === -1 ) {
                      months = month.list_months.reverse();
-                     sorted_months.push(month.years);
+                    sorted_months.push(month.years);
                 }
 
                 //console.log(sorted_months.indexOf(month.years));
-                //console.log(month.list_months);
 
                 _.forEach(month.list_months,function(v){
+                    var month = parseInt(v.month)-1;
                     if (new Date(v.year, v.month) > new Date(todayYear, todayMonth)){
                       var showMonth = false;
                     }else{
                       var showMonth = true;
                     }
                     var clonedMoment = momentjs.clone();
-                    var moment = clonedMoment.set({'year':v.year,'month':v.month});
+                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':month}));
                     var month = moment.clone();
                     var start = moment.clone();
-                    if (moment.date() === 1) {
-                      moment.month(v.month - 1);
-                      month.month(v.month - 1);
-                      start.month(v.month - 1);
-                    };
+                    start.date(1);
                     _removeTime(start.day(0));
                     if(isFirstTime === true){
                         vm.listOfCalendar.push(
