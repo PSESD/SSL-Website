@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .controller('ForgotCtrl', ForgotCtrl);
 
-  ForgotCtrl.$inject = ['$state','ForgotService','RESOURCES'];
+  ForgotCtrl.$inject = ['$state','ForgotService','RESOURCES', '$cookies'];
 
-  function ForgotCtrl($state,ForgotService,RESOURCES) {
+  function ForgotCtrl($state,ForgotService,RESOURCES, $cookies) {
 
     var vm = this;
     vm.login_greetings = localStorage.getItem("first_name") || "";
@@ -18,7 +18,7 @@
       email:"",
       redirect_url:""
     }
-
+    vm.organization_name = $cookies.get('organization_name');
     vm.reset = reset;
 
     function reset(user) {

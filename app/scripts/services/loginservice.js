@@ -71,8 +71,9 @@
                 profile.organization_id = _.get(embedded.organization,"id","");
                 profile.redirect_url = _.get(embedded.organization,"url","");
                 profile.organization_name = _.get(embedded.organization,"name","");
+
                 if(profile.organization_name !== ""){
-                  localStorage.setItem('organization_name', profile.organization_name);
+                  $cookies.put('organization_name', profile.organization_name);
                 }
 
                   profile.exists = true;
@@ -93,7 +94,7 @@
                   }
 
                   profile.is_authenticated = true;
-                  localStorage.clear();
+                  //localStorage.clear();
                   localStorage.setItem('id', profile.id);
                   if(profile.full_name.length > 10){
                       profile.full_name = profile.full_name.substr(0,7) + '...';
