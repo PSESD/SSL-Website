@@ -48,7 +48,8 @@ module.exports = function(grunt) {
       },
       app: {
         files: {
-          'app/index.html': 'app/index.html'
+          'app/index.html': 'app/index.html',
+          'app/.well-known/acme-challenge/XYATnjuun--FpHRgy4dXLwSAM5ZyOacOzSBKrR32CSk': 'app/.well-known/acme-challenge/XYATnjuun--FpHRgy4dXLwSAM5ZyOacOzSBKrR32CSk'
         }
       }
     },
