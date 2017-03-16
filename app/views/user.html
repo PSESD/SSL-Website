@@ -76,7 +76,6 @@
                 </a>
               </th>
               <th style="width: 5%;" class="table-space text-center">Permissions</th>
-              <th style="width: 5%;" class="text-center">Assign Students</th>
               <th style="width: 5%;" class="text-center">Delete</th>
             </tr>
           </thead>
@@ -102,9 +101,6 @@
               <td class="text-center">{{user.studentCount}}</td>
               <td class="table-space text-center">
                 <a ui-sref="dashboard.user_edit_permission({id:user._id})" class="glyphicon-relative glyphicon glyphicon-lock"></a>
-              </td>
-              <td class="text-center">
-                <a ui-sref="dashboard.user_group({id:user._id})" class="glyphicon-relative glyphicon glyphicon-user"></a>
               </td>
               <td class="text-center">
                 <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="vm.deleteUser(user._id,$index)" confirm-settings="{size: 'sm'}"></a>
