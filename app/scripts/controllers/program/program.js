@@ -33,7 +33,10 @@
             });
 
         function deleteProgram(id,index){
-            $confirm({text:'Are you sure you want to delete this record?'})
+            $confirm({
+              title: 'Delete Program',
+              text:'Are you sure you want to delete this record?'
+            })
                 .then(function(){
                     ProgramService.deleteProgram(id)
                         .then(function(response){
