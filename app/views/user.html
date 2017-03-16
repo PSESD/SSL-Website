@@ -91,7 +91,7 @@
                   {{user.email}}
                 </a>
               </td>
-              <td>{{user.role}}</td>
+              <td>{{user.role === "case-worker-unrestricted" ? "Regular User" : "Admin"}}</td>
               <td class="text-center">
                 {{user.activate ? 'Active' : 'Pending'}}
                 <span ng-if="!user.activate">
