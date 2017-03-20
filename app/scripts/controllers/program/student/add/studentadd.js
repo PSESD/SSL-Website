@@ -69,7 +69,7 @@
             if(status === true){
                 $timeout(function () {
                     vm.message = "";
-                    $state.go('dashboard.program_student',{id:id},{reload:true});
+                    $state.go('dashboard.program',{id:id},{reload:true});
                 },2000);
             }else{
                 $timeout(function () {
