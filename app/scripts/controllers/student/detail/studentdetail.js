@@ -584,7 +584,7 @@
                                 creditEarned : creditEarned
                             }
                             cumulativeGPA.push(list);
-
+                            vm.creditEarned = creditEarned;
                         });
                         var resultGPA = _.chain(cumulativeGPA)
                             .flatten()
@@ -612,7 +612,6 @@
                                         course_code:_.get(v,'leaCourseId',""),
                                         grade:_.get(v,'mark',"-"),
                                         credits:_.get(v,'creditsEarned',"-")
-
                                     }
                                     listCourses.push({
                                         course_category:key,
@@ -652,7 +651,6 @@
                                     grade:v.grade
                                 });
                             }
-
 
 
                         })
