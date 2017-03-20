@@ -6,7 +6,7 @@
 
   ForgotCtrl.$inject = ['$state','ForgotService','ENV', '$cookies'];
 
-  function ForgotCtrl($state,ForgotService,RESOURCES, $cookies) {
+  function ForgotCtrl($state,ForgotService,ENV, $cookies) {
 
     var vm = this;
     vm.login_greetings = localStorage.getItem("first_name") || "";
@@ -25,6 +25,11 @@
       var urlTemp = window.location.origin;
       if(urlTemp.indexOf('.')!== -1){
           var url = urlTemp.split(".");
+      }
+
+      //override URL parsing for local development
+      if (!url && ENV.HOSTNAME == "localhost") {
+        url = [ENV.DEV_PROTOCOL_AND_SUBDOMAIN];
       }
       var tmp = url[0].split("//");
       var protocol = tmp[0];
