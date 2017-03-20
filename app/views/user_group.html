@@ -1,17 +1,14 @@
-<div ng-hide="vm.show_user_group" class="text-center" style="margin-top: 18%">
-    <div class="icon-wrapper">
-        <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading"|translate}}</h2>
-    </div>
+<div ng-hide="vm.show_user_group" id="loading">
+  <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h3 class="loading-title display-inline">{{"views.loading" | translate}}</h3>
 </div>
+
 <div ng-show="vm.show_user_group" class="container-fluid" ng-class="currentURL">
     <div class="row">
 
       <header class="header-background clearfix inverse">
         <div class="container">
           <div class="pull-left">
-            <h1 class="page-title">
-                {{"views.user_students_assignment"|translate}} <div class="divider-vertical hidden-xs"></div>
-            </h1>
+            <h1 class="page-title">{{"views.user_students_assignment"|translate}}</h1>
           </div>
           <div class="pull-right">
             <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_student_add({id:vm.user_id})">{{"views.add_student"|translate}}</button>
@@ -21,33 +18,44 @@
 
       <section class="main-content container">
 
-        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="data-filters clearfix">
+                <form class="form-inline form-search">
+                    <div class="form-group">
+                        <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Users">
+                    </div>
+                    <div class="form-group">
+                        <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
+                    </div>
+                </form>
+            </div>
+
+
             <div class="table-responsive">
                 <table id="user_group" class="table">
                 <thead fsm-sticky-header scroll-body="#user_group" scroll-stop="80">
                     <tr>
-                        <th>
+                        <th style="width: 30%;">
                             <a href="" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
                             {{"views.name"|translate}}
-                            <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                             </a>
                         </th>
-                        <th>
+                        <th style="width: 30%;">
                             <a href="" ng-click="sortType = '_id';sortReverse = !sortReverse">
                             {{"views.school_id"|translate}}
-                            <span ng-show="sortType == '_id' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == '_id' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == '_id' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            <span ng-show="sortType == '_id' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                             </a>
                         </th>
                         <th>
                             <a href="" ng-click="sortType = 'school_district';sortReverse = !sortReverse">
                             {{"views.school_district"|translate}}
-                            <span ng-show="sortType == 'school_district' && !sortReverse" class="glyphicon glyphicon-menu-down"></span>
-                            <span ng-show="sortType == 'school_district' && sortReverse" class="glyphicon glyphicon-menu-up"></span>
+                            <span ng-show="sortType == 'school_district' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            <span ng-show="sortType == 'school_district' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                             </a>
                         </th>
-                        <th class="text-center">{{"views.delete"|translate}}</th>
+                        <th class="text-center table-space" style="width: 5%;">{{"views.delete"|translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,14 +69,14 @@
                         <td>
                             {{student.school_district}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center table-space">
                             <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="vm.deleteUser(student._id,$index)"></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
             </div>
-        </div>
+
       </section>
     </div>
 </div>

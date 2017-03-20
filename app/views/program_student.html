@@ -1,8 +1,7 @@
-<div ng-hide="vm.show_program_student" class="text-center" style="margin-top: 18%">
-    <div class="icon-wrapper">
-        <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
-    </div>
+<div ng-hide="vm.show_program_student" id="loading">
+  <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h3 class="loading-title display-inline">{{"views.loading" | translate}}</h3>
 </div>
+
 <div ng-show="vm.show_program_student" class="container-fluid" ng-class="currentURL">
     <div class="row">
 
