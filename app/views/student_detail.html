@@ -460,10 +460,10 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="program_participation">
-                            <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
-                                {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a>
+                            <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;"><p>
+                              {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a></p>
                             </div>
-                            <div class="table-responsive">
+                            <div ng-show="vm.show_program_participation && vm.show_general" class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
