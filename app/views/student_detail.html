@@ -92,36 +92,12 @@
                     </fieldset>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                    <fieldset ng-show="vm.student.personal.status">
-                        <legend>{{"views.district_programs"|translate}}</legend>
-                        <dl>
-                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
-                            <dd></dd>
-                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
-                            <dd></dd>
-                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduced_lunch"|translate}}</dt>
-                            <dd></dd>
-                        </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend>{{"views.district_metrics"|translate}}</legend>
-                        <dl>
-                            <!-- <dt>{{"views.current_gpa"|translate}}</dt>
-                            <dd></dd> -->
-                            <!-- <dt>{{"views.cumulative_gpa"|translate}}</dt>
-                            <dd>{{vm.student.transcript.source.academic_summary.cumulative_gpa}}</dd> -->
-                            <dt>{{"views.attendance"|translate}}</dt>
-                            <dd>{{vm.student.personal.summary.attendance_count[1].count}}</dd>
-                            <!-- <dt>{{"views.attendance_trend"|translate}}</dt>
-                            <dd><span ng-show="vm.student.personal.summary.risk_flag[0].trend" ng-class="vm.student.personal.summary.risk_flag[0].trend" class="glyphicon glyphicon-arrow-right"></span></dd> -->
-                            <dt>{{"views.behavior"|translate}}</dt>
-                            <dd>{{vm.student.personal.summary.behavior_count[1].count}}</dd>
-                            <!-- <dt>{{"views.on_track_graduate"|translate}}</dt>
-                            <dd>
-                                <span ng-show="vm.on_track_to_graduate ===''?false:true" ng-class="vm.on_track_to_graduate === 'Yes' ? 'glyphicon glyphicon-ok-sign alert-success' : 'glyphicon glyphicon-remove-sign alert-danger'" aria-hidden="true"></span>
-                            </dd> -->
-                        </dl>
-                    </fieldset>
+                  <fieldset>
+                      <legend>{{"views.current_class_schedule"|translate}}</legend>
+                      <span ng-repeat ="course in vm.trans | orderBy:'timeTablePeriod'">
+                          {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
+                      </span>
+                  </fieldset>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <fieldset>
@@ -130,12 +106,6 @@
                             <dt>School Name</dt>
                             <dd>{{vm.student.personal.xsre.enrollment.school_name}}</dd>
                         </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend>{{"views.current_class_schedule"|translate}}</legend>
-                        <span ng-repeat ="course in vm.trans | orderBy:'timeTablePeriod'">
-                            {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
-                        </span>
                     </fieldset>
                 </div>
                 <div class="col-sm-6 col-md-3">

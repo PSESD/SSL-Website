@@ -31,7 +31,10 @@
       });
     }
     function deleteUser(id,index){
-      $confirm({text:'Are you sure you want to delete this record?'})
+      $confirm({
+        title: 'Delete User',
+        text:'Are you sure you want to delete this record?'
+      })
       .then(function(){
         UserService.deleteUser(id)
         .then(function(response){

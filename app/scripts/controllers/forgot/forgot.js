@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .controller('ForgotCtrl', ForgotCtrl);
 
-  ForgotCtrl.$inject = ['$state','ForgotService','ENV'];
+  ForgotCtrl.$inject = ['$state','ForgotService','ENV', '$cookies'];
 
-  function ForgotCtrl($state,ForgotService,ENV) {
+  function ForgotCtrl($state,ForgotService,ENV, $cookies) {
 
     var vm = this;
     vm.login_greetings = localStorage.getItem("first_name") || "";
@@ -18,13 +18,18 @@
       email:"",
       redirect_url:""
     }
-
+    vm.organization_name = $cookies.get('organization_name');
     vm.reset = reset;
 
     function reset(user) {
       var urlTemp = window.location.origin;
       if(urlTemp.indexOf('.')!== -1){
           var url = urlTemp.split(".");
+      }
+
+      //override URL parsing for local development
+      if (!url && ENV.HOSTNAME == "localhost") {
+        url = [ENV.DEV_PROTOCOL_AND_SUBDOMAIN];
       }
       var tmp = url[0].split("//");
       var protocol = tmp[0];

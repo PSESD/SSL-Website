@@ -54,6 +54,7 @@
         '/login',
         '/forgot',
         '/reset',
+        '/reset?csrfToken&redirectTo&email',
         '/submission'
     ]);
 })();

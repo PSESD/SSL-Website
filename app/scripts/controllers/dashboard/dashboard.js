@@ -15,10 +15,9 @@
 
     function logout(){
       $cookies.remove(profile.id);
+      localStorage.removeItem('id');
+      localStorage.removeItem('student_profiles');
       sessionStorage.clear();
-      var rememberEmail = localStorage.getItem('email');
-      localStorage.clear();
-      localStorage.setItem('email',rememberEmail);
       $state.go('login');
     }
   }
