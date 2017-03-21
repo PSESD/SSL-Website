@@ -205,26 +205,25 @@
                                 <div class="row">
                                   <div class="col-attendance">
                                     <p>{{"views.late_to_class"|translate}}</p>
-                                    <div class="attendance-data">1</div>
+                                    <div class="attendance-data">{{vm.student.personal.summary.lateToClass}}</div>
                                   </div>
                                   <div class="col-attendance">
                                     <p>{{"views.missed_day"|translate}}</p>
-                                    <div class="attendance-data">2</div>
+                                    <div class="attendance-data">{{vm.student.personal.summary.missedDay}}</div>
                                   </div>
                                    <div class="col-attendance">
                                     <p>{{"views.missed_class"|translate}}</p>
-                                    <div class="attendance-data">3</div>
-
+                                    <div class="attendance-data">{{vm.student.personal.summary.missedClass}}</div>
                                   </div>
                                   <div class="col-attendance">
                                     <p>{{"views.behavior_incident"|translate}}</p>
-                                    <div class="attendance-data">0</div>
+                                    <div class="attendance-data">{{vm.student.personal.summary.behaviorIncident}}</div>
                                   </div>
                                   <div class="col-attendance">
                                     <p>{{"views.attendance_rate"|translate}}</p>
                                     <div class="attendance-rate">
                                       <div class="chart">
-                                          <div class="chart-percentage" easypiechart options="options" percent="50"><span></span></div>
+                                          <div class="chart-percentage" easypiechart options="options" percent="vm.student.personal.summary.attendanceRate"><span></span></div>
                                       </div>
                                     </div>
                                   </div>

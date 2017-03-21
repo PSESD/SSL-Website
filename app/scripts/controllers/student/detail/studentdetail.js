@@ -93,6 +93,11 @@
                 school_year:'',
                 section_504_status:'',
                 summary:{
+                    lateToClass: '',
+                    missedDay: '',
+                    missedClass: '',
+                    behaviorIncident: '',
+                    attendanceRate: '',
                     attendance_count:[],
                     behavior_count:[],
                     date:{
@@ -248,6 +253,13 @@
         }
       //Render Calendar
         function renderCalendar(data){
+            // set summary detail
+            student.personal.summary.lateToClass = data[0].summary.lateToClass;
+            student.personal.summary.missedDay = data[0].summary.missedDay;
+            student.personal.summary.missedClass = data[0].summary.missedClass;
+            student.personal.summary.behaviorIncident = data[0].summary.behaviorIncident;
+            student.personal.summary.attendanceRate = data[0].summary.attendanceRate;
+
               var today = new Date(),
                   todayMonth = today.getMonth()+1,
                   todayYear = today.getFullYear();
