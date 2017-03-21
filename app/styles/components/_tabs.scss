@@ -81,25 +81,23 @@
     padding: 30px 0;
 
     header{
-      padding-bottom: 20px;
+      padding-bottom: 2em;
     }
 
     .selectwrap{
       width: 200px;
-
-      @media (min-width: $screen-xs-min){
-        position: absolute;
-        top: 15px;
-        right: 40px;
-      }
+      float: right;
+      margin-top: -0.5em;
     }
 
     .row{
       .col-attendance{
         text-align: center;
         @include make-xs-column(6);
-        @include make-sm-column(4);
-        @include make-lg-column(2);
+        @media (min-width: $screen-sm-min){
+           width: 20%;
+           float: left;
+        }
       }
     }
     .attendance-data{
@@ -408,20 +406,6 @@
   //  margin:1px 25px;
   //}
 
-  .attendance-year{
-
-    padding: 0 15px;
-    margin-bottom: 15px;
-
-    @media (min-width: $screen-sm-min){
-      padding: 0;
-      width: 20%;
-      position: absolute;
-      top: 20px;
-      right: 40px;
-    }
-
-  }
   .calendar-header.panel.panel-default{
     display: none;
   }

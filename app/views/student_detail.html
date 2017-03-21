@@ -166,8 +166,12 @@
 
 
                             <div class="attendance-summary">
-                                <header class="">
-                                  <p><strong>Summary</strong> May 2016 (15 of 20 school days so far)</p>
+                                <header class="clearfix">
+                                  <h4 class="display-inline">Summary</h4>
+                                  <div class="attendance-year selectwrap">
+                                      <select ng-change="vm.changeYear()" ng-model="vm.selected_years" class="form-control" ng-options="item.label as item.value for item in vm.listOfYears">
+                                      </select>
+                                  </div>
                                 </header>
 
                                 <div class="row">
@@ -196,15 +200,6 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="col-attendance">
-                                    <p>{{"views.attendance_rate_last_month"|translate}}</p>
-                                    <div class="attendance-last-month">
-                                      <div class="chart">
-                                          <div class="chart-percentage" easypiechart options="options" percent="-20"><span></span></div>
-                                      </div>
-                                    </div>
-
-                                  </div>
                               </div>
 
                             </div>
@@ -217,11 +212,6 @@
                                 <label class="category"><div class="circle missed-class"></div>{{"views.missed_class"|translate}}</label>
                                 <label class="category"><div class="circle missed-day"></div>{{"views.missed_day"|translate}}</label>
                                 <label class="category"><div class="circle incident"></div>{{"views.behavior_incident"|translate}}</label>
-                            </div>
-
-                            <div class="attendance-year selectwrap">
-                              <select ng-change="vm.changeYear()" ng-model="vm.selected_years" class="form-control" ng-options="item.label as item.value for item in vm.listOfYears">
-                              </select>
                             </div>
 
                             <div class="month-detail" ng-show="vm.show_detail">
