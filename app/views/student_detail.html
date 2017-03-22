@@ -49,10 +49,8 @@
 
         <section class="main-content container">
 
-            <div ng-show="vm.show_loading" class="text-center" style="margin-top: 15%">
-                <div class="icon-wrapper">
-                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading" | translate}}</h2>
-                </div>
+            <div ng-show="vm.show_loading" id="loading">
+              <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h3 class="loading-title display-inline">{{"views.loading" | translate}}</h3>
             </div>
 
             <div class="">
@@ -168,8 +166,12 @@
 
 
                             <div class="attendance-summary">
-                                <header class="">
-                                  <p><strong>Summary</strong></p>
+                                <header class="clearfix">
+                                  <h4 class="display-inline">Summary</h4>
+                                  <div class="attendance-year selectwrap">
+                                      <select ng-change="vm.changeYear()" ng-model="vm.selected_years" class="form-control" ng-options="item.label as item.value for item in vm.listOfYears">
+                                      </select>
+                                  </div>
                                 </header>
 
                                 <div class="row">
@@ -209,17 +211,6 @@
                                 <label class="category"><div class="circle missed-class"></div>{{"views.missed_class"|translate}}</label>
                                 <label class="category"><div class="circle missed-day"></div>{{"views.missed_day"|translate}}</label>
                                 <label class="category"><div class="circle incident"></div>{{"views.behavior_incident"|translate}}</label>
-                            </div>
-
-                            <div class="attendance-year selectwrap">
-                              <select ng-change="vm.changeYear()" ng-model="vm.selected_years" class="form-control" ng-options="item.label as item.value for item in vm.listOfYears">
-                              </select>
-                            </div>
-
-                            <div ng-show="vm.attandance_show" class="text-center" style="margin-top: 2%">
-                                <div class="icon-wrapper">
-                                    <span class="glyphicon glyphicon-refresh loading" aria-hidden="true"></span> <h2 class="loading">{{"views.loading"|translate}}</h2>
-                                </div>
                             </div>
 
                             <div class="month-detail" ng-show="vm.show_detail">
@@ -432,7 +423,7 @@
                                                     <td class="bold uppercase">Course Teacher</td>
                                                     <td class="bold uppercase">Course Code</td>
                                                     <td class="bold uppercase">Grade</td>
-                                                    <td class="bold uppercase">Credits</td>
+                                                    <td ng-show="vm.creditEarned" class="bold uppercase">Credits</td>
                                                     <td class="bold uppercase">Course Category</td>
                                                 </tr>
                                                 </thead>
@@ -443,7 +434,7 @@
                                                         <td>{{item.courses.teacher}}</td>
                                                         <td>{{item.courses.course_code}}</td>
                                                         <td>{{item.courses.grade}}</td>
-                                                        <td>{{item.courses.credits}}</td>
+                                                        <td ng-show="vm.creditEarned">{{item.courses.credits}}</td>
                                                         <td>{{item.course_category}}</td>
                                                     </tr>
                                                 </tbody>
@@ -458,10 +449,10 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="program_participation">
-                            <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;">
-                                {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a>
+                            <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;"><p>
+                              {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a></p>
                             </div>
-                            <div class="table-responsive">
+                            <div ng-show="vm.show_program_participation && vm.show_general" class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -521,24 +512,16 @@
                                         <th  class="text-center">
                                             {{"views.status"|translate}}
                                         </th>
-                                        <th  class="text-center">
-                                            {{"views.non_promotional_change"|translate}}
-                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="enrollment in vm.student.personal.xsre.other_enrollments">
-                                        <td class="text-center">{{enrollment.schoolName}}</td>
-                                        <td class="text-center">{{enrollment.schoolYear}}</td>
-                                        <td class="text-center">{{enrollment.entryDate}}</td>
-                                        <td class="text-center">{{enrollment.exitDate ? enrollment.exitDate: 'Present'}}</td>
-                                        <td class="text-center">{{enrollment.gradeLevel}}</td>
-                                        <td class="text-center">{{enrollment.enrollmentStatusDescription}}</td>
-                                        <td class="text-center">
-                                            <div ng-if="enrollment.nonPromotionalChange === true">
-                                                <input type="checkbox"disabled checked>
-                                            </div>
-                                        </td>
+                                    <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
+                                        <td class="text-center">{{enrollement.schoolName}}</td>
+                                        <td class="text-center">{{enrollement.schoolYear}}</td>
+                                        <td class="text-center">{{enrollement.entryDate}}</td>
+                                        <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
+                                        <td class="text-center">{{enrollement.gradeLevel}}</td>
+                                        <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
                                     </tr>
                                     </tbody>
                                 </table>

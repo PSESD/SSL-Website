@@ -178,3 +178,12 @@ button.btn-circle,
     min-width: 0;
     padding: 2px 5px;
 }
+
+
+.ui-widget-content .ui-icon {
+    background-image: url("/bower_components/jquery-ui/themes/base/images/ui-icons_444444_256x240.png") !important;
+}
+
+.ui-widget-header .ui-icon {
+    background-image: url("/bower_components/jquery-ui/themes/base/images/ui-icons_444444_256x240.png") !important;
+}
