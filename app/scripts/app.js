@@ -177,6 +177,12 @@
     function pathIsUnprotected(path) {
       return UNPROTECTED_PATHS.indexOf(path) !== -1;
     }
+
+     //history back btn
+     $rootScope.goBack = function() {
+      window.history.back();
+    };
+
   }
 
 
