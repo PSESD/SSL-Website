@@ -24,10 +24,8 @@
                         return value;
                     });
                     vm.programs = $filter('orderBy')(listProgram,'name');
-                    vm.show_program = true;
-                }else{
-                    vm.show_program = false;
                 }
+                vm.show_program = true;
             },function(error){
 
             });
