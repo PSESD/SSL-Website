@@ -17,6 +17,7 @@
       $cookies.remove(profile.id);
       localStorage.removeItem('id');
       localStorage.removeItem('student_profiles');
+      localStorage.setItem('logged_in', '0');
       sessionStorage.clear();
       $state.go('login');
     }
