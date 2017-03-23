@@ -183,6 +183,13 @@
       window.history.back();
     };
 
+    function storageChange(event) {
+      if (event.key === 'id') {
+         location.reload();
+      }
+    }
+    window.addEventListener('storage', storageChange, false);
+
   }
 
 
