@@ -97,6 +97,7 @@
                   profile.is_authenticated = true;
                   //localStorage.clear();
                   localStorage.setItem('id', profile.id);
+                  localStorage.setItem('logged_in', '1');
                   if(profile.full_name.length > 10){
                       profile.full_name = profile.full_name.substr(0,7) + '...';
                   }

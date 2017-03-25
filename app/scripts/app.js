@@ -176,6 +176,19 @@
     function pathIsUnprotected(path) {
       return UNPROTECTED_PATHS.indexOf(path) !== -1;
     }
+
+     //history back btn
+     $rootScope.goBack = function() {
+      window.history.back();
+    };
+
+    function storageChange(event) {
+      if (event.key === 'logged_in') {
+        location.reload();
+      }
+    }
+    window.addEventListener('storage', storageChange, false);
+
   }
 
 
