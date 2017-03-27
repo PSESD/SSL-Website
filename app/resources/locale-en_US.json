@@ -158,5 +158,5 @@
     "views.new_student":"New Student",
     "views.grade":"Grade",
     "views.id":"Id",
-    "views.no_data":"Currently no data for this section"
+    "views.no_data":"No data available for this section"
 }
