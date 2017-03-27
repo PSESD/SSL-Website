@@ -116,7 +116,7 @@
     "views.credit": "Credit",
     "views.credits": "Credits",
     "views.not_enrolled": "This student has not been enrolled to any program yet",
-    "views.go_to_program": "Go to Program",
+    "views.go_to_program": "Go to Programs",
     "views.school_name": "School Name",
     "views.school_year": "School Year",
     "views.entry_date": "Entry Date",
@@ -157,5 +157,6 @@
     "views.add_user_students_assignment":"Add User's Students Assignment",
     "views.new_student":"New Student",
     "views.grade":"Grade",
-    "views.id":"Id"
+    "views.id":"Id",
+    "views.no_data":"Currently no data for this section"
 }
