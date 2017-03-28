@@ -1,6 +1,6 @@
 .popover
 {
-  min-width: 250px;
+  min-width: 150px;
 
   .popover-content
   {
@@ -19,7 +19,24 @@
       .panel-body
       {
         color: $color-black;
+        padding: 10px 15px;
       }
     }
+  }
+}
+
+.list-modal{
+ padding: 10px 15px;
+}
+
+.popover-assessment{
+  .popover-content{
+    padding: 20px 15px;
+  }
+}
+
+.day{
+  .popover{
+   padding: 10px 15px;
   }
 }

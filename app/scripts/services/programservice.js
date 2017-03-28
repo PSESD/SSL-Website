@@ -4,9 +4,9 @@
     angular.module('sslv2App')
         .service('ProgramService', ProgramService)
 
-    ProgramService.$inject = ['$http','RESOURCES','ProfileService']
+    ProgramService.$inject = ['$http','ENV','ProfileService']
 
-    function ProgramService ($http,RESOURCES,ProfileService) {
+    function ProgramService ($http,ENV,ProfileService) {
 
         var service = {
             getAll:getAll,
@@ -19,7 +19,7 @@
 
         function getAll(){
 
-            return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs', {
+            return $http.get(ENV.API_URL + ProfileService.getOrganizationId() + '/programs', {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
@@ -27,7 +27,7 @@
         }
 
         function addProgram(data){
-            return $http.post(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs', $.param(data), {
+            return $http.post(ENV.API_URL + ProfileService.getOrganizationId() + '/programs', $.param(data), {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
@@ -35,7 +35,7 @@
         }
 
         function getById(id){
-            return  $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id, {
+            return  $http.get(ENV.API_URL + ProfileService.getOrganizationId() + '/programs/' + id, {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
@@ -43,7 +43,7 @@
         }
 
         function updateProgram(id,data){
-            return $http.put(RESOURCES.API_URL  + ProfileService.getOrganizationId() + '/programs/' + id, $.param(data), {
+            return $http.put(ENV.API_URL  + ProfileService.getOrganizationId() + '/programs/' + id, $.param(data), {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
@@ -51,7 +51,7 @@
         }
 
         function deleteProgram(id){
-            return $http.delete(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/programs/' + id, {
+            return $http.delete(ENV.API_URL + ProfileService.getOrganizationId() + '/programs/' + id, {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }

@@ -1,101 +1,864 @@
+.nav-tabs.nav-justified{
+  margin-top: 2em;
+
+  li{
+    border: 1px solid $grey-light;
+
+    @include mq($screen-sm-min){
+      border:none;
+      border-right: 1px solid $grey-light;
+      border-top: 1px solid $grey-light;
+      border-bottom: 1px solid darken($grey-light, 6%);
+    }
+
+    a{
+      border-radius: 0;
+      font-family: $font-family-kreon;
+      font-weight: 700;
+      padding: 12px 5px;
+      background: linear-gradient(#fff, darken($white, 5%));
+      color: $grey;
+      border: none;
+      margin: 0;
+      transition: background 0.3s ease;
+      font-size: 10px;
+
+      @media (min-width: $screen-lg-min){
+        font-size: 12px;
+      }
+
+
+      &:hover, &:focus{
+        background: linear-gradient(#fff, darken($white, 7%));
+      }
+    }
+
+    &.active{
+      border-top: 3px solid $cyan;
+      border-bottom: 1px solid transparent;
+
+      a{
+        border: none;
+        color: $black;
+        background: $white;
+        &:hover, &:focus{
+          border: none;
+        }
+      }
+    }
+    &:first-child{
+      border-left: 1px solid $grey-light;
+    }
+  }
+}
+
+
+.tab-pane{
+    background: darken($white, 3%);
+    border-top: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
+
+    .table-responsive{
+      background: $white;
+      margin: 40px 3.5%;
+      border-radius: 5px;
+      padding: 40px;
+      table{
+        margin: 0;
+      }
+    }
+}
+
+
 .tab-content{
+  margin-top: 15px;
   .attendance-header{
     height: 80px;
   }
-  .attendance-date{
-    width: 30%;
-  }
-  .attendance-days{
-    width:40%;
-  }
-  .attendance-weekly-change{
-    width: 30%;
-    .panel{
-      &.panel-default{
-        width:75%;
-        border:1px solid #ddd!important;
-        .panel-heading{
-          background: white;
-          text-transform: uppercase;
+  .attendance-summary{
+    background: $white;
+    position: relative;
+    padding: 30px 0;
+
+    header{
+      padding-bottom: 2em;
+    }
+
+    .selectwrap{
+      width: 200px;
+      float: right;
+      margin-top: -0.5em;
+    }
+
+    .row{
+      .col-attendance{
+        text-align: center;
+        @include make-xs-column(6);
+        @media (min-width: $screen-sm-min){
+           width: 20%;
+           float: left;
         }
       }
+    }
+    .attendance-data{
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 100px;
+    }
+  }
+
+  .chart {
+      margin: 0 auto;
+      position: relative;
+      width: 100px;
+  }
+
+  .chart-percentage {
+      text-align: center;
+      line-height: 100px;
+      width: 100px;
+      font-size: 26px;
+      font-weight: 900;
+  }
+
+  .chart canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+  }
+
+
+  .attendance-date{
+    width: 30%;
+    text-transform: uppercase;
+    padding: 0 20px;
+    font-weight: 700;
+    @media (max-width: $screen-md-max){
+      width: 20%;
+    }
+    &.content{
+      padding: 0;
+      .detail-item{
+        height: 45px;
+        line-height: 30px;
+        border-bottom: 1px solid $grey-light;
+        border-right: 1px solid $grey-light;
+        padding-left: 5px;
+
+        .number{
+          float: left;
+          font-weight: 100;
+        }
+        .detail-item-content{
+          padding: 9px 15px;
+          line-height: 1em;
+          font-weight: 100;
+          text-align: left;
+
+        }
+        &.header{
+          border-right: none;
+          border-bottom: none;
+          background: $grey-light2;
+        }
+      }
+    }
+  }
+  .attendance-days{
+    width:50%;
+    &.content{
+      padding: 0;
+      .detail-item{
+        &.value{
+          border-bottom: 1px solid $grey-light;
+          border-right: 1px solid $grey-light;
+          height: 45px;
+          margin: 0;
+          &.late-class{
+            border-bottom: none;
+          }
+          &.missed-class{
+            border-bottom: none;
+            background-color: deeppink;
+          }
+          &.missed-day{
+            background-color: $color-purple;
+            border-radius: 0;
+            border-right: 1px solid $grey-light;
+            border-bottom: none;
+          }
+          &.incident{
+            background-color: $color-black;
+            border-radius: 0;
+            border-right: 1px solid $grey-light;
+            border-bottom: none;
+          }
+        }
+        &.header{
+          height: 45px;
+          line-height: 1em;
+          padding: 12px 35%;
+          border-right: none;
+          border-bottom: none;
+          background: $grey-light2;
+          text-transform: uppercase;
+          font-weight: 700;
+
+          &.behavior{
+            background-color: $color-black;
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+  .attendance-weekly-change{
+    width: 20%;
+    justify-content: flex-end;
+    @media (max-width: $screen-md-max){
+      width: 30%;
+    }
+    @media (max-width: $screen-xss-max){
+      display: none;
+    }
+    .panel{
+      &.panel-default{
+        width:100%;
+
+        background-color: $grey-light2;
+        .panel-heading{
+          padding: 10px 0 5px;
+          background: darken($white, 3%);
+          border: none;
+          border-top:none ;
+          font-weight: 700;
+          font-size: 16px;
+          font-family: $font-family-open-sans;
+        }
+        .panel-heading:not(.collapsed){
+          background: darken($white, 3%);
+          border: none;
+          border-top:none ;
+          font-family: $font-family-open-sans;
+        }
+        .panel-body{
+          text-transform: capitalize;
+          font-weight: 600;
+          border-top: none;
+          padding: 15px 0;
+
+          .legend{
+            margin: 5px 0;
+            font-weight: 400;
+
+            .legend-item{
+              height: 25px;
+              width: 25px;
+              line-height: 25px;
+              text-align: center;
+              border-radius: 50%;
+              color: white;
+            }
+            .excused{
+              color: $alert-green;
+              margin-right: 5px;
+              background-color: transparent;
+              font-size: 14px;
+            }
+            .unexcused{
+              color: $alert-red;
+              margin-right: 5px;
+              background-color: transparent;
+              font-size: 14px;
+            }
+          }
+          .legend-excused{
+            margin-top: 40px;
+          }
+          .legend-missed-class{
+            color: black;
+          }
+        }
+      }
+    }
+
+    .arrow{
+      margin: 0 25px 0 15px;
     }
   }
   .content{
     padding-top: 5px;
   }
   #attendance_behavior{
+    position: relative;
+
     #accordion{
       margin: 0;
       .panel{
         border-radius: 0;
         border:none;
+        padding: 0 20px;
+        box-shadow: none;
+        @media (max-width: $screen-xs-max){
+          padding:0 5px;
+        }
+        .circle{
+          margin: 3px 6px;
+        }
+
+      }
+    }
+  }
+
+  /*.legend-item{
+    display: block;
+    height:40px;
+    line-height: 40px;
+    font-weight: 400;
+    color:black;
+  }*/
+
+
+  .value{
+    margin: 0 2px;
+  }
+  .day{
+    width: 14.28%;
+    position: relative;
+    &.general{
+      height: 36px;
+      line-height: 36px;
+    }
+
+    span[class^="icon"] {
+        background: $white;
+        border-radius: 50%;
+        font-size: 14px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+    }
+
+    .icon-excused {
+      color: $alert-green;
+    }
+
+    .icon-unexcused {
+      color: $alert-red;
+    }
+
+    .missed-day{
+      span[class^="icon"]{
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+        display: none;
+      }
+      &:nth-child(2){
+          span[class^="icon"]{
+            display: block;
+          }
+      }
+    }
+
+  }
+  .border-right-2{
+    border-right: 2px solid #ddd;
+  }
+  .border-left-2{
+    border-left: 2px solid #ddd;
+  }
+  .attendance-modal,.list-modal{
+    padding: 10px;
+  }
+  .flex-direction-column{
+    flex-direction: column;
+  }
+  .align-items-baseline{
+    align-items: baseline;
+  }
+
+  .program-participation{
+    margin-right:10px;
+  }
+  hr{
+    &.transcript{
+      border-top: 2px solid black;
+      width: 25px;
+      margin: 0 0 10px 0;
+    }
+  }
+  .state,.map{
+    width: 50%;
+    height: 50px;
+    line-height: 50px;
+  }
+  .justify-content-space-between{
+    justify-content: space-between;
+  }
+
+  //.assessment{
+  //  .arrow{
+  //    margin: 0!important;
+  //  }
+  //}
+  //.arrow{
+  //  margin:1px 25px;
+  //}
+
+  .calendar-header.panel.panel-default{
+    display: none;
+  }
+  .calendar-details{
+    background: #f9f9f9;
+    border-top: 1px solid #d0d6d9;
+  }
+  .attendance-wrap{
+    position: relative;
+  }
+  .detail-info{
+    position: relative;
+    padding: 30px 3.5%;
+    @media (max-width: $screen-xss-max){
+      padding: 15px;
+    }
+    label{
+      @media (max-width: $screen-xs-max){
+        display: block;
+      }
+    }
+    .category{
+      font-weight: 100;
+    }
+  }
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 25px;
+    display: inline-block;
+    margin: 0 10px;
+
+    &.late-class{
+      background-color: $color-orange;
+    }
+    &.missed-class{
+      background-color: $color-pink;
+    }
+    &.incident{
+      border: 2px solid $color-black;
+    }
+    &.missed-day{
+      background-color: #8749AD;
+    }
+  }
+
+  .arrow{
+    &.glyphicon{
+      color:#74d5d6;
+    }
+  }
+  .month-detail{
+    margin: 0 3.5%;
+    background: white;
+    padding: 20px 20px 30px;
+    border-radius: 5px;
+    box-shadow: 5px 10px 15px -5px rgba($gray-light, 0.2);
+
+
+    @media (max-width: $screen-xs-max){
+      margin: 0 15px;
+    }
+    .month-detail-name{
+      font-weight: 700;
+      padding: 0 20px;
+      font-size: 17px;
+      margin-bottom: 7px;
+      .close-month-detail{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+      @media (max-width: $screen-xs-max){
+        padding: 0 5px;
+      }
+    }
+    .panel-default {
+      .panel-heading{
+        margin: 10px 0 0;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+      .panel-heading.collapsed{
+        background: linear-gradient(#fff, #eee);
+        border: 1px solid #eee;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        color: $color-grey;
+        font-family: $font-family-kreon;
+      }
+      .panel-heading:not(.collapsed){
+        background-color: white;
+        border-radius: 0;
+        border: 1px solid #eee;
+        border-top: 3px solid #74d5d6;
+        font-family: $font-family-kreon;
+      }
+      .panel-body{
+        font-size: 11px;
+      }
+      .attendance-weekly-change{
+        .glyphicon{
+          color: #74d5d6;
+        }
+      }
+    }
+  }
+
+  .panel-heading:not(.collapsed){
+    background-color: white;
+    border-radius: 0;
+    border: 1px solid #eee;
+    border-top: 3px solid #74d5d6;
+    font-family: $font-family-kreon;
+  }
+
+  .calendar{
+    overflow: hidden!important;
+  }
+  .calendar .months-container{
+    transform: translateX(5%);
+
+  }
+  .calendar .month-container{
+    background: white;
+    margin: 15px;
+    width: 325px;
+    box-shadow: 5px 5px 15px #d0d6d9;
+    min-height: 330px;
+    padding: 15px;
+
+
+  }
+  .calendar .months-container .month-container .month{
+    width: 90%;
+  }
+  .calendar .months-container .month-container .month thead{
+    border-bottom: 1px solid #d0d6d9;
+  }
+  .calendar table.month th.month-title{
+    text-align: left;
+    padding-left: 7px;
+  }
+  .calendar table.month th.month-title a{
+    float: right;
+    color: #000000;
+  }
+  .calendar table.month tr td{
+    padding:3px;
+  }
+  .calendar table.month tr td .day-content{
+    padding: 6px 8px;
+    position: relative;
+    margin: 1px;
+  }
+  .calendar table.month td.day .day-content:hover{
+    border-radius: 25px;
+    background-color: transparent;
+  }
+  .calendar table.month tr td .day-content.incident{
+    border: 3px solid #28353c;
+    border-radius: 25px;
+  }
+  .calendar table.month tr td .day-content.missed-day{
+    border: 3px solid $color-purple;
+    border-radius: 25px;
+  }
+  .calendar table.month th.day-header{
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  .calendar table.month tr td .day-content .circle-missed{
+    background-color: #ffffff;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    bottom: -6px;
+    right: 3px;
+    border-radius: 25px;
+
+  }
+  .calendar table.month tr td .day-content .circle-late{
+    background-color: #ffffff;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    bottom: -6px;
+    left: 3px;
+    border-radius: 25px;
+
+  }
+  .calendar table.month tr td .day-content .circle-missed .missed-class{
+    width: 9px;
+    height: 9px;
+    background: $color-pink;
+    border-radius: 25px;
+    margin: auto;
+    transform: translateY(25%);
+  }
+  .calendar table.month tr td .day-content .circle-missed .missed-day{
+    width: 9px;
+    height: 9px;
+    background: #8749AD;
+    border-radius: 25px;
+    margin: auto;
+    transform: translateY(25%);
+  }
+  .calendar table.month tr td .day-content .circle-late .late-class{
+    width: 9px;
+    height: 9px;
+    background: #ff9933;
+    border-radius: 25px;
+    margin: auto;
+    transform: translateY(25%);
+  }
+
+  .padding-6 {
+    padding: 6px;
+  }
+
+  .padding-8-10 {
+    padding: 4px 5px;
+  }
+
+  .different-month {
+    color: #aaa;
+    &.incident .cal-day {
+      border: none !important;
+    }
+    .issues-container{
+      display: none !important;
+    }
+  }
+
+  .late-class {
+    background: orange;
+  }
+
+  .missed-class {
+    background: deeppink;
+  }
+
+  .calendar-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    padding: 1.5% 2%;
+    width: 100%;
+
+    @media (max-width: $screen-xss-max){
+      padding: 15px;
+    }
+  }
+
+  .month-container {
+    width: 30.333%;
+    padding: 2.5%;
+    margin: 1.5%;
+    background-color: $white;
+    font-size: 12px;
+    border-radius: 5px;
+
+    transition: all 0.2s ease;
+
+    &:hover{
+      box-shadow: 5px 5px 15px rgba(#d0d6d9, 0.6);
+    }
+
+    @media (max-width: $screen-sm-max){
+      width: 47%;
+      margin: 1.5%;
+    }
+    @media (max-width: $screen-xss-max){
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+
+  .month-container.active{
+    background: darken($white, 7%);
+  }
+
+  .month-container .header h4{
+    font-weight: 700;
+    padding-left: 5px;
+    font-size: 17px;
+    margin-top: 0;
+    margin-bottom: 7px;
+    .open-month{
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+  .month-container .header h4 a{
+    float: right;
+    margin-right: 10px;
+    font-size: 25px;
+    color: #000000;
+    margin-top: -6px;
+  }
+
+  .days-header-container {
+    margin-bottom: 27px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .days-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 14.28%;
+    text-align: center;
+    margin-bottom: 3px;
+  }
+  .week-line{
+    &:hover{
+      background-color: $grey-light2;
+      border-radius: 25px;
+      cursor: pointer;
+      .weeks-container{
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .weeks-container {
+    line-height: 25px;
+    height: 35px;
+    display: inline-block;
+    text-align: center;
+    width: 14.28%;
+    vertical-align: top;
+  }
+
+  .missed-day {
+    background: $color-purple;
+    border-radius: 20px
+  }
+
+  .incident{
+    .cal-day{
+      border: 2px solid $color-black;
+      border-radius: 50%;
+    }
+  }
+
+  .issues-container {
+    position: relative;
+    bottom: 4px;
+    display: flex;
+    justify-content: center
+  }
+
+  .dot {
+    border-radius: 5px;
+    display: block;
+    height: 10px;
+    width: 10px;
+    border: 1px solid $white;
+  }
+
+  .missed-late-class-container {
+
+  }
+
+
+  @media (max-width: 767px) {
+    .calendar .months-container{
+      transform: none;
+    }
+    .calendar .month-container{
+      float: none;
+      margin: auto;
+    }
+  }
+}
+
+.panel-heading{
+  &.transcript{
+    background: linear-gradient(#fff, #eee);
+    border: 1px solid #eee;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    color: #aab3b8;
+    font-family: "Kreon", serif;
+    margin: 10px 0;
+    padding: 10px 25px!important;
+  }
+}
+.panel-default{
+  &.transcript{
+    border: none!important;
+  }
+}
+
+.panel-container{
+  padding: 40px;
+  background: white;
+  margin: 40px;
+  box-shadow: 5px 10px 15px -5px rgba(119, 119, 119, 0.2);
+}
+
+#accordion_transcript .text-center {
+  text-align: left;
+  margin-left: 60px;
+}
+
+#transcript{
+  .full-width{
+    background: $white;
+  }
+}
+
+
+table{
+  &.table-assessment{
+    table-layout: fixed;
+    width: 100%;
+    thead{
+      th{
+        border-bottom: 1px solid $color-grey;
+        line-height: 1.4em;
+      }
+    }
+    tbody{
+      tr{
+        td{
+          border-bottom: 1px solid $color-grey;
+        }
       }
     }
   }
 }
-.legend-item{
-  display: block;
-  height:40px;
-  line-height: 40px;
-  text-transform: uppercase;
-  font-weight: 400;
-  color:black;
-}
-.value{
-  margin: 0 2px;
-}
-.day{
-  width: 14.28%;
-  &.general{
-    height: 36px;
-    line-height: 36px;
-  }
-}
-.border-right-2{
-  border-right: 2px solid #ddd;
-}
-.border-left-2{
-  border-left: 2px solid #ddd;
-}
-.attendance-modal,.list-modal{
-  padding: 10px;
-}
-.flex-direction-column{
-flex-direction: column;
-}
-.align-items-baseline{
-align-items: baseline;
+
+.assessment-status{
+  width: 20px;
 }
 
-.program-participation{
-  margin-right:10px;
+// .panel-heading{
+//   &.assessment{
+//     border-top:none !important;
+//   }
+.behavior-incident{
+      background: $color-black!important;
+      color: white;
+    }
+
+.grey-circle{
+  background: $color-grey !important;
 }
-hr{
-  &.transcript{
-    border-top: 2px solid black;
-    width: 25px;
-    margin: 0 0 10px 0;
-  }
-}
-.state,.map{
-  width: 50%;
-  height: 50px;
-  line-height: 50px;
-}
-.justify-content-space-between{
-justify-content: space-between;
-}
-.arrow{
-  margin-right:15px;
-}
-.tab-content{
-  margin-top: 15px;
-}
-.attendance-year{
-  width: 15%;
-  position: absolute;
-  right: 15px;
-  margin-bottom: 2px;
-  top: 45px;
+.grey-font{
+  color: $color-grey !important;
 }

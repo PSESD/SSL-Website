@@ -1,61 +1,35 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
-
-      <header class="header-background clearfix inverse">
-        <div class="container">
-          <div class="pull-left">
-            <h1 class="page-title">Invite User</h1>
-          </div>
-        </div>
-      </header>
-
-        <section class="main-content container">
-
-        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
-            <div class="row">
-                <div class="alert alert-info text-left message" ng-show=vm.message>
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+        <header class="header-background clearfix inverse">
+            <div class="container">
+                <div class="pull-left">
+                    <h1 class="page-title">{{"views.invite_user"|translate}}</h1>
                 </div>
             </div>
-        </div>
-
-        <div class="col-xs-12">
-            <form class="form-horizontal">
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button ng-click="vm.submit(vm.user)">Submit</button>
-                        <button ui-sref="dashboard.manage">Back</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">Email:</label>
-                    <div class="col-md-6 col-sm-10">
+        </header>
+        <section class="main-content container">
+            <div class="alert alert-info text-left message" ng-show=vm.message>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="email" class="control-label">{{"views.email"|translate}}:</label>
                         <input type="email" class="form-control" id="email" ng-model="vm.user.email">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="role" class="col-sm-2 control-label">Role:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <select class="form-control" ng-model="vm.user.role" id="role">
-                            <option value="admin">Admin</option>
-                            <option value="case-worker-restricted">Assigned Users Restricted</option>
-                            <option value="case-worker-unrestricted">Assigned Users Unrestricted</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="role" class="control-label">{{"views.role"|translate}}:</label>
+                        <div class="selectwrap">
+                            <select class="form-control" ng-model="vm.user.role" id="role">
+                                <option value="admin">{{"views.admin"|translate}}</option>
+                                <option value="case-worker-unrestricted">{{"views.assigned_users_regular"|translate}}</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button ng-click="vm.submit(vm.user)">Submit</button>
-                        <button ui-sref="dashboard.manage">Back</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-
-      </section>
+                    <button ng-click="vm.submit(vm.user)">{{"views.submit"|translate}}</button>
+                    <button ng-click="goBack()">{{"views.back"|translate}}</button>
+                </form>
+            </div>
+        </section>
     </div>
 </div>

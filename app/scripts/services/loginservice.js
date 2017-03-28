@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .service('LoginService', LoginService)
 
-  LoginService.$inject = ['$http', 'RESOURCES','GeneralService','CookieService','$timeout','$state','$cookies']
+  LoginService.$inject = ['$http', 'ENV','GeneralService','CookieService','$timeout','$state','$cookies']
 
-  function LoginService ($http, RESOURCES,GeneralService,CookieService,$timeout,$state,$cookies) {
+  function LoginService ($http, ENV,GeneralService,CookieService,$timeout,$state,$cookies) {
     var service = {
       authenticate: authenticate,
       validate: validate
@@ -15,17 +15,18 @@
     return service
 
     function authenticate (credentials, key) {
-      return $http.post(RESOURCES.AUTH_URL + 'oauth2/token', $.param(credentials), {
+      return $http.post(ENV.AUTH_URL + 'oauth2/token', $.param(credentials), {
         headers: {
           'Authorization': 'Basic ' + key
         }
       });
-      
+
     }
 
 
 
     function validate(user,vm){
+      vm.show_login_loading = true;
       var profile = {
         expire_time:'',
         is_authenticated: false,
@@ -43,8 +44,10 @@
         organization_id: '',
         status:''
       }
-      var key = GeneralService.base64Encode(RESOURCES.CLIENT_ID + ':' + RESOURCES.CLIENT_SECRET);
-      var grant_type = encodeURIComponent(RESOURCES.GRANT_TYPE);
+
+      var key = GeneralService.base64Encode(ENV.CLIENT_ID + ':' + ENV.CLIENT_SECRET);
+      var grant_type = encodeURIComponent(ENV.GRANT_TYPE);
+
       var credentials = {
         grant_type: grant_type,
         username: user.email,
@@ -54,6 +57,7 @@
 
       this.authenticate(credentials, key)
           .then(function(response) {
+            vm.show_login_loading = false;
             if ('access_token' in response.data) {
               var embedded = {
                 organization:_.get(response.data.embeded,'organization',""),
@@ -65,46 +69,44 @@
               if(embedded.organization !== "")
               {
                 profile.access = true;
-                profile.organization_id = _.get(embedded.organization,"_id","");
+                profile.organization_id = _.get(embedded.organization,"id","");
                 profile.redirect_url = _.get(embedded.organization,"url","");
                 profile.organization_name = _.get(embedded.organization,"name","");
+
                 if(profile.organization_name !== ""){
-                  localStorage.setItem('organization_name', profile.organization_name);
+                  $cookies.put('organization_name', profile.organization_name);
                 }
-                if(embedded.users.total>0){
-                  for (var i = 0; i < embedded.users.total; i++) {
-                    if (_.get(embedded.users.data[i],"email","") === credentials.username) {
-                      profile.exists = true;
-                      profile.id = _.get(embedded.users.data[i],"id","");
-                      profile.role = _.get(embedded.users.data[i],"role","");
-                      if (_.get(embedded.users.data[i],"first_name","") !== "") {
-                        profile.full_name += _.get(embedded.users.data[i],"first_name","") + ' ';
-                        profile.first_name = _.get(embedded.users.data[i],"first_name","");
-                      }
-                      if (_.get(embedded.users.data[i],"last_name","")) {
-                        profile.full_name += embedded.users.data[i].last_name;
-                        profile.last_name = embedded.users.data[i].last_name;
-                      }
-                      if(profile.role === "admin"){
-                        profile.status = "";
-                      }else{
-                        profile.status = "?assign=true";
-                      }
-                    }
+
+                  profile.exists = true;
+                  profile.id = _.get(embedded.users,"id","");
+                  profile.role = _.get(embedded.users,"role","");
+                  if (_.get(embedded.users.data,"first_name","") !== "") {
+                      profile.full_name += _.get(embedded.users,"first_name","") + ' ';
+                      profile.first_name = _.get(embedded.users,"first_name","");
+                  }
+                  if (_.get(embedded.users,"last_name","")) {
+                      profile.full_name += _.get(embedded.users,'last_name','');
+                      profile.last_name = _.get(embedded.users,'last_name','');
+                  }
+                  if(profile.role === "admin"){
+                      profile.status = "";
+                  }else{
+                      profile.status = "?assign=true";
                   }
 
                   profile.is_authenticated = true;
-                  localStorage.clear();
-                  sessionStorage.setItem('id', profile.id);
+                  //localStorage.clear();
+                  localStorage.setItem('id', profile.id);
+                  localStorage.setItem('logged_in', '1');
                   if(profile.full_name.length > 10){
-                    profile.full_name = profile.full_name.substr(0,7) + '...';
+                      profile.full_name = profile.full_name.substr(0,7) + '...';
                   }
-                  sessionStorage.setItem('full_name',profile.full_name);
+                  localStorage.setItem('full_name',profile.full_name);
                   localStorage.setItem('first_name', profile.first_name);
                   if (user.remember === true) {
-                    localStorage.setItem('email', user.email);
+                      localStorage.setItem('email', user.email);
                   }else{
-                    localStorage.setItem('email', "");
+                      localStorage.setItem('email', "");
                   }
                   $cookies.put('id',profile.id);
                   $cookies.put('organization_id',profile.organization_id);
@@ -113,9 +115,7 @@
                   $cookies.put('expire_time',profile.expire_time);
                   CookieService.set(profile);
                   $state.go('dashboard.student',{},{reload:true});
-                }else{
 
-                }
               }
             } else {
               if ('error' in response.data) {
@@ -137,7 +137,7 @@
     function closeMessage(vm) {
       $timeout(function() {
         vm.message = false;
-      }, 3000);
+      }, 4000);
     }
 
   }

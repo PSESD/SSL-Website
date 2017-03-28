@@ -4,19 +4,20 @@
     angular.module('sslv2App')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['LoginService','$window'];
+    LoginCtrl.$inject = ['LoginService','$window', '$cookies'];
 
-    function LoginCtrl(LoginService,$window) {
+    function LoginCtrl(LoginService,$window, $cookies) {
         var vm = this;
         var email = localStorage.getItem("email") || "";
         vm.message = '';
-
+        vm.show_login_loading = false;
         vm.user = {
             email: '',
             password: '',
             remember: false
         }
         vm.login_greetings = localStorage.getItem("first_name") || "";
+        vm.organization_name = $cookies.get('organization_name');
         vm.help = {
             templateUrl: 'templates/help.html'
         }

@@ -12,6 +12,23 @@
 
         var vm = this;
         vm.show_user = false;
+
+        vm.header_name_selected = true;
+        vm.header_district_id_selected = false;
+        vm.header_grade_level_selected = false;
+        vm.header_school_district = false;
+        vm.header_current_school_selected = false;
+        vm.header_attendance_selected = false;
+        vm.header_behavior_selected = false;
+
+        vm.sort_name = true;
+        vm.sort_school_district_id = false;
+        vm.sort_grade_level = false;
+        vm.sort_school_district = false;
+        vm.sort_current_school = false;
+        vm.sort_attendance = false;
+        vm.sort_behavior = false;
+
         var data ="";
         var success = "";
         var student ={};
@@ -22,12 +39,133 @@
         vm.students = "";
         var temp_template_attendance ="";
         var temp_template_behavior ="";
-        var attendance_template = "<div class='list-modal'><dl><dt></dt><dd>Student has missed {latest_month} {latest_month_day} in the latest month of which we have data.</dd><dt></dt><dd>Student has missed {current_academic} {current_academic_day} in the current academic year.</dd></dl></div>";
+        var attendance_template = "<div class='list-modal'><dl><dt></dt><dd>{days_missed_in_month} {days_missed_in_year}</dd></dl></div>";
         var trend_template = "<div class='list-modal'>{trend}</div>";
         var behavior_template = "<div class='list-modal'><dl><dt></dt><dd>Student has {behavior_month} {incident_month} in the latest term of which we have data.</dd><dt></dt><dd>Student has {behavior_academic} {incident_academic} in the current academic year.</dd></dl></div>";
         vm.deleteStudent = deleteStudent;
         vm.school_selected = school_selected;
         vm.district_selected = district_selected;
+        vm.sort = sort;
+
+        function sort(status,col) {
+            switch (col){
+
+                case 'name':
+                    vm.header_name_selected = true;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.first_name; }]);
+                        vm.sort_name = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_name = !status;
+                    }
+                    break;
+                case 'district_id':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = true;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return parseInt(o.district_student_id, 10); }]);
+                        vm.sort_school_district_id = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_school_district_id = !status;
+                    }
+                    break;
+                case 'school_district':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = true;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.school_district; }]);
+                        vm.sort_school_district = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_school_district = !status;
+                    }
+                    break;
+                case 'grade_level':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = true;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.grade_level; }]);
+                        vm.sort_grade_level = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_grade_level = !status;
+                    }
+                    break;
+                case 'current_school':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = true;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.school_name; }]);
+                        vm.sort_current_school = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_current_school = !status;
+                    }
+                    break;
+                case 'attendance':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = true;
+                    vm.header_behavior_selected = false;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.attendance.academic.count; }]);
+                        vm.sort_attendance = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_attendance = !status;
+                    }
+                    break;
+                case 'behavior':
+                    vm.header_name_selected = false;
+                    vm.header_district_id_selected = false;
+                    vm.header_grade_level_selected = false;
+                    vm.header_school_district = false;
+                    vm.header_current_school_selected = false;
+                    vm.header_attendance_selected = false;
+                    vm.header_behavior_selected = true;
+                    if(status == false){
+                        vm.students = _.sortBy(vm.students, [function(o) { return o.xsre.behavior.academic.behavior_academic_count; }]);
+                        vm.sort_behavior = !status;
+                    }else{
+                        vm.students = vm.students.reverse();
+                        vm.sort_behavior = !status;
+                    }
+                    break;
+
+            }
+
+        }
         init();
 
         function init(){
@@ -44,6 +182,7 @@
             clearVariables();
             StudentService.getAllStudent()
                 .then(function(response){
+
                     $timeout(getAll(response),500);
                 },function(error){
 
@@ -84,7 +223,11 @@
             }
         }
         function deleteStudent(id,index){
-            $confirm({text:'Are you sure you want to delete this record?'})
+            $confirm({
+              title: 'Delete Student Record',
+              text:'Are you sure you want to delete this record?',
+              ok: 'Delete',
+            })
                 .then(function(){
                     StudentService.deleteStudent(id)
                         .then(function(response){
@@ -128,12 +271,12 @@
                 xsre:{
                     attendance:{
                         month:{
-                            count:'',
+                            attendance_month_count:'',
                             flag:'',
                             type:''
                         },
                         academic:{
-                            count:'',
+                            attendance_academic_count:'',
                             flag:'',
                             type:''
                         },
@@ -146,12 +289,12 @@
                     },
                     behavior:{
                         month:{
-                            count:'',
+                            behavior_month_count:'',
                             flag:'',
                             type:''
                         },
                         academic:{
-                            count:'',
+                            behavior_month_count:'',
                             flag:'',
                             type:''
                         }
@@ -190,8 +333,8 @@
                     student.emergency2_name = _.get(data,"emergency2_name","");
                     student.emergency2_phone = _.get(data,"emergency2_phone","");
                     student.emergency2_relationship = _.get(data,"emergency2_relationship","");
-                    student.first_name = _.get(data,"first_name","");
-                    student.last_name = _.get(data,"last_name","");
+                    student.first_name = _.get(data,"first_name", _.get(data, 'xsre.firstName', ""));
+                    student.last_name = _.get(data,"last_name", _.get(data, 'xsre.lastName', ""));
                     student.last_updated = $filter('date')(_.get(data,"last_updated",""), "yyyy/MM/dd");
                     student.organization = _.get(data,"organization","");
                     student.phone = _.get(data,"phone","");
@@ -205,7 +348,7 @@
                     student.xsre.school_year = _.get(data,"xsre.schoolYear","");
                     single_profile = {
                         id:student.id,
-                        value:"#/student/"+student.id+"/detail",
+                        value:"#!/student/"+student.id+"/detail",
                         on_track_graduate : _.get(data,"xsre.onTrackToGraduate","")
                     }
                     student_profiles.push(single_profile);
@@ -217,12 +360,15 @@
                     });
 
                     _.forEach(_.get(data,"xsre.behaviorCount",[]),function(value,key){
+
                         if(key === 0){
                             temp_template_behavior = behavior_template;
                         }
                         if(value.type === "lastMonth"){
                             var incident="";
+                            if(value.count === 0){value.count = '';}
                             student.xsre.behavior.month.count = value.count;
+                            student.xsre.behavior.month.behavior_month_count = value.count;
                             student.xsre.behavior.month.flag = value.flag.toLowerCase();
                             student.xsre.behavior.month.type = value.type;
                             if(value.count === 1){
@@ -239,7 +385,9 @@
                             }else{
                                 incident = "incidents";
                             }
+                            if(value.count === 0){value.count = '';}
                             student.xsre.behavior.academic.count = value.count;
+                            student.xsre.behavior.academic.behavior_academic_count = value.count;
                             student.xsre.behavior.academic.flag = value.flag.toLowerCase();
                             student.xsre.behavior.academic.type = value.type;
                             temp_template_behavior = _.replace(temp_template_behavior,'{behavior_academic}',value.count);
@@ -256,28 +404,53 @@
                         if(value.type === "lastMonth"){
                             var day="";
                             student.xsre.attendance.month.count = value.count;
+                            student.xsre.attendance.month.attendance_month_count = value.count;
                             student.xsre.attendance.month.flag = value.flag.toLowerCase();
                             student.xsre.attendance.month.type = value.type;
+
                             if(value.count === 1){
-                                day = "day";
+                                day = " day";
                             }else{
-                                day = "days";
+                                day = " days";
                             }
-                            temp_template_attendance = _.replace(temp_template_attendance,'{latest_month}',value.count);
-                            temp_template_attendance = _.replace(temp_template_attendance,'{latest_month_day}',day);
+
+
+                            if(value.count === 0){
+                              var days_missed_in_month = '';
+                            }else{
+                              var days_missed_in_month = 'Missed '.concat(value.count,day, ' this month.');
+                            }
+
+                            temp_template_attendance = _.replace(temp_template_attendance,'{days_missed_in_month}',days_missed_in_month);
+
 
                         }else if(value.type === "currentAcademicYear"){
                             var day="";
                             student.xsre.attendance.academic.count = value.count;
+                            student.xsre.attendance.academic.attendance_academic_count = value.count;
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
                             if(value.count === 1){
-                                day = "day";
+                                day = " day";
                             }else{
-                                day = "days";
+                                day = " days";
                             }
-                            temp_template_attendance = _.replace(temp_template_attendance,'{current_academic}',value.count);
-                            temp_template_attendance = _.replace(temp_template_attendance,'{current_academic_day}',day);
+
+                            //temp_template_attendance = _.replace(temp_template_attendance,'{current_academic}',value.count);
+
+
+                            if(value.count === 0){
+                              var days_missed_in_year = '';
+                            }else{
+                              var days_missed_in_year = ' '.concat(value.count, day, ' missed this year.');
+                            }
+
+                            temp_template_attendance = _.replace(temp_template_attendance,'{days_missed_in_year}',days_missed_in_year);
+
+
+                        }else{
+                            console.log(true);
+                            student.xsre.attendance.academic.attendance_academic_count = "";
                         }
                         if(key === 1){
                             student.xsre.attendance.template = temp_template_attendance;
@@ -289,6 +462,7 @@
                 });
 
                 vm.students = list_of_students;
+                //console.log(vm.students);
                 list_of_district_options = _.uniqBy(list_of_district_options,function(value){
                     return value;
                 });
@@ -309,10 +483,11 @@
                         })
                     }
                 });
-                if(sessionStorage.getItem("student_profiles")!== null){
-                    sessionStorage.removeItem("student_profiles");
+                if(localStorage.getItem("student_profiles")!== null){
+                    localStorage.removeItem("student_profiles");
                 }
-                sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                //sessionStorage.setItem("student_profiles",JSON.stringify(student_profiles));
+                localStorage.setItem("student_profiles",JSON.stringify(student_profiles));
                 vm.show_user = true;
 
             }else{

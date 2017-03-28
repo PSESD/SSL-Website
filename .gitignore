@@ -5,4 +5,8 @@
 /bower_components
 /.history
 .idea
+env.js
 local.json
+*debug.log
+npm-debug*
+.vscode/*

@@ -1,81 +1,66 @@
 <div class="container-fluid user_edit_permission">
     <div class="row">
-
-       <header class="header-background clearfix inverse">
-          <div class="container">
-            <h1 class="page-title">Add Student to {{vm.program.name}}</h1>
-          </div>
+        <header class="header-background clearfix inverse">
+            <div class="container">
+                <h1 class="page-title">{{"views.programs.add_student" | translate}} <span class="divider-vertical"></span> {{vm.program.name}}</h1>
+            </div>
         </header>
-
-
         <section class="main-content container">
-
-          <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
-              <div class="row">
-                  <div class="alert alert-info text-left message" ng-show=vm.message>
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
-                  </div>
-              </div>
-          </div>
-
-          <div class="col-xs-12">
-              <form class="form-horizontal">
-                  <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.student)">Submit</button>
-                          <button ui-sref="dashboard.program">Back</button>
-                      </div>
-                  </div>
-
-                  <div class="form-group">
-                      <label  class="col-sm-2 control-label">Student:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <select class="form-control" ng-model="vm.student.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in vm.students"></select>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                          <div class="checkbox">
-                              <label for="active">
-                                  <input type="checkbox" ng-model="vm.student.active" id="active">
-                                  <span class="tick"><i class="glyphicon glyphicon-ok"></i></span>
-                                  Status
-                              </label>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Participation Start Date:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <input type="text" class="form-control datepicker" ng-model="vm.student.participation_start_date">
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Participation End Date:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <input type="text" class="form-control datepicker" ng-model="vm.student.participation_end_date">
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label class="col-sm-2 control-label">Cohort:</label>
-                      <div class="col-md-6 col-sm-10">
-                          <tags-input ng-model="vm.student.cohort" placeholder="{{vm.placeholder}}"></tags-input>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                          <button ng-click="vm.submit(vm.student)">Submit</button>
-                          <button ui-sref="dashboard.student">Back</button>
-                      </div>
-                  </div>
-
-              </form>
-          </div>
+            <div class="">
+                <div class="row">
+                    <div class="alert alert-info text-left message" ng-show=vm.message>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <form>
+                    <div class="form-group">
+                        <label class="control-label">{{"views.student"|translate}}:</label>
+                        <div class="selectwrap">
+                            <select class="form-control" ng-model="vm.student.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in vm.students"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label  class="control-label">{{"views.programs.stataus.label"|translate}}</label>
+                        <div class="checkbox">
+                            <label for="active">
+                                <input type="checkbox" ng-model="vm.student.active" id="active">
+                                <span class="tick"><i class="glyphicon glyphicon-ok"></i></span> {{"views.status"|translate}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">{{"views.participant_start_date"|translate}}:</label>
+                        <div class="">
+                            <input type="text" class="form-control datepicker" ng-model="vm.student.participation_start_date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">{{"views.participant_end_date"|translate}}:</label>
+                        <div class="">
+                            <input type="text" class="form-control datepicker" ng-model="vm.student.participation_end_date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Cohort:</label>
+                        <div class="">
+                            <tags-input ng-model="vm.student.cohort" placeholder="{{vm.placeholder}}"></tags-input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            <button ng-click="vm.submit(vm.student)">{{"views.submit"|translate}}</button>
+                            <button ng-click="goBack()">{{"views.back"|translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </section>
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        $('.datepicker').datepicker();
-    });
+$(document).ready(function() {
+    $('.datepicker').datepicker();
+});
 </script>

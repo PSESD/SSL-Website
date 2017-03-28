@@ -4,9 +4,9 @@
   angular.module('sslv2App')
     .service('ResetService', ResetService)
 
-  ResetService.$inject = ['$http', 'RESOURCES']
+  ResetService.$inject = ['$http', 'ENV']
 
-  function ResetService ($http, RESOURCES) {
+  function ResetService ($http, ENV) {
     var service = {
       reset: reset
     }
@@ -14,7 +14,7 @@
     return service
 
     function reset (user) {
-      return $http.post(RESOURCES.AUTH_URL + 'user/forgotpassword', $.param(user),{
+      return $http.post(ENV.AUTH_URL + 'user/forgotpassword', $.param(user),{
         headers:{
           'Authorization': 'Bearer' + ''
         }
