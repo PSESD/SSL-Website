@@ -75,7 +75,7 @@
                     vm.header_attendance_selected = false;
                     vm.header_behavior_selected = false;
                     if(status == false){
-                        vm.students = _.sortBy(vm.students, [function(o) { return o.district_student_id; }]);
+                        vm.students = _.sortBy(vm.students, [function(o) { return parseInt(o.district_student_id, 10); }]);
                         vm.sort_school_district_id = !status;
                     }else{
                         vm.students = vm.students.reverse();

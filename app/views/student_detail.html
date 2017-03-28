@@ -27,7 +27,7 @@
 </div>
 <div class="container-fluid user_edit_permission">
     <div class="row">
-        <header class="header-background clearfix inverse">
+        <header ng-show="vm.show_general" class="header-background clearfix inverse">
             <div ng-show="vm.student.personal.first_name" class="container">
                 <h1  class="page-title">{{vm.student.personal.first_name}} {{vm.student.personal.last_name}}</h1>
                 <div class="divider-vertical hidden-xs"></div>
@@ -148,21 +148,25 @@
                     </fieldset>
                 </div>
             </div>
-
-            <div class="row">
+            <div class="row" ng-show="vm.show_general">
                 <div class="col-md-12">
-                    <ul ng-show="vm.show_general" class="nav nav-tabs nav-justified" role="tablist">
-                        <li ng-show="vm.show_attendance" role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.attendance_behavior"|translate}}</a></li>
-                        <li ng-show="vm.show_transcript" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.transcript"|translate}}</a></li>
-                        <li ng-show="vm.show_general" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.program_participation"|translate}}</a></li>
-                        <li  ng-show="vm.show_enrollment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.enrollment_history"|translate}}</a></li>
-                        <li  ng-show="vm.show_assessment" role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.assessment"|translate}}</a></li>
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li  role="presentation" class="active"><a class="text-uppercase" href="javascript:void(0)" data-target="#attendance_behavior" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.attendance_behavior"|translate}}</a></li>
+                        <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#transcript" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.transcript"|translate}}</a></li>
+                        <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#program_participation" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.program_participation"|translate}}</a></li>
+                        <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#enrollment_history" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.enrollment_history"|translate}}</a></li>
+                        <li role="presentation" ><a class="text-uppercase" href="javascript:void(0)" data-target="#assessment" data-toggle="tab" role="tab" aria-controls="attendance_home">{{"views.assessment"|translate}}</a></li>
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <!--<div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">-->
-                        <div ng-show="vm.show_attendance && vm.show_general" role="tabpanel" class="tab-pane active" id="attendance_behavior">
+                        <div role="tabpanel" class="tab-pane active" id="attendance_behavior">
+
+                          <div ng-hide="vm.show_attendance" class="panel-container">
+                              <p>{{"views.no_data" | translate}}</p>
+                          </div>
+
+                          <div ng-show="vm.show_attendance">
 
                           <div class="attendance-summary">
                               <header class="clearfix">
@@ -359,6 +363,7 @@
                                 </div>
                             </div>
                           </div>
+                          </div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="transcript">
@@ -390,66 +395,66 @@
                                         </fieldset>
                                     </div>
                                 </div> -->
-                                <div class="panel-container">
-                                <div class="panel panel-default transcript">
-                                    <div ng-repeat="transcript in vm.listTranscript">
-                                    <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
-                                        <div class="flex-grow-1">
-                                            ACADEMIC YEAR: {{transcript.years - 1}}/{{transcript.years}} | Grade Level: {{transcript.grade}} Cumulative GPA: {{transcript.creditEarned}}
-                                        </div>
-                                        <div class="flex-grow-1 display-flex justify-content-flex-end">
-                                            <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
-                                        </div>
-                                    </div>
-                                    <div   id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
-                                        <div ng-repeat="items in transcript.listSemester">
-                                        <div class="display-flex full-width justify-content-space-between" style="height: 50px;line-height: 50px;padding: 0 30px;background-color: #1d272c">
-                                            <span style="color: white;">
-                                                {{items.semester}}
-                                            </span>
-                                            <span style="color: white;">
-
-                                            </span>
-                                        </div>
-                                        <div class="panel-body display-flex no-padding">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                <tr>
-                                                    <td class="bold uppercase">Period</td>
-                                                    <td class="bold uppercase">Course Name</td>
-                                                    <td class="bold uppercase">Course Teacher</td>
-                                                    <td class="bold uppercase">Course Code</td>
-                                                    <td class="bold uppercase">Grade</td>
-                                                    <td ng-show="vm.creditEarned" class="bold uppercase">Credits</td>
-                                                    <td class="bold uppercase">Course Category</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="item in items.courses">
-                                                        <td>{{item.courses.period}}</td>
-                                                        <td>{{item.courses.course_name}}</td>
-                                                        <td>{{item.courses.teacher}}</td>
-                                                        <td>{{item.courses.course_code}}</td>
-                                                        <td>{{item.courses.grade}}</td>
-                                                        <td ng-show="vm.creditEarned">{{item.courses.credits}}</td>
-                                                        <td>{{item.course_category}}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
+                                <div ng-hide="vm.show_transcript"  class="panel-container">
+                                  <p>{{"views.no_data" | translate}}</p>
                                 </div>
+                                <div ng-show="vm.show_transcript" class="panel-container">
+                                    <div class="panel panel-default transcript">
+                                        <div ng-repeat="transcript in vm.listTranscript">
+                                            <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-transcript-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
+                                                <div class="flex-grow-1">
+                                                    ACADEMIC YEAR: {{transcript.years - 1}}/{{transcript.years}} | Grade Level: {{transcript.grade}} Cumulative GPA: {{transcript.creditEarned}}
+                                                </div>
+                                                <div class="flex-grow-1 display-flex justify-content-flex-end">
+                                                    <div ng-class="transcript.status === true ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'" class="glyphicon arrow" aria-hidden="true"></div>
+                                                </div>
+                                            </div>
+                                            <div id="tabs-transcript-{{$index}}" class="panel-collapse collapse" role="tabpanel">
+                                                <div ng-repeat="items in transcript.listSemester">
+                                                    <div class="display-flex full-width justify-content-space-between" style="height: 50px;line-height: 50px;padding: 0 30px;background-color: #1d272c">
+                                                        <span style="color: white;">{{items.semester}}</span>
+                                                        <span style="color: white;"></span>
+                                                    </div>
+                                                    <div class="panel-body display-flex no-padding">
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td class="bold uppercase">Period</td>
+                                                                    <td class="bold uppercase">Course Name</td>
+                                                                    <td class="bold uppercase">Course Teacher</td>
+                                                                    <td class="bold uppercase">Course Code</td>
+                                                                    <td class="bold uppercase">Grade</td>
+                                                                    <td ng-show="vm.creditEarned" class="bold uppercase">Credits</td>
+                                                                    <td class="bold uppercase">Course Category</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="item in items.courses">
+                                                                    <td>{{item.courses.period}}</td>
+                                                                    <td>{{item.courses.course_name}}</td>
+                                                                    <td>{{item.courses.teacher}}</td>
+                                                                    <td>{{item.courses.course_code}}</td>
+                                                                    <td>{{item.courses.grade}}</td>
+                                                                    <td ng-show="vm.creditEarned">{{item.courses.credits}}</td>
+                                                                    <td>{{item.course_category}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="program_participation">
-                            <div ng-hide="vm.show_program_participation && vm.show_general" class="text-center" style="margin-top: 10px;"><p>
+
+                            <div ng-hide="vm.show_program_participation" class="panel-container"><p>
                               {{"views.not_enrolled"|translate}}. <a href="javascript:void(0);" ui-sref="dashboard.program">{{"views.go_to_program"|translate}}</a></p>
                             </div>
-                            <div ng-show="vm.show_program_participation && vm.show_general" class="table-responsive">
+                            <div ng-show="vm.show_program_participation" class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -484,10 +489,14 @@
                                   </tbody>
                                 </table>
                               </div>
+
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="enrollment_history">
-                            <div class="table-responsive">
+                            <div ng-hide="vm.show_enrollment"  class="panel-container">
+                               <p>{{"views.no_data" | translate}}</p>
+                            </div>
+                            <div ng-show="vm.show_enrollment" class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -525,7 +534,10 @@
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="assessment">
-                            <div class="panel-container">
+                            <div ng-hide="vm.show_assessment"  class="panel-container">
+                               <p>{{"views.no_data" | translate}}</p>
+                            </div>
+                            <div ng-show="vm.show_assessment"  class="panel-container">
                                 <div class="panel panel-default transcript">
                                     <div ng-repeat="assessment in vm.assessment">
                                         <div class="panel-heading transcript collapsed" role="tab" data-toggle="collapse" data-target="#tabs-assessment-{{$index}}" style="padding:0;display: flex;height: 50px;align-items: center">
