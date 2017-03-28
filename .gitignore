@@ -10,3 +10,4 @@ local.json
 *debug.log
 npm-debug*
 .vscode/*
+dump.rdb
