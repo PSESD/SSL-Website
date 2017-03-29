@@ -59,7 +59,6 @@
 
         function clear(){
             sessionStorage.clear();
-            localStorage.clear();
             var id = this.getId();
             $cookies.remove(id);
             $cookies.remove('id');
