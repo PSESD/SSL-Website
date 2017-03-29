@@ -11,6 +11,7 @@
 
             getXSRE:getXSRE,
             getAllStudent:getAllStudent,
+            getAllStudentDetails: getAllStudentDetails,
             deleteStudent:deleteStudent,
             getStudentSummary:getStudentSummary,
             addStudent:addStudent,
@@ -49,6 +50,14 @@
 
         function getAllStudent(){
             return $http.get(ENV.API_URL + ProfileService.getOrganizationId() + '/students', {
+                headers: {
+                    'Authorization': 'Bearer ' + ProfileService.getAccessToken()
+                }
+            })
+        }
+
+        function getAllStudentDetails(id) {
+            return $http.get(ENV.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/details', {
                 headers: {
                     'Authorization': 'Bearer ' + ProfileService.getAccessToken()
                 }
