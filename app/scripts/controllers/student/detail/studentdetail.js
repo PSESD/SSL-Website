@@ -11,6 +11,7 @@
         var vm = this;
         vm.show_loading = true;
         var list_attendances = {};
+        var list_incidents = []; /* TODO: Need to be populated in init */
         var selectedObj;
         vm.data = "";
         var listSelectedObj = [];
@@ -249,7 +250,6 @@
             vm.month_name = selected_month[0].name;
             vm.show_detail = true;
 
-
         }
       //Render Calendar
         function renderCalendar(data){
@@ -310,7 +310,11 @@
                                 //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
 
                                  if(value == 'behavior_incident'){
-                                     jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")).addClass('incident');
+                                      var behaviorPath = jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD"));
+
+                                          behaviorPath.addClass('incident');
+                                          behaviorPath.popover({content: "<p>Behavior incident</p>", trigger:"hover", html: true, placement: "top"}); /* TODO: change content value based on the value of behavior_incidents variable key */
+
                                  }
 
                                 if(value == 'missed_day'){
@@ -548,6 +552,7 @@
                     vm.show_attendance = true;
                     vm.listOfYears = [];
                     list_attendances = _.get(response.data,'info.source',{});
+                    console.log(list_attendances.list_weeks); /* TODO: populate incident_behaviors by looping throuhg list_weeks */
                     current_months = _.filter(list_attendances.calendars,function (v) {
                         return v.years === list_attendances.list_years[0].value;
                     });
