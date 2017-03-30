@@ -571,7 +571,7 @@
         function loadGeneral(data, student){
                 var list_program_years =[];
                 var list_program_participation = [];
-                vm.student.embedded.programs = _.get(data,'student.programs',"");
+                vm.student.embedded.programs = _.get(data,'_embedded.programs',"");
                 vm.student.embedded.users = _.get(data,'_embedded.users',"");
                 vm.student.last_update = _.get(data,'student.last_updated',"");
                 vm.student.report_date = _.get(data,'json.reportDate',"");
