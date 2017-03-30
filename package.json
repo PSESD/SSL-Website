@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "karma start test/karma.conf.js",
-    "start": "grunt serve",
+    "start": "grunt serve:dist",
     "postinstall": "bash ./post_install.sh"
   },
   "dependencies": {

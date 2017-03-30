@@ -5,6 +5,8 @@
 /bower_components
 /.history
 .idea
+app/env.js
+app/scripts/env.js
 env.js
 local.json
 *debug.log
