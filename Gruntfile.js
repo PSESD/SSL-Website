@@ -561,6 +561,25 @@ module.exports = function(grunt) {
     'htmlmin'
   ]);
 
+  grunt.registerTask('heroku', [
+    'clean:dist',
+    'ngconstant:build',
+    'wiredep:app',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin'
+  ]);
+
   grunt.registerTask('default', [
     'newer:jshint',
     'newer:jscs',
