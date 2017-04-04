@@ -26,6 +26,7 @@
         vm.show_xsre = false;
         vm.listOfCalendar = [];
         vm.listClasses = [];
+        vm.getAssessmentYear = getAssessmentYear;
         var isFirstTime = true;
         var momentjs = moment();
         var id = $stateParams.id;
@@ -546,6 +547,7 @@
                 vm.assessment = assessmentData;
                 vm.show_assessment = true;
                 vm.assessment.forEach(function (v,k) {
+                    v.year = v.schoolYear;
                     v.states.forEach(function (val,k) {
                         if(val.attemptCode !== "TS"){
                             val.attemptCodeDescription = val.attemptCodeDescription;
@@ -760,6 +762,10 @@
             };
         }
         buildChart();
+
+        function getAssessmentYear(assessment) {
+            return assessment.year ? "ACADEMIC YEAR: " + (assessment.year - 1) + "/" + assessment.year + " | " : "";
+        }
     }
 
 
