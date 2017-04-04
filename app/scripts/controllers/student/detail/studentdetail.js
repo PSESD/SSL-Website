@@ -251,19 +251,17 @@
 
 
         }
-      //Render Calendar
-        function renderCalendar(data){
-              // set summary detail
-              vm.student.personal.summary.lateToClass = data[0].summary.lateToClass;
-              vm.student.personal.summary.missedDay = data[0].summary.missedDay;
-              vm.student.personal.summary.missedClass = data[0].summary.missedClass;
-              vm.student.personal.summary.behaviorIncident = data[0].summary.behaviorIncident;
-              vm.student.personal.summary.attendanceRate = data[0].summary.attendanceRate;
 
-              var today = new Date(),
-                  todayMonth = today.getMonth()+1,
-                  todayYear = today.getFullYear();
-              _.forEach(data,function(month){
+        //Render Calendar
+        function renderCalendar(data){
+
+            setAttendanceSummary(data[0].summary);
+
+            var today = momentjs.utc();
+            var todayMonth = today.month()+1;
+            var todayYear = today.year();
+             
+            _.forEach(data,function(month){
 
                 var months = month.list_months;
 
@@ -272,30 +270,23 @@
                     sorted_months.push(month.years);
                 }
 
-                //console.log(sorted_months.indexOf(month.years));
-
                 _.forEach(month.list_months,function(v){
-                    var month = parseInt(v.month)-1;
                     if (new Date(v.year, v.month) > new Date(todayYear, todayMonth)){
                       var showMonth = false;
                     }else{
                       var showMonth = true;
-                    }
-                    var clonedMoment = momentjs.clone();
-                    var moment = _removeTime(clonedMoment.set({'year':v.year,'month':month}));
-                    var month = moment.clone();
-                    var start = moment.clone();
-                    start.date(1);
-                    _removeTime(start.day(0));
-                    if(isFirstTime === true){
-                        vm.listOfCalendar.push(
-                            {
-                                'data':_buildMonth(start,month),
-                                'name':moment,
-                                'show':showMonth,
-                                'listClassName':'',
-                                'isActive':false
-                            });
+                      var start = moment(v.year + "-" + v.month).utc();
+                      var m2 = start.clone();
+                      start = start.date(1).day(0);
+
+                      vm.listOfCalendar.push(
+                        {
+                            'data':_buildMonth(start,m2),
+                            'name':m2,
+                            'show':showMonth,
+                            'listClassName':'',
+                            'isActive':false
+                        });
                     }
                 });
 
@@ -331,14 +322,20 @@
 
         }
 
+        function setAttendanceSummary(summary) {
+              vm.student.personal.summary.lateToClass = summary.lateToClass;
+              vm.student.personal.summary.missedDay = summary.missedDay;
+              vm.student.personal.summary.missedClass = summary.missedClass;
+              vm.student.personal.summary.behaviorIncident = summary.behaviorIncident;
+              vm.student.personal.summary.attendanceRate = summary.attendanceRate;
+        }
+
         function changeYear(){
             var current_months = _.filter(list_attendances.calendars,function (v) {
                 return v.years === vm.selected_years;
             });
 
-            while(vm.listOfCalendar.length>0){
-                vm.listOfCalendar.pop();
-            }
+            vm.listOfCalendar = [];
 
             renderCalendar(current_months);
 
