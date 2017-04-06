@@ -65,12 +65,20 @@
       size     : 50,
       "default": 'mm'
     };
-    $httpProvider.interceptors.push(function ($q,ProfileService,$location) {
+
+
+    $httpProvider.interceptors.push(function ($q,ProfileService,$location, $window) {
+
+      //Force https
+      if (RESOURCES.ENV !== 'local' && $location.protocol() !== 'https') {
+        $window.location.href = $location.absUrl().replace('http', 'https');
+      }
+
       return {
         'response': function (response) {
           if (response.status === 401) {
             sessionStorage.clear();
-            localStorage.clear();
+            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -79,7 +87,7 @@
         'responseError': function (rejection) {
           if (rejection.status === 401) {
             sessionStorage.clear();
-            localStorage.clear();
+            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }

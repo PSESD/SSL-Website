@@ -11,6 +11,7 @@
         var vm = this;
         vm.show_loading = true;
         var list_attendances = {};
+        var list_incidents = []; /* TODO: Need to be populated in init */
         var selectedObj;
         vm.data = "";
         var listSelectedObj = [];
@@ -254,6 +255,7 @@
 
         //Render Calendar
         function renderCalendar(data){
+<<<<<<< HEAD
 
             setAttendanceSummary(data[0].summary);
 
@@ -262,6 +264,19 @@
             var todayYear = today.year();
              
             _.forEach(data,function(month){
+=======
+              // set summary detail
+              vm.student.personal.summary.lateToClass = data[0].summary.lateToClass;
+              vm.student.personal.summary.missedDay = data[0].summary.missedDay;
+              vm.student.personal.summary.missedClass = data[0].summary.missedClass;
+              vm.student.personal.summary.behaviorIncident = data[0].summary.behaviorIncident;
+              vm.student.personal.summary.attendanceRate = data[0].summary.attendanceRate;
+
+              var today = new Date(),
+                  todayMonth = today.getMonth()+1,
+                  todayYear = today.getFullYear();
+              _.forEach(data,function(month){
+>>>>>>> develop
 
                 var months = month.list_months;
 
@@ -291,32 +306,35 @@
                 });
 
                 $timeout(function(){
-                    var object = null;
-                    _.forEach(month.list_events,function(v){
-
-                        object = jQuery('.missed-late-class-container .late-class').html();
-                        if(object != undefined){
-                            _.forEach(v.event,function(value){
-                                var set_date = new Date(v.date);
-                                //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
-
-                                 if(value == 'behavior_incident'){
-                                     jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")).addClass('incident');
-                                 }
-
-                                if(value == 'missed_day'){
-                                    jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
-                                }else{
-                                    if(value == 'late_to_class'){
-                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
-                                    }
-                                    if(value == 'missed_class'){
-                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
-                                    }
-                                }
-                            });
+                  var object = null;
+                  _.forEach(month.list_events,function(v){
+                    object = jQuery('.missed-late-class-container .late-class').html();
+                    if(object != undefined){
+                      _.forEach(v.event,function(value){
+                        var set_date = new Date(v.date);
+                        if(value == 'behavior_incident'){
+                          _.forEach(list_incidents,function(incidentVal){
+                            if(v.date === incidentVal.incident_date){
+                              var behaviorPath = jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD"));
+                              behaviorPath.addClass('incident');
+                              behaviorPath.popover({content: "<span>" + incidentVal.incident_desciption + "</span>", trigger:"hover", html: true, placement: "top"});
+                            }
+                          });
                         }
-                    });
+
+                        if(value == 'missed_day'){
+                          jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
+                        }else{
+                          if(value == 'late_to_class'){
+                            jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
+                          }
+                          if(value == 'missed_class'){
+                            jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
+                          }
+                        }
+                      });
+                    }
+                  });
                 },2000);
             });
 
@@ -359,7 +377,11 @@
         }
 
         init();
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> develop
         function _removeTime(date) {
             return date.day(0).hour(0).minute(0).second(0).millisecond(0);
         }
@@ -397,6 +419,7 @@
             }
             return days;
         }
+<<<<<<< HEAD
     
         function init(){          
             var startTime = new Date();
@@ -406,6 +429,17 @@
                 if (response.data.success) {
                     loadAttendanceData(response.data);
                     
+=======
+
+        function init(){
+            var startTime = new Date();
+            StudentService.getAllStudentDetails(id)
+            .then(function(response){
+                //console.log("response: ", response);
+                if (response.data.success) {
+                    loadAttendanceData(response.data);
+
+>>>>>>> develop
                     var student = getStudentProfile(id);
                     vm.on_track_to_graduate = _.get(student,'on_track_graduate',"");
 
@@ -415,6 +449,7 @@
                 }
                 vm.show_loading = false;
                 var endTime = new Date();
+<<<<<<< HEAD
                 console.log ('time to load: ', endTime - startTime);
             });
         }
@@ -571,6 +606,181 @@
                 var list_program_years =[];
                 var list_program_participation = [];
                 vm.student.embedded.programs = _.get(data,'_embedded.programs',"");
+=======
+                //console.log ('time to load: ', endTime - startTime);
+            });
+        }
+
+        function loadAttendanceData(attendanceData) {
+            vm.listOfYears = [];
+            var current_months = "";
+            list_attendances = _.get(attendanceData, 'info.attendance', {});
+
+            current_months = _.filter(list_attendances.calendars, function(v) {
+                return v.years === list_attendances.list_years[0].value;
+            });
+            renderCalendar(current_months);
+            vm.listOfYears = list_attendances.list_years;
+            if (vm.listOfYears !== undefined && _.size(vm.listOfYears) !== 0) {
+                vm.selected_years = vm.listOfYears[0].value;
+            }
+            vm.show_attendance = true;
+
+            _.forEach(list_attendances.list_weeks, function(v, k) {
+                _.forEach(v.detail, function(val, key) {
+                    if (val !== null) {
+                        _.forEach(val.days, function(value) {
+                            var date = v.month + '-' + value.date;
+                            if (value.incident_detail[0] !== undefined) {
+                                list_incidents.push({
+                                    incident_date: date,
+                                    incident_desciption: value.incident_detail[0].description
+                                })
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        function loadTranscriptData(transcriptData) {
+            var cumulativeGPA = [];
+            var transcript = transcriptData;
+            vm.trans = transcript.transcriptTerm.courses;
+            var courses = {};
+            var listCourses = [];
+            var listTranscript = [];
+            var semester = {};
+            var listSemester = [];
+            var listSchoolYear =[];
+            var firstTime = true;
+
+            _.forEach(transcript.details,function(v, k){
+                var creditEarned = 0;
+
+                _.forEach(v.transcripts,function(val, key){
+                    if(val !== null){
+                        _.forEach(val,function(value){
+
+                            creditEarned += value.creditsEarned;
+                            var teacherNames =_.replace(_.flatten(_.get(value,'teacherNames',"")),'"','');
+                            courses = {
+                                period:_.get(value,'timeTablePeriod',""),
+                                course_name:_.get(value,'courseTitle',""),
+                                teacher:teacherNames,
+                                course_code:_.get(value,'leaCourseId',""),
+                                grade:_.get(value,'mark',"-"),
+                                credits:_.get(value,'creditsEarned',"-")
+                            }
+
+                            listCourses.push({
+                                course_category:key,
+                                courses:courses
+                            })
+                        });
+                    }
+                });
+
+                var list = {
+                    years:v.schoolYear,
+                    creditEarned : creditEarned
+                }
+
+                cumulativeGPA.push(list);
+                vm.creditEarned = creditEarned;
+
+                listCourses = _.sortBy(listCourses,function (v) {
+                    return v.courses.period;
+                })
+
+                var header = {
+                    semester:v.session,
+                    listCourses:listCourses,
+                    years:v.schoolYear,
+                    grade:v.gradeLevel
+                }
+                listSemester.push(header);
+
+            });
+
+            var resultGPA = _.chain(cumulativeGPA)
+            .flatten()
+            .groupBy(function (value) {
+                return value.years;
+            })
+            .map(function(value,key){
+                var sum = _.reduce(value,function(memo,val){
+                    return memo + val.creditEarned
+                },0);
+                return {years:key,creditEarned:sum};
+            })
+            .value();
+
+            _.forEach(listSemester,function (v,k) {
+                var GPA = _.find(resultGPA,['years',v.years]);
+
+                if(_.findIndex(listSchoolYear,['years',v.years]) == -1){
+                    listSchoolYear.push({
+                        years:v.years,
+                        grade:v.grade,
+                        listSemester:[{
+                            semester:v.semester,
+                            courses:v.listCourses
+                        }],
+                        creditEarned : GPA.creditEarned
+                    });
+                }else{
+                    listSchoolYear[_.findIndex(listSchoolYear,['years',v.years])].listSemester.push({
+                        semester:v.semester,
+                        courses:v.listCourses,
+                        grade:v.grade
+                    });
+                }
+            });
+
+            var currentGpa = _.get(transcript,"totalCreditsEarned","");
+            var subjects = _.get(transcript,"subjectValues","");
+            vm.transcripts = {
+                currentGpa:currentGpa,
+                subjects:subjects
+            }
+            vm.listTranscript = listSchoolYear;
+
+            vm.show_transcript = true;
+        }
+
+        function loadAssessmentData(assessmentData) {
+            if(assessmentData.length > 0){
+                vm.assessment = assessmentData;
+                vm.show_assessment = true;
+                vm.assessment.forEach(function (v,k) {
+                    v.states.forEach(function (val,k) {
+                        if(val.attemptCode !== "TS"){
+                            val.attemptCodeDescription = val.attemptCodeDescription;
+                        }
+                    })
+                });
+
+                var en = $interval(function () {
+                    if(enrollment!==""){
+                        $interval.cancel(en);
+                        _.forEach(assessment,function (v,k) {
+                                _.forEach(enrollment,function(val,key){
+                                    if(v.studentGradeLevel === val.gradeLevel){
+                                        vm.assessment[k].year = moment(val.entryDate).year();
+                                    }
+                                });
+                        });
+                    }
+                },100);
+            }
+        }
+
+        function loadGeneral(data, student){
+                var list_program_years =[];
+                var list_program_participation = [];
+                vm.student.embedded.programs = _.get(data,'student.programs',"");
+>>>>>>> develop
                 vm.student.embedded.users = _.get(data,'_embedded.users',"");
                 vm.student.last_update = _.get(data,'student.last_updated',"");
                 vm.student.report_date = _.get(data,'json.reportDate',"");
@@ -661,7 +871,11 @@
                 });
 
                 vm.show_enrollment = true;
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> develop
                 if(list_program_participation.length !== 0){
                     vm.list_program_participations = list_program_participation;
                     $scope.sortType = 'start_date';
@@ -688,7 +902,11 @@
                 }
                 vm.show_general = true;
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> develop
         function refreshGeneral(id) {
             StudentService.getStudentById(id)
                 .then(function(response){
