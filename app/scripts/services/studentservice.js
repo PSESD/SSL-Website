@@ -65,7 +65,7 @@
         }
 
         function getAllStudentDetails(id) {
-          return $http.get(RESOURCES.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/details', {
+          return $http.get(ENV.API_URL + ProfileService.getOrganizationId() + '/students/' + id + '/details', {
             headers: {
               'Authorization': 'Bearer ' + ProfileService.getAccessToken()
             }
