@@ -11,6 +11,7 @@
         var vm = this;
         vm.show_loading = true;
         var list_attendances = {};
+        var list_incidents = []; /* TODO: Need to be populated in init */
         var selectedObj;
         vm.data = "";
         var listSelectedObj = [];
@@ -291,32 +292,35 @@
                 });
 
                 $timeout(function(){
-                    var object = null;
-                    _.forEach(month.list_events,function(v){
-
-                        object = jQuery('.missed-late-class-container .late-class').html();
-                        if(object != undefined){
-                            _.forEach(v.event,function(value){
-                                var set_date = new Date(v.date);
-                                //console.log(value,v.date,jQuery("#"+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day"));
-
-                                 if(value == 'behavior_incident'){
-                                     jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")).addClass('incident');
-                                 }
-
-                                if(value == 'missed_day'){
-                                    jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
-                                }else{
-                                    if(value == 'late_to_class'){
-                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
-                                    }
-                                    if(value == 'missed_class'){
-                                        jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
-                                    }
-                                }
-                            });
+                  var object = null;
+                  _.forEach(month.list_events,function(v){
+                    object = jQuery('.missed-late-class-container .late-class').html();
+                    if(object != undefined){
+                      _.forEach(v.event,function(value){
+                        var set_date = new Date(v.date);
+                        if(value == 'behavior_incident'){
+                          _.forEach(list_incidents,function(incidentVal){
+                            if(v.date === incidentVal.incident_date){
+                              var behaviorPath = jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD"));
+                              behaviorPath.addClass('incident');
+                              behaviorPath.popover({content: "<span>" + incidentVal.incident_desciption + "</span>", trigger:"hover", html: true, placement: "top"});
+                            }
+                          });
                         }
-                    });
+
+                        if(value == 'missed_day'){
+                          jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-day").removeClass('hide');
+                        }else{
+                          if(value == 'late_to_class'){
+                            jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .late-class").removeClass('hide');
+                          }
+                          if(value == 'missed_class'){
+                            jQuery("."+moment(v.date).month(set_date.getMonth()).format("YYYY-M-DD")+" .missed-class").removeClass('hide');
+                          }
+                        }
+                      });
+                    }
+                  });
                 },2000);
             });
 
@@ -359,10 +363,11 @@
         }
 
         init();
-        
+
         function _removeTime(date) {
             return date.day(0).hour(0).minute(0).second(0).millisecond(0);
         }
+
         function _buildMonth(start, month) {
             var weeks = [];
             var done = false, date = start.clone(), monthIndex = date.month(), count = 0;
@@ -378,6 +383,7 @@
             }
             return weeks;
         }
+        
         function _buildWeek(date, month) {
             var days = [];
             for (var i = 0; i < 7; i++) {
@@ -415,7 +421,6 @@
                 }
                 vm.show_loading = false;
                 var endTime = new Date();
-                console.log ('time to load: ', endTime - startTime);
             });
         }
 
@@ -567,128 +572,293 @@
             }
         }
 
-        function loadGeneral(data, student){
-                var list_program_years =[];
-                var list_program_participation = [];
-                vm.student.embedded.programs = _.get(data,'_embedded.programs',"");
-                vm.student.embedded.users = _.get(data,'_embedded.users',"");
-                vm.student.last_update = _.get(data,'student.last_updated',"");
-                vm.student.report_date = _.get(data,'json.reportDate',"");
-                vm.student.local_id = _.get(data,'json.localId',"");
-                vm.student.personal.address = _.get(data,'personal.address',"");
-                vm.student.personal.days_absent = _.get(data,'personal.daysAbsent',"");
-                vm.student.personal.days_in_attendance = _.get(data,'personal.daysInAttendance',"");
-                vm.student.personal.eligibility_status = _.get(data,'personal.eligibilityStatus',"");
-                vm.student.personal.email = _.get(data,'personal.email',"");
-                vm.student.personal.emergency1.email = _.get(data,'personal.emergency1.email',"");
-                vm.student.personal.emergency1.mentor = _.get(data,'personal.emergency1.mentor',"");
-                vm.student.personal.emergency1.name = _.get(data,'personal.emergency1.name',"");
-                vm.student.personal.emergency1.phone = formatPhoneNumber(_.get(data,'personal.emergency1.phone',""));
-                vm.student.personal.emergency1.relationship = _.get(data,'personal.emergency1.relationship',"");
-                vm.student.personal.emergency2.email = _.get(data,'personal.emergency2.email',"");
-                vm.student.personal.emergency2.mentor = _.get(data,'personal.emergency2.mentor',"");
-                vm.student.personal.emergency2.name = _.get(data,'personal.emergency2.name',"");
-                vm.student.personal.emergency2.phone = formatPhoneNumber(_.get(data,'personal.emergency2.phone',""));
-                vm.student.personal.emergency2.relationship = _.get(data,'personal.emergency2.relationship',"");
-                vm.student.personal.enrollment_status = _.get(data,'personal.enrollmentStatus',"");
-                vm.student.personal.first_name = data && data.personal ? data.personal.firstName || data.personal.xSre && data.personal.xSre.name ? data.personal.xSre.name.givenName : "" : "";
-                vm.student.personal.last_name = data && data.personal ? data.personal.firstName || data.personal.xSre && data.personal.xSre.name ? data.personal.xSre.name.familyName : "" : "";
-                vm.student.personal.idea_indicator = _.get(data,'personal.ideaIndicator',"");
-                vm.student.personal.middle_name = _.get(data,'personal.middleName',"");
-                vm.student.personal.phone = formatPhoneNumber(_.get(data,'personal.phone',""));
-                vm.student.personal.school_district = _.get(data,'personal.schoolDistrict',"");
-                vm.student.personal.school_year = _.get(data,'personal.schoolYear',"");
-                vm.student.personal.section_504_status = _.get(data,'personal.section504Status',"");
-                vm.student.personal.summary.attendance_count = _.get(data,'personal.summary.attendanceCount',"");
-                vm.student.personal.summary.behavior_count = _.get(data,'personal.summary.behaviorCount',"");
-                vm.student.personal.summary.date = _.get(data,'personal.summary.date',"");
-                vm.student.personal.summary.risk_flag = _.get(data,'personal.summary.riskFlag',"");
-                vm.student.personal.xsre.address = _.get(data,'personal.xSre.address',"");
-                vm.student.personal.xsre.demographics.birth_date = _.get(data,'personal.xSre.demographics.birthDate',"");
-                vm.student.personal.xsre.demographics.hispanic_latino_ethnicity = _.get(data,'personal.xSre.demographics.hispanicLatinoEthnicity',"");
-                if(data.personal.xSre.demographics.races.length > 0){
-                    vm.student.personal.xsre.demographics.races = data.personal.xSre.demographics.races.join();
-                }else{
-                    if(data.personal.xSre.demographics.races.length === 0){
-                        vm.student.personal.xsre.demographics.races = '';
-                    }else{
-                        vm.student.personal.xsre.demographics.races = _.get(data,'personal.xSre.demographics.races',"");
+        function loadAttendanceData(attendanceData) {
+            vm.listOfYears = [];
+            var current_months = "";
+            list_attendances = _.get(attendanceData, 'info.attendance', {});
+
+            current_months = _.filter(list_attendances.calendars, function(v) {
+                return v.years === list_attendances.list_years[0].value;
+            });
+            renderCalendar(current_months);
+            vm.listOfYears = list_attendances.list_years;
+            if (vm.listOfYears !== undefined && _.size(vm.listOfYears) !== 0) {
+                vm.selected_years = vm.listOfYears[0].value;
+            }
+            vm.show_attendance = true;
+
+            _.forEach(list_attendances.list_weeks, function(v, k) {
+                _.forEach(v.detail, function(val, key) {
+                    if (val !== null) {
+                        _.forEach(val.days, function(value) {
+                            var date = v.month + '-' + value.date;
+                            if (value.incident_detail[0] !== undefined) {
+                                list_incidents.push({
+                                    incident_date: date,
+                                    incident_desciption: value.incident_detail[0].description
+                                })
+                            }
+                        });
                     }
-                }
-                vm.student.personal.xsre.demographics.sex = _.get(data,'personal.xSre.demographics.sex',"");
-                vm.student.personal.xsre.email = _.get(data,'personal.xSre.email',"");
-                vm.student.personal.xsre.enrollment.enrollment_status = _.get(data,'personal.xSre.enrollment.enrollmentStatus',"");
-                vm.student.personal.xsre.enrollment.enrollment_status_description = _.get(data,'personal.xSre.enrollment.enrollmentStatusDescription',"");
-                vm.student.personal.xsre.enrollment.entry_date = _.get(data,'personal.xSre.enrollment.entryDate',"");
-                vm.student.personal.xsre.enrollment.exit_date = _.get(data,'personal.xSre.enrollment.exitDate',"");
-                vm.student.personal.xsre.enrollment.grade_level = _.get(data,'personal.xSre.enrollment.gradeLevel',"");
-                vm.student.personal.xsre.enrollment.lea_ref_id = _.get(data,'personal.xSre.enrollment.leaRefId',"");
-                vm.student.personal.xsre.enrollment.membership_type = _.get(data,'personal.xSre.enrollment.membershipType',"");
-                vm.student.personal.xsre.enrollment.projected_graduation_year = _.get(data,'personal.xSre.enrollment.projectedGraduationYear',"");
-                vm.student.personal.xsre.enrollment.school_name = _.get(data,'personal.xSre.enrollment.schoolName',"");
-                vm.student.personal.xsre.enrollment.school_ref_id = _.get(data,'personal.xSre.enrollment.schoolRefId',"");
-                vm.student.personal.xsre.enrollment.school_year = _.get(data,'personal.xSre.enrollment.schoolYear',"");
-                vm.student.personal.xsre.languages = _.get(data,'personal.xSre.languages',"");
-                vm.student.personal.xsre.local_id = _.get(data,'personal.xSre.localId',"");
-                vm.student.personal.xsre.other_emails = _.get(data,'personal.xSre.otherEmails',"");
-                vm.student.personal.xsre.other_enrollments = _.get(data,'personal.xSre.otherEnrollments',"");
-                enrollment = _.get(data,'personal.xSre.otherEnrollments',"");
-                vm.student.personal.xsre.other_phone_numbers = _.get(data,'personal.xSre.otherPhoneNumbers',"");
-                vm.student.personal.xsre.phone_number = _.get(data,'personal.xSre.phoneNumber',"");
+                });
+            });
+        }
 
-                if (vm.student.personal.xsre.demographics.hispanic_latino_ethnicity == "true") {
-                    vm.student.personal.xsre.demographics.races = "Hispanic";
-                } else {
+        function loadTranscriptData(transcriptData) {
+            var cumulativeGPA = [];
+            var transcript = transcriptData;
+            vm.trans = transcript.transcriptTerm.courses;
+            var courses = {};
+            var listCourses = [];
+            var listTranscript = [];
+            var semester = {};
+            var listSemester = [];
+            var listSchoolYear =[];
+            var firstTime = true;
 
-                    var race = _.find(RESOURCES.RACE,function(v){
-                        return v.id === vm.student.personal.xsre.demographics.races;
-                    });
+            _.forEach(transcript.details,function(v, k){
+                var creditEarned = 0;
 
-                    vm.student.personal.xsre.demographics.races = _.size(race) !==0 ? race.name : vm.student.personal.xsre.demographics.races;
-                }
+                _.forEach(v.transcripts,function(val, key){
+                    if(val !== null){
+                        _.forEach(val,function(value){
 
-                _.forEach(vm.student.embedded.programs,function(value){
-                    var program = {
-                        "name":value.program_name,
-                        "start_date":_.get(value,"participation_start_date",""),
-                        "end_date": new Date(value.participation_end_date) >= Date.now() ? 'Present' : _.get(value,"participation_end_date",""),
-                        "active": value.active ? "Active" : "Inactive",
-                        "cohorts": value.cohort
+                            creditEarned += value.creditsEarned;
+                            var teacherNames =_.replace(_.flatten(_.get(value,'teacherNames',"")),'"','');
+                            courses = {
+                                period:_.get(value,'timeTablePeriod',""),
+                                course_name:_.get(value,'courseTitle',""),
+                                teacher:teacherNames,
+                                course_code:_.get(value,'leaCourseId',""),
+                                grade:_.get(value,'mark',"-"),
+                                credits:_.get(value,'creditsEarned',"-")
+                            }
+
+                            listCourses.push({
+                                course_category:key,
+                                courses:courses
+                            })
+                        });
                     }
-
-                    list_program_participation.push(program);
-
                 });
 
-                vm.show_enrollment = true;
-                
-                if(list_program_participation.length !== 0){
-                    vm.list_program_participations = list_program_participation;
-                    $scope.sortType = 'start_date';
-                    $scope.sortReverse = 'true';
+                var list = {
+                    years:v.schoolYear,
+                    creditEarned : creditEarned
                 }
-                vm.show_program_participation = true;
 
-                if((vm.student.personal.idea_indicator === 'No' || vm.student.personal.idea_indicator === '')&&(vm.student.personal.section_504_status === 'No' || vm.student.personal.section_504_status === '') &&(vm.student.personal.eligibility_status === 'No' || vm.student.personal.eligibility_status ==='')){
-                    vm.student.personal.status = false;
-                }else{
-                    vm.student.personal.status = true;
+                cumulativeGPA.push(list);
+                vm.creditEarned = creditEarned;
+
+                listCourses = _.sortBy(listCourses,function (v) {
+                    return v.courses.period;
+                })
+
+                var header = {
+                    semester:v.session,
+                    listCourses:listCourses,
+                    years:v.schoolYear,
+                    grade:v.gradeLevel
                 }
-                if(vm.student.personal.emergency1.name === "" || vm.student.personal.emergency1.relationship === "" || vm.student.personal.emergency1.phone === "" || vm.student.personal.emergency1.email === "")
-                {
-                    vm.student.personal.additional_status1 = false;
+                listSemester.push(header);
+
+            });
+
+            var resultGPA = _.chain(cumulativeGPA)
+            .flatten()
+            .groupBy(function (value) {
+                return value.years;
+            })
+            .map(function(value,key){
+                var sum = _.reduce(value,function(memo,val){
+                    return memo + val.creditEarned
+                },0);
+                return {years:key,creditEarned:sum};
+            })
+            .value();
+
+            _.forEach(listSemester,function (v,k) {
+                var GPA = _.find(resultGPA,['years',v.years]);
+
+                if(_.findIndex(listSchoolYear,['years',v.years]) == -1){
+                    listSchoolYear.push({
+                        years:v.years,
+                        grade:v.grade,
+                        listSemester:[{
+                            semester:v.semester,
+                            courses:v.listCourses
+                        }],
+                        creditEarned : GPA.creditEarned
+                    });
                 }else{
-                    vm.student.personal.additional_status1 = true;
+                    listSchoolYear[_.findIndex(listSchoolYear,['years',v.years])].listSemester.push({
+                        semester:v.semester,
+                        courses:v.listCourses,
+                        grade:v.grade
+                    });
                 }
-                if(vm.student.personal.emergency2.name === "" || vm.student.personal.emergency2.relationship === "" || vm.student.personal.emergency2.phone === "" || vm.student.personal.emergency2.email === "")
-                {
-                    vm.student.personal.additional_status2 = false;
-                }else{
-                    vm.student.personal.additional_status2 = true;
-                }
-                vm.show_general = true;
+            });
+
+            var currentGpa = _.get(transcript,"totalCreditsEarned","");
+            var subjects = _.get(transcript,"subjectValues","");
+            vm.transcripts = {
+                currentGpa:currentGpa,
+                subjects:subjects
+            }
+            vm.listTranscript = listSchoolYear;
+
+            vm.show_transcript = true;
         }
-        
+
+        function loadAssessmentData(assessmentData) {
+            if(assessmentData.length > 0){
+                vm.assessment = assessmentData;
+                vm.show_assessment = true;
+                vm.assessment.forEach(function (v,k) {
+                    v.states.forEach(function (val,k) {
+                        if(val.attemptCode !== "TS"){
+                            val.attemptCodeDescription = val.attemptCodeDescription;
+                        }
+                    })
+                });
+
+                var en = $interval(function () {
+                    if(enrollment!==""){
+                        $interval.cancel(en);
+                        _.forEach(assessment,function (v,k) {
+                                _.forEach(enrollment,function(val,key){
+                                    if(v.studentGradeLevel === val.gradeLevel){
+                                        vm.assessment[k].year = moment(val.entryDate).year();
+                                    }
+                                });
+                        });
+                    }
+                },100);
+            }
+        }
+
+        function loadGeneral(data, student){
+            var list_program_years =[];
+            var list_program_participation = [];
+            vm.student.embedded.programs = _.get(data,'_embedded.programs',"");
+            vm.student.embedded.users = _.get(data,'_embedded.users',"");
+            vm.student.last_update = _.get(data,'student.last_updated',"");
+            vm.student.report_date = _.get(data,'json.reportDate',"");
+            vm.student.local_id = _.get(data,'json.localId',"");
+            vm.student.personal.address = _.get(data,'personal.address',"");
+            vm.student.personal.days_absent = _.get(data,'personal.daysAbsent',"");
+            vm.student.personal.days_in_attendance = _.get(data,'personal.daysInAttendance',"");
+            vm.student.personal.eligibility_status = _.get(data,'personal.eligibilityStatus',"");
+            vm.student.personal.email = _.get(data,'personal.email',"");
+            vm.student.personal.emergency1.email = _.get(data,'personal.emergency1.email',"");
+            vm.student.personal.emergency1.mentor = _.get(data,'personal.emergency1.mentor',"");
+            vm.student.personal.emergency1.name = _.get(data,'personal.emergency1.name',"");
+            vm.student.personal.emergency1.phone = formatPhoneNumber(_.get(data,'personal.emergency1.phone',""));
+            vm.student.personal.emergency1.relationship = _.get(data,'personal.emergency1.relationship',"");
+            vm.student.personal.emergency2.email = _.get(data,'personal.emergency2.email',"");
+            vm.student.personal.emergency2.mentor = _.get(data,'personal.emergency2.mentor',"");
+            vm.student.personal.emergency2.name = _.get(data,'personal.emergency2.name',"");
+            vm.student.personal.emergency2.phone = formatPhoneNumber(_.get(data,'personal.emergency2.phone',""));
+            vm.student.personal.emergency2.relationship = _.get(data,'personal.emergency2.relationship',"");
+            vm.student.personal.enrollment_status = _.get(data,'personal.enrollmentStatus',"");
+            vm.student.personal.first_name = data && data.personal ? data.personal.firstName || data.personal.xSre && data.personal.xSre.name ? data.personal.xSre.name.givenName : "" : "";
+            vm.student.personal.last_name = data && data.personal ? data.personal.firstName || data.personal.xSre && data.personal.xSre.name ? data.personal.xSre.name.familyName : "" : "";
+            vm.student.personal.idea_indicator = _.get(data,'personal.ideaIndicator',"");
+            vm.student.personal.middle_name = _.get(data,'personal.middleName',"");
+            vm.student.personal.phone = formatPhoneNumber(_.get(data,'personal.phone',""));
+            vm.student.personal.school_district = _.get(data,'personal.schoolDistrict',"");
+            vm.student.personal.school_year = _.get(data,'personal.schoolYear',"");
+            vm.student.personal.section_504_status = _.get(data,'personal.section504Status',"");
+            vm.student.personal.summary.attendance_count = _.get(data,'personal.summary.attendanceCount',"");
+            vm.student.personal.summary.behavior_count = _.get(data,'personal.summary.behaviorCount',"");
+            vm.student.personal.summary.date = _.get(data,'personal.summary.date',"");
+            vm.student.personal.summary.risk_flag = _.get(data,'personal.summary.riskFlag',"");
+            vm.student.personal.xsre.address = _.get(data,'personal.xSre.address',"");
+            vm.student.personal.xsre.demographics.birth_date = _.get(data,'personal.xSre.demographics.birthDate',"");
+            vm.student.personal.xsre.demographics.hispanic_latino_ethnicity = _.get(data,'personal.xSre.demographics.hispanicLatinoEthnicity',"");
+            if(data.personal.xSre.demographics.races.length > 0){
+                vm.student.personal.xsre.demographics.races = data.personal.xSre.demographics.races.join();
+            }else{
+                if(data.personal.xSre.demographics.races.length === 0){
+                    vm.student.personal.xsre.demographics.races = '';
+                }else{
+                    vm.student.personal.xsre.demographics.races = _.get(data,'personal.xSre.demographics.races',"");
+                }
+            }
+            vm.student.personal.xsre.demographics.sex = _.get(data,'personal.xSre.demographics.sex',"");
+            vm.student.personal.xsre.email = _.get(data,'personal.xSre.email',"");
+            vm.student.personal.xsre.enrollment.enrollment_status = _.get(data,'personal.xSre.enrollment.enrollmentStatus',"");
+            vm.student.personal.xsre.enrollment.enrollment_status_description = _.get(data,'personal.xSre.enrollment.enrollmentStatusDescription',"");
+            vm.student.personal.xsre.enrollment.entry_date = _.get(data,'personal.xSre.enrollment.entryDate',"");
+            vm.student.personal.xsre.enrollment.exit_date = _.get(data,'personal.xSre.enrollment.exitDate',"");
+            vm.student.personal.xsre.enrollment.grade_level = _.get(data,'personal.xSre.enrollment.gradeLevel',"");
+            vm.student.personal.xsre.enrollment.lea_ref_id = _.get(data,'personal.xSre.enrollment.leaRefId',"");
+            vm.student.personal.xsre.enrollment.membership_type = _.get(data,'personal.xSre.enrollment.membershipType',"");
+            vm.student.personal.xsre.enrollment.projected_graduation_year = _.get(data,'personal.xSre.enrollment.projectedGraduationYear',"");
+            vm.student.personal.xsre.enrollment.school_name = _.get(data,'personal.xSre.enrollment.schoolName',"");
+            vm.student.personal.xsre.enrollment.school_ref_id = _.get(data,'personal.xSre.enrollment.schoolRefId',"");
+            vm.student.personal.xsre.enrollment.school_year = _.get(data,'personal.xSre.enrollment.schoolYear',"");
+            vm.student.personal.xsre.languages = _.get(data,'personal.xSre.languages',"");
+            vm.student.personal.xsre.local_id = _.get(data,'personal.xSre.localId',"");
+            vm.student.personal.xsre.other_emails = _.get(data,'personal.xSre.otherEmails',"");
+            vm.student.personal.xsre.other_enrollments = _.get(data,'personal.xSre.otherEnrollments',"");
+            enrollment = _.get(data,'personal.xSre.otherEnrollments',"");
+            vm.student.personal.xsre.other_phone_numbers = _.get(data,'personal.xSre.otherPhoneNumbers',"");
+            vm.student.personal.xsre.phone_number = _.get(data,'personal.xSre.phoneNumber',"");
+
+            if (vm.student.personal.xsre.demographics.hispanic_latino_ethnicity == "true") {
+                vm.student.personal.xsre.demographics.races = "Hispanic";
+            } else {
+
+                var race = _.find(RESOURCES.RACE,function(v){
+                    return v.id === vm.student.personal.xsre.demographics.races;
+                });
+
+                vm.student.personal.xsre.demographics.races = _.size(race) !==0 ? race.name : vm.student.personal.xsre.demographics.races;
+            }
+
+            _.forEach(vm.student.embedded.programs,function(value){
+                var program = {
+                    "name":value.program_name,
+                    "start_date":_.get(value,"participation_start_date",""),
+                    "end_date": new Date(value.participation_end_date) >= Date.now() ? 'Present' : _.get(value,"participation_end_date",""),
+                    "active": value.active ? "Active" : "Inactive",
+                    "cohorts": value.cohort
+                }
+
+                list_program_participation.push(program);
+
+            });
+
+            vm.show_enrollment = true;
+
+            if(list_program_participation.length !== 0){
+                vm.list_program_participations = list_program_participation;
+                $scope.sortType = 'start_date';
+                $scope.sortReverse = 'true';
+            }
+            vm.show_program_participation = true;
+
+            if((vm.student.personal.idea_indicator === 'No' || vm.student.personal.idea_indicator === '')&&(vm.student.personal.section_504_status === 'No' || vm.student.personal.section_504_status === '') &&(vm.student.personal.eligibility_status === 'No' || vm.student.personal.eligibility_status ==='')){
+                vm.student.personal.status = false;
+            }else{
+                vm.student.personal.status = true;
+            }
+            if(vm.student.personal.emergency1.name === "" || vm.student.personal.emergency1.relationship === "" || vm.student.personal.emergency1.phone === "" || vm.student.personal.emergency1.email === "")
+            {
+                vm.student.personal.additional_status1 = false;
+            }else{
+                vm.student.personal.additional_status1 = true;
+            }
+            if(vm.student.personal.emergency2.name === "" || vm.student.personal.emergency2.relationship === "" || vm.student.personal.emergency2.phone === "" || vm.student.personal.emergency2.email === "")
+            {
+                vm.student.personal.additional_status2 = false;
+            }else{
+                vm.student.personal.additional_status2 = true;
+            }
+            vm.show_general = true;
+        }
+
         function refreshGeneral(id) {
             StudentService.getStudentById(id)
                 .then(function(response){
