@@ -92,6 +92,7 @@
                   }else{
                       profile.status = "?assign=true";
                   }
+                  localStorage.setItem('profile_roll',profile.role);
 
                   profile.is_authenticated = true;
                   //localStorage.clear();

@@ -28,7 +28,7 @@
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.report">{{"views.dashboard.reports" | translate}}</a>
                     </li> -->
-                    <li ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
+                    <li ng-show="vm.dashboard_show_manage" ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.manage">{{"views.dashboard.manage" | translate}}</a>
                     </li>
