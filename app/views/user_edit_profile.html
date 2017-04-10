@@ -1,79 +1,69 @@
 <div class="container-fluid" ng-class="currentURL">
     <div class="row">
-
-      <header class="header-background clearfix inverse">
-        <div class="container">
-          <div class="pull-left">
-              <h1 class="page-title">{{"views.edit_profile"|translate}} {{vm.user.full_name}}</h1>
-          </div>
-        </div>
-      </header>
-
-      <section class="main-content container">
-
-        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
-            <div class="row">
-                <div class="alert alert-info text-left message" ng-show=vm.message>
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+        <header class="header-background clearfix inverse">
+            <div class="container">
+                <div class="pull-left">
+                    <h1 class="page-title">{{"views.edit_profile"|translate}} {{vm.user.full_name}}</h1>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <form class="form-horizontal">
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button ng-click="vm.save(vm.user)">{{"views.save"|translate}}</button>
+        </header>
+        <section class="main-content container">
+            <div class="alert alert-info text-left message" ng-show=vm.message>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{vm.message}}
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <form>
+                  <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="first_name" class="control-label">{{"views.first_name"|translate}}:</label>
+                                <div class="">
+                                    <input type="text" ng-model="vm.user.first_name" class="form-control" id="first_name" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="middle_name" class="control-label">{{"views.middle_name"|translate}}:</label>
+                                <div class="">
+                                    <input type="text" ng-model="vm.user.middle_name" class="form-control" id="middle_name" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="last_name" class="control-label">{{"views.last_name"|translate}}:</label>
+                                <div class="">
+                                    <input type="text" ng-model="vm.user.last_name" class="form-control" id="last_name" placeholder="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">{{"views.email"|translate}}:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" ng-model="vm.user.email" class="form-control" id="email" placeholder="" readonly>
+                    <div class="form-group">
+                        <label for="email" class="control-label">{{"views.email"|translate}}:</label>
+                        <div class="">
+                            <input type="text" ng-model="vm.user.email" class="form-control" id="email" placeholder="" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label">{{"views.first_name"|translate}}:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" ng-model="vm.user.first_name" class="form-control" id="first_name" placeholder="">
+                    <div class="form-group">
+                        <label for="password" class="control-label">{{"views.password"|translate}}:</label>
+                        <div class="">
+                            <input type="password" ng-model="vm.user.password" class="form-control" id="password" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="middle_name" class="col-sm-2 control-label">{{"views.middle_name"|translate}}:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" ng-model="vm.user.middle_name" class="form-control" id="middle_name" placeholder="" >
+                    <div class="form-group">
+                        <label for="password_conf" class="control-label">{{"views.retype_password"|translate}}:</label>
+                        <div class="">
+                            <input type="password" ng-model="vm.user.confirm_password" class="form-control" id="password_conf" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="last_name" class="col-sm-2 control-label">{{"views.last_name"|translate}}:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" ng-model="vm.user.last_name" class="form-control" id="last_name" placeholder="" >
+                    <div class="form-group">
+                        <div class="">
+                            <button ng-click="vm.save(vm.user)">{{"views.save"|translate}}</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">{{"views.password"|translate}}:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="password" ng-model="vm.user.password" class="form-control" id="password" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password_conf" class="col-sm-2 control-label">{{"views.retype_password"|translate}}:</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="password" ng-model="vm.user.confirm_password" class="form-control" id="password_conf" placeholder="">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                    <button ng-click="vm.save(vm.user)">{{"views.save"|translate}}</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-      </section>
+                </form>
+            </div>
+        </section>
     </div>
 </div>
