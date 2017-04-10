@@ -182,6 +182,7 @@ fieldset[disabled] .form-control {
 }
 
 fieldset {
+  margin-bottom: 0.8em;
     legend {
         @include font-size(1em, 1.5);
         font-weight: 700;

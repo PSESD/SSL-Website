@@ -92,7 +92,7 @@
                 <div class="col-sm-6 col-md-3">
                   <fieldset>
                       <legend>{{"views.current_class_schedule"|translate}}</legend>
-                      <span ng-repeat ="course in vm.trans | orderBy:'timeTablePeriod'">
+                      <span ng-repeat="course in vm.trans | orderBy:'timeTablePeriod'">
                           {{course.timeTablePeriod}} {{course.courseTitle}}<br/>
                       </span>
                   </fieldset>
@@ -103,6 +103,19 @@
                         <dl>
                             <dt>School Name</dt>
                             <dd>{{vm.student.personal.xsre.enrollment.school_name}}</dd>
+                        </dl>
+                    </fieldset>
+                     <fieldset>
+                        <legend ng-show="vm.student.personal.college_bound">{{"views.misc"|translate}}</legend>
+                        <dl>
+                            <dt ng-show="vm.student.personal.college_bound">{{"views.college_bound"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
+                            <dd></dd>
+                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduced_lunch"|translate}}</dt>
+                            <dd></dd>
                         </dl>
                     </fieldset>
                 </div>
@@ -131,19 +144,6 @@
                             <dd>{{vm.student.personal.emergency2.phone}}</dd>
                             <dt>Email</dt>
                             <dd><a ng-href="mailto:{{vm.student.personal.emergency2.email}}">{{vm.student.personal.emergency2.email}}</a></dd>
-                        </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend ng-show="vm.student.personal.college_bound">{{"views.misc"|translate}}</legend>
-                        <dl>
-                            <dt ng-show="vm.student.personal.college_bound">{{"views.college_bound"|translate}}</dt>
-                            <dd></dd>
-                            <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
-                            <dd></dd>
-                            <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
-                            <dd></dd>
-                            <dt ng-show="vm.student.personal.eligibility_status === 'Yes' ? true : false">{{"views.free_or_reduced_lunch"|translate}}</dt>
-                            <dd></dd>
                         </dl>
                     </fieldset>
                 </div>
