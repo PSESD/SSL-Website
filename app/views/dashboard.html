@@ -28,7 +28,7 @@
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.report">{{"views.dashboard.reports" | translate}}</a>
                     </li> -->
-                    <li ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
+                    <li ng-show="vm.dashboard_show_manage" ng-class="{ 'active': currentURL.indexOf('manage') != -1 || currentURL.indexOf('user') != -1 }">
                         <div class="arrow-container"><div class="arrow-down"></div></div>
                         <a class="text-center text-uppercase" ui-sref="dashboard.manage">{{"views.dashboard.manage" | translate}}</a>
                     </li>
@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="footer-widget footer-widget-2">
                         <ul>
-                            <li><a target="_blank" href="http://studentsuccesslink.org/">{{"views.about_student_success_link" | translate}}</a></li><br/>
+                            <li><a target="_blank" href="https://www.psesd.org/services/learning-and-teaching/student-success-link/">{{"views.about_student_success_link" | translate}}</a></li><br/>
                             <li><a target="_blank" href="https://www.psesd.org/student-success-link-privacy-policy/">{{"views.privacy_policy" | translate}}</a></li>
                         </ul>
                         <div class="copyright"><a target="_blank" href="https://www.psesd.org">&copy;{{"views.dashboard.copyright" | translate}}</a></div>

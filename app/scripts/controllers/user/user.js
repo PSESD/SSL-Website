@@ -30,7 +30,7 @@
 
       });
     }
-    function deleteUser(id,index){
+    function deleteUser(id,user){
       $confirm({
         title: 'Delete User',
         text:'Are you sure you want to delete this record?'
@@ -42,7 +42,7 @@
             vm.message = 'You have succesfully deleted yourself. You will now be logged out.';
             logout();
           }else if(response.data.success === true){
-            vm.users.splice(index,1);
+            vm.users.splice(vm.users.indexOf(user), 1)
             vm.message = response.data.message;
           }
         },function(error){
@@ -57,8 +57,5 @@
         $state.go('login');
       }, 6000);
     }
-
-
-
   }
 })();
