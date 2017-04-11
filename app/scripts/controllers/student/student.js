@@ -426,8 +426,8 @@
 
                         }else if(value.type === "currentAcademicYear"){
                             var day="";
-                            student.xsre.attendance.academic.count = value.count;
-                            student.xsre.attendance.academic.attendance_academic_count = value.count;
+                            student.xsre.attendance.academic.count = parseInt(value.count);
+                            student.xsre.attendance.academic.attendance_academic_count = parseInt(value.count);
                             student.xsre.attendance.academic.flag = value.flag.toLowerCase();
                             student.xsre.attendance.academic.type = value.type;
                             if(value.count === 1){
@@ -442,7 +442,7 @@
                             if(value.count === 0){
                               var days_missed_in_year = '';
                             }else{
-                              var days_missed_in_year = ' '.concat(value.count, day, ' missed this year.');
+                              var days_missed_in_year = ' '.concat(parseInt(value.count), day, ' missed this year.');
                             }
 
                             temp_template_attendance = _.replace(temp_template_attendance,'{days_missed_in_year}',days_missed_in_year);
