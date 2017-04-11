@@ -8,10 +8,15 @@
 
   function DashboardCtrl($state, $cookies) {
     var vm = this;
-    var profile = localStorage.getItem('id');;
+    var profile = localStorage.getItem('id');
+    var profile_roll = localStorage.getItem('profile_roll');
     vm.full_name  = localStorage.getItem('full_name');
     vm.email = profile.email;
     vm.logout = logout;
+
+    if(profile_roll === "admin"){
+      vm.dashboard_show_manage = true;
+    };
 
     function logout(){
       $cookies.remove(profile.id);

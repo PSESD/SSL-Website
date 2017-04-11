@@ -331,7 +331,7 @@
               vm.student.personal.summary.missedDay = summary.missedDay;
               vm.student.personal.summary.missedClass = summary.missedClass;
               vm.student.personal.summary.behaviorIncident = summary.behaviorIncident;
-              vm.student.personal.summary.attendanceRate = summary.attendanceRate;
+              vm.student.personal.summary.attendanceRate = summary.attendanceRate * 100;
         }
 
         function changeYear(){
