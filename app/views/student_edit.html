@@ -52,20 +52,21 @@
                                 </div>
                                 <span ng-if="form.$submitted && form.district.$invalid || form.district.$invalid && form.district.$touched" class="help-block">District Student ID is required</span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':form.$submitted && form.radio.$invalid || form.radio.$invalid && form.radio.$touched}">
                                 <label class=" control-label">{{"views.college_bound"|translate}} *:</label>
                                 <div class="radio">
                                     <label>
-                                        <input ng-required="!vm.student.college_bound" ng-model="vm.student.college_bound" type="radio" name="radio" id="radio1" value="Yes" ><span class="tick"></span> {{"views.yes"|translate}}
+                                        <input required ng-required="!vm.student.college_bound" ng-model="vm.student.college_bound" type="radio" name="radio" id="radio1" value="Yes"><span class="tick"></span> {{"views.yes"|translate}}
                                     </label>
                                 </div>
-                                <div class="radio">
+                                 <div class="radio">
                                     <label>
-                                        <input ng-required="!vm.student.college_bound" ng-model="vm.student.college_bound" type="radio" name="radio" id="radio2"  value="No" checked>
-                                        <span class="tick"></span> {{"views.no"|translate}}
+                                        <input required ng-required="!vm.student.college_bound" ng-model="vm.student.college_bound" type="radio" name="radio" id="radio2" value="No"><span class="tick"></span> {{"views.no"|translate}}
                                     </label>
                                 </div>
+                                <span ng-if="form.$submitted && form.radio.$invalid || form.radio.$invalid && form.radio.$touched" class="help-block">Please select if student plans to attend college</span>
                             </div>
+
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
