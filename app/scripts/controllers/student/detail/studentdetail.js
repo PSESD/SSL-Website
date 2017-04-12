@@ -421,6 +421,9 @@
                 }
                 vm.show_loading = false;
                 var endTime = new Date();
+            }, function(err){
+                vm.show_loading = false;
+                vm.message = "Student not found."
             });
         }
 
