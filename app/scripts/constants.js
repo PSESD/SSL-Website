@@ -20,9 +20,32 @@
             }
         ],
         LOCAL: "",
-        RELATIONSHIP: {
-
-        },
+        RELATIONSHIP: [
+            {
+                id: 'parent',
+                name: 'Parent'
+            }, {
+                id: 'grandparent',
+                name: 'Grandparent'
+            }, {
+                id: 'aunt',
+                name: 'Aunt'
+            }, {
+                id: 'uncle',
+                name: 'Uncle'
+            }, {
+                id: 'brother',
+                name: 'Brother'
+            }, {
+                id: 'sister',
+                name: 'Sister'
+            }, {
+            id: 'guardian',
+            name: 'Legal Guardian'
+        }, {
+            id: 'other',
+            name: 'Other'
+        }],
         RACE: [
             {
                 "id": "AmericanIndianOrAlaskaNative",
