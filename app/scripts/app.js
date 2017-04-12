@@ -70,9 +70,9 @@
     $httpProvider.interceptors.push(function ($q,ProfileService,$location, $window) {
 
       //Force https
-      if (RESOURCES.ENV !== 'local' && $location.protocol() !== 'https') {
-        $window.location.href = $location.absUrl().replace('http', 'https');
-      }
+      // if (RESOURCES.ENV !== 'local' && $location.protocol() !== 'https') {
+      //   $window.location.href = $location.absUrl().replace('http', 'https');
+      // }
 
       return {
         'response': function (response) {
