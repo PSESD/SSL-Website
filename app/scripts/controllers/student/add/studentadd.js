@@ -16,7 +16,7 @@
             last_name:'',
             school_district:'',
             district_student_id:'',
-            college_bound:'No',
+            college_bound:'',
             phone:'',
             email:'',
             address:'',
