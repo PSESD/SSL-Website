@@ -132,24 +132,20 @@
     $rootScope.$on('$stateNotFound',
       function(event, unfoundState, fromState, fromParams){
         console.log(unfoundState);
-      })
-
-
+      });
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
-        var profile;
-        if (localStorage.getItem('id') === null) {
-          profile = {
-            is_authenticated: false
-          }
-        } else {
-          profile = { is_authenticated: true };
-        }
+
+        var profile = setProfile();
+
+        //trying to access while logged out
         if (!profile.is_authenticated && !pathIsUnprotected(toState.url)) {
           event.preventDefault();
-          window.location.assign("/#!/login");
+          window.location.assign("/");
         }
+
+        //trying to log in while already logged in
         else if (profile.is_authenticated && toState.url === '/login') {
           event.preventDefault();
           window.location.assign("/#!/student");
@@ -189,6 +185,15 @@
      $rootScope.goBack = function() {
       window.history.back();
     };
+
+    function isTokenValid() {
+      return new Date($cookies.get('expire_time')) > new Date();
+    }
+
+    function setProfile() {
+      var isAuthenticated = isTokenValid() && localStorage.getItem('id') !== null;
+      return  { is_authenticated: isAuthenticated };
+    }
 
     function storageChange(event) {
       if (event.key === 'logged_in') {
