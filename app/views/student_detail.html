@@ -421,22 +421,22 @@
                                                                 <tr>
                                                                     <td class="bold uppercase">Period</td>
                                                                     <td class="bold uppercase">Course Name</td>
-                                                                    <td class="bold uppercase">Course Teacher</td>
+                                                                    <td class="bold uppercase">Course Category</td>
                                                                     <td class="bold uppercase">Course Code</td>
+                                                                    <td class="bold uppercase">Teacher</td>
                                                                     <td class="bold uppercase">Grade</td>
                                                                     <td ng-show="vm.creditEarned" class="bold uppercase">Credits</td>
-                                                                    <td class="bold uppercase">Course Category</td>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr ng-repeat="item in items.courses">
                                                                     <td>{{item.courses.period}}</td>
                                                                     <td>{{item.courses.course_name}}</td>
-                                                                    <td>{{item.courses.teacher}}</td>
+                                                                    <td>{{item.course_category}}</td>
                                                                     <td>{{item.courses.course_code}}</td>
+                                                                    <td>{{item.courses.teacher}}</td>
                                                                     <td>{{item.courses.grade}}</td>
                                                                     <td ng-show="vm.creditEarned">{{item.courses.credits}}</td>
-                                                                    <td>{{item.course_category}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
