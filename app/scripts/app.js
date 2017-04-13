@@ -19,7 +19,6 @@
     'pascalprecht.translate',
     'tmh.dynamicLocale',
     'easypiechart',
-
     ])
   .factory('headerInjector', headerInjector)
   .config(configFunction)
@@ -50,7 +49,11 @@
     $translateProvider.preferredLanguage('en_US');
     $translateProvider.useLocalStorage();
     $translateProvider.useMissingTranslationHandlerLog();
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.when('','/login');
+    $urlRouterProvider.otherwise(function($injector, $location) {
+      window.location.href='/404.html';
+      return true;
+    });
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
     $httpProvider.defaults.headers.post = {};
@@ -67,7 +70,6 @@
       "default": 'mm'
     };
 
-
     $httpProvider.interceptors.push(function ($q,ProfileService,$location, $window) {
 
       //Force https
@@ -78,8 +80,10 @@
       return {
         'response': function (response) {
           if (response.status === 401) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('student_profiles');
+            localStorage.setItem('logged_in', '0');
             sessionStorage.clear();
-            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -87,8 +91,10 @@
         },
         'responseError': function (rejection) {
           if (rejection.status === 401) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('student_profiles');
+            localStorage.setItem('logged_in', '0');
             sessionStorage.clear();
-            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -178,7 +184,6 @@
         if(toState.name == "dashboard"){
           window.location.assign("/#!/student");
         }
-
 
       });
 
