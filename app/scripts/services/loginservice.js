@@ -88,11 +88,7 @@
                       profile.full_name += _.get(embedded.users,'last_name','');
                       profile.last_name = _.get(embedded.users,'last_name','');
                   }
-                  if(profile.role === "admin"){
-                      profile.status = "";
-                  }else{
-                      profile.status = "?assign=true";
-                  }
+                  
                   localStorage.setItem('profile_roll',profile.role);
 
                   profile.is_authenticated = true;

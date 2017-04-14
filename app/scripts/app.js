@@ -2,23 +2,23 @@
   'use strict';
 
   angular
-    .module('sslv2App', [
-      'ui.router',
-      'ui.bootstrap',
-      'ui.mask',
-      'ngCookies',
-      'ui.gravatar',
-      'angular-confirm',
-      'ngIdle',
-      'ngSanitize',
-      'ngTagsInput',
-      'ui.multiselect',
-      'fsm',
-      'ui.codemirror',
-      'angularMoment',
-      'pascalprecht.translate',
-      'tmh.dynamicLocale',
-      'easypiechart'
+  .module('sslv2App', [
+    'ui.router',
+    'ui.bootstrap',
+    'ui.mask',
+    'ngCookies',
+    'ui.gravatar',
+    'angular-confirm',
+    'ngIdle',
+    'ngSanitize',
+    'ngTagsInput',
+    'ui.multiselect',
+    'fsm',
+    'ui.codemirror',
+    'angularMoment',
+    'pascalprecht.translate',
+    'tmh.dynamicLocale',
+    'easypiechart'
     ])
   .factory('headerInjector', headerInjector)
   .config(configFunction)
@@ -39,17 +39,21 @@
   configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider','$locationProvider','$translateProvider','tmhDynamicLocaleProvider','RESOURCES','ENV'];
 
   function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider,RESOURCES,ENV) {
-      tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
-      $translateProvider.useMissingTranslationHandlerLog();
-      $translateProvider.useSanitizeValueStrategy('sanitize');
-      $translateProvider.useStaticFilesLoader({
-          prefix: 'resources/locale-',
-          suffix: '.json'
-      });
-      $translateProvider.preferredLanguage('en_US');
-      $translateProvider.useLocalStorage();
-      $translateProvider.useMissingTranslationHandlerLog();
-    $urlRouterProvider.otherwise("/login");
+    tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+    $translateProvider.useMissingTranslationHandlerLog();
+    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'resources/locale-',
+        suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('en_US');
+    $translateProvider.useLocalStorage();
+    $translateProvider.useMissingTranslationHandlerLog();
+    $urlRouterProvider.when('','/login');
+    $urlRouterProvider.otherwise(function($injector, $location) {
+      window.location.href='/404.html';
+      return true;
+    });
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
     $httpProvider.defaults.headers.post = {};
@@ -66,7 +70,6 @@
       "default": 'mm'
     };
 
-
     $httpProvider.interceptors.push(function ($q,ProfileService,$location, $window) {
 
       //Force https
@@ -77,8 +80,10 @@
       return {
         'response': function (response) {
           if (response.status === 401) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('student_profiles');
+            localStorage.setItem('logged_in', '0');
             sessionStorage.clear();
-            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -86,8 +91,10 @@
         },
         'responseError': function (rejection) {
           if (rejection.status === 401) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('student_profiles');
+            localStorage.setItem('logged_in', '0');
             sessionStorage.clear();
-            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -132,24 +139,20 @@
     $rootScope.$on('$stateNotFound',
       function(event, unfoundState, fromState, fromParams){
         console.log(unfoundState);
-      })
-
-
+      });
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams, options) {
-        var profile;
-        if (localStorage.getItem('id') === null) {
-          profile = {
-            is_authenticated: false
-          }
-        } else {
-          profile = { is_authenticated: true };
-        }
+
+        var profile = setProfile();
+
+        //trying to access while logged out
         if (!profile.is_authenticated && !pathIsUnprotected(toState.url)) {
           event.preventDefault();
-          window.location.assign("/#!/login");
+          window.location.assign("/");
         }
+
+        //trying to log in while already logged in
         else if (profile.is_authenticated && toState.url === '/login') {
           event.preventDefault();
           window.location.assign("/#!/student");
@@ -178,7 +181,6 @@
           window.location.assign("/#!/student");
         }
 
-
       });
 
     function pathIsUnprotected(path) {
@@ -189,6 +191,15 @@
      $rootScope.goBack = function() {
       window.history.back();
     };
+
+    function isTokenValid() {
+      return new Date($cookies.get('expire_time')) > new Date();
+    }
+
+    function setProfile() {
+      var isAuthenticated = isTokenValid() && localStorage.getItem('id') !== null;
+      return  { is_authenticated: isAuthenticated };
+    }
 
     function storageChange(event) {
       if (event.key === 'logged_in') {
