@@ -1,7 +1,8 @@
 body.login-page,
 body.forgot-page,
 body.submission-page,
-body.reset-page {
+body.reset-page,
+body.error-page{
   background: url('../../images/bg-full-width.jpg') no-repeat center center fixed;
   background-size: cover;
   justify-content: center;
@@ -131,7 +132,7 @@ body.reset-page {
       // text-align: right;
     }
   }
-  ui-view.ng-scope {
+  ui-view.ng-scope, .error-wrapper {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -175,4 +176,18 @@ body.reset-page {
       }
     }
   }
+
+  .error-section{
+    margin: 6em 0;
+    h1{
+      font-size: rem(55);
+    }
+    p{
+      font-size: rem(18);
+    }
+    .btn{
+
+    }
+  }
+
 }

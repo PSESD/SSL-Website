@@ -2,23 +2,23 @@
   'use strict';
 
   angular
-    .module('sslv2App', [
-      'ui.router',
-      'ui.bootstrap',
-      'ui.mask',
-      'ngCookies',
-      'ui.gravatar',
-      'angular-confirm',
-      'ngIdle',
-      'ngSanitize',
-      'ngTagsInput',
-      'ui.multiselect',
-      'fsm',
-      'ui.codemirror',
-      'angularMoment',
-      'pascalprecht.translate',
-      'tmh.dynamicLocale',
-      'easypiechart'
+  .module('sslv2App', [
+    'ui.router',
+    'ui.bootstrap',
+    'ui.mask',
+    'ngCookies',
+    'ui.gravatar',
+    'angular-confirm',
+    'ngIdle',
+    'ngSanitize',
+    'ngTagsInput',
+    'ui.multiselect',
+    'fsm',
+    'ui.codemirror',
+    'angularMoment',
+    'pascalprecht.translate',
+    'tmh.dynamicLocale',
+    'easypiechart'
     ])
   .factory('headerInjector', headerInjector)
   .config(configFunction)
@@ -39,17 +39,21 @@
   configFunction.$inject = ['$httpProvider','$urlRouterProvider','gravatarServiceProvider','KeepaliveProvider','IdleProvider','$locationProvider','$translateProvider','tmhDynamicLocaleProvider','RESOURCES','ENV'];
 
   function configFunction($httpProvider,$urlRouterProvider,gravatarServiceProvider,KeepaliveProvider,IdleProvider,$locationProvider,$translateProvider,tmhDynamicLocaleProvider,RESOURCES,ENV) {
-      tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
-      $translateProvider.useMissingTranslationHandlerLog();
-      $translateProvider.useSanitizeValueStrategy('sanitize');
-      $translateProvider.useStaticFilesLoader({
-          prefix: 'resources/locale-',
-          suffix: '.json'
-      });
-      $translateProvider.preferredLanguage('en_US');
-      $translateProvider.useLocalStorage();
-      $translateProvider.useMissingTranslationHandlerLog();
-    $urlRouterProvider.otherwise("/login");
+    tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+    $translateProvider.useMissingTranslationHandlerLog();
+    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'resources/locale-',
+        suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('en_US');
+    $translateProvider.useLocalStorage();
+    $translateProvider.useMissingTranslationHandlerLog();
+    $urlRouterProvider.when('','/login');
+    $urlRouterProvider.otherwise(function($injector, $location) {
+      window.location.href='/404.html';
+      return true;
+    });
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
     $httpProvider.defaults.headers.post = {};
@@ -66,7 +70,6 @@
       "default": 'mm'
     };
 
-
     $httpProvider.interceptors.push(function ($q,ProfileService,$location, $window) {
 
       //Force https
@@ -77,8 +80,10 @@
       return {
         'response': function (response) {
           if (response.status === 401) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('student_profiles');
+            localStorage.setItem('logged_in', '0');
             sessionStorage.clear();
-            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -86,8 +91,10 @@
         },
         'responseError': function (rejection) {
           if (rejection.status === 401) {
+            localStorage.removeItem('id');
+            localStorage.removeItem('student_profiles');
+            localStorage.setItem('logged_in', '0');
             sessionStorage.clear();
-            //localStorage.clear();
             ProfileService.clear();
             $location.path('/login');
           }
@@ -173,7 +180,6 @@
         if(toState.name == "dashboard"){
           window.location.assign("/#!/student");
         }
-
 
       });
 
