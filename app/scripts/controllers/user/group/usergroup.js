@@ -16,6 +16,7 @@
             .then(function(response) {
                 vm.students = _.get(response, 'data.data', "");
                 vm.show_user_group = true;
+                vm.full_name = localStorage.getItem("full_name");
             }, function(error) {
 
             });

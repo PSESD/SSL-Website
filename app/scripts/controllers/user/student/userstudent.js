@@ -12,6 +12,7 @@
         vm.students = {};
         vm.user_id = $stateParams.id;
         vm.submit = submit;
+        vm.full_name = localStorage.getItem("full_name");
 
         UserService.getListStudent($stateParams.id)
             .then(function(response) {
