@@ -40,7 +40,7 @@
     "views.programs.add_student": "Add Student to",
     "views.programs.stataus.label": "Is student currently participating in this program?",
     "views.student": "Student",
-    "views.status": "Active",
+    "views.status": "Status",
     "views.participant_start_date": "Participation Start Date",
     "views.participant_end_date": "Participation End Date",
     "views.cohort": "Cohorts",
