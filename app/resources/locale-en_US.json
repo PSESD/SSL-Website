@@ -69,7 +69,7 @@
     "views.view_all_student": "View All Students",
     "views.personal_information": "Personal Information",
     "views.birthday": "Birthday",
-    "views.grade_level": "Grade Level",
+    "views.grade_level": "Grade",
     "views.district_id": "District ID",
     "views.race": "Race/Ethnicity",
     "views.gender": "Gender",
