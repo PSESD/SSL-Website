@@ -470,21 +470,22 @@
                                          <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                         </a>
                                       </th>
+                                      <th style="width:25%">Cohorts</th>
                                       <th style="width:25%">
                                         <a href="" ng-click="sortType = 'active'; sortReverse = !sortReverse">Status
                                           <span ng-show="sortType == 'active' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                                          <span ng-show="sortType == 'active' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                         </a>
                                       </th>
-                                      <th style="width:25%">Cohorts</th>
+
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="program in vm.list_program_participations | orderBy:sortType:sortReverse">
                                       <td>{{program.start_date | date : 'MM/dd/yyyy' : timezone}} - {{program.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
                                       <td>{{program.name}}</td>
-                                      <td>{{program.active}}</td>
                                       <td><span ng-repeat="cohort in program.cohorts">{{cohort}}{{$last ? '' : ', '}}</span></td>
+                                      <td>{{program.active}}</td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -500,33 +501,21 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th class="text-center">
-                                            {{"views.school_name"|translate}}
-                                        </th>
-                                        <th class="text-center">
-                                            {{"views.school_year"|translate}}
-                                        </th>
-                                        <th class="text-center">
-                                            {{"views.entry_date"|translate}}
-                                        </th>
-                                        <th  class="text-center">
-                                            {{"views.exit_date"|translate}}
-                                        </th>
-                                        <th  class="text-center">
-                                            {{"views.grade_level"|translate}}
-                                        </th>
-                                        <th  class="text-center">
-                                            {{"views.status"|translate}}
-                                        </th>
+                                        <th class="text-center">{{"views.school_year"|translate}}</th>
+                                        <th  class="text-center">{{"views.grade_level"|translate}}</th>
+                                        <th class="text-center">{{"views.entry_date"|translate}}</th>
+                                        <th  class="text-center">{{"views.exit_date"|translate}}</th>
+                                        <th class="text-center">{{"views.school_name"|translate}}</th>
+                                        <th  class="text-center">{{"views.status"|translate}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="enrollement in vm.student.personal.xsre.other_enrollments">
-                                        <td class="text-center">{{enrollement.schoolName}}</td>
                                         <td class="text-center">{{enrollement.schoolYear}}</td>
+                                        <td class="text-center">{{enrollement.gradeLevel}}</td>
                                         <td class="text-center">{{enrollement.entryDate}}</td>
                                         <td class="text-center">{{enrollement.exitDate ? enrollement.exitDate: 'Present'}}</td>
-                                        <td class="text-center">{{enrollement.gradeLevel}}</td>
+                                        <td class="text-center">{{enrollement.schoolName}}</td>
                                         <td class="text-center">{{enrollement.enrollmentStatusDescription}}</td>
                                     </tr>
                                     </tbody>

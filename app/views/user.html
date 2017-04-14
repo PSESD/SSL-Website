@@ -52,28 +52,29 @@
                   <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 15%;">
-                <a href="" ng-click="sortType = 'role';sortReverse = !sortReverse">
-                  {{"views.role"|translate}}
-                  <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                  <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                </a>
-              </th>
-              <th style="width: 15%;"  class="text-center">
-                <a href="" ng-click="sortType = 'activate';sortReverse = !sortReverse">
-                  {{"views.active"|translate}}
-                  <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                  <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                </a>
-              </th>
-              <th style="width: 5%;">
+              <th style="width: 10%;">
                 <a href="" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
                   {{"views.assigned_students"|translate}}
                   <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                   <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 5%;" class="table-space text-center">Permissions</th>
+              <th style="width: 5%;" class="text-center">
+                <a href="" ng-click="sortType = 'role';sortReverse = !sortReverse">
+                  {{"views.role"|translate}}
+                  <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                  <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                </a>
+              </th>
+              <th style="width: 5%;"  class="text-center">
+                <a href="" ng-click="sortType = 'activate';sortReverse = !sortReverse">
+                  {{"views.status"|translate}}
+                  <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                  <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                </a>
+              </th>
+
+              <th style="width: 5%;" class="table-space text-center">Assign Role</th>
               <th style="width: 5%;" class="text-center">Assign Students</th>
               <th style="width: 5%;" class="text-center">Delete</th>
             </tr>
