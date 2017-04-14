@@ -470,21 +470,22 @@
                                          <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                         </a>
                                       </th>
+                                      <th style="width:25%">Cohorts</th>
                                       <th style="width:25%">
                                         <a href="" ng-click="sortType = 'active'; sortReverse = !sortReverse">Status
                                           <span ng-show="sortType == 'active' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                                          <span ng-show="sortType == 'active' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                         </a>
                                       </th>
-                                      <th style="width:25%">Cohorts</th>
+
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="program in vm.list_program_participations | orderBy:sortType:sortReverse">
                                       <td>{{program.start_date | date : 'MM/dd/yyyy' : timezone}} - {{program.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
                                       <td>{{program.name}}</td>
-                                      <td>{{program.active}}</td>
                                       <td><span ng-repeat="cohort in program.cohorts">{{cohort}}{{$last ? '' : ', '}}</span></td>
+                                      <td>{{program.active}}</td>
                                     </tr>
                                   </tbody>
                                 </table>
