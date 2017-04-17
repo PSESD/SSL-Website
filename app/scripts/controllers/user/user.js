@@ -4,15 +4,16 @@
   angular.module('sslv2App')
   .controller('UserCtrl', UserCtrl);
 
-  UserCtrl.$inject = ['$state','UserService','$confirm', '$timeout'];
+  UserCtrl.$inject = ['$state','UserService','$confirm', '$timeout','$cookies'];
 
-  function UserCtrl($state,UserService,$confirm,$timeout) {
+  function UserCtrl($state,UserService,$confirm,$timeout, $cookies) {
 
     var vm = this;
     var userID = localStorage.getItem('id');
     vm.show_user = false;
     vm.reInvite = reInvite;
     vm.deleteUser = deleteUser;
+    vm.organization_name = $cookies.get('organization_name');
     UserService.getAll()
     .then(function(response){
       if(response.data.success){
