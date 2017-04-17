@@ -6,9 +6,9 @@
     angular.module('sslv2App')
         .controller('StudentCtrl', StudentCtrl);
 
-    StudentCtrl.$inject = ['$timeout','StudentService','$filter','$confirm'];
+    StudentCtrl.$inject = ['$timeout','StudentService','$filter','$confirm', '$cookies'];
 
-    function StudentCtrl($timeout,StudentService,$filter,$confirm) {
+    function StudentCtrl($timeout,StudentService,$filter,$confirm, $cookies) {
 
         var vm = this;
         vm.show_user = false;
@@ -29,6 +29,7 @@
         vm.sort_attendance = false;
         vm.sort_behavior = false;
 
+
         var data ="";
         var success = "";
         var student ={};
@@ -42,10 +43,12 @@
         var attendance_template = "<div class='list-modal'><dl><dt></dt><dd>{days_missed_in_month} {days_missed_in_year}</dd></dl></div>";
         var trend_template = "<div class='list-modal'>{trend}</div>";
         var behavior_template = "<div class='list-modal'><dl><dt></dt><dd>Student has {behavior_month} {incident_month} in the latest term of which we have data.</dd><dt></dt><dd>Student has {behavior_academic} {incident_academic} in the current academic year.</dd></dl></div>";
+        vm.organization_name = $cookies.get('organization_name');
         vm.deleteStudent = deleteStudent;
         vm.school_selected = school_selected;
         vm.district_selected = district_selected;
         vm.sort = sort;
+
 
         function sort(status,col) {
             switch (col){
