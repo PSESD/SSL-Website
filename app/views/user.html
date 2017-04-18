@@ -4,34 +4,34 @@
 <div ng-show="vm.show_user" class="container-fluid" ng-class="currentURL">
   <div class="row">
 
-      <header class="header-background clearfix inverse">
-        <div class="container">
-          <div class="pull-left">
-            <h1 class="page-title">{{"views.manage_users"|translate}}<div class="divider-vertical"></div>{{vm.organization_name}}</h1>
-          </div>
-          <div class="pull-right">
-            <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_invite">{{"views.invite_user"|translate}}</button>
-          </div>
+    <header class="header-background clearfix inverse">
+      <div class="container">
+        <div class="pull-left">
+          <h1 class="page-title">{{"views.manage_users"|translate}}<div class="divider-vertical"></div>{{vm.organization_name}}</h1>
         </div>
-      </header>
-
-      <section class="main-content container">
-
-        <div class="row">
-           <div class="alert alert-info text-left message" ng-show=vm.message>
-            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{vm.message}}
+        <div class="pull-right">
+          <button class="btn btn-reverse invite-user" ui-sref="dashboard.user_invite">{{"views.invite_user"|translate}}</button>
         </div>
+      </div>
+    </header>
+
+    <section class="main-content container">
+
+      <div class="row">
+       <div class="alert alert-info text-left message" ng-show=vm.message>
+        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{vm.message}}
+      </div>
 
       <div class="data-filters clearfix">
-          <form class="form-inline form-search">
-              <div class="form-group">
-                  <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Users">
-              </div>
-              <div class="form-group">
-                  <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
-              </div>
-          </form>
+        <form class="form-inline form-search">
+          <div class="form-group">
+            <input type="text" id="search" class="form-control" ng-model="search" placeholder="Search Users">
+          </div>
+          <div class="form-group">
+            <p class="form-control-static form-search-icon"><span class="glyphicon glyphicon-search"></span></p>
+          </div>
+        </form>
       </div>
 
       <div class="table-responsive">
@@ -45,14 +45,14 @@
                   <span ng-show="sortType == 'full_name' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 22%;">
+              <th style="width: 15%;">
                 <a href="" ng-click="sortType = 'email';sortReverse = !sortReverse">
                   {{"views.email"|translate}}
                   <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                   <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 10%;">
+              <th style="width: 10%;" class="text-center">
                 <a href="" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
                   {{"views.assigned_students"|translate}}
                   <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
@@ -82,15 +82,12 @@
           <tbody>
             <tr ng-repeat="user in vm.users |filter:search|orderBy:'full_name'|orderBy:sortType:sortReverse">
               <td>
-                <a ui-sref="dashboard.user_view({id:user._id})">
-                  {{user.full_name}}
-                </a>
+                <a ui-sref="dashboard.user_view({id:user._id})">{{user.full_name}}</a>
               </td>
               <td>
-                <a href="mailto:{{user.email}}">
-                  {{user.email}}
-                </a>
+                <a href="mailto:{{user.email}}">{{user.email}}</a>
               </td>
+              <td class="text-center">{{user.studentCount}}</td>
               <td>{{user.role === "case-worker-unrestricted" ? "Regular User" : "Admin"}}</td>
               <td class="text-center">
                 {{user.activate ? 'Active' : 'Pending'}}
@@ -98,7 +95,7 @@
                   <a class="reinvite" href="" ng-click="vm.reInvite(user)">{{"views.reinvite"|translate}}</a>
                 </span>
               </td>
-              <td class="text-center">{{user.studentCount}}</td>
+
               <td class="table-space text-center">
                 <a ui-sref="dashboard.user_edit_permission({id:user._id})" class="glyphicon-relative glyphicon glyphicon-lock"></a>
               </td>
