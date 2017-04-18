@@ -6,12 +6,7 @@
     <header class="header-background clearfix inverse">
       <div class="container">
         <div class="pull-left">
-          <h1 class="page-title">
-            Students
-          </h1>
-        </div>
-        <div class="pull-right">
-          <button class="btn btn-reverse invite-user" ui-sref="dashboard.student_add">{{"views.add_student"|translate}}</button>
+          <h1 class="page-title">Students <div class="divider-vertical"></div> {{vm.organization_name}}</h1>
         </div>
       </div>
     </header>
@@ -74,22 +69,20 @@
                   <span ng-if="vm.header_current_school_selected" ng-show="vm.sort_current_school" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 5%;">
+              <th style="width: 5%;" class="text-center">
                 <a href="" ng-click="vm.sort(vm.sort_attendance,'attendance')">
                   Attendance
                   <span ng-if="vm.header_attendance_selected" ng-hide="vm.sort_attendance" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                   <span ng-if="vm.header_attendance_selected" ng-show="vm.sort_attendance" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 5%;">
+              <th style="width: 5%;" class="text-center">
                 <a href="" ng-click="vm.sort(vm.sort_behavior,'behavior')">
                   Behavior
                   <span ng-if="vm.header_behavior_selected" ng-hide="vm.sort_behavior" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                   <span ng-if="vm.header_behavior_selected" ng-show="vm.sort_behavior" class="glyphicon glyphicon-sort-by-attributes"></span>
                 </a>
               </th>
-              <th style="width: 5%;" class="table-space text-center">{{"views.edit" | translate}}</th>
-              <th style="width: 5%;" class="text-center">{{"views.delete" | translate}}</th>
             </tr>
           </thead>
           <tbody>
@@ -132,12 +125,6 @@
                 <span ng-if="student.xsre.behavior.month.count === ''">
                 </span>
                 <div popover-placement="right" popover-trigger="'mouseenter'" uib-popover-html="student.xsre.behavior.template" class="label label-student label-{{student.xsre.behavior.academic.flag}}">{{student.xsre.behavior.academic.count}}</div>
-              </td>
-              <td class="table-space text-center">
-                <a class="glyphicon glyphicon-pencil" ui-sref="dashboard.student_edit({id:student.id, student: student})"></a>
-              </td>
-              <td class="text-center">
-                <a class="glyphicon glyphicon-trash" ng-click="vm.deleteStudent(student.id,$index)"></a>
               </td>
             </tr>
           </tbody>

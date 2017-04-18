@@ -4,14 +4,15 @@
     angular.module('sslv2App')
         .controller('ProgramCtrl', ProgramCtrl);
 
-    ProgramCtrl.$inject = ['$state', 'ProgramService','$filter','$sce','$confirm'];
+    ProgramCtrl.$inject = ['$state', 'ProgramService','$filter','$sce','$confirm', '$cookies'];
 
-    function ProgramCtrl($state, ProgramService,$filter,$sce,$confirm) {
+    function ProgramCtrl($state, ProgramService,$filter,$sce,$confirm,$cookies) {
 
         var vm = this;
         vm.show_program = false;
         vm.message = "";
         vm.deleteProgram = deleteProgram;
+        vm.organization_name = $cookies.get('organization_name');
         ProgramService.getAll()
             .then(function(response){
                 var data = _.get(response,"data","");
