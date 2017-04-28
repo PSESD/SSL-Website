@@ -55,8 +55,12 @@
     function logout() {
       $timeout(function() {
         vm.message = "";
-        $state.go('login');
-      }, 6000);
+        localStorage.removeItem('id');
+        localStorage.removeItem('student_profiles');
+        localStorage.setItem('logged_in', '0');
+        window.location.assign("/#!/login");
+
+      }, 5000);
     }
   }
 })();
