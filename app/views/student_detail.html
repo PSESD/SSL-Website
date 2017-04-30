@@ -106,10 +106,10 @@
                         </dl>
                     </fieldset>
                      <fieldset>
-                        <legend ng-show="vm.student.personal.college_bound">{{"views.misc"|translate}}</legend>
+                        <legend>{{"views.misc"|translate}}</legend>
                         <dl>
                             <dt ng-show="vm.student.personal.college_bound">{{"views.college_bound"|translate}}</dt>
-                            <dd></dd>
+                            <dd>{{vm.student.personal.college_bound}}</dd>
                             <dt ng-show="vm.student.personal.idea_indicator === 'Yes' ? true : false">{{"views.iep"|translate}}</dt>
                             <dd></dd>
                             <dt ng-show="vm.student.personal.section_504_status === 'Yes' ? true : false">{{"views.504_plan"|translate}}</dt>
